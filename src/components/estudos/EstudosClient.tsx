@@ -33,6 +33,15 @@ interface TodosDocumentosItem {
 }
 
 const todosDocumentosPdf: TodosDocumentosItem[] = [
+  // Acervo Direto do Google NotebookLM (Sincronizado via CLI)
+  { nome: "Guia Sagrado de Curadoria Etnobotânica (Slide Deck NotebookLM)", arquivo: "nativaram-sacred-guide-slide-deck.pdf", tamanho: "13.5 MB", categoria: "Rapés Sagrados / Slide Deck" },
+  { nome: "Manifesto Etnobotânico & Povos Originários (Slide Deck NotebookLM)", arquivo: "nativaram-ethnobotanical-manifesto-slide-deck.pdf", tamanho: "18.9 MB", categoria: "Manifesto / Slide Deck" },
+  { nome: "Rapés Sagrados: Essências Entre a Floresta e a Ciência (25 Páginas)", arquivo: "nativaram-rapes-sagrados-floresta-e-ciencia.pdf", tamanho: "88.0 KB", categoria: "Rapés Sagrados / Dossiê" },
+  { nome: "Ciência do Feitio Purista da Ayahuasca (Tucunacá vs Caupuri)", arquivo: "nativaram-estudo-feitio-purista-ayahuasca.pdf", tamanho: "38.0 KB", categoria: "Ayahuasca / Fitoquímica" },
+  { nome: "Dinâmicas de Feitio e Graduações Daimistas (3.1 a 10.1)", arquivo: "nativaram-estudo-graduacoes-forca.pdf", tamanho: "39.6 KB", categoria: "Ayahuasca / Feitio" },
+  { nome: "Manual Unificado de Governança e Compliance Algorítmico 2026", arquivo: "nativaram-relatorio-assessoria-governanca.pdf", tamanho: "13.3 KB", categoria: "Governança / Compliance" },
+  { nome: "Parecer Jurídico-Normativo: Uso Ritualístico e Marco CONAD", arquivo: "nativaram-parecer-juridico-comunicacao.pdf", tamanho: "29.6 KB", categoria: "Governança / CONAD" },
+
   // Artigos e Dossiês Científicos Gerados
   { nome: "Perfil Fitoquímico e Alcaloides do Cipó Tucunacá (HPLC)", arquivo: "fitoquimica-cipo-tucunaca-ayahuasca.pdf", tamanho: "4.3 KB", categoria: "Etnociência / Ayahuasca" },
   { nome: "Alquimia Biogeoquímica das Cinzas Sagradas no Rapé (pH & Termólise)", arquivo: "alquimia-biogeoquimica-cinzas-rape.pdf", tamanho: "4.7 KB", categoria: "Etnociência / Rapés" },
@@ -287,54 +296,66 @@ export function EstudosClient() {
         <div className="absolute top-0 right-0 w-96 h-96 bg-radial-ambar pointer-events-none" />
 
         <div className="max-w-3xl space-y-3 relative">
-          <div className="inline-flex items-center gap-2 rounded-full bg-ambar-500/15 border border-ambar-500/30 px-3.5 py-1 text-[11px] font-semibold text-ambar-300 uppercase tracking-widest">
-            <Bot className="h-4 w-4 text-ambar-400" />
-            <span>Google NotebookLM • Síntese de Pesquisa com IA</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="inline-flex items-center gap-2 rounded-full bg-ambar-500/15 border border-ambar-500/30 px-3.5 py-1 text-[11px] font-semibold text-ambar-300 uppercase tracking-widest">
+              <Bot className="h-4 w-4 text-ambar-400" />
+              <span>Google NotebookLM • Síntese de Inteligência Etnobotânica</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-[10px] font-mono text-emerald-300">
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span>Conexão Local Ativa: 21.trotski@gmail.com</span>
+            </div>
           </div>
 
           <h3 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
-            Cadernos de Pesquisa & Fontes no NotebookLM
+            Cadernos Oficiais & Inteligência Integrada no NotebookLM
           </h3>
 
           <p className="text-sm text-areia-300 leading-relaxed font-light">
-            Conforme mencionado pelos guardiões, todos os nossos acervos fitoquímicos, legislações, notas etnobotânicas e laudos podem ser explorados através de cadernos interativos do <strong>Google NotebookLM</strong>. Essa tecnologia permite aos pesquisadores e dirigentes fazer perguntas diretas sobre dosagens, compatibilidades, cromatografias e normas jurídicas com citação exata das fontes.
+            Todo o patrimônio etnobotânico da Nativaram Brasil está estruturado e indexado em cadernos dedicados do <strong>Google NotebookLM</strong>. Com mais de <strong>580 fontes científicas e relatos de pajés</strong> carregados, essa tecnologia permite aos pesquisadores e dirigentes fazer consultas orientadas com citação exata de artigos da UFAC, USP, resoluções do CONAD e laudos fitoquímicos.
           </p>
         </div>
 
-        {/* Cadernos Padrão do NotebookLM */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 relative">
+        {/* Cadernos Padrão do NotebookLM — Links Reais */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
           {[
             {
-              titulo: "NotebookLM: Ayahuasca & Fitoquímica",
-              desc: "Síntese dos estudos com Cipó Tucunacá, alcaloides beta-carbolínicos e inibição da MAO-A.",
-              tag: "Ayahuasca",
-              url: "https://notebooklm.google.com/",
+              titulo: "Rapés Indígenas — Conhecimentos Gerais",
+              desc: "215 fontes catalogadas. Fitoquímica da Nicotiana rustica, alcalinização por cinzas nobres e botânica tradicional.",
+              tag: "215 Fontes • 14 Artefatos",
+              url: "https://notebooklm.google.com/notebook/07b3db4a-51ac-4b78-99e3-9dff658331a6",
             },
             {
-              titulo: "NotebookLM: Rapés & Alquimia do Sopro",
-              desc: "Análise fitoquímica das 15 essências, tamponamento por cinzas de Tsunu e termodinâmica.",
-              tag: "Rapés",
-              url: "https://notebooklm.google.com/",
+              titulo: "AYAHUASCA — Conhecimentos Gerais",
+              desc: "179 fontes catalogadas. Purismo do Cipó Tucunacá, quantificação HPLC de Harmina/THH e graduações 3.1 a 10.1.",
+              tag: "179 Fontes • 4 Artefatos",
+              url: "https://notebooklm.google.com/notebook/a15d5b6b-2b66-4f1c-898b-9c7c493e752b",
             },
             {
-              titulo: "NotebookLM: Marco Legal & CONAD 01/2010",
-              desc: "Blindagem jurídica, jurisprudência do Art. 5º da CF/88 e Deontologia das congregações.",
-              tag: "Compliance",
-              url: "https://notebooklm.google.com/",
+              titulo: "Assessoria Nativaram — Compliance 2026",
+              desc: "189 fontes catalogadas. Resolução CONAD 01/2010, Marco Sanitário ANVISA 2025/2026 e Engenharia de Linguagem.",
+              tag: "189 Fontes • 3 Artefatos",
+              url: "https://notebooklm.google.com/notebook/2c0f0a2f-8b13-4539-859e-45446a7a3612",
+            },
+            {
+              titulo: "DADOS — Rastreabilidade Nativaram",
+              desc: "Base estruturada de dados operacionais, conformidade SisGen e dossiê documental para remessas protegidas.",
+              tag: "Base Oficial • Rastreabilidade",
+              url: "https://notebooklm.google.com/notebook/0b84a49b-c58f-499f-9457-df6382b5e10b",
             },
           ].map((item, idx) => (
             <div
               key={idx}
-              className="rounded-2xl p-6 bg-floresta-950/80 border border-ambar-500/20 flex flex-col justify-between space-y-4 hover:border-ambar-500/40 transition-colors"
+              className="rounded-2xl p-5 bg-floresta-950/85 border border-ambar-500/20 flex flex-col justify-between space-y-3 hover:border-ambar-500/40 transition-all hover:scale-[1.02]"
             >
               <div className="space-y-2">
-                <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-wider bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/20">
+                <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-wider bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/20 block w-fit">
                   {item.tag}
                 </span>
-                <h4 className="font-serif text-base font-bold text-areia-100">
+                <h4 className="font-serif text-sm font-bold text-areia-100 leading-snug">
                   {item.titulo}
                 </h4>
-                <p className="text-xs text-areia-300 leading-relaxed font-light">
+                <p className="text-[11px] text-areia-300 leading-relaxed font-light">
                   {item.desc}
                 </p>
               </div>
@@ -345,11 +366,98 @@ export function EstudosClient() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 text-xs font-semibold text-ambar-400 hover:text-ambar-300 transition-colors pt-2 border-t border-ambar-500/10"
               >
-                <span>Acessar no NotebookLM</span>
+                <span>Abrir Caderno no NotebookLM</span>
                 <ExternalLink className="h-3 w-3" />
               </a>
             </div>
           ))}
+        </div>
+
+        {/* Vitrine de Artefatos Gerados & Baixados do NotebookLM */}
+        <div className="rounded-2xl p-6 bg-floresta-950/90 border border-ambar-500/30 space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ambar-500/15 pb-3">
+            <div className="flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-ambar-400" />
+              <h4 className="font-serif text-base font-bold text-areia-100">
+                Artefatos Oficiais Baixados & Anexados pelo NotebookLM
+              </h4>
+            </div>
+            <span className="text-[11px] font-mono text-ambar-300/80">
+              Slide Decks & Dossiês Sincronizados
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Card Slide Deck 1 */}
+            <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/20 flex flex-col justify-between space-y-3">
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-ambar-400 uppercase bg-ambar-500/15 px-2 py-0.5 rounded">
+                    Slide Deck • 13.5 MB
+                  </span>
+                  <span className="text-[10px] font-mono text-areia-400">PDF em Alta Resolução</span>
+                </div>
+                <h5 className="font-serif text-sm font-bold text-areia-100">
+                  Nativaram Sacred Guide
+                </h5>
+                <p className="text-xs text-areia-300 font-light">
+                  Apresentação visual gerada pelo NotebookLM com a iconografia das 15 essências de rapé sagrado, cinética das cinzas e sabedoria tradicional.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 pt-2 border-t border-ambar-500/10">
+                <button
+                  onClick={() => setActivePdfModal("/documentos/nativaram-sacred-guide-slide-deck.pdf")}
+                  className="flex-1 inline-flex items-center justify-center gap-1 text-xs text-ambar-300 bg-ambar-500/15 hover:bg-ambar-500/25 px-3 py-1.5 rounded-lg border border-ambar-500/30 transition-colors"
+                >
+                  <Eye className="h-3 w-3" />
+                  <span>Visualizar Apresentação</span>
+                </button>
+                <a
+                  href="/documentos/nativaram-sacred-guide-slide-deck.pdf"
+                  download
+                  className="inline-flex items-center gap-1 text-xs text-areia-200 bg-floresta-800 hover:bg-floresta-700 px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  <Download className="h-3 w-3 text-ambar-400" />
+                  <span>Baixar</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Card Slide Deck 2 */}
+            <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/20 flex flex-col justify-between space-y-3">
+              <div className="space-y-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-ambar-400 uppercase bg-ambar-500/15 px-2 py-0.5 rounded">
+                    Slide Deck • 18.9 MB
+                  </span>
+                  <span className="text-[10px] font-mono text-areia-400">PDF em Alta Resolução</span>
+                </div>
+                <h5 className="font-serif text-sm font-bold text-areia-100">
+                  Nativaram Ethnobotanical Manifesto
+                </h5>
+                <p className="text-xs text-areia-300 font-light">
+                  Apresentação visual institucional sobre a aliança entre os povos originários do Acre e o método científico, destacando a preservação da fauna.
+                </p>
+              </div>
+              <div className="flex items-center gap-2 pt-2 border-t border-ambar-500/10">
+                <button
+                  onClick={() => setActivePdfModal("/documentos/nativaram-ethnobotanical-manifesto-slide-deck.pdf")}
+                  className="flex-1 inline-flex items-center justify-center gap-1 text-xs text-ambar-300 bg-ambar-500/15 hover:bg-ambar-500/25 px-3 py-1.5 rounded-lg border border-ambar-500/30 transition-colors"
+                >
+                  <Eye className="h-3 w-3" />
+                  <span>Visualizar Apresentação</span>
+                </button>
+                <a
+                  href="/documentos/nativaram-ethnobotanical-manifesto-slide-deck.pdf"
+                  download
+                  className="inline-flex items-center gap-1 text-xs text-areia-200 bg-floresta-800 hover:bg-floresta-700 px-3 py-1.5 rounded-lg transition-colors"
+                >
+                  <Download className="h-3 w-3 text-ambar-400" />
+                  <span>Baixar</span>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Adicionar Link Personalizado do NotebookLM */}

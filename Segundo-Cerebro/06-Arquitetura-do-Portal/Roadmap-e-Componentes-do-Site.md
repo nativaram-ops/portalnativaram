@@ -60,6 +60,7 @@ src/
 5. **Rodapé Obrigatório (+18):** Aviso institucional de ausência de promessas terapêuticas e cumprimento integral do Marco Sanitário ANVISA 2025.
 6. **Homologação e Verificação Integral:** 100% das 31 páginas e rotas validadas com sucesso (HTTP 200), TypeScript rigoroso e compliance estrito.
 7. **Governança de Cache Local & Webpack:** Eliminação de processos órfãos na porta 3000 (`taskkill /PID <PID> /F`) e purga do diretório `.next` para evitar descompasso de chunks HMR (`__webpack_modules__`). Sincronização limpa com o repositório GitHub (`origin/main`).
+8. **Integração Google NotebookLM & Acervo Etnobotânico:** CLI do NotebookLM autenticada com sucesso no perfil `21.trotski@gmail.com`. Download e indexação de 7 novos dossiês e apresentações visuais de IA (Slide Decks de 13.5 MB e 18.9 MB, tratado completo de 25 páginas dos rapés sagrados, compêndios fitoquímicos e manual de conformidade algorítmica 2026) na aba `/estudos`, com visualizador e download direto de PDFs.
 
 ---
 

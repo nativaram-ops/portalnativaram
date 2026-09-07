@@ -35,10 +35,15 @@ import {
   BadgeCheck,
   Compass,
   ArrowUpDown,
+  Send,
 } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { Input } from "@/components/ui/Input";
 import { Logo } from "@/components/ui/Logo";
+import { FormSolicitacaoPedido } from "@/components/portal-dirigente/FormSolicitacaoPedido";
+import { AcompanhamentoPedidos } from "@/components/portal-dirigente/AcompanhamentoPedidos";
+import { AdminGestaoPedidos } from "@/components/portal-dirigente/AdminGestaoPedidos";
+import { ItemPedido } from "@/types/pedido";
 
 // Mock data de congregações cadastradas
 const templosIniciais = [
@@ -62,7 +67,7 @@ const templosIniciais = [
     dirigente: "Madrinha Helena Costa",
     cnpj: "45.678.901/0001-23",
     status: "EM_ANALISE",
-    graduacao: "Medicina Mel (Concentrado)",
+    graduacao: "Alquimia Sagrada Mel",
     volume: "5 kg",
     dataAprovacao: "Pendente",
     membros: 60,
@@ -110,7 +115,7 @@ const lotesFeitio = [
   },
   {
     lote: "AC-2026-09",
-    tipo: "Medicina Mel (Alta Redução)",
+    tipo: "Alquimia Sagrada Mel (Alta Redução)",
     volume: "45 kg",
     status: "EM_REDUCAO_LENTA",
     feitor: "Mestre Caboclo",
@@ -130,7 +135,7 @@ const lotesFeitio = [
   },
   {
     lote: "AC-2026-11",
-    tipo: "Medicina Gel (Densidade Máxima)",
+    tipo: "Alquimia Sagrada Gel (Densidade Máxima)",
     volume: "20 kg",
     status: "PLANEJADO",
     feitor: "Mestre Caboclo",
@@ -156,7 +161,7 @@ const enviosLogistica = [
     codigo: "ENV-2026-442",
     templo: "Fraternidade Rainha da Floresta (Belo Horizonte/MG)",
     lote: "Lote #AC-2026-09",
-    item: "Medicina Mel — 5 kg",
+    item: "Alquimia Sagrada Mel — 5 kg",
     tipoEmbalagem: "Acondicionamento Especial Hermético",
     status: "AGUARDANDO_DESPACHO",
     previsao: "Em preparação no entreposto Serra/ES",
@@ -177,10 +182,25 @@ const enviosLogistica = [
 export const PortalDirigenteClient = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userRole, setUserRole] = useState<"DIRIGENTE" | "ADMIN">("DIRIGENTE");
-  const [activeTab, setActiveTab] = useState<"METRICAS" | "CREDENCIAMENTOS" | "LOTES" | "LOGISTICA" | "COOPERATIVISMO">("METRICAS");
   const [modoLogin, setModoLogin] = useState<"DIRIGENTE" | "ADMIN">("DIRIGENTE");
 
-  // Campos do formulário
+  // Abas do Painel Administrativo
+  const [activeTab, setActiveTab] = useState<
+    "PEDIDOS" | "METRICAS" | "CREDENCIAMENTOS" | "LOTES" | "LOGISTICA" | "COOPERATIVISMO"
+  >("PEDIDOS");
+
+  // Abas do Portal do Dirigente
+  const [dirigenteTab, setDirigenteTab] = useState<
+    "SOLICITACOES" | "NOVA_SOLICITACAO" | "LAUDOS" | "COOPERATIVISMO"
+  >("SOLICITACOES");
+
+  // Estado para repetição de pedido
+  const [pedidoParaRepetir, setPedidoParaRepetir] = useState<{
+    itens: ItemPedido[];
+    mensagemIntencao: string;
+  } | null>(null);
+
+  // Campos do formulário de autenticação
   const [codigoAcesso, setCodigoAcesso] = useState("");
   const [senhaAcesso, setSenhaAcesso] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
@@ -189,6 +209,14 @@ export const PortalDirigenteClient = () => {
   const [templos, setTemplos] = useState(templosIniciais);
   const [filtroStatus, setFiltroStatus] = useState<string>("TODOS");
   const [buscaTemplo, setBuscaTemplo] = useState("");
+
+  // Templo selecionado com fallback seguro
+  const temploAtual =
+    templos.find(
+      (t) =>
+        t.id.toUpperCase() === codigoAcesso.trim().toUpperCase() ||
+        t.id.toLowerCase().includes(codigoAcesso.trim().toLowerCase())
+    ) || templos[0];
 
   // Login handler inteligente
   const handleLogin = (e: React.FormEvent) => {
@@ -244,6 +272,7 @@ export const PortalDirigenteClient = () => {
     );
   };
 
+  // TELA 0: AUTENTICAÇÃO LITÚRGICA
   if (!isAuthenticated) {
     return (
       <AnimateOnScroll>
@@ -258,7 +287,7 @@ export const PortalDirigenteClient = () => {
                 Acesso Institucional & Gestão
               </h3>
               <p className="text-xs text-areia-400 font-light mt-1">
-                Portal de homologação de congregações e administração da cooperativa.
+                Portal de homologação de congregações, solicitações de partilha e administração da cooperativa.
               </p>
             </div>
           </div>
@@ -356,7 +385,7 @@ export const PortalDirigenteClient = () => {
           {/* Atalhos Rápidos para Criação e Testes Conjuntos */}
           <div className="pt-3 border-t border-ambar-500/15 space-y-2">
             <span className="text-[10px] uppercase tracking-wider text-areia-400 font-semibold block text-center">
-              Acesso Rápido de Desenvolvimento:
+              Acesso Rápido de Demonstração:
             </span>
             <div className="grid grid-cols-2 gap-2">
               <button
@@ -407,7 +436,7 @@ export const PortalDirigenteClient = () => {
     });
 
     return (
-      <div className="space-y-8">
+      <div className="space-y-8 animate-fade-in">
         {/* Barra Superior do Administrador */}
         <AnimateOnScroll>
           <div className="card-elevated rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 border-ambar-500/30 bg-gradient-to-r from-floresta-950 via-floresta-900 to-floresta-950">
@@ -422,12 +451,11 @@ export const PortalDirigenteClient = () => {
                 Painel de Controle Litúrgico & Operacional
               </h2>
               <p className="text-xs sm:text-sm text-areia-300 font-light">
-                Gestão central de congregações, cadeia de custódia, laudos no Acre e logística refrigerada.
+                Gestão central de solicitações, congregações homologadas, laudos fitoquímicos no Acre e rota refrigerada.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
-              {/* Alternador para simular visão de templo */}
               <button
                 onClick={() => setUserRole("DIRIGENTE")}
                 className="btn-secondary text-xs inline-flex items-center gap-2 px-4 py-2.5"
@@ -451,11 +479,37 @@ export const PortalDirigenteClient = () => {
         {/* Abas de Navegação do ADM */}
         <div className="flex overflow-x-auto pb-2 gap-2 border-b border-ambar-500/20">
           {[
-            { id: "METRICAS", label: "Visão Geral & Métricas", icon: <FlaskConical className="h-4 w-4" /> },
-            { id: "CREDENCIAMENTOS", label: "Homologações de Templos", icon: <Building2 className="h-4 w-4" />, count: templos.length },
-            { id: "LOTES", label: "Feitio no Acre & Lotes", icon: <Droplets className="h-4 w-4" /> },
-            { id: "LOGISTICA", label: "Despachos & Rastreamento", icon: <Truck className="h-4 w-4" /> },
-            { id: "COOPERATIVISMO", label: "Tabela Evolutiva & Cotas", icon: <Scale className="h-4 w-4" /> },
+            {
+              id: "PEDIDOS",
+              label: "Solicitações de Partilha",
+              icon: <PackageCheck className="h-4 w-4" />,
+            },
+            {
+              id: "METRICAS",
+              label: "Resumo Litúrgico",
+              icon: <FlaskConical className="h-4 w-4" />,
+            },
+            {
+              id: "CREDENCIAMENTOS",
+              label: "Homologações de Templos",
+              icon: <Building2 className="h-4 w-4" />,
+              count: templos.length,
+            },
+            {
+              id: "LOTES",
+              label: "Feitio no Acre & Lotes",
+              icon: <Droplets className="h-4 w-4" />,
+            },
+            {
+              id: "LOGISTICA",
+              label: "Despachos & Rastreamento",
+              icon: <Truck className="h-4 w-4" />,
+            },
+            {
+              id: "COOPERATIVISMO",
+              label: "Tabela Evolutiva & Cotas",
+              icon: <Scale className="h-4 w-4" />,
+            },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -477,9 +531,12 @@ export const PortalDirigenteClient = () => {
           ))}
         </div>
 
+        {/* CONTEÚDO DA ABA 0: GESTÃO CENTRAL DE SOLICITAÇÕES (PEDIDOS) */}
+        {activeTab === "PEDIDOS" && <AdminGestaoPedidos />}
+
         {/* CONTEÚDO DA ABA 1: MÉTRICAS E VISÃO GERAL */}
         {activeTab === "METRICAS" && (
-          <div className="space-y-8">
+          <div className="space-y-8 animate-fade-in">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               <div className="card-elevated rounded-2xl p-6 space-y-3 border-ambar-500/20">
                 <div className="flex items-center justify-between text-ambar-400">
@@ -520,180 +577,80 @@ export const PortalDirigenteClient = () => {
                   <span className="text-[11px] font-bold uppercase tracking-wider">Despachos em Trânsito</span>
                   <Truck className="h-5 w-5" />
                 </div>
-                <div className="text-3xl font-serif font-bold text-areia-100">2 Lotes</div>
+                <div className="text-3xl font-serif font-bold text-areia-100">3 Lotes</div>
                 <p className="text-[11px] text-emerald-400 font-medium">
-                  Caixas térmicas lacradas refrigeradas
+                  Cadeia refrigerada 100% monitorada
                 </p>
-              </div>
-            </div>
-
-            {/* Resumo Rápido de Ações */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              <div className="lg:col-span-7 card-elevated rounded-2xl p-6 sm:p-8 space-y-6 border-ambar-500/20">
-                <div className="flex items-center justify-between border-b border-ambar-500/15 pb-4">
-                  <h3 className="font-serif text-lg font-bold text-areia-100 flex items-center gap-2">
-                    <Building2 className="h-4 w-4 text-ambar-400" />
-                    Últimas Solicitações de Homologação
-                  </h3>
-                  <button
-                    onClick={() => setActiveTab("CREDENCIAMENTOS")}
-                    className="text-xs text-ambar-400 hover:underline font-medium"
-                  >
-                    Ver todas →
-                  </button>
-                </div>
-
-                <div className="space-y-3">
-                  {templos.slice(0, 3).map((t) => (
-                    <div
-                      key={t.id}
-                      className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                    >
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-sm text-areia-100">{t.nome}</span>
-                          <span className="text-[10px] font-mono text-ambar-400">{t.id}</span>
-                        </div>
-                        <p className="text-xs text-areia-400 font-light">
-                          {t.dirigente} • {t.cidade} • {t.graduacao}
-                        </p>
-                      </div>
-
-                      <div className="flex items-center gap-2">
-                        {t.status === "HOMOLOGADO" ? (
-                          <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 text-[10px] font-semibold text-emerald-400">
-                            Homologado
-                          </span>
-                        ) : (
-                          <button
-                            onClick={() => homologarTemplo(t.id)}
-                            className="btn-primary py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider"
-                          >
-                            Aprovar Templo
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="lg:col-span-5 card-elevated rounded-2xl p-6 sm:p-8 space-y-6 border-ambar-500/20">
-                <div className="flex items-center justify-between border-b border-ambar-500/15 pb-4">
-                  <h3 className="font-serif text-lg font-bold text-areia-100 flex items-center gap-2">
-                    <Droplets className="h-4 w-4 text-ambar-400" />
-                    Feitio Ativo em Cruzeiro do Sul/AC
-                  </h3>
-                  <span className="text-xs text-emerald-400 font-medium">100% Tucunacá Purista</span>
-                </div>
-
-                <div className="space-y-4">
-                  <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <span className="font-semibold text-areia-100">Lote #AC-2026-08 (10.1 Wirapuru)</span>
-                      <span className="text-emerald-400 font-medium">Concluído & Lacrado</span>
-                    </div>
-                    <p className="text-[11px] text-areia-400">
-                      120L em resfriamento natural no Acre. Laudo microbiológico aprovado.
-                    </p>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-2">
-                    <div className="flex justify-between text-xs">
-                      <span className="font-semibold text-areia-100">Lote #AC-2026-09 (Medicina Mel)</span>
-                      <span className="text-amber-300 font-medium">Redução Contínua</span>
-                    </div>
-                    <p className="text-[11px] text-areia-400">
-                      45 kg em ponto de mel. Destinado a otimização logística interestadual.
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* CONTEÚDO DA ABA 2: GESTÃO DE HOMOLOGAÇÕES & CREDENCIAMENTO */}
+        {/* CONTEÚDO DA ABA 2: HOMOLOGAÇÃO DE TEMPLOS */}
         {activeTab === "CREDENCIAMENTOS" && (
-          <div className="space-y-6">
+          <div className="space-y-6 animate-fade-in">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <h3 className="font-serif text-xl font-bold text-areia-100">
-                  Congregações & Homologações Litúrgicas
+                  Congregações & Templos em Processo de Homologação
                 </h3>
                 <p className="text-xs text-areia-400 font-light">
-                  Aprovação de atas, análise de conformidade jurídica e liberação de cotas de apoio.
+                  Análise de atas de fundação, conformidade CONAD 01/2010 e termo de responsabilidade litúrgica.
                 </p>
-              </div>
-
-              {/* Filtros */}
-              <div className="flex items-center gap-2">
-                {["TODOS", "HOMOLOGADO", "EM_ANALISE", "TRIAGEM_LITURGICA"].map((st) => (
-                  <button
-                    key={st}
-                    onClick={() => setFiltroStatus(st)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
-                      filtroStatus === st
-                        ? "bg-ambar-500 text-floresta-950 font-bold"
-                        : "bg-floresta-900 border border-ambar-500/20 text-areia-300 hover:text-areia-100"
-                    }`}
-                  >
-                    {st === "TODOS" ? "Todos" : st === "HOMOLOGADO" ? "Homologados" : st === "EM_ANALISE" ? "Em Análise" : "Triagem"}
-                  </button>
-                ))}
               </div>
             </div>
 
-            {/* Tabela de Congregações */}
-            <div className="card-elevated rounded-2xl overflow-hidden border-ambar-500/20">
+            <div className="card-elevated rounded-2xl overflow-hidden border-ambar-500/20 bg-floresta-950/90">
               <div className="overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-floresta-900 text-ambar-400 border-b border-ambar-500/20">
+                <table className="w-full text-left text-xs text-areia-300">
+                  <thead className="bg-floresta-900/90 text-[11px] uppercase tracking-wider text-areia-400 border-b border-ambar-500/15">
                     <tr>
-                      <th className="p-4 font-serif">Código & Templo</th>
-                      <th className="p-4 font-serif">Dirigente & Cidade</th>
-                      <th className="p-4 font-serif">CNPJ / Registro</th>
-                      <th className="p-4 font-serif">Graduação / Formato</th>
-                      <th className="p-4 font-serif">Status</th>
-                      <th className="p-4 font-serif text-right">Ação</th>
+                      <th className="py-3.5 px-4 font-semibold">Templo / Instituição</th>
+                      <th className="py-3.5 px-4 font-semibold">Dirigente Litúrgico</th>
+                      <th className="py-3.5 px-4 font-semibold">CNPJ</th>
+                      <th className="py-3.5 px-4 font-semibold">Graduação Solicitada</th>
+                      <th className="py-3.5 px-4 font-semibold">Status CONAD</th>
+                      <th className="py-3.5 px-4 font-semibold text-right">Ação</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-ambar-500/10 text-areia-300">
+                  <tbody className="divide-y divide-ambar-500/10">
                     {templosFiltrados.map((templo) => (
                       <tr key={templo.id} className="hover:bg-floresta-900/40 transition-colors">
-                        <td className="p-4">
-                          <div className="font-semibold text-areia-100 text-sm">{templo.nome}</div>
-                          <span className="font-mono text-ambar-400 text-[11px]">{templo.id}</span>
+                        <td className="py-4 px-4">
+                          <strong className="font-serif text-areia-100 block font-bold">
+                            {templo.nome}
+                          </strong>
+                          <span className="text-[11px] text-areia-400 font-light">
+                            {templo.cidade} • {templo.id}
+                          </span>
                         </td>
-                        <td className="p-4">
-                          <div className="text-areia-200">{templo.dirigente}</div>
-                          <span className="text-[11px] text-areia-400">{templo.cidade}</span>
-                        </td>
-                        <td className="p-4 font-mono text-areia-300">{templo.cnpj}</td>
-                        <td className="p-4">
+                        <td className="py-4 px-4">{templo.dirigente}</td>
+                        <td className="py-4 px-4 font-mono text-[11px]">{templo.cnpj}</td>
+                        <td className="py-4 px-4">
                           <span className="text-amber-300 font-medium">{templo.graduacao}</span>
-                          <div className="text-[10px] text-areia-400">{templo.volume}</div>
+                          <span className="block text-[10px] text-areia-400 font-light">
+                            Volume: {templo.volume}
+                          </span>
                         </td>
-                        <td className="p-4">
+                        <td className="py-4 px-4">
                           {templo.status === "HOMOLOGADO" ? (
-                            <span className="rounded-full bg-emerald-500/15 border border-emerald-500/30 px-2.5 py-1 text-[10px] font-semibold text-emerald-400">
-                              Homologado
-                            </span>
-                          ) : templo.status === "EM_ANALISE" ? (
-                            <span className="rounded-full bg-amber-500/15 border border-amber-500/30 px-2.5 py-1 text-[10px] font-semibold text-amber-300">
-                              Em Análise
+                            <span className="inline-flex items-center gap-1 text-emerald-400 font-semibold text-[11px]">
+                              <CheckCircle2 className="h-3.5 w-3.5" />
+                              <span>Homologado</span>
                             </span>
                           ) : (
-                            <span className="rounded-full bg-blue-500/15 border border-blue-500/30 px-2.5 py-1 text-[10px] font-semibold text-blue-300">
-                              Triagem Litúrgica
+                            <span className="inline-flex items-center gap-1 text-amber-400 font-semibold text-[11px]">
+                              <Clock className="h-3.5 w-3.5" />
+                              <span>Em Análise</span>
                             </span>
                           )}
                         </td>
-                        <td className="p-4 text-right">
+                        <td className="py-4 px-4 text-right">
                           {templo.status !== "HOMOLOGADO" ? (
                             <button
+                              type="button"
                               onClick={() => homologarTemplo(templo.id)}
-                              className="btn-primary py-1.5 px-3 text-[10px] font-bold uppercase tracking-wider inline-flex items-center gap-1"
+                              className="py-1 px-3 rounded-lg border border-emerald-500/30 bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 text-xs font-semibold inline-flex items-center gap-1 transition-colors"
                             >
                               <Check className="h-3 w-3" />
                               <span>Homologar</span>
@@ -715,16 +672,14 @@ export const PortalDirigenteClient = () => {
 
         {/* CONTEÚDO DA ABA 3: GESTÃO DE LOTES NO ACRE */}
         {activeTab === "LOTES" && (
-          <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div>
-                <h3 className="font-serif text-xl font-bold text-areia-100">
-                  Feitio & Cadeia de Custódia em Cruzeiro do Sul/AC
-                </h3>
-                <p className="text-xs text-areia-400 font-light">
-                  Controle de bateladas, monitoramento de biomassa Tucunacá e laudos analíticos.
-                </p>
-              </div>
+          <div className="space-y-6 animate-fade-in">
+            <div>
+              <h3 className="font-serif text-xl font-bold text-areia-100">
+                Feitio & Cadeia de Custódia em Cruzeiro do Sul/AC
+              </h3>
+              <p className="text-xs text-areia-400 font-light">
+                Controle de bateladas, monitoramento de biomassa Tucunacá e laudos analíticos.
+              </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -769,7 +724,7 @@ export const PortalDirigenteClient = () => {
 
         {/* CONTEÚDO DA ABA 4: LOGÍSTICA & RASTREAMENTO */}
         {activeTab === "LOGISTICA" && (
-          <div className="space-y-6">
+          <div className="space-y-6 animate-fade-in">
             <div>
               <h3 className="font-serif text-xl font-bold text-areia-100">
                 Cadeia de Transporte & Rastreamento Isotérmico
@@ -802,10 +757,10 @@ export const PortalDirigenteClient = () => {
                     <span
                       className={`rounded-full px-3 py-1 text-xs font-semibold ${
                         env.status === "EM_TRANSITO_REFRIGERADO"
-                          ? "bg-emerald-500/15 border border-emerald-500/30 text-emerald-400"
+                          ? "bg-emerald-500/15 border-emerald-500/30 text-emerald-400"
                           : env.status === "AGUARDANDO_DESPACHO"
-                          ? "bg-amber-500/15 border border-amber-500/30 text-amber-300"
-                          : "bg-blue-500/15 border border-blue-500/30 text-blue-300"
+                          ? "bg-amber-500/15 border-amber-500/30 text-amber-300"
+                          : "bg-blue-500/15 border-blue-500/30 text-blue-300"
                       }`}
                     >
                       {env.status === "EM_TRANSITO_REFRIGERADO"
@@ -838,7 +793,7 @@ export const PortalDirigenteClient = () => {
 
         {/* CONTEÚDO DA ABA 5: TABELA EVOLUTIVA & COOPERATIVISMO */}
         {activeTab === "COOPERATIVISMO" && (
-          <div className="space-y-6">
+          <div className="space-y-6 animate-fade-in">
             <div>
               <h3 className="font-serif text-xl font-bold text-areia-100">
                 Matriz de Cooperativismo Produtivo & Escala de Volume
@@ -887,10 +842,10 @@ export const PortalDirigenteClient = () => {
   // VISÃO 2: PORTAL DO DIRIGENTE (TEMPLO HOMOLOGADO)
   // ══════════════════════════════════════════════════════════
   return (
-    <div className="space-y-8">
-      {/* Top Bar */}
+    <div className="space-y-8 animate-fade-in">
+      {/* Barra Superior do Templo */}
       <AnimateOnScroll>
-        <div className="card-elevated rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-ambar-500/30">
+        <div className="card-elevated rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-ambar-500/30 bg-gradient-to-r from-floresta-950 via-floresta-900 to-floresta-950">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -898,11 +853,11 @@ export const PortalDirigenteClient = () => {
                 Homologação Ativa & Regularizada
               </span>
             </div>
-            <h2 className="font-serif text-2xl font-bold text-areia-100">
-              Templo Homologado #{codigoAcesso.toUpperCase() || "NAT-TEMPLO-842"}
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
+              {temploAtual.nome}
             </h2>
             <p className="text-xs text-areia-300 font-light">
-              Dirigente Responsável • Protocolo CONAD 01/2010 Regularizado
+              Dirigente: {temploAtual.dirigente} • Código: #{temploAtual.id} • {temploAtual.cidade}
             </p>
           </div>
 
@@ -910,10 +865,10 @@ export const PortalDirigenteClient = () => {
             <button
               onClick={() => setUserRole("ADMIN")}
               className="btn-secondary text-xs inline-flex items-center gap-1.5 px-3 py-2"
-              title="Voltar ao Painel Administrativo"
+              title="Acessar Modo Administrador"
             >
               <ShieldCheck className="h-3.5 w-3.5 text-ambar-400" />
-              <span>Acessar Painel ADM</span>
+              <span>Painel ADM</span>
             </button>
             <button
               onClick={() => setIsAuthenticated(false)}
@@ -926,135 +881,176 @@ export const PortalDirigenteClient = () => {
         </div>
       </AnimateOnScroll>
 
-      {/* Status Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <AnimateOnScroll delay={100}>
-          <div className="card-elevated rounded-2xl p-6 space-y-3 h-full flex flex-col justify-between border-ambar-500/20">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-ambar-400 uppercase tracking-wider">
-                  Cota Litúrgica Ativa
-                </span>
-                <Award className="h-4 w-4 text-ambar-400" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-areia-100">
-                10.1 Wirapuru (Semi-Mel)
-              </h3>
-            </div>
-            <p className="text-xs text-areia-400 font-light">
-              Volume: 10 Litros • Pureza Tucunacá Certificada
-            </p>
-          </div>
-        </AnimateOnScroll>
-
-        <AnimateOnScroll delay={200}>
-          <div className="card-elevated rounded-2xl p-6 space-y-3 h-full flex flex-col justify-between border-ambar-500/20">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-ambar-400 uppercase tracking-wider">
-                  Status de Envio
-                </span>
-                <Truck className="h-4 w-4 text-ambar-400" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-emerald-400">
-                Em Trânsito Refrigerado
-              </h3>
-            </div>
-            <p className="text-xs text-areia-400 font-light">
-              Origem: Serra/ES → Destino: Sede Litúrgica
-            </p>
-          </div>
-        </AnimateOnScroll>
-
-        <AnimateOnScroll delay={300}>
-          <div className="card-elevated rounded-2xl p-6 space-y-3 h-full flex flex-col justify-between border-ambar-500/20">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-semibold text-ambar-400 uppercase tracking-wider">
-                  Antecedência Litúrgica
-                </span>
-                <Clock className="h-4 w-4 text-ambar-400" />
-              </div>
-              <h3 className="font-serif text-lg font-bold text-areia-100">
-                Ciclo de 30 Dias
-              </h3>
-            </div>
-            <p className="text-xs text-areia-400 font-light">
-              Próxima abertura de cota: Outubro/2026
-            </p>
-          </div>
-        </AnimateOnScroll>
+      {/* Abas de Navegação do Dirigente */}
+      <div className="flex overflow-x-auto pb-2 gap-2 border-b border-ambar-500/20">
+        {[
+          {
+            id: "SOLICITACOES",
+            label: "Minhas Solicitações & Rastreio",
+            icon: <PackageCheck className="h-4 w-4" />,
+          },
+          {
+            id: "NOVA_SOLICITACAO",
+            label: "Nova Solicitação de Partilha",
+            icon: <Sparkles className="h-4 w-4" />,
+          },
+          {
+            id: "LAUDOS",
+            label: "Laudo & Feitio no Acre",
+            icon: <FileText className="h-4 w-4" />,
+          },
+          {
+            id: "COOPERATIVISMO",
+            label: "Tabela Evolutiva & Cotas",
+            icon: <Scale className="h-4 w-4" />,
+          },
+        ].map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setDirigenteTab(tab.id as typeof dirigenteTab)}
+            className={`px-4 py-3 rounded-xl text-xs font-semibold whitespace-nowrap flex items-center gap-2 transition-all ${
+              dirigenteTab === tab.id
+                ? "bg-ambar-500 text-floresta-950 font-bold shadow-md"
+                : "bg-floresta-900/50 text-areia-300 hover:text-areia-100 hover:bg-floresta-800/60 border border-ambar-500/10"
+            }`}
+          >
+            {tab.icon}
+            <span>{tab.label}</span>
+          </button>
+        ))}
       </div>
 
-      {/* Laudo de Conformidade */}
-      <AnimateOnScroll delay={400}>
-        <div className="card-elevated rounded-2xl p-6 sm:p-10 space-y-8 border-ambar-500/25">
-          <div className="flex items-center gap-3 border-b border-ambar-500/15 pb-4">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-floresta-900 border border-ambar-500/30 text-ambar-400">
-              <FileText className="h-5 w-5" />
-            </div>
-            <div>
-              <h3 className="font-serif text-lg sm:text-xl font-bold text-areia-100">
-                Laudo de Conformidade & Cadeia de Custódia — Lote #AC-2026-08
-              </h3>
-              <p className="text-xs text-ambar-400 font-medium">
-                Rastreabilidade documental e controle biológico completo
-              </p>
-            </div>
-          </div>
+      {/* ABA 1 DO DIRIGENTE: ACOMPANHAMENTO DE SOLICITAÇÕES */}
+      {dirigenteTab === "SOLICITACOES" && (
+        <AcompanhamentoPedidos
+          temploId={temploAtual.id}
+          onNovaSolicitacao={() => setDirigenteTab("NOVA_SOLICITACAO")}
+          onRepetirPedido={(pedido) => {
+            setPedidoParaRepetir(pedido);
+            setDirigenteTab("NOVA_SOLICITACAO");
+          }}
+        />
+      )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
-            <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
-              <span className="text-areia-400 block font-light">Feitor Responsável</span>
-              <span className="font-semibold text-areia-100 font-serif">Mestre Caboclo (28 anos)</span>
-            </div>
-            <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
-              <span className="text-areia-400 block font-light">Origem da Biomassa</span>
-              <span className="font-semibold text-areia-100 font-serif">Cruzeiro do Sul, Acre</span>
-            </div>
-            <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
-              <span className="text-areia-400 block font-light">Perfil de Alcaloides</span>
-              <span className="font-semibold text-amber-300 font-mono">Harmina 9,21 • THH 4,20</span>
-            </div>
-            <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
-              <span className="text-areia-400 block font-light">Laudo Microbiológico</span>
-              <span className="font-semibold text-emerald-400">100% Conforme (Zero Coli)</span>
-            </div>
-          </div>
+      {/* ABA 2 DO DIRIGENTE: FORMULÁRIO DE NOVA SOLICITAÇÃO COM MENSAGEM E WHATSAPP */}
+      {dirigenteTab === "NOVA_SOLICITACAO" && (
+        <FormSolicitacaoPedido
+          templo={temploAtual}
+          pedidoParaRepetir={pedidoParaRepetir}
+          onPedidoCriado={() => {
+            setPedidoParaRepetir(null);
+            setDirigenteTab("SOLICITACOES");
+          }}
+          onIrParaAcompanhamento={() => setDirigenteTab("SOLICITACOES")}
+        />
+      )}
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-            <div className="overflow-hidden rounded-xl border border-ambar-500/30 bg-floresta-950 group">
-              <div className="relative h-52 w-full overflow-hidden">
-                <Image
-                  src="/assets/feitio/curadas/feitio-lote-garrafas.jpg"
-                  alt="Conferência do lote de sacramentos após resfriamento no Acre"
-                  fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 100vw, 40vw"
-                />
+      {/* ABA 3 DO DIRIGENTE: LAUDO & CADEIA DE CUSTÓDIA */}
+      {dirigenteTab === "LAUDOS" && (
+        <div className="space-y-6 animate-fade-in">
+          <div className="card-elevated rounded-2xl p-6 sm:p-10 space-y-8 border-ambar-500/25">
+            <div className="flex items-center gap-3 border-b border-ambar-500/15 pb-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-floresta-900 border border-ambar-500/30 text-ambar-400">
+                <FileText className="h-5 w-5" />
               </div>
-              <div className="p-3.5 text-[11px] text-areia-400 text-center font-light">
-                Registro de conferência e lacração do Lote #AC-2026-08 em Cruzeiro do Sul/AC.
+              <div>
+                <h3 className="font-serif text-lg sm:text-xl font-bold text-areia-100">
+                  Laudo de Conformidade & Cadeia de Custódia — Lote #AC-2026-08
+                </h3>
+                <p className="text-xs text-ambar-400 font-medium">
+                  Rastreabilidade documental, fitoquímica e controle microbiológico
+                </p>
               </div>
             </div>
 
-            <div className="overflow-hidden rounded-xl border border-ambar-500/30 bg-floresta-950 group">
-              <div className="relative h-52 w-full overflow-hidden">
-                <Image
-                  src="/assets/feitio/curadas/feitio-embalagem-custodia.jpg"
-                  alt="Embalagem isotérmica do sacramento preparada para despacho"
-                  fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                  sizes="(max-width: 640px) 100vw, 40vw"
-                />
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 text-xs">
+              <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
+                <span className="text-areia-400 block font-light">Feitor Responsável</span>
+                <span className="font-semibold text-areia-100 font-serif">Mestre Caboclo (28 anos)</span>
               </div>
-              <div className="p-3.5 text-[11px] text-areia-400 text-center font-light">
-                Embalagem isotérmica refrigerada selada para envio aéreo protegido.
+              <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
+                <span className="text-areia-400 block font-light">Origem da Biomassa</span>
+                <span className="font-semibold text-areia-100 font-serif">Cruzeiro do Sul, Acre</span>
+              </div>
+              <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
+                <span className="text-areia-400 block font-light">Perfil de Alcaloides</span>
+                <span className="font-semibold text-amber-300 font-mono">Harmina 9,21 • THH 4,20</span>
+              </div>
+              <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/90 p-4 space-y-1">
+                <span className="text-areia-400 block font-light">Laudo Microbiológico</span>
+                <span className="font-semibold text-emerald-400">100% Conforme (Zero Coli)</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+              <div className="overflow-hidden rounded-xl border border-ambar-500/30 bg-floresta-950 group">
+                <div className="relative h-52 w-full overflow-hidden">
+                  <Image
+                    src="/assets/feitio/curadas/feitio-lote-garrafas.jpg"
+                    alt="Conferência do lote de sacramentos após resfriamento no Acre"
+                    fill
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, 40vw"
+                  />
+                </div>
+                <div className="p-3.5 text-[11px] text-areia-400 text-center font-light">
+                  Registro de conferência e lacração do Lote #AC-2026-08 em Cruzeiro do Sul/AC.
+                </div>
+              </div>
+
+              <div className="overflow-hidden rounded-xl border border-ambar-500/30 bg-floresta-950 group">
+                <div className="relative h-52 w-full overflow-hidden">
+                  <Image
+                    src="/assets/feitio/curadas/feitio-embalagem-custodia.jpg"
+                    alt="Embalagem isotérmica do sacramento preparada para despacho"
+                    fill
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 640px) 100vw, 40vw"
+                  />
+                </div>
+                <div className="p-3.5 text-[11px] text-areia-400 text-center font-light">
+                  Embalagem isotérmica refrigerada selada para envio aéreo protegido.
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </AnimateOnScroll>
+      )}
+
+      {/* ABA 4 DO DIRIGENTE: MATRIZ DE COOPERATIVISMO & COTAS */}
+      {dirigenteTab === "COOPERATIVISMO" && (
+        <div className="space-y-6 animate-fade-in">
+          <div className="card-elevated rounded-2xl p-6 sm:p-8 space-y-6 border-ambar-500/20">
+            <h4 className="font-serif text-base font-bold text-areia-100">
+              Princípio da Tabela Evolutiva por Quantidade
+            </h4>
+            <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
+              A cooperativa não visa lucro. Toda a arrecadação é dimensionada de forma regressiva na cota unitária: quanto maior o lote solicitado pela congregação (ou por um conjunto de templos de uma mesma região), mais diluído fica o custo de frete aéreo e das diárias de campo na floresta, beneficiando fraternalmente toda a irmandade.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+              <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-1.5">
+                <span className="text-ambar-400 font-bold text-xs uppercase tracking-wider">Lotes Básicos (5 a 10L)</span>
+                <p className="text-xs text-areia-300 font-light">
+                  Atendimento litúrgico para cerimônias de pequeno porte com despacho regular.
+                </p>
+              </div>
+              <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-1.5">
+                <span className="text-amber-300 font-bold text-xs uppercase tracking-wider">Lotes Médios (10 a 30L)</span>
+                <p className="text-xs text-areia-300 font-light">
+                  Otimização da caixa isotérmica completa, reduzindo o rateio de frete proporcional por litro.
+                </p>
+              </div>
+              <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-1.5">
+                <span className="text-emerald-400 font-bold text-xs uppercase tracking-wider">Formatos Mel & Gel</span>
+                <p className="text-xs text-areia-300 font-light">
+                  Concentração extrema de volume para envio compartilhado sem perda somática.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

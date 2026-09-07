@@ -356,4 +356,179 @@ export const estudosData: EstudoItem[] = [
       },
     ],
   },
+  {
+    id: "nativaram-sacred-guide-slide-deck",
+    titulo: "Guia Sagrado de Curadoria Etnobotânica (Slide Deck Oficial)",
+    subtitulo: "Apresentação Visual das 15 Alquimias de Rapé, Cinzas Nobres e Tradições da Floresta gerada no Google NotebookLM",
+    categoria: "rapes",
+    categoriaLabel: "Rapés Sagrados • Slide Deck",
+    pdfArquivo: "nativaram-sacred-guide-slide-deck.pdf",
+    pdfTamanho: "13.5 MB",
+    ano: "2026",
+    autorOuFonte: "Google NotebookLM • Caderno Rapés Indígenas Nativaram",
+    resumo:
+      "Apresentação visual completa em alta resolução gerada no Google NotebookLM a partir do cruzamento de mais de 200 fontes botânicas, compêndios fitoquímicos e saberes dos povos originários do Acre. Abrange os arquétipos fitoenergéticos das 15 essências de rapé sagrado, o papel de tamponamento das cinzas de Tsunu e Cumaru, e as diretrizes de consagração e aterramento.",
+    principaisDescobertas: [
+      "Catalogação iconográfica das 15 alquimias de rapé sagrado da Nativaram Brasil com perfis sensoriais detalhados.",
+      "Mecanismo fitoquímico da alcalinização transmucosa via cinzas de Tsunu, elevando o pH e convertendo a nicotina ativa em base livre.",
+      "Termodinâmica da calcinação tradicional que garante a neutralização de quaisquer compostos termoestáveis visionários.",
+      "Orientações rituais com os instrumentos de poder (Kuripe e Tepi) sob frequência harmônica de 432Hz.",
+    ],
+    referenciasAcademicas: [
+      "Google NotebookLM — Caderno Rapés Indígenas (215 fontes catalogadas)",
+      "Herbário da Universidade Federal do Acre (UFAC) — Acervo de Botânica Tradicional",
+      "Journal of Ethnopharmacology — Chemistry and Pharmacodynamics of Amazonian Snuffs",
+    ],
+    capitulos: [
+      {
+        titulo: "1. Arquitetura da Apresentação Visual",
+        conteudo:
+          "O Slide Deck sintetiza os módulos fundamentais da herança botânica dos rapés tradicionais, organizando em lâminas visuais a botânica de Nicotiana rustica, as cinzas medicinais de Tsunu, Cumaru e Mulateiro, os compostos fitoenergéticos e os princípios éticos da aliança com os povos Yawanawá e Huni Kuin.",
+      },
+      {
+        titulo: "2. Consagração e Aterramento Telúrico",
+        conteudo:
+          "Explora o simbolismo do sopro como oração ativa e instrumento de silenciamento mental, recomendando o preparo do ambiente com intenção focada e música harmônica orgânica afinada em 432Hz.",
+      },
+    ],
+  },
+  {
+    id: "nativaram-ethnobotanical-manifesto-slide-deck",
+    titulo: "Manifesto Etnobotânico & Povos Originários (Slide Deck Oficial)",
+    subtitulo: "Apresentação Visual sobre a Aliança entre Tradição da Floresta e Ciência Moderna gerada no Google NotebookLM",
+    categoria: "etnociencia",
+    categoriaLabel: "Manifesto & Etnociência",
+    pdfArquivo: "nativaram-ethnobotanical-manifesto-slide-deck.pdf",
+    pdfTamanho: "18.9 MB",
+    ano: "2026",
+    autorOuFonte: "Google NotebookLM • Caderno Etnociência Nativaram",
+    resumo:
+      "Apresentação visual institucional estruturada pelo Google NotebookLM a partir dos manuscritos históricos, estatutos e manifestos epistêmicos da Nativaram Brasil. Detalha a simetria entre o conhecimento oral milenar dos pajés amazônicos e os métodos contemporâneos de fitoquímica, destacando a preservação da fauna e dos territórios sagrados.",
+    principaisDescobertas: [
+      "Diálogo simétrico de saberes: validação recíproca entre a memória viva da mata e a cromatografia laboratorial.",
+      "Cadeia de valor agroflorestal no Acre com remuneração justa para famílias extrativistas e feitores credenciados.",
+      "Salvaguarda dos ecossistemas de nidificação da Ararajuba (Guaruba guarouba) e espécies nativas ameaçadas.",
+      "Doutrina de transparência cooperativa sob o regime de rateio de despesas operacionais da Resolução CONAD 01/2010.",
+    ],
+    referenciasAcademicas: [
+      "Google NotebookLM — Caderno Etnociência e Assessoria Nativaram",
+      "Universidade de São Paulo (USP) — Instituto de Biociências",
+      "Universidade Federal do Acre (UFAC) — Centro de Filosofia e Ciências Humanas",
+    ],
+    capitulos: [
+      {
+        titulo: "1. O Futuro é Ancestral",
+        conteudo:
+          "O manifesto visual reafirma que a tecnologia mais avançada do planeta reside nos ecossistemas e na memória das populações originárias. A cooperativa atua como guardiã desse legado, viabilizando sua permanência íntegra e imune à mercantilização predatória.",
+      },
+    ],
+  },
+  {
+    id: "rapes-sagrados-floresta-e-ciencia",
+    titulo: "Rapés Sagrados: Essências Entre a Floresta e a Ciência",
+    subtitulo: "Tratado Etnobotânico Completo de 25 Páginas: Taxonomia, Sabedoria dos Pajés e Mecanismos Farmacológicos",
+    categoria: "rapes",
+    categoriaLabel: "Rapés Sagrados • Dossiê",
+    pdfArquivo: "nativaram-rapes-sagrados-floresta-e-ciencia.pdf",
+    pdfTamanho: "88 KB (25 Páginas)",
+    ano: "2026",
+    autorOuFonte: "Conselho Etnobotânico Nativaram & Tradições Yawanawá, Huni Kuin e Katukina",
+    resumo:
+      "Obra magna de referência sobre os rapés sagrados, integrando a sabedoria dos mestres indígenas do Acre aos estudos acadêmicos internacionais. Examina a fisiologia da absorção nasal sem combustão, a fitoquímica da Nicotiana rustica orgânica, a biogeoquímica das cinzas de cascas nobres e as fichas descritivas detalhadas das principais essências tradicionais.",
+    principaisDescobertas: [
+      "Compêndio abrangente de 25 páginas cobrindo botânica, etnofarmacologia, cosmologia e protocolos de aplicação.",
+      "Análise físico-química da liberação transmucosa por tamponamento de pH (9,75 a 10,20) que evita a inalação de fumaça ou alcatrão.",
+      "Caracterização dos alcaloides e princípios ativos termoestáveis em madeiras sagradas (ácido ursólico, lapachol, teobromina, eugenol).",
+      "Rastreabilidade completa com cadastro no SisGen e apoio comunitário direto aos povos guardiões.",
+    ],
+    referenciasAcademicas: [
+      "Conselho Etnobotânico Nativaram Brasil — Caderno Oficial NotebookLM (59.000 caracteres de documentação)",
+      "Universidade Federal da Paraíba (UFPB) — Departamento de Ciências Farmacêuticas",
+      "Universidade Federal do Acre (UFAC) — Etnofarmacologia e Produtos Naturais",
+    ],
+    capitulos: [
+      {
+        titulo: "1. Raízes Ancestrais e Resistência Cultural",
+        conteudo:
+          "O documento estabelece que o rapé sagrado é um patrimônio imaterial milenar de resistência dos povos da floresta. Longe de ser um produto comercial vulgar, é um preparado ritual de sintonização, oração ativa e harmonia sensorial.",
+      },
+      {
+        titulo: "2. A Alquimia Fitoquímica das Essências",
+        conteudo:
+          "Apresenta o estudo detalhado das essências de Tsunu, Cumaru, Murici, Cacau, Canela de Velho, Jurema Preta e 7 Ervas, relacionando o perfil aromático, a família botânica e o alinhamento com os centros sutis de presença.",
+      },
+    ],
+  },
+  {
+    id: "feitio-purista-ayahuasca",
+    titulo: "Ciência do Feitio Purista da Ayahuasca & Variedades de Banisteriopsis",
+    subtitulo: "Farmacogenômica Comparativa, Ausência de Espasmos Motores e Rastreabilidade do Cipó Tucunacá",
+    categoria: "ayahuasca",
+    categoriaLabel: "Ayahuasca & Feitio",
+    pdfArquivo: "nativaram-estudo-feitio-purista-ayahuasca.pdf",
+    pdfTamanho: "38 KB (10 Páginas)",
+    ano: "2026",
+    autorOuFonte: "Caderno NotebookLM Ayahuasca • Pesquisadores e Feitores do Acre",
+    resumo:
+      "Dossiê técnico detalhado de 10 páginas sobre a ciência do feitio purista em Cruzeiro do Sul e Tarauacá. Compara o perfil fitoquímico do Cipó Tucunacá (Banisteriopsis caapi var. Tucunaca) em relação ao Caupuri, demonstrando a estabilidade da inibição da MAO-A pela Harmina e THH, a mitigação de quedas hipotensivas abruptas e a pureza botânica sem aditivos exógenos.",
+    principaisDescobertas: [
+      "Concentração equilibrada de Harmina (9,21 mg/g) e THH (4,20 mg/g) com índice residual ínfimo de Harmalina (0,65 mg/g).",
+      "Eliminação de espasmos motores severos e tremores musculares observados na variedade Caupuri de nós espessos.",
+      "Preservação da homeostase enzimática hepática evitando sobrecargas no citocromo P450 (CYP2D6 e CYP1A2).",
+      "Fundamentação deontológica sob as diretrizes do Conselho Nacional de Políticas sobre Drogas (CONAD 01/2010).",
+    ],
+    referenciasAcademicas: [
+      "Universidade Federal do Acre (UFAC) — Centro de Ciências Biológicas e da Natureza",
+      "Caderno NotebookLM Ayahuasca (179 fontes catalogadas)",
+      "Journal of Ethnopharmacology (McKenna et al., Callaway et al.)",
+    ],
+    capitulos: [
+      {
+        titulo: "1. O Purismo Botânico Estrito",
+        conteudo:
+          "A decocção exclusiva de Banisteriopsis caapi com Psychotria viridis sem introdução de plantas aditivas garante previsibilidade farmacocinética e segurança integrativa absoluta para as congregações religiosas.",
+      },
+      {
+        titulo: "2. Fitoquímica e Serenidade Cerimonial",
+        conteudo:
+          "Demonstra que o equilíbrio alcaloídico do Tucunacá proporciona um estado de recolhimento límpido, permitindo que a meditação espiritual e os hinos fluam sem sobrecarga somática.",
+      },
+    ],
+  },
+  {
+    id: "relatorio-assessoria-governanca",
+    titulo: "Manual Unificado de Governança, Compliance e Conformidade Algorítmica",
+    subtitulo: "Diretrizes RDC ANVISA 2025/2026, Engenharia de Linguagem, Barreira do Pronome e Protocolo CAPI",
+    categoria: "compliance",
+    categoriaLabel: "Governança & Compliance",
+    pdfArquivo: "nativaram-relatorio-assessoria-governanca.pdf",
+    pdfTamanho: "13.3 KB (3 Páginas)",
+    ano: "2026",
+    autorOuFonte: "Assessoria Jurídica Nativaram Brasil • Caderno NotebookLM",
+    resumo:
+      "Documento normativo mestre de governança para 2026 estruturado pelo NotebookLM. Sintetiza a blindagem regulatória da cooperativa frente às resoluções sanitárias da ANVISA, a vedação absoluta de e-commerce e mercantilização da Ayahuasca, o checklist preventivo de comunicação, a evasão de termos biomédicos e a governança de dados sensíveis sob o protocolo Server-to-Server CAPI.",
+    principaisDescobertas: [
+      "Conformidade rigorosa com a Resolução Sanitária de 28/01/2025 e RDCs 951/2024 e 907/2024 da ANVISA.",
+      "Dicionário mestre de engenharia de linguagem: substituição mandatória de termos do cluster médico por termos etnobotânicos e de bem-estar.",
+      "Regra da Barreira do Pronome para prevenir flagging algorítmico em plataformas digitais.",
+      "Migração obrigatória para Server-to-Server CAPI respeitando o direito à privacidade e LGPD.",
+    ],
+    referenciasAcademicas: [
+      "Google NotebookLM — Caderno Assessoria Nativaram (189 fontes catalogadas)",
+      "Agência Nacional de Vigilância Sanitária (ANVISA) — Marco de Janeiro de 2025",
+      "Conselho Nacional de Autorregulamentação Publicitária (CONAR)",
+    ],
+    capitulos: [
+      {
+        titulo: "1. Blindagem Regulatória e Sanitária",
+        conteudo:
+          "A preservação da cooperativa assenta-se na renúncia explícita a qualquer alegação terapêutica clínica. O portal e os documentos operam no campo da valorização cultural, etnobotânica e apoio logístico ritual.",
+      },
+      {
+        titulo: "2. Engenharia de Linguagem Preventiva",
+        conteudo:
+          "A adoção de termos como 'harmonização sensorial', 'alquimia botânica' e 'sacramento' protege o projeto contra penalidades administrativas e suspensão de registros digitais.",
+      },
+    ],
+  },
 ];

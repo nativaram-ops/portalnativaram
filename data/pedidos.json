@@ -1,0 +1,261 @@
+[
+  {
+    "id": "SOL-2026-P3CG",
+    "temploId": "NAT-TEMPLO-842",
+    "temploNome": "Templo Céu do Cruzeiro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "dirigenteNome": "Padrinho Marcos Silva",
+    "dirigenteTelefone": "11987654321",
+    "dirigenteEmail": "marcos@ceudocruzeiro.org.br",
+    "cnpj": "34.567.890/0001-12",
+    "itens": [
+      {
+        "id": "7.1_ANHANGATA",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "7.1 Anhangatã",
+        "codigoOuSubtitulo": "Canto harmônico da floresta",
+        "quantidade": 15,
+        "unidade": "Litros",
+        "rateioUnitarioEstimado": 230,
+        "rateioTotalEstimado": 3450
+      },
+      {
+        "id": "TSUNU",
+        "tipo": "RAPE_SAGRADO",
+        "nome": "Rapé Sagrado de Tsunú",
+        "codigoOuSubtitulo": "Cinzas de Pau Pereira",
+        "quantidade": 2,
+        "unidade": "Frascos (20g)",
+        "rateioUnitarioEstimado": 65,
+        "rateioTotalEstimado": 130
+      }
+    ],
+    "rateioTotal": 3580,
+    "dataCerimoniaPretendida": "2026-11-20",
+    "mensagemIntencao": "Cerimônia de solstício com 60 comungantes. Solicitamos especial atenção à refrigeração durante o transporte.",
+    "status": "EM_FEITIO_ACRE",
+    "historico": [
+      {
+        "status": "SOLICITADO",
+        "dataHora": "07/09/2026, 17:19",
+        "observacao": "Solicitação litúrgica registrada no portal da cooperativa.",
+        "responsavel": "Dirigente Homologado"
+      },
+      {
+        "status": "EM_FEITIO_ACRE",
+        "dataHora": "07/09/2026, 17:19",
+        "observacao": "Lote reservado com Mestre Caboclo em Cruzeiro do Sul/AC",
+        "responsavel": "Conselho Gestor Litúrgico"
+      }
+    ],
+    "criadoEm": "2026-09-07T20:19:11.306Z",
+    "atualizadoEm": "2026-09-07T20:19:12.108Z",
+    "loteVinculado": "AC-2026-12",
+    "codigoRastreio": "NTV-SP-842-BR2",
+    "previsaoEntrega": "Despacho programado para lua cheia de Outubro"
+  },
+  {
+    "id": "SOL-2026-M913",
+    "temploId": "NAT-TEMPLO-913",
+    "temploNome": "Fraternidade Rainha da Floresta",
+    "cidade": "Belo Horizonte",
+    "estado": "MG",
+    "dirigenteNome": "Madrinha Helena Costa",
+    "dirigenteTelefone": "31998877665",
+    "dirigenteEmail": "helena@rainhadafloresta.org.br",
+    "cnpj": "45.678.901/0001-23",
+    "itens": [
+      {
+        "id": "MEDICINA_MEL",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "Alquimia Sagrada Mel (Alta Redução)",
+        "codigoOuSubtitulo": "Densidade máxima sem conservantes",
+        "quantidade": 5,
+        "unidade": "kg",
+        "rateioUnitarioEstimado": 480,
+        "rateioTotalEstimado": 2400
+      },
+      {
+        "id": "MULATEIRO",
+        "tipo": "RAPE_SAGRADO",
+        "nome": "Rapé Sagrado de Mulateiro",
+        "codigoOuSubtitulo": "Árvore da regeneração amazônica",
+        "quantidade": 3,
+        "unidade": "Frascos (20g)",
+        "rateioUnitarioEstimado": 65,
+        "rateioTotalEstimado": 195
+      }
+    ],
+    "rateioTotal": 2595,
+    "dataCerimoniaPretendida": "2026-10-28",
+    "mensagemIntencao": "Cerimônia de renovação e agradecimento das matriarcas. O formato Mel facilita nosso armazenamento local.",
+    "status": "AGUARDANDO_DESPACHO",
+    "loteVinculado": "AC-2026-09",
+    "codigoRastreio": "NTV-MG-913-BR",
+    "previsaoEntrega": "Despacho previsto em 3 dias úteis",
+    "observacoesInternas": "Em análise refratométrica final no laboratório botânico.",
+    "historico": [
+      {
+        "status": "SOLICITADO",
+        "dataHora": "2026-08-28 11:10",
+        "observacao": "Solicitação submetida pela Madrinha Helena.",
+        "responsavel": "Sistema Integrado Nativaram"
+      },
+      {
+        "status": "HOMOLOGADO_CONSELHO",
+        "dataHora": "2026-08-29 09:30",
+        "observacao": "Homologado pelo conselho gestor.",
+        "responsavel": "Conselho Gestor Litúrgico"
+      },
+      {
+        "status": "AGUARDANDO_DESPACHO",
+        "dataHora": "2026-09-05 14:00",
+        "observacao": "Em acondicionamento hermético especial no entreposto Serra/ES.",
+        "responsavel": "Guardião de Logística"
+      }
+    ],
+    "criadoEm": "2026-08-28T11:10:00Z",
+    "atualizadoEm": "2026-09-05T14:00:00Z"
+  },
+  {
+    "id": "SOL-2026-W842",
+    "temploId": "NAT-TEMPLO-842",
+    "temploNome": "Templo Céu do Cruzeiro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "dirigenteNome": "Padrinho Marcos Silva",
+    "dirigenteTelefone": "11987654321",
+    "dirigenteEmail": "marcos@ceudocruzeiro.org.br",
+    "cnpj": "34.567.890/0001-12",
+    "itens": [
+      {
+        "id": "10.1_WIRAPURU",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "10.1 Wirapuru (Semi-Mel)",
+        "codigoOuSubtitulo": "Pureza Tucunacá & Chacrona Rainha",
+        "quantidade": 10,
+        "unidade": "Litros",
+        "rateioUnitarioEstimado": 260,
+        "rateioTotalEstimado": 2600
+      },
+      {
+        "id": "TSUNU",
+        "tipo": "RAPE_SAGRADO",
+        "nome": "Rapé Sagrado de Tsunú",
+        "codigoOuSubtitulo": "Cinzas de Pau Pereira e Tabaco Selvagem",
+        "quantidade": 2,
+        "unidade": "Frascos (20g)",
+        "rateioUnitarioEstimado": 65,
+        "rateioTotalEstimado": 130
+      }
+    ],
+    "rateioTotal": 2730,
+    "dataCerimoniaPretendida": "2026-10-15",
+    "mensagemIntencao": "Trabalho de Alinhamento e Cura Espiritual de Primavera. Solicitamos especial atenção à refrigeração durante o transporte aéreo.",
+    "status": "EM_TRANSITO_REFRIGERADO",
+    "loteVinculado": "AC-2026-08",
+    "codigoRastreio": "NTV-SP-842-BR",
+    "previsaoEntrega": "Em 48h (Entreposto Serra/ES → São Paulo/SP)",
+    "observacoesInternas": "Embalagem isotérmica selada #08-A com gelox ativado.",
+    "historico": [
+      {
+        "status": "SOLICITADO",
+        "dataHora": "2026-08-20 14:30",
+        "observacao": "Solicitação recebida via portal institucional.",
+        "responsavel": "Sistema Integrado Nativaram"
+      },
+      {
+        "status": "HOMOLOGADO_CONSELHO",
+        "dataHora": "2026-08-21 10:15",
+        "observacao": "Conformidade documental CONAD 01/2010 verificada e aprovada.",
+        "responsavel": "Conselho Gestor Litúrgico"
+      },
+      {
+        "status": "EM_FEITIO_ACRE",
+        "dataHora": "2026-08-25 08:00",
+        "observacao": "Reserva de biomassa Tucunacá vinculada ao lote #AC-2026-08 em Cruzeiro do Sul/AC.",
+        "responsavel": "Mestre Caboclo (Feitor)"
+      },
+      {
+        "status": "AGUARDANDO_DESPACHO",
+        "dataHora": "2026-09-02 16:40",
+        "observacao": "Lote recebido no entreposto sudeste Serra/ES com laudo de pureza microbiológica aprovado.",
+        "responsavel": "Guardião de Logística"
+      },
+      {
+        "status": "EM_TRANSITO_REFRIGERADO",
+        "dataHora": "2026-09-06 09:20",
+        "observacao": "Despacho aéreo com rastreio NTV-SP-842-BR.",
+        "responsavel": "Guardião de Logística"
+      }
+    ],
+    "criadoEm": "2026-08-20T14:30:00Z",
+    "atualizadoEm": "2026-09-06T09:20:00Z"
+  },
+  {
+    "id": "SOL-2026-S982",
+    "temploId": "NAT-TEMPLO-982",
+    "temploNome": "Templo Caminho Solar",
+    "cidade": "Brasília",
+    "estado": "DF",
+    "dirigenteNome": "Dirigente Ana Terra",
+    "dirigenteTelefone": "61981234567",
+    "dirigenteEmail": "anaterra@caminhosolar.com.br",
+    "cnpj": "67.890.123/0001-45",
+    "itens": [
+      {
+        "id": "7.1_ANHANGATA",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "7.1 Anhangatã (Rouxinol)",
+        "codigoOuSubtitulo": "Canto harmônico da floresta",
+        "quantidade": 20,
+        "unidade": "Litros",
+        "rateioUnitarioEstimado": 230,
+        "rateioTotalEstimado": 4600
+      }
+    ],
+    "rateioTotal": 4600,
+    "dataCerimoniaPretendida": "2026-09-12",
+    "mensagemIntencao": "Vigília solar equinocial de primavera. Trabalho litúrgico com 80 comungantes.",
+    "status": "ENTREGUE_CONSAGRADO",
+    "loteVinculado": "AC-2026-07",
+    "codigoRastreio": "NTV-DF-982-BR",
+    "previsaoEntrega": "Entregue e Consagrado com Sucesso",
+    "observacoesInternas": "Recebido em conformidade com selo intacto.",
+    "historico": [
+      {
+        "status": "SOLICITADO",
+        "dataHora": "2026-07-25 15:00",
+        "observacao": "Solicitação bimestral do templo.",
+        "responsavel": "Sistema Integrado Nativaram"
+      },
+      {
+        "status": "HOMOLOGADO_CONSELHO",
+        "dataHora": "2026-07-26 10:00",
+        "observacao": "Aprovado em plenária.",
+        "responsavel": "Conselho Gestor Litúrgico"
+      },
+      {
+        "status": "EM_FEITIO_ACRE",
+        "dataHora": "2026-08-01 07:00",
+        "observacao": "Feitio concluído e lacrado em Cruzeiro do Sul/AC.",
+        "responsavel": "Mestre Caboclo (Feitor)"
+      },
+      {
+        "status": "EM_TRANSITO_REFRIGERADO",
+        "dataHora": "2026-08-15 08:30",
+        "observacao": "Despachado.",
+        "responsavel": "Guardião de Logística"
+      },
+      {
+        "status": "ENTREGUE_CONSAGRADO",
+        "dataHora": "2026-08-18 17:45",
+        "observacao": "Entrega concluída na sede litúrgica de Brasília/DF.",
+        "responsavel": "Transportadora Especializada"
+      }
+    ],
+    "criadoEm": "2026-07-25T15:00:00Z",
+    "atualizadoEm": "2026-08-18T17:45:00Z"
+  }
+]
