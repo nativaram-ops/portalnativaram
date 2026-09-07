@@ -54,6 +54,14 @@ _Avoid_: Preço, valor de venda, taxa de lucro, carrinho de compras.
 Processo formal e probatório de adesão institucional pelo qual um templo comprova sua existência e compromisso ético perante o marco regulatório brasileiro.
 _Avoid_: Cadastro de cliente, criação de conta de compras, checkout.
 
+**Solicitação de Partilha Litúrgica**:
+Protocolo institucional (`SOL-2026-XXXX`) pelo qual o dirigente credenciado programa a cota cerimonial de sacramentos do templo, com rateio cooperativo regressivo e mensagem espiritual ao Conselho.
+_Avoid_: Pedido de compra, ordem de venda, checkout comercial.
+
+**Cadeia de Custódia Litúrgica (5 Fases)**:
+Monitoramento contínuo e documentado do sacramento: 1. Solicitado (CONAD) → 2. Homologado Conselho → 3. Feitio no Acre → 4. Despacho Refrigerado → 5. Entregue e Consagrado.
+_Avoid_: Status de entrega de loja virtual, tracking de e-commerce.
+
 ### Experiência, Bem-Estar & Ética
 
 **Florescimento / Reequilíbrio Vital / Alinhamento Interior**:

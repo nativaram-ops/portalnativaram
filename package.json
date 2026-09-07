@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/dev.mjs",
+    "dev:clean": "cmd /c \"rmdir /s /q .next 2>nul & node scripts/dev.mjs\"",
+    "next:dev": "next dev --turbo --port 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "test": "npx tsx scripts/test-liturgico.mjs",
     "notebooklm": "tools\\notebooklm-py\\.venv\\Scripts\\notebooklm.exe"
   },
   "dependencies": {

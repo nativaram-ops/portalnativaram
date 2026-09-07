@@ -104,11 +104,11 @@ export const Navbar = () => {
         <div className="hidden lg:flex items-center gap-3">
           <Link
             href="/portal-dirigente"
-            className="flex items-center gap-1.5 rounded-md px-3 py-2 text-xs font-medium text-areia-400 hover:text-ambar-300 hover:bg-floresta-800/40 border border-transparent hover:border-ambar-500/20 transition-all duration-300"
+            className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-ambar-300 bg-floresta-900/60 hover:bg-floresta-800 border border-ambar-500/30 hover:border-ambar-500/60 shadow-sm transition-all duration-300"
             title="Acesso exclusivo a dirigentes de templos homologados"
           >
-            <Lock className="h-3.5 w-3.5 text-ambar-500" />
-            <span>Portal</span>
+            <Lock className="h-3.5 w-3.5 text-ambar-400" />
+            <span>Portal do Dirigente</span>
           </Link>
 
           <Link

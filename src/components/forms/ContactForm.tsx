@@ -55,7 +55,6 @@ export const ContactForm = () => {
   const onSubmit = async (data: ContactFormData) => {
     // Simulate server submission
     await new Promise((resolve) => setTimeout(resolve, 800));
-    console.log("Contato submetido com sucesso:", data);
     setSubmitted(true);
     reset();
   };

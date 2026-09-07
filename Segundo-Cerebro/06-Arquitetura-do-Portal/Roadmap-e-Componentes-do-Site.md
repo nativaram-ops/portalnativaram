@@ -28,6 +28,12 @@ O portal da Cooperativa Nativaram Brasil é uma plataforma institucional constru
 src/
 ├── app/
 │   ├── page.tsx (Home: Gênese, Alquimia, 4 Graduações HPLC e Gollog Express)
+│   ├── portal-dirigente/ (Portal do Dirigente Homologado e Painel Central ADM)
+│   │   └── page.tsx
+│   ├── api/
+│   │   └── pedidos/
+│   │       ├── route.ts (GET com filtros e métricas, POST com persistência e WhatsApp)
+│   │       └── [id]/route.ts (GET, PATCH de atualização de status e DELETE)
 │   ├── institucional/ (Manifesto Institucional, Doutrina e FAQ)
 │   ├── feitio/ (Casa de Feitio, Vigília, Rastreabilidade e Manejo)
 │   ├── medicinas/ (Compêndio Etnobotânico: Ciência Biogeoquímica, pH 9.75-10.2, Sananga e Artefatos)
@@ -37,30 +43,52 @@ src/
 │   ├── estudos/ (Compêndio de Ensaios Científicos e Artigos Etnofarmacológicos)
 │   └── projetos-de-luz/ (Regeneração Social, Apoio Comunitário e Agrofloresta)
 ├── components/
+│   ├── home/ (Componentes profundos da Home)
+│   │   ├── HomeHero.tsx (Hero principal, selo de Cruzeiro do Sul e CTAs)
+│   │   ├── HomePilaresBar.tsx (Barra dos 4 pilares: Feitio, Alquimia, Gollog, CONAD)
+│   │   ├── HomeNotaSacralidade.tsx (Nota solene de sacralidade e compromisso)
+│   │   ├── HomePrincipiosFeitio.tsx (3 pilares doutrinários e proporção 60/40)
+│   │   ├── HomePonteEtica.tsx (4 etapas da ponte ética e infográfico Gollog)
+│   │   ├── HomeGraduacoes.tsx (Showcase 4 graduações canônicas + Mel/Gel)
+│   │   ├── HomeLogisticaGollog.tsx (Logística aérea expressa e compliance)
+│   │   ├── HomeDepoimentosCredenciamento.tsx (Vozes de guardiões e timeline)
+│   │   ├── HomeFaqSection.tsx (FAQ doutrinário e teaser portal dirigente)
+│   │   └── index.ts (Barrel export unificado)
+│   ├── portal-dirigente/
+│   │   ├── FormSolicitacaoPedido.tsx (Catálogo de sacramentos, rateio, mensagem e WhatsApp)
+│   │   ├── AcompanhamentoPedidos.tsx (Timeline 5 fases, rastreio, lotes e re-order)
+│   │   └── AdminGestaoPedidos.tsx (Métricas vivas, gestão de status, lotes e avisos WhatsApp)
 │   ├── forms/CredenciamentoForm.tsx (Anamnese, Prévia Dinâmica HPLC e Washout 5 Semanas)
+│   ├── layout/PortalDirigenteClient.tsx (Orquestrador inteligente com autenticação por perfis)
 │   ├── manifesto/ManifestoLanding.tsx (Gênese e Etnociência Horizontal)
-│   └── ui/ (AnimateOnScroll, FaqAccordion, SectionDivider, Botões Nobres)
+│   └── ui/ (Compound Components: Card, Badge, Section, PageHero, AnimateOnScroll, Input, Logo)
 ├── data/
 │   ├── graduacoes.ts (Perfil HPLC Tucunacá: Harmina, Harmalina, THH, Porções e Rateios)
 │   ├── sacramentos.ts (10 Rapés Tradicionais, Sananga 10ml, Artefatos e Compliance)
 │   ├── medicinas.ts (15 Rapés Detalhados, Chakras, Famílias e Alquimias)
 │   └── estudos.ts (Pesquisas Acadêmicas indexadas)
-└── lib/
-    ├── validators/credenciamento.ts (Schema Zod com Termo de Segurança Integrativa)
-    └── credenciamento/engine.ts (Motor de Análise, Dossiê Litúrgico e Sanitização WhatsApp)
+├── types/
+│   └── pedido.ts (Tipagem estrita de PedidoLiturgico, ItemPedido, StatusPedido e Metricas)
+├── lib/
+│   ├── db/pedidos.ts (Persistência atômica em data/pedidos.json e gerador de protocolos)
+│   ├── validators/pedido.ts (Schemas Zod de pedidos e atualizações)
+│   ├── validators/credenciamento.ts (Schema Zod com Termo de Segurança Integrativa)
+│   └── credenciamento/engine.ts (Motor de Análise, Dossiê Litúrgico e Sanitização WhatsApp)
+└── data/
+    └── pedidos.json (Base de dados JSON atômica das solicitações litúrgicas)
 ```
 
 ---
 
 ## 🛡️ Regras de Engenharia & Blindagem Executada
-1. **Zero E-commerce / Purga Semântica:** Todos os termos comerciais ("loja", "preço", "comprar", "colírio") foram eliminados. Todas as chamadas direcionam para `/credenciamento` ou consulta cooperativa via WhatsApp com dirigentes.
-2. **Motor de Triagem Anamnese & Washout ISRS:** Formulário valida obrigatoriamente a declaração de que nenhum participante em uso de antidepressivos ISRS/ISRN fará a consagração sem o washout prudencial de 5 semanas.
-3. **Ciência Biogeoquímica nos Rapés:** Seção documental demonstrando o tamponamento alcalino (pH 9,75 a 10,2) para absorção em base livre e a calcinação purista (>250°C) que extingue DMT, atestando caráter estritamente não alucinógeno.
-4. **Sananga Segura:** Alerta obrigatório de intervalo de 24 horas antes e após uso de lentes de contato, contraindicação pós-cirúrgica e cadeia de refrigeração obrigatória (4°C).
-5. **Rodapé Obrigatório (+18):** Aviso institucional de ausência de promessas terapêuticas e cumprimento integral do Marco Sanitário ANVISA 2025.
-6. **Homologação e Verificação Integral:** 100% das 31 páginas e rotas validadas com sucesso (HTTP 200), TypeScript rigoroso e compliance estrito.
-7. **Governança de Cache Local & Webpack:** Eliminação de processos órfãos na porta 3000 (`taskkill /PID <PID> /F`) e purga do diretório `.next` para evitar descompasso de chunks HMR (`__webpack_modules__`). Sincronização limpa com o repositório GitHub (`origin/main`).
-8. **Integração Google NotebookLM & Acervo Etnobotânico:** CLI do NotebookLM autenticada com sucesso no perfil `21.trotski@gmail.com`. Download e indexação de 7 novos dossiês e apresentações visuais de IA (Slide Decks de 13.5 MB e 18.9 MB, tratado completo de 25 páginas dos rapés sagrados, compêndios fitoquímicos e manual de conformidade algorítmica 2026) na aba `/estudos`, com visualizador e download direto de PDFs.
+1. **Zero E-commerce / Purga Semântica:** Todos os termos comerciais ("loja", "preço", "comprar", "produto") foram eliminados. Todas as chamadas operam por cota de rateio cooperativo e credenciamento de templos.
+2. **Motor de Solicitação Litúrgica & WhatsApp-First:** O dirigente preenche o formulário ágil, os dados são persistidos atomicamente em `data/pedidos.json` e uma mensagem formal completa é gerada para envio via WhatsApp do Conselho Gestor.
+3. **Acompanhamento de Custódia em 5 Fases:** O portal rastreia cada sacramento desde a homologação da ata até o despacho refrigerado e a consagração no templo.
+4. **Painel Operacional do Conselho Gestor (ADM):** Permite vincular lotes do Acre (`AC-2026-XX`), rastreios da transportadora aérea (`NTV-...`) e notificar o dirigente com 1 clique no WhatsApp.
+5. **Motor de Triagem Anamnese & Washout ISRS:** Validação mandatória de 5 semanas de washout para antidepressivos ISRS/ISRN.
+6. **Ciência Biogeoquímica nos Rapés:** Tamponamento alcalino (pH 9,75 a 10,2) para absorção em base livre e calcinação purista (>250°C) que extingue alcaloides triptamínicos, garantindo ausência de ação alucinógena.
+7. **Sananga Segura:** Intervalo obrigatório de 24h para lentes de contato, contraindicação pós-cirúrgica e cadeia de frio a 4°C.
+8. **Governança de Ambiente Local no Windows:** Execução de scripts via `cmd.exe /c`, liberação da porta 3000 contra processos órfãos (`taskkill /PID <PID> /F`) e compilação sem falhas.
 
 ---
 
@@ -70,13 +98,21 @@ src/
 - [[Nativaram-Brasil]]
 - [[Blindagem-Juridica-e-Sanitaria]]
 - [[Dicionario-Semantico-Nativaram]]
+- [[Banco-de-Dados-e-Persistencia-Local]]
+
+### Feito em
+- [[Portal-do-Dirigente-e-Gestao-Liturgica]]
 
 ### Alimenta / impulsiona
 - [[Ayahuasca-e-Purismo-Botanico]]
 - [[Rapes-Sagrados-e-Alquimia-Mineral]]
 - [[Artefatos-e-Instrumentos]]
 - [[Projetos-de-Luz-e-Editais]]
+- [[Cadeia-de-Custodia-e-Logistica-Refrigerada]]
 
 ### Relacionado a
 - [[00-Mapa-Mental-Portal-Nativaram]]
 - [[Guia-de-Skills-e-Comandos]]
+- [[ADR-001-Persistencia-Atomica-e-WhatsApp-First]]
+- [[ADR-002-Composicao-Modular-e-Design-System]]
+

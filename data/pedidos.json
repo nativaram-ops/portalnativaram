@@ -1,5 +1,61 @@
 [
   {
+    "id": "SOL-2026-LZ5K",
+    "temploId": "NAT-TEMPLO-842",
+    "temploNome": "Templo Céu do Cruzeiro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "dirigenteNome": "Padrinho Marcos Silva",
+    "dirigenteTelefone": "11987654321",
+    "dirigenteEmail": "marcos@ceudocruzeiro.org.br",
+    "cnpj": "34.567.890/0001-12",
+    "itens": [
+      {
+        "id": "7.1_ANHANGATA",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "7.1 Anhangatã",
+        "codigoOuSubtitulo": "Canto harmônico da floresta",
+        "quantidade": 15,
+        "unidade": "Litros",
+        "rateioUnitarioEstimado": 230,
+        "rateioTotalEstimado": 3450
+      },
+      {
+        "id": "TSUNU",
+        "tipo": "RAPE_SAGRADO",
+        "nome": "Rapé Sagrado de Tsunú",
+        "codigoOuSubtitulo": "Cinzas de Pau Pereira",
+        "quantidade": 2,
+        "unidade": "Frascos (20g)",
+        "rateioUnitarioEstimado": 65,
+        "rateioTotalEstimado": 130
+      }
+    ],
+    "rateioTotal": 3580,
+    "dataCerimoniaPretendida": "2026-11-20",
+    "mensagemIntencao": "Cerimônia de solstício com 60 comungantes. Solicitamos especial atenção à refrigeração durante o transporte.",
+    "status": "EM_FEITIO_ACRE",
+    "historico": [
+      {
+        "status": "SOLICITADO",
+        "dataHora": "07/09/2026, 17:41",
+        "observacao": "Solicitação litúrgica registrada no portal da cooperativa.",
+        "responsavel": "Dirigente Homologado"
+      },
+      {
+        "status": "EM_FEITIO_ACRE",
+        "dataHora": "07/09/2026, 17:41",
+        "observacao": "Lote reservado com Mestre Caboclo em Cruzeiro do Sul/AC",
+        "responsavel": "Conselho Gestor Litúrgico"
+      }
+    ],
+    "criadoEm": "2026-09-07T20:41:22.075Z",
+    "atualizadoEm": "2026-09-07T20:41:22.410Z",
+    "loteVinculado": "AC-2026-12",
+    "codigoRastreio": "NTV-SP-842-BR2",
+    "previsaoEntrega": "Despacho programado para lua cheia de Outubro"
+  },
+  {
     "id": "SOL-2026-B22E",
     "temploId": "NAT-TEMPLO-842",
     "temploNome": "Templo Céu do Cruzeiro",

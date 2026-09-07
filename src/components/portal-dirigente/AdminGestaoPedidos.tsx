@@ -41,7 +41,7 @@ export const AdminGestaoPedidos: React.FC = () => {
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState("");
   const [busca, setBusca] = useState("");
-  const [filtroStatus, setFiltroStatus] = useState<string>("TODOS");
+  const [filtroStatus, setFiltroStatus] = useState<StatusPedido | "TODOS">("TODOS");
 
   // Modal de edição de pedido
   const [pedidoEditando, setPedidoEditando] = useState<PedidoLiturgico | null>(null);
@@ -268,7 +268,7 @@ export const AdminGestaoPedidos: React.FC = () => {
           <div>
             <select
               value={filtroStatus}
-              onChange={(e) => setFiltroStatus(e.target.value)}
+              onChange={(e) => setFiltroStatus(e.target.value as StatusPedido | "TODOS")}
               className="w-full rounded-xl border border-ambar-500/20 bg-floresta-900/60 px-3.5 py-2.5 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none"
             >
               <option value="TODOS">Todos os Status</option>

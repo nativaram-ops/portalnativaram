@@ -9,28 +9,28 @@ echo    Portal do Associado & Salvaguarda Litúrgica
 echo =======================================================
 echo.
 
-:: Verifica se a porta 3000 ja esta ativa
-powershell -NoProfile -Command "$conn = Get-NetTCPConnection -LocalPort 3000 -State Listen -ErrorAction SilentlyContinue; if ($conn) { exit 0 } else { exit 1 }"
+:: 1. Verifica se o portal ja esta ativo e respondendo com HTTP 200
+curl -I -s http://localhost:3000 | findstr "200" >nul 2>&1
 if %errorlevel% equ 0 (
-    echo [OK] O servidor do portal ja esta ativo na porta 3000.
+    echo [OK] O servidor do portal ja esta ativo e saudavel na porta 3000.
     echo Abrindo o portal no navegador padrao...
     start http://localhost:3000
     timeout /t 2 >nul
     exit /b 0
 )
 
-echo [1/2] Iniciando servidor de desenvolvimento Next.js...
-echo [2/2] O portal sera aberto automaticamente no navegador.
+echo [1/2] Inicializando servidor Turbopack (Next.js 15)...
+echo [2/2] O portal sera aberto automaticamente assim que o servidor estiver pronto.
 echo.
 echo Acesse: http://localhost:3000
 echo Pressione Ctrl+C para encerrar o servidor quando desejar.
 echo =======================================================
 echo.
 
-:: Dispara abertura do navegador com verificacao de prontidao em background
-start "" powershell -NoProfile -WindowStyle Hidden -Command "$url = 'http://localhost:3000'; for ($i = 0; $i -lt 30; $i++) { Start-Sleep -Seconds 1; try { $res = Invoke-WebRequest -Uri $url -TimeoutSec 2 -UseBasicParsing; if ($res.StatusCode -eq 200) { Start-Process $url; break } } catch {} }"
+:: 2. Dispara abertura automatica do navegador quando a porta 3000 responder 200 OK
+start "" powershell -NoProfile -WindowStyle Hidden -Command "for ($i=0; $i -lt 40; $i++) { Start-Sleep -Seconds 1; try { $res = [System.Net.WebRequest]::Create('http://localhost:3000').GetResponse(); if ([int]$res.StatusCode -eq 200) { Start-Process 'http://localhost:3000'; $res.Close(); break } } catch {} }"
 
-:: Inicia o Next.js
+:: 3. Inicia o servidor com auto-cura de porta e Turbopack via scripts/dev.mjs
 cmd.exe /c npm run dev
 
 pause

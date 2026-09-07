@@ -133,6 +133,66 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
+   GLASS & LUMINOUS EFFECTS (PROTOTIPAR UI)
+   ═══════════════════════════════════════════════ */
+.glass-solar {
+  background: rgba(16, 29, 22, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(212, 163, 89, 0.22);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+}
+
+.glass-floresta {
+  background: rgba(11, 20, 15, 0.85);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(22, 40, 30, 0.6);
+  box-shadow: 0 12px 40px -8px rgba(0, 0, 0, 0.6);
+}
+
+.border-glow-amber {
+  border-color: rgba(212, 163, 89, 0.4);
+  box-shadow: 0 0 25px -4px rgba(212, 163, 89, 0.25);
+}
+
+.border-glow-amber:hover {
+  border-color: rgba(212, 163, 89, 0.7);
+  box-shadow: 0 0 35px 2px rgba(212, 163, 89, 0.35);
+}
+
+/* Badge Base — shared structure for all badge variants */
+.badge-base {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.badge-solar {
+  border: 1px solid rgba(212, 163, 89, 0.3);
+  background: rgba(212, 163, 89, 0.12);
+  color: #E3BC72;
+}
+
+.badge-emerald {
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.12);
+  color: #6EE7B7;
+}
+
+.badge-floresta {
+  border: 1px solid rgba(212, 163, 89, 0.2);
+  background: rgba(11, 20, 15, 0.8);
+  color: #D4A359;
+}
+
+/* ═══════════════════════════════════════════════
    GRADIENT BACKGROUNDS
    ═══════════════════════════════════════════════ */
 .gradient-radial-floresta {
@@ -292,12 +352,10 @@ body {
 /* ═══════════════════════════════════════════════
    BUTTON REFINEMENTS
    ═══════════════════════════════════════════════ */
-.btn-primary {
+/* Button Base — shared ambar gradient structure */
+.btn-ambar {
   display: inline-flex;
   align-items: center;
-  gap: 0.625rem;
-  padding: 0.875rem 2rem;
-  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -309,14 +367,28 @@ body {
   transition: all 0.4s var(--ease-out-expo);
 }
 
-.btn-primary:hover {
+.btn-ambar:hover {
   background-position: 100% 100%;
   box-shadow: 0 0 50px 0px rgba(212, 163, 89, 0.4);
   transform: translateY(-1px);
 }
 
-.btn-primary:active {
+.btn-ambar:active {
   transform: scale(0.98);
+}
+
+/* Size: Default (sections, CTAs) */
+.btn-primary {
+  gap: 0.625rem;
+  padding: 0.875rem 2rem;
+  font-size: 0.75rem;
+}
+
+/* Size: Small (navbar, inline) */
+.btn-primary-sm {
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.6875rem;
 }
 
 .btn-secondary {
@@ -369,32 +441,6 @@ body {
   bottom: 0;
   width: 1px;
   background: linear-gradient(180deg, rgba(212, 163, 89, 0.4) 0%, transparent 100%);
-}
-
-/* ═══════════════════════════════════════════════
-   BUTTON VARIANT: Primary Small (Navbar)
-   ═══════════════════════════════════════════════ */
-.btn-primary-sm {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.6875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: #0B140F;
-  background: linear-gradient(135deg, #B8863A, #D4A359, #E3BC72, #D4A359);
-  background-size: 200% 200%;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 30px -5px rgba(212, 163, 89, 0.25);
-  transition: all 0.4s var(--ease-out-expo);
-}
-
-.btn-primary-sm:hover {
-  background-position: 100% 100%;
-  box-shadow: 0 0 50px 0px rgba(212, 163, 89, 0.4);
-  transform: translateY(-1px);
 }
 
 /* ═══════════════════════════════════════════════

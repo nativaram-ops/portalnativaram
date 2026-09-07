@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
 
+  experimental: {
+    optimizePackageImports: ["lucide-react"],
+  },
+
   // Vercel optimiza imagens automaticamente via Edge Network
   // Remover `unoptimized: true` permite WebP/AVIF automático + lazy loading
   images: {

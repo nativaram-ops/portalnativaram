@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
@@ -14,6 +12,7 @@ import {
   Scale,
 } from "lucide-react";
 import { InstagramIcon } from "@/components/ui/icons";
+import { CookiePreferencesButton } from "@/components/ui/CookiePreferencesButton";
 
 const footerLinks = [
   { href: "/", label: "Início" },
@@ -222,16 +221,7 @@ export const Footer = () => {
               Triagem
             </Link>
             <span className="text-floresta-700">·</span>
-            <button
-              onClick={() => {
-                if (typeof window !== "undefined") {
-                  window.dispatchEvent(new CustomEvent("nativaram:open-welcome-modal"));
-                }
-              }}
-              className="hover:text-ambar-400/70 transition-colors cursor-pointer"
-            >
-              Preferências de Cookies
-            </button>
+            <CookiePreferencesButton />
           </div>
         </div>
       </div>

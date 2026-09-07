@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Lock } from "lucide-react";
 import { PageHero } from "@/components/ui/PageHero";
+import { Section } from "@/components/ui/Section";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { PortalDirigenteClient } from "@/components/layout/PortalDirigenteClient";
 
@@ -24,31 +25,30 @@ export default function PortalDirigentePage() {
   return (
     <div className="space-y-0">
       {/* ═══════════════════════════════════════════
-          HERO — Portal do Dirigente
+          HERO COMPOSTO — VERCEL COMPOSITION PATTERNS
           ═══════════════════════════════════════════ */}
-      <PageHero
-        badgeIcon={<Lock className="h-3.5 w-3.5" />}
-        badgeText="Ambiente Seguro de Gestão Litúrgica"
-        maxWidth="max-w-4xl"
-        title={
-          <>
-            Portal do Dirigente{" "}
-            <span className="text-gradient-solar">Homologado</span>
-          </>
-        }
-        description="Área restrita aos templos, igrejas e centros ayahuasqueiros previamente cadastrados e aprovados pela Cooperativa Nativaram Brasil."
-      />
+      <PageHero maxWidth="max-w-4xl">
+        <PageHero.Badge
+          icon={<Lock className="h-3.5 w-3.5" />}
+          text="Ambiente Seguro de Gestão Litúrgica"
+        />
+        <PageHero.Title>
+          Portal do Dirigente{" "}
+          <span className="text-gradient-solar">Homologado</span>
+        </PageHero.Title>
+        <PageHero.Description>
+          Área restrita aos templos, igrejas e centros ayahuasqueiros previamente cadastrados e aprovados pela Cooperativa Nativaram Brasil.
+        </PageHero.Description>
+      </PageHero>
 
       <SectionDivider variant="solar" />
 
       {/* ═══════════════════════════════════════════
-          LOGIN OU DASHBOARD
+          SESSÃO DE AUTENTICAÇÃO E GESTÃO LITÚRGICA
           ═══════════════════════════════════════════ */}
-      <section className="py-section-lg">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
-          <PortalDirigenteClient />
-        </div>
-      </section>
+      <Section padding="lg" maxWidth="max-w-5xl">
+        <PortalDirigenteClient />
+      </Section>
     </div>
   );
 }

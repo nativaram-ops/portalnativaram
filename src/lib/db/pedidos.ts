@@ -48,7 +48,7 @@ const SEED_PEDIDOS: PedidoLiturgico[] = [
     rateioTotal: 2730,
     dataCerimoniaPretendida: "2026-10-15",
     mensagemIntencao:
-      "Trabalho de Alinhamento e Cura Espiritual de Primavera. Solicitamos especial atenção à refrigeração durante o transporte aéreo.",
+      "Trabalho de Alinhamento e Renovação Espiritual de Primavera. Solicitamos especial atenção à refrigeração durante o transporte aéreo.",
     status: "EM_TRANSITO_REFRIGERADO",
     loteVinculado: "AC-2026-08",
     codigoRastreio: "NTV-SP-842-BR",

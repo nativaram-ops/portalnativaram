@@ -10,11 +10,27 @@ import { StatusPedido } from "@/types/pedido";
 
 const WHATSAPP_CONSELHO_PADRAO = "5568999979104";
 
+const STATUS_VALIDOS: readonly string[] = [
+  "SOLICITADO",
+  "HOMOLOGADO_CONSELHO",
+  "EM_FEITIO_ACRE",
+  "AGUARDANDO_DESPACHO",
+  "EM_TRANSITO_REFRIGERADO",
+  "ENTREGUE_CONSAGRADO",
+  "CANCELADO_AJUSTE",
+  "TODOS",
+] as const;
+
+function parseStatus(raw: string | null): StatusPedido | "TODOS" | undefined {
+  if (!raw) return undefined;
+  return STATUS_VALIDOS.includes(raw) ? (raw as StatusPedido | "TODOS") : undefined;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const temploId = searchParams.get("temploId") || undefined;
-    const status = (searchParams.get("status") as StatusPedido | "TODOS") || undefined;
+    const status = parseStatus(searchParams.get("status"));
     const busca = searchParams.get("busca") || undefined;
     const incluirMetricas = searchParams.get("metricas") === "true";
 
