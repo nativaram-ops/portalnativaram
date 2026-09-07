@@ -26,11 +26,7 @@ export const CredenciamentoForm = () => {
     reset,
   } = useForm<CredenciamentoInput>({
     resolver: zodResolver(CredenciamentoSchema),
-    defaultValues: {
-      concordaComConad012010: true,
-      declaraAusenciaFinsLucrativos: true,
-      planejamento30Dias: true,
-    },
+    defaultValues: {},
   });
 
   const onSubmit = async (data: CredenciamentoInput) => {
@@ -233,11 +229,11 @@ export const CredenciamentoForm = () => {
             {...register("graduacaoPretendida")}
           >
             <option value="10.1_WIRAPURU">10.1 Wirapuru (Semi-Mel / Condução de Alta Força)</option>
-            <option value="7.1_ANHANGATA">7.1 Anhangatã (Rouxinol / Imersão e Cura)</option>
+            <option value="7.1_ANHANGATA">7.1 Anhangatã (Rouxinol / Imersão e Reconexão Profunda)</option>
             <option value="5.1_PITUA">5.1 Pituã (Bem-te-vi / Equilíbrio e Firmeza)</option>
             <option value="3.1_MAINUMBI">3.1 Mainumbi (Beija-flor / Voo Suave e Iniciantes)</option>
-            <option value="MEDICINA_MEL">Medicina Mel (Alta Concentração / Redução Logística - Valor a Combinar)</option>
-            <option value="MEDICINA_GEL">Medicina Gel (Densidade Extrema / Máxima Conservação - Valor a Combinar)</option>
+            <option value="MEDICINA_MEL">Medicina Mel (Alta Concentração / Redução Logística — Rateio Sob Consulta)</option>
+            <option value="MEDICINA_GEL">Medicina Gel (Densidade Extrema / Máxima Conservação — Rateio Sob Consulta)</option>
             <option value="OUTRAS_GRADUACOES_COMBINAR">Outras Graduações Sob Medida (Combinado Antecipado)</option>
           </Select>
           <Textarea

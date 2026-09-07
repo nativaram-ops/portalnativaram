@@ -9,8 +9,9 @@ import { Lock, Menu, X, ShieldCheck, Sparkles } from "lucide-react";
 const navLinks = [
   { href: "/", label: "Início" },
   { href: "/institucional", label: "O Manifesto" },
+  { href: "/estudos", label: "Estudos", badge: "PDFs" },
   { href: "/feitio", label: "Feitio Purista" },
-  { href: "/medicinas", label: "Medicinas", badge: "Loja" },
+  { href: "/medicinas", label: "Sacramentos" },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal", icon: true },
   { href: "/contato", label: "Contato" },
@@ -36,6 +37,7 @@ export const Navbar = () => {
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
+    if (href === "/institucional") return pathname === "/institucional" || pathname === "/manifesto";
     return pathname.startsWith(href);
   };
 

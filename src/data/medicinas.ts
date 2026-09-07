@@ -37,7 +37,7 @@ export const medicinas: Medicina[] = [
       "Ao unir o tabaco forte com as cinzas alcalinas do Tsunu e os óleos naturais do Eucalipto e do Alecrim, esta mistura cria uma resposta imediata de desobstrução e foco, preservando os sais minerais e nutrientes essenciais das folhas mesmo após o fogo da queima.",
     beneficios: {
       fisico:
-        "Ajuda na limpeza profunda do peito e do nariz, aliviando gripes, tosses e resfriados sazonais de forma rápida e natural.",
+        "Favorece a sensação de desobstrução e frescor do peito e do nariz, suavizando desconfortos sazonais de forma sutil e natural.",
       mental:
         "Traz uma clareza de pensamento maravilhosa, ajudando a se concentrar em tarefas difíceis sem aquela sensação de estafa.",
       sutil:
@@ -68,7 +68,7 @@ export const medicinas: Medicina[] = [
       "O cacau fornece a teobromina, um composto altamente resistente ao calor que mantém 90% de sua força após a queima ritualística. A teobromina atua abrindo suavemente os vasos de sangue e relaxando o sistema cardiovascular.",
     beneficios: {
       fisico:
-        "Melhora a circulação do corpo, aliviando a fadiga muscular e as tensões causadas pela estafa física.",
+        "Favorece a fluidez circulatória corporal, suavizando a sensação de cansaço muscular e tensões físicas.",
       mental:
         "Estimula os hormônios do bem-estar e da felicidade no cérebro, diminuindo sentimentos de tristeza profunda e desânimo.",
       sutil:
@@ -78,7 +78,7 @@ export const medicinas: Medicina[] = [
       "Consagre quando buscar um momento de reconexão consigo mesmo. Sente-se confortavelmente, use um kuripe ou tepi, respirando de forma pausada pela boca, integrando os sentimentos na frequência harmônica de 432Hz.",
     cuidados:
       "Contém nicotina. Evitar uso concomitante com estimulantes cardíacos sintéticos pesados.",
-    referencias: "Rocha (2023); Yunka (2026); Vida Produtos de Valor (2026).",
+    referencias: "Rocha (2023); Yunka (2026); Vida — Tradições de Valor (2026).",
     forca: "suave",
     chakras: ["Chakra Cardíaco (Anahata)"],
     emoji: "🤎",
@@ -98,7 +98,7 @@ export const medicinas: Medicina[] = [
       "Embora a cumarina original se degrade parcialmente com altas temperaturas, a queima lenta deixa uma cinza mineral rica em potássio e cálcio biodisponíveis combinados com os óleos balsâmicos do Breu Preto.",
     beneficios: {
       fisico:
-        "Potente broncodilatador e descongestionante pulmonar. Alivia dores de cabeça causadas por peso nos seios da face.",
+        "Proporciona sensação de abertura respiratória e frescor nasal, acolhendo o peso e a pressão na fronte e na face.",
       mental:
         "Corta na hora o fluxo de pensamentos repetitivos, obsessivos ou loops de preocupação, trazendo estabilidade cognitiva e foco.",
       sutil:
@@ -109,7 +109,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Apenas para adultos (+18). Siga as orientações de proporção segura e respeitosa.",
     referencias:
-      "Oliveira et al. (2020); Huni Kuin Tradition (2023); Vida Produtos de Valor (2026).",
+      "Oliveira et al. (2020); Huni Kuin Tradition (2023); Vida — Tradições de Valor (2026).",
     forca: "forte",
     chakras: ["Chakra Básico (Muladhara)", "Chakra Coronário (Sahasrara)"],
     emoji: "🛡️",
@@ -129,7 +129,7 @@ export const medicinas: Medicina[] = [
       "O fitoativo visionário DMT presente na casca da raiz viva sofre degradação térmica completa acima de 250°C. Assim, o rapé é 100% livre de efeitos psicoativos, retendo taninos cicatrizantes e minerais termoestáveis.",
     beneficios: {
       fisico:
-        "Atua como um potente adstringente e cicatrizante natural das vias nasais superiores, reduzindo a irritação de mucosas.",
+        "Atua como adstringente botânico das vias respiratórias superiores, acolhendo tecidos e promovendo proteção natural.",
       mental:
         "Promove uma estabilização imediata contra descompassos emocionais, devolvendo o equilíbrio e a presença.",
       sutil:
@@ -140,7 +140,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Não recomendado para grávidas, lactantes ou indivíduos com sensibilidade severa ao tabaco.",
     referencias:
-      "Lima (2020); de Souza et al. (2008); Kariri-Xocó Tradition (2023); Vida Produtos de Valor (2026).",
+      "Lima (2020); de Souza et al. (2008); Kariri-Xocó Tradition (2023); Vida — Tradições de Valor (2026).",
     forca: "forte",
     chakras: ["Chakra Básico (Muladhara)"],
     emoji: "🌳",
@@ -160,7 +160,7 @@ export const medicinas: Medicina[] = [
       "O mentol natural é um composto terpênico altamente volátil. O feitio exclusivo garante que a menta seja homogeneizada em etapas estritamente frias pós-calcinação, preservando 100% de sua potência.",
     beneficios: {
       fisico:
-        "Rápida desobstrução das vias aéreas superiores. Conforto de enxaquecas, dores de cabeça tensionais e cansaço visual.",
+        "Rápida sensação de frescor e desobstrução das vias respiratórias superiores, acolhendo a tensão na fronte e o cansaço visual.",
       mental:
         "Promove uma rápida agilidade mental e foco ativo através do estímulo térmico, nutrindo a vitalidade diurna.",
       sutil:
@@ -191,7 +191,7 @@ export const medicinas: Medicina[] = [
       "A casca do Mulateiro é extremamente rica em ácido ursólico e lignanas com potente ação antioxidante. O ácido ursólico é termoestável e preserva até 80% de sua atividade na calcinação.",
     beneficios: {
       fisico:
-        "Cicatrizante natural e protetor das vias respiratórias, aliviando o peso e as pressões acumuladas na cabeça.",
+        "Protetor botânico das vias respiratórias, suavizando a sensação de peso e pressões acumuladas na fronte.",
       mental:
         "Estimula o equilíbrio bilateral, quebrando pensamentos obsessivos e ajudando a dissolver tensões intelectuais.",
       sutil:
@@ -222,9 +222,9 @@ export const medicinas: Medicina[] = [
       "A casca do Murici é uma fonte abundante de ferro, potássio, vitamina C e taninos. A calcinação controlada resulta em uma cinza rica em potássio e ferro bioativos que aumentam a condutividade e a resposta corporal de vigor.",
     beneficios: {
       fisico:
-        "Reduz os sintomas de desconfortos respiratórios, atuando como um anti-inflamatório que ajuda a nutrir o vigor corporal.",
+        "Suaviza estados de sensibilidade respiratória, promovendo sensação de frescor e nutrindo o vigor corporal.",
       mental:
-        "Nutre a vitalidade mental, ativando as vias cognitivas de ação, presença e foco sob estresse intelectual.",
+        "Nutre a vitalidade mental, ativando as vias cognitivas de ação, presença e foco diante de elevadas demandas intelectuais.",
       sutil:
         "Fortalece o Chakra Umbilical (Plexo Solar) e o Chakra Cardíaco, trazendo coragem e equilibrando a energia vital.",
     },
@@ -254,7 +254,7 @@ export const medicinas: Medicina[] = [
       "Estudos preliminares sugerem que a folha de Nissural é rica em fitocomplexos nobres. A moagem ultrafina preservada em cinzas alcalinas de Tsunu facilita o tráfego de neurotransmissores de introspecção.",
     beneficios: {
       fisico:
-        "Alivia tensões na região da testa e cabeça, auxiliando no conforto de dores de origem tensional e cansaço visual.",
+        "Suaviza tensões na região da fronte, auxiliando no acolhimento do cansaço mental e visual.",
       mental:
         "Promove um estado de clareza intuitiva, acalmando o pensar acelerado e organizando as sinapses para a meditação.",
       sutil:
@@ -285,18 +285,18 @@ export const medicinas: Medicina[] = [
       "Diferente de pós inalados alucinógenos como o Yopo, o rapé feito com a casca de Schizolobium amazonicum é livre de efeitos visionários. A queima acima de 250°C degrada totalmente qualquer composto triptamínico, resultando em uma cinza altamente alcalina de rápida ação.",
     beneficios: {
       fisico:
-        "Desobstrução profunda das vias aéreas superiores, promovendo conforto imediato da pressão sinusal e cansaços oculares.",
+        "Desobstrução profunda das vias respiratórias superiores, promovendo sensação de alívio da pressão frontal e serenidade ocular.",
       mental:
         "Ativação de hiperconsciência, cortando loops de preocupação, medos e cansaços intelectuais.",
       sutil:
         "Abre o Chakra Coronário e o Plexo Solar, dispensando bloqueios áuricos e ativando o guerreiro interior.",
     },
     diretrizes:
-      "Por ser um rapé de força extra-forte, consagre com postura firme e intenção focada. Mantenha a respiração pela boca. Sintonize com sons de fogueira, tambor de cura em 432Hz.",
+      "Por ser um rapé de força extra-forte, consagre com postura firme e intenção focada. Mantenha a respiração pela boca. Sintonize com sons de fogueira, tambor cerimonial em 432Hz.",
     cuidados:
       "Contém nicotina. Não recomendado para iniciantes sem acompanhamento ou pessoas com crises inflamatórias agudas da mucosa.",
     referencias:
-      "Santos (2019); Vida Produtos de Valor (2026); Yanomami Tradition (2023); Nativaram Brasil (2026).",
+      "Santos (2019); Vida — Tradições de Valor (2026); Yanomami Tradition (2023); Nativaram Brasil (2026).",
     forca: "extra-forte",
     chakras: ["Chakra Coronário (Sahasrara)", "Plexo Solar (Manipura)"],
     emoji: "🔥",
@@ -316,7 +316,7 @@ export const medicinas: Medicina[] = [
       "As sementes de Pixuri contêm teores elevados de linalol (composto sedativo e neuroprotetor). Processo de moagem ultrafina à sombra que preserva os fitocomplexos aromáticos que atuam no relaxamento celular.",
     beneficios: {
       fisico:
-        "Vasodilatador natural suave, auxiliando no conforto de cefaleias circulatórias e promovendo relaxamento muscular do corpo.",
+        "Favorece o relaxamento suave e a sensação de fluidez, acolhendo tensões na região da fronte e promovendo calmaria corporal.",
       mental:
         "Reduz as tensões mentais diárias e a agitação pré-sono, induzindo o cérebro a emitir ondas de relaxamento profundo (alfa e theta).",
       sutil:
@@ -327,7 +327,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Conservar o frasco âmbar fechado para evitar a volatilização de seus aromas nobres.",
     referencias:
-      "Ribeiro (2022); HariOM Roots (2026); Vida Produtos de Valor (2026).",
+      "Ribeiro (2022); HariOM Roots (2026); Vida — Tradições de Valor (2026).",
     forca: "suave",
     chakras: ["Chakra Frontal (Ajna)", "Chakra Cardíaco (Anahata)"],
     emoji: "🌙",
@@ -347,7 +347,7 @@ export const medicinas: Medicina[] = [
       "Embora a folha in natura contenha compostos visionários, o calor do feitio acima de 200°C provoca a degradação térmica completa do DMT. O rapé não possui efeitos psicoativos, retendo flavonoides e taninos termoestáveis que equilibram as células mucosas.",
     beneficios: {
       fisico:
-        "Ação anti-inflamatória e protetora local das mucosas superiores nasais, auxiliando na redução de irritações respiratórias.",
+        "Ação suavizante e protetora local das mucosas respiratórias superiores, acolhendo estados de sensibilidade nasal.",
       mental:
         "Estimula a síntese de serotonina e endorfinas, diminuindo as tensões do dia e promovendo paz mental.",
       sutil:
@@ -378,7 +378,7 @@ export const medicinas: Medicina[] = [
       "As cinzas de Samaúma e Ipê-Amarelo são extremamente ricas em óxidos de potássio, cálcio e lapachol residual. Essa elevada riqueza de eletrólitos minerais confere ao preparado uma altíssima condutividade, facilitando as sinapses neurais de foco.",
     beneficios: {
       fisico:
-        "Expande de forma natural a capacidade respiratória pulmonar superior e auxilia na redução de estresses musculares posturais.",
+        "Favorece a expansão natural da respiração e auxilia na suavização de tensões musculares posturais.",
       mental:
         "Acalma o fluxo desordenado de preocupações lógicas diárias, organizando as ideias e aumentando a clareza para decisões.",
       sutil:
@@ -409,7 +409,7 @@ export const medicinas: Medicina[] = [
       "As cinzas alcalinas de Tsunu (pH ≈ 9,5) misturadas às folhas ricas em flavonoides e alcaloides sedativos de Sansara despolarizam suavemente os receptores nasais, reduzindo a liberação de noradrenalina e promovendo o relaxamento dos lobos cerebrais.",
     beneficios: {
       fisico:
-        "Alivia tensões na região de ombros e pescoço provocados por somatizações corporais e cansaços intelectuais crônicos.",
+        "Suaviza tensões na região dos ombros e pescoço acumuladas pelo ritmo acelerado do dia a dia.",
       mental:
         "Favorece a quebra de hábitos repetitivos e silencia as tensões acumuladas na cabeça, promovendo clareza de foco.",
       sutil:
@@ -468,10 +468,10 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado artesanalmente sob rezas de harmonização profunda por nosso feitor caboclo com mais de 20 anos de estudos em diversas etnias da Amazônia. Matéria-prima coletada de forma ecológica.",
     alquimiaFitoquimica:
-      "Une as cinzas de Samaúma às folhas moídas de Cipó-Jiboia que contêm fitocomplexos nobres, saponinas e linalol termoestável. Essa sinergia desintoxica as vias aéreas superiores e atua de forma imunoestimulante.",
+      "Une as cinzas de Samaúma às folhas moídas de Cipó-Jiboia que contêm fitocomplexos nobres, saponinas e linalol termoestável. Essa sinergia promove a pureza das vias respiratórias superiores e apoia a vitalidade natural do organismo.",
     beneficios: {
       fisico:
-        "Atua limpando e tonificando o fluxo circulatório corporal geral, aliviando a fadiga profunda e cansaço de pernas pesadas.",
+        "Atua tonificando o fluxo de energia corporal geral, acolhendo o cansaço do corpo e a sensação de peso nas pernas.",
       mental:
         "Excelente facilitador do transe meditativo calmo (ondas theta), limpando a estafa intelectual e favorecendo a clareza.",
       sutil:

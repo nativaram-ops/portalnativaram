@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ComplianceBanner } from "@/components/layout/ComplianceBanner";
+import { WelcomeConsentModal } from "@/components/ui/WelcomeConsentModal";
 import { WhatsAppFAB } from "@/components/ui/WhatsAppFAB";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
 
@@ -133,6 +134,7 @@ export default function RootLayout({
         </a>
 
         <ComplianceBanner />
+        <WelcomeConsentModal />
         <Navbar />
         <main id="main-content" className="flex-1 w-full">{children}</main>
         <Footer />

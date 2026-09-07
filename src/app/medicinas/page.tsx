@@ -445,8 +445,8 @@ export default function MedicinasPage() {
                   tag: "Partilha em Dupla",
                   type: "Coletivo",
                   title: "Tepi de Madeira Nobre",
-                  desc: "Transmissão de cura por meio do hálito de vida em círculos cerimoniais.",
-                  footer: "Sopro de Amizade & Cura",
+                  desc: "Transmissão de harmonia por meio do hálito de vida em círculos cerimoniais.",
+                  footer: "Sopro de Amizade & Harmonização",
                 },
                 {
                   tag: "Sinergia Sagrada",

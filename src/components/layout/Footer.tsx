@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
@@ -16,8 +18,9 @@ import { InstagramIcon } from "@/components/ui/icons";
 const footerLinks = [
   { href: "/", label: "Início" },
   { href: "/institucional", label: "O Manifesto" },
+  { href: "/estudos", label: "Estudos & Dossiês" },
   { href: "/feitio", label: "Feitio Purista" },
-  { href: "/medicinas", label: "Medicinas Sagradas" },
+  { href: "/medicinas", label: "Sacramentos" },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal" },
   { href: "/contato", label: "Contato" },
@@ -193,7 +196,7 @@ export const Footer = () => {
 
         {/* Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-floresta-800/60 py-6 text-[10px] text-areia-400/50">
-          <span>
+          <span suppressHydrationWarning>
             © {new Date().getFullYear()} Nativaram Brasil — Nascidos do Raio de
             Sol
           </span>
@@ -218,6 +221,17 @@ export const Footer = () => {
             >
               Triagem
             </Link>
+            <span className="text-floresta-700">·</span>
+            <button
+              onClick={() => {
+                if (typeof window !== "undefined") {
+                  window.dispatchEvent(new CustomEvent("nativaram:open-welcome-modal"));
+                }
+              }}
+              className="hover:text-ambar-400/70 transition-colors cursor-pointer"
+            >
+              Preferências de Cookies
+            </button>
           </div>
         </div>
       </div>

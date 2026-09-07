@@ -459,7 +459,7 @@ export const PortalDirigenteClient = () => {
           ].map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
+              onClick={() => setActiveTab(tab.id as typeof activeTab)}
               className={`px-4 py-3 rounded-xl text-xs font-semibold whitespace-nowrap flex items-center gap-2 transition-all ${
                 activeTab === tab.id
                   ? "bg-ambar-500 text-floresta-950 font-bold shadow-md"

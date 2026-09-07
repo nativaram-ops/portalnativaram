@@ -21,6 +21,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function InstitucionalPage() {
+export default function ManifestoPage() {
   return <ManifestoLanding />;
 }
