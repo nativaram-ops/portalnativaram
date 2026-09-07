@@ -58,6 +58,8 @@ src/
 3. **Ciência Biogeoquímica nos Rapés:** Seção documental demonstrando o tamponamento alcalino (pH 9,75 a 10,2) para absorção em base livre e a calcinação purista (>250°C) que extingue DMT, atestando caráter estritamente não alucinógeno.
 4. **Sananga Segura:** Alerta obrigatório de intervalo de 24 horas antes e após uso de lentes de contato, contraindicação pós-cirúrgica e cadeia de refrigeração obrigatória (4°C).
 5. **Rodapé Obrigatório (+18):** Aviso institucional de ausência de promessas terapêuticas e cumprimento integral do Marco Sanitário ANVISA 2025.
+6. **Homologação e Verificação Integral:** 100% das 31 páginas e rotas validadas com sucesso (HTTP 200), TypeScript rigoroso e compliance estrito.
+7. **Governança de Cache Local & Webpack:** Eliminação de processos órfãos na porta 3000 (`taskkill /PID <PID> /F`) e purga do diretório `.next` para evitar descompasso de chunks HMR (`__webpack_modules__`). Sincronização limpa com o repositório GitHub (`origin/main`).
 
 ---
 
