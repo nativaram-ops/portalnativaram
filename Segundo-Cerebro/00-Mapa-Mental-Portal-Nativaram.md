@@ -81,3 +81,4 @@ Este mapa mental organiza toda a inteligência e o acervo extraído dos cadernos
 - [[Dicionario-Semantico-Nativaram]]
 - [[Projetos-de-Luz-e-Editais]]
 - [[Roadmap-e-Componentes-do-Site]]
+- [[Guia-de-Skills-e-Comandos]]

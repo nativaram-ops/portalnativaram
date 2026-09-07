@@ -88,38 +88,61 @@ O conteúdo do Obsidian fica localizado em:
 - **Prioridades Permitidas:** `alta`, `média`, `baixa`, `contínua/obrigatória`.
 - **Separação Importante:** Arquivos de instrução e skills ficam fora do vault (na raiz ou em `.agents/`). Nunca crie regras ou skills dentro de `Segundo-Cerebro/`. Nunca altere `.obsidian/` ou configurações internas do Obsidian.
 
-## Mapeamento de Skills do Agente
+## Mapeamento de Skills do Agente (Organizadas por Setor)
 
-Abaixo estão listadas as habilidades específicas disponíveis no diretório `.agents/skills/` e as diretrizes de quando utilizá-las:
+As habilidades especializadas do projeto estão localizadas em `.agents/skills/` e podem ser acionadas a qualquer momento digitando `/` no chat:
 
-### Segundo Cérebro & Obsidian
-1. **Sugerir Registro no Obsidian** (`.agents/skills/sugerir-registro-obsidian/SKILL.md`):
-   - **Quando usar:** Ao finalizar qualquer tarefa técnica complexa, instalação de novas ferramentas ou decisões arquiteturais importantes. Serve para avaliar se o resultado deve virar uma nota no vault e propor o rascunho no final do turno sem criar diretamente.
-2. **Atualizar Projeto** (`.agents/skills/atualizar-projeto/SKILL.md`):
-   - **Quando usar:** Ao receber solicitações para alterar detalhes, escopo, informações gerais ou conteúdo do corpo de uma nota de projeto existente no vault.
-3. **Atualizar Status** (`.agents/skills/atualizar-status/SKILL.md`):
-   - **Quando usar:** Quando o usuário pedir especificamente para mudar o status de uma nota (ex: de "ideia" para "em andamento" ou "pronto").
-4. **Auditar Conteúdo Mockado** (`.agents/skills/auditar-conteudo-mockado/SKILL.md`):
-   - **Quando usar:** Ao ser solicitado a realizar auditoria, revisão ou limpeza de informações fictícias ou temporárias nas notas do vault.
-5. **Criar Projeto Real** (`.agents/skills/criar-projeto-real/SKILL.md`):
-   - **Quando usar:** Sempre que for aprovada a criação de uma nova nota de projeto no vault, garantindo a aplicação dos templates padrão e YAML simples.
-6. **NotebookLM Integration** (`.agents/skills/notebooklm/SKILL.md` / `.agents/skills/notebooklmia/SKILL.md`):
-   - **Quando usar:** Quando o usuário pedir para integrar notas do Obsidian com o Google NotebookLM, extrair resumos de fontes do NotebookLM, fazer perguntas sobre os notebooks ou gerar podcasts (Audio Overviews).
-7. **Registrar Decisão** (`.agents/skills/registrar-decisao/SKILL.md`):
-   - **Quando usar:** Quando uma decisão técnica, escolha de design ou arquitetura de software precisar ser formalmente registrada no vault.
-8. **Registrar Ideia** (`.agents/skills/registrar-ideia/SKILL.md`):
-   - **Quando usar:** Ao receber ideias soltas ou sugestões rápidas que devam ser salvas na Inbox do Obsidian, sem criar um projeto formal imediatamente.
-9. **Registrar Relação** (`.agents/skills/registrar-relacao/SKILL.md`):
-   - **Quando usar:** Quando for necessário criar ou atualizar conexões/relações (`[[Link]]`) entre diferentes notas no corpo do vault.
-10. **Revisar Dashboard** (`.agents/skills/revisar-dashboard/SKILL.md`):
-    - **Quando usar:** Ao receber tarefas de revisão do progresso geral dos projetos ou do dashboard principal do vault.
-11. **Configuração do Segundo Cérebro (Second Brain)** (`.agents/skills/second-brain/SKILL.md`):
-    - **Quando usar:** Para reconfigurar, atualizar ou sincronizar as diretrizes do Segundo Cérebro e o mapeamento das skills no `AGENTS.md`.
+### Setor 1: Segundo Cérebro (Obsidian & Vault)
+1. **`/segundo-cerebro-atualizar-projeto`** (`.agents/skills/segundo-cerebro-atualizar-projeto/SKILL.md`): Atualizar detalhes, escopo ou relações de notas de projetos existentes no vault.
+2. **`/segundo-cerebro-atualizar-status`** (`.agents/skills/segundo-cerebro-atualizar-status/SKILL.md`): Alterar o status de uma nota (ideia, planejamento, em andamento, pronto, etc.).
+3. **`/segundo-cerebro-auditar-conteudo`** (`.agents/skills/segundo-cerebro-auditar-conteudo/SKILL.md`): Auditar, revisar e higienizar informações mockadas ou temporárias nas notas.
+4. **`/segundo-cerebro-criar-projeto`** (`.agents/skills/segundo-cerebro-criar-projeto/SKILL.md`): Criar nova nota de projeto no vault com templates padrão e frontmatter YAML simples.
+5. **`/segundo-cerebro-registrar-decisao`** (`.agents/skills/segundo-cerebro-registrar-decisao/SKILL.md`): Registrar decisões técnicas ou de arquitetura formalmente no vault.
+6. **`/segundo-cerebro-registrar-ideia`** (`.agents/skills/segundo-cerebro-registrar-ideia/SKILL.md`): Salvar ideias rápidas na Inbox do Obsidian para análise futura.
+7. **`/segundo-cerebro-registrar-relacao`** (`.agents/skills/segundo-cerebro-registrar-relacao/SKILL.md`): Criar ou atualizar conexões/relações (`[[Link]]`) entre diferentes notas.
+8. **`/segundo-cerebro-revisar-dashboard`** (`.agents/skills/segundo-cerebro-revisar-dashboard/SKILL.md`): Revisar o progresso geral e o dashboard principal de projetos do vault.
+9. **`/segundo-cerebro-sugerir-registro`** (`.agents/skills/segundo-cerebro-sugerir-registro/SKILL.md`): Avaliar se marcos técnicos complexos devem ser registrados no vault e propor rascunho.
+10. **`/segundo-cerebro-configuracao`** (`.agents/skills/segundo-cerebro-configuracao/SKILL.md`): Configurar e sincronizar as regras do Segundo Cérebro e o `AGENTS.md`.
 
-### Engenharia & Governança de Código
-- **Code Review** (`.agents/skills/code-review/SKILL.md`): Para revisar código em relação a padrões da base e especificação.
-- **Diagnóstico de Bugs** (`.agents/skills/diagnosing-bugs/SKILL.md`): Para investigar falhas e regressões de performance de forma sistemática.
-- **Modelagem de Domínio** (`.agents/skills/domain-modeling/SKILL.md`): Para alinhar vocabulário ubíquo e manter `CONTEXT.md` e ADRs.
-- **TDD** (`.agents/skills/tdd/SKILL.md`): Para desenvolvimento guiado por testes.
-- **Pesquisa Técnica** (`.agents/skills/research/SKILL.md`): Para investigar documentações e fontes primárias registrando descobertas.
+### Setor 2: Engenharia & Código (Desenvolvimento & Resiliência)
+11. **`/engenharia-revisar-codigo`** (`.agents/skills/engenharia-revisar-codigo/SKILL.md`): Revisar código recente em relação a padrões da base (standards) e cumprimento da especificação (spec).
+12. **`/engenharia-diagnosticar-bugs`** (`.agents/skills/engenharia-diagnosticar-bugs/SKILL.md`): Investigação e diagnóstico sistemático de falhas, erros de runtime e regressões.
+13. **`/engenharia-resolver-conflitos-git`** (`.agents/skills/engenharia-resolver-conflitos-git/SKILL.md`): Guia seguro para resolver conflitos de merge ou rebase no Git.
+14. **`/engenharia-guardrails-git`** (`.agents/skills/engenharia-guardrails-git/SKILL.md`): Configurar travas e proteções para impedir comandos destrutivos no Git.
+15. **`/engenharia-implementar-especificacao`** (`.agents/skills/engenharia-implementar-especificacao/SKILL.md`): Implementar uma feature ou conjunto de tickets seguindo uma especificação técnica.
+16. **`/engenharia-melhorar-arquitetura`** (`.agents/skills/engenharia-melhorar-arquitetura/SKILL.md`): Escanear a base em busca de desacoplamento e aprofundamento de módulos.
+17. **`/engenharia-migrar-tipos-shoehorn`** (`.agents/skills/engenharia-migrar-tipos-shoehorn/SKILL.md`): Migrar asserções inseguras `as` em testes TypeScript para tipagem estruturada.
+
+### Setor 3: Testes & Qualidade (TDD & CI)
+18. **`/testes-desenvolvimento-tdd`** (`.agents/skills/testes-desenvolvimento-tdd/SKILL.md`): Desenvolvimento guiado por testes no ciclo Red-Green-Refactor.
+19. **`/testes-configurar-pre-commit`** (`.agents/skills/testes-configurar-pre-commit/SKILL.md`): Configurar hooks de pré-commit (Husky, lint-staged, formatação e TypeScript).
+20. **`/testes-estruturar-exercicios`** (`.agents/skills/testes-estruturar-exercicios/SKILL.md`): Criar estruturas didáticas com testes e gabaritos automatizados.
+
+### Setor 4: Arquitetura & Domínio
+21. **`/arquitetura-design-modular`** (`.agents/skills/arquitetura-design-modular/SKILL.md`): Projetar módulos profundos com interfaces simples e desacopladas.
+22. **`/arquitetura-modelagem-dominio`** (`.agents/skills/arquitetura-modelagem-dominio/SKILL.md`): Alinhar o vocabulário ubíquo do projeto, manter `CONTEXT.md` e ADRs.
+23. **`/arquitetura-prototipar-ui`** (`.agents/skills/arquitetura-prototipar-ui/SKILL.md`): Criar protótipos funcionais rápidos de interface para validação visual e ergonômica.
+
+### Setor 5: Produtividade & IA
+24. **`/produtividade-integracao-notebooklm`** (`.agents/skills/produtividade-integracao-notebooklm/SKILL.md`): Consultar notebooks, sincronizar notas do Obsidian e gerar áudios/podcasts via Google NotebookLM.
+25. **`/produtividade-pesquisa-tecnica`** (`.agents/skills/produtividade-pesquisa-tecnica/SKILL.md`): Pesquisa técnica aprofundada com fontes primárias oficiais e registro em Markdown.
+26. **`/produtividade-sabatina-decisoes`** (`.agents/skills/produtividade-sabatina-decisoes/SKILL.md`): Sabatina rigorosa (Grill Me) para estressar e validar planos, decisões e premissas.
+27. **`/produtividade-assistente-wizard`** (`.agents/skills/produtividade-assistente-wizard/SKILL.md`): Gerar assistentes interativos passo a passo (wizard) para operações manuais.
+28. **`/produtividade-orientacao-skills`** (`.agents/skills/produtividade-orientacao-skills/SKILL.md`): Orientar o desenvolvedor sobre qual skill ou abordagem utilizar na tarefa.
+
+### Setor 6: Gestão & Fluxo de Trabalho
+29. **`/gestao-triagem-issues`** (`.agents/skills/gestao-triagem-issues/SKILL.md`): Triagem sistemática, categorização e etiquetagem de issues no GitHub.
+30. **`/gestao-especificacao-tecnica`** (`.agents/skills/gestao-especificacao-tecnica/SKILL.md`): Transformar conversas e ideias em especificações técnicas formais e acionáveis.
+31. **`/gestao-gerar-tickets`** (`.agents/skills/gestao-gerar-tickets/SKILL.md`): Quebrar planos e especificações em subtarefas e tickets incrementais.
+32. **`/gestao-questionario-requisitos`** (`.agents/skills/gestao-questionario-requisitos/SKILL.md`): Formular questionários objetivos para resolver requisitos ambíguos.
+33. **`/gestao-handoff-sessao`** (`.agents/skills/gestao-handoff-sessao/SKILL.md`): Compactar e preparar a transição de contexto para uma nova sessão do agente.
+34. **`/gestao-retrospectiva`** (`.agents/skills/gestao-retrospectiva/SKILL.md`): Conduzir retrospectivas técnicas ao fim de marcos de entrega.
+35. **`/gestao-mapa-navegacao`** (`.agents/skills/gestao-mapa-navegacao/SKILL.md`): Planejar e monitorar iniciativas de grande porte através de um mapa de decisões.
+
+### Setor 7: Documentação & Redação
+36. **`/documentacao-escrita-para-agentes`** (`.agents/skills/documentacao-escrita-para-agentes/SKILL.md`): Escrever regras, skills e documentações de alta fidelidade para agentes de IA.
+37. **`/documentacao-redacao-estruturada`** (`.agents/skills/documentacao-redacao-estruturada/SKILL.md`): Redigir artigos, manifestos e textos analíticos parágrafo a parágrafo.
+38. **`/documentacao-ensinar-conceito`** (`.agents/skills/documentacao-ensinar-conceito/SKILL.md`): Ensinar conceitos técnicos de forma didática e fundamentada.
+39. **`/documentacao-revisar-clareza`** (`.agents/skills/documentacao-revisar-clareza/SKILL.md`): Reformular explicações complexas para garantir clareza absoluta.
+
 

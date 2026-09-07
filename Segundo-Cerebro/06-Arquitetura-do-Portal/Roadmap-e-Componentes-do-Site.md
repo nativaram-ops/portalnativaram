@@ -78,3 +78,4 @@ src/
 
 ### Relacionado a
 - [[00-Mapa-Mental-Portal-Nativaram]]
+- [[Guia-de-Skills-e-Comandos]]
