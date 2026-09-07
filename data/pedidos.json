@@ -1,5 +1,52 @@
 [
   {
+    "id": "SOL-2026-B22E",
+    "temploId": "NAT-TEMPLO-842",
+    "temploNome": "Templo Céu do Cruzeiro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "dirigenteNome": "Padrinho Marcos Silva",
+    "dirigenteTelefone": "11987654321",
+    "dirigenteEmail": "dirigente@templo.org.br",
+    "cnpj": "34.567.890/0001-12",
+    "itens": [
+      {
+        "id": "10.1_WIRAPURU",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "10.1 Wirapuru",
+        "codigoOuSubtitulo": "Pureza Tucunacá & Chacrona Rainha",
+        "quantidade": 15,
+        "unidade": "Litros",
+        "rateioUnitarioEstimado": 260,
+        "rateioTotalEstimado": 3900
+      },
+      {
+        "id": "TSUNU",
+        "tipo": "RAPE_SAGRADO",
+        "nome": "Rapé Sagrado de Tsunú",
+        "codigoOuSubtitulo": "Pilar fundamental da floresta. Alinhamento ge...",
+        "quantidade": 2,
+        "unidade": "Frascos (20g)",
+        "rateioUnitarioEstimado": 65,
+        "rateioTotalEstimado": 130
+      }
+    ],
+    "rateioTotal": 4030,
+    "dataCerimoniaPretendida": "2026-10-12",
+    "mensagemIntencao": "Trabalho litúrgico regular de alinhamento e renovação dos votos espirituais da congregação. Agradecemos a dedicação dos irmãos feitores no Acre.",
+    "status": "SOLICITADO",
+    "historico": [
+      {
+        "status": "SOLICITADO",
+        "dataHora": "07/09/2026, 17:21",
+        "observacao": "Solicitação litúrgica registrada no portal da cooperativa.",
+        "responsavel": "Dirigente Homologado"
+      }
+    ],
+    "criadoEm": "2026-09-07T20:21:58.322Z",
+    "atualizadoEm": "2026-09-07T20:21:58.322Z"
+  },
+  {
     "id": "SOL-2026-P3CG",
     "temploId": "NAT-TEMPLO-842",
     "temploNome": "Templo Céu do Cruzeiro",
