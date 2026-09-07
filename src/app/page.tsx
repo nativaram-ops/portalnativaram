@@ -588,35 +588,43 @@ export default function HomePage() {
                   name: "Mainumbi",
                   bird: "Beija-flor",
                   dose: "90 a 120 ml",
+                  duracao: "3h a 4h",
+                  rateio: "R$ 200/L",
                   strength: 25,
-                  desc: "Voo manso e suave. Ideal para ritos de acolhimento fraterno, introspecções mansas e membros que se aproximam da sagrada comunhão.",
+                  desc: "Voo manso e acolhedor. Ideal para ritos de acolhimento fraterno, introspecções suaves e iniciantes na sagrada comunhão vegetal.",
                 },
                 {
                   grad: "5.1",
                   name: "Pituã",
                   bird: "Bem-te-vi",
                   dose: "70 a 100 ml",
+                  duracao: "4h a 5h",
+                  rateio: "R$ 250/L",
                   strength: 50,
-                  desc: "Clareza mental cristalina, equilíbrio estável e percepção intermediária. Proporciona firmeza serena e harmonização geral do campo cerimonial.",
+                  desc: "Clareza mental cristalina, equilíbrio perene e firmeza serena. Proporciona harmonização completa do campo cerimonial e foco meditativo.",
                 },
                 {
                   grad: "7.1",
                   name: "Anhangatã",
                   bird: "Rouxinol",
                   dose: "50 a 90 ml",
+                  duracao: "5h a 6h",
+                  rateio: "R$ 310/L",
                   strength: 75,
-                  desc: "Miração profunda e canto da alma. Indicado para ritos solenes, meditações focalizadas e alinhamento espiritual profundo.",
+                  desc: "Miração límpida e canto da alma. Indicado para ritos solenes, celebrações doutrinárias profundas e trabalhos espirituais de alinhamento.",
                 },
                 {
                   grad: "10.1",
                   name: "Wirapuru",
                   bird: "Semi-Mel",
                   dose: "30 a 50 ml",
+                  duracao: "6h a 8h",
+                  rateio: "R$ 380/L",
                   strength: 100,
-                  desc: "Alta densidade e visão de longo alcance. Concentração robusta para trabalhos de vigília e sustentação de egrégoras rituais elevadas.",
+                  desc: "Densidade máxima e visão de longo alcance. Concentração robusta de cipó Tucunacá para vigílias litúrgicas e sustentação de egrégoras elevadas.",
                   featured: true,
                 },
-              ].map(({ grad, name, bird, dose, strength, desc, featured }, i) => (
+              ].map(({ grad, name, bird, dose, duracao, rateio, strength, desc, featured }, i) => (
                 <AnimateOnScroll key={grad} delay={i * 90} direction="right">
                   <div
                     className={`rounded-xl p-5 sm:p-6 space-y-3 transition-all duration-300 ${
@@ -625,7 +633,7 @@ export default function HomePage() {
                         : "card-liturgico"
                     }`}
                   >
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                       <div className="flex items-baseline gap-2.5">
                         <span
                           className={`font-serif text-2xl font-bold ${
@@ -641,9 +649,14 @@ export default function HomePage() {
                           ({bird})
                         </span>
                       </div>
-                      <span className="text-[11px] text-areia-400 font-mono">
-                        Porção sugerida: {dose}
-                      </span>
+                      <div className="flex items-center gap-2 text-[11px] font-mono">
+                        <span className="text-areia-300 bg-floresta-800/80 border border-ambar-500/20 px-2 py-0.5 rounded">
+                          Porção: {dose}
+                        </span>
+                        <span className="text-ambar-300/90 bg-ambar-500/10 border border-ambar-500/20 px-2 py-0.5 rounded">
+                          Rateio: {rateio}
+                        </span>
+                      </div>
                     </div>
 
                     {/* Barra de Densidade */}
@@ -657,6 +670,11 @@ export default function HomePage() {
                       <span className="text-[10px] text-ambar-400/80 font-mono w-8 text-right">
                         {strength}%
                       </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] text-areia-400/70 font-mono">
+                      <span>Ciclo ritualístico: ~{duracao}</span>
+                      <span>HPLC Tucunacá • Cruzeiro do Sul (AC)</span>
                     </div>
 
                     <p className="text-xs text-areia-300 leading-relaxed font-light">

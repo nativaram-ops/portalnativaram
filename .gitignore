@@ -40,3 +40,71 @@ next-env.d.ts
 
 # large raw media (not used in web)
 public/assets/fotos-rape-atualizadas/*.mp4
+
+# Python virtual environments and external tools
+.agent/
+agent/
+tools/
+data/skills/
+
+# Obsidian workspace state & caches
+Segundo-Cerebro/.obsidian/
+
+# Skill test cassettes & packaging bloat
+**/cassettes/
+**/notebooklm/tests/
+**/notebooklm/deploy/
+
+# Multi-assistant skill sync targets (skills kept in .agents/ and skills/)
+.adal/
+.aider-desk/
+.augment/
+.autohand/
+.bob/
+.claude/
+.codeartsdoer/
+.codebuddy/
+.codemaker/
+.codestudio/
+.commandcode/
+.continue/
+.cortex/
+.crush/
+.devin/
+.factory/
+.forge/
+.goose/
+.grok/
+.hermes/
+.iflow/
+.inferencesh/
+.jazz/
+.junie/
+.kilocode/
+.kimchi/
+.kiro/
+.kode/
+.lingma/
+.mcpjam/
+.minimax/
+.moxby/
+.mux/
+.neovate/
+.ona/
+.openhands/
+.pi/
+.pochi/
+.posit/
+.qoder/
+.qwen/
+.reasonix/
+.roo/
+.rovodev/
+.tabnine/
+.terramind/
+.tinycloud/
+.trae/
+.vibe/
+.windsurf/
+.zcode/
+.zencoder/

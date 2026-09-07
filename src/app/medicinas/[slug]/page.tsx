@@ -16,8 +16,7 @@ import {
   Flame,
   ArrowRight,
   ShieldCheck,
-  ShoppingBag,
-  ExternalLink,
+  MessageCircle,
 } from "lucide-react";
 import { medicinas, forcaLabels } from "@/data/medicinas";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
@@ -341,14 +340,13 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                 <a
-                  href="https://nativaramcoop.eco.br"
+                  href={`https://wa.me/5568999979104?text=${encodeURIComponent(`Olá Victor, gostaria de consultar a disponibilidade e rateio cooperativo do sacramento ${med.nome}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary flex-shrink-0 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider w-full sm:w-auto justify-center"
                 >
-                  <ShoppingBag className="h-4 w-4" />
-                  <span>Ver na Loja Oficial</span>
-                  <ExternalLink className="h-3 w-3" />
+                  <MessageCircle className="h-4 w-4 text-emerald-400" />
+                  <span>Consultar Rateio</span>
                 </a>
                 <Link
                   href="/credenciamento"
@@ -364,9 +362,14 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
 
           {/* Disclaimer */}
           <div className="pt-4">
-            <div className="rounded-xl border border-pedra-700/40 bg-pedra-900/40 p-5 text-[10px] text-areia-400/80 leading-relaxed text-center font-light">
-              <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong>{" "}
-              Nossos sacramentos são 100% naturais e confeccionados de forma artesanal sob rígido padrão de pureza e respeito às tradições. Contém nicotina. O uso de rapé sagrado e demais sacramentos é uma prática complementar e integrativa de bem-estar, meditação e centramento, e não substitui diagnósticos, tratamentos ou orientações de profissionais de saúde convencional. Uso estritamente ritualístico e religioso tradicional. Maiores de 18 anos. Contraindicado para gestantes, lactantes, pessoas hipertensas, cardiopatas ou com hipersensibilidade ao tabaco.
+            <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/70 p-5 text-[10px] text-areia-300/80 leading-relaxed text-center font-light space-y-1.5">
+              <p>
+                <strong className="text-ambar-400 font-semibold uppercase tracking-wider">Aviso de Segurança Integrativa & Conformidade (+18):</strong>{" "}
+                Nossos sacramentos são 100% naturais e confeccionados de forma artesanal sob rígido padrão de pureza e respeito às tradições dos povos originários. Contêm nicotina natural de <em>Nicotiana rustica</em>.
+              </p>
+              <p className="text-areia-400/70">
+                O uso de rapé sagrado é um sacramento ancestral de bem-estar, meditação e centramento sensorial, desprovido de finalidade clínica ou farmacológica. Destinado exclusivamente a práticas religiosas tradicionais e contemplativas para associados maiores de 18 anos. Contraindicado para gestantes, lactantes, pessoas com histórico de cardiopatias severas ou hipertensão descompensada e indivíduos com sensibilidade ao tabaco.
+              </p>
             </div>
           </div>
         </div>

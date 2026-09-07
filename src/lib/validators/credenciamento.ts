@@ -46,8 +46,8 @@ export const CredenciamentoSchema = z.object({
     "5.1_PITUA",
     "7.1_ANHANGATA",
     "10.1_WIRAPURU",
-    "MEDICINA_MEL",
-    "MEDICINA_GEL",
+    "SACRAMENTO_MEL",
+    "SACRAMENTO_GEL",
     "OUTRAS_GRADUACOES_COMBINAR",
   ], {
     errorMap: () => ({ message: "Selecione a graduação ou formato pretendido para os trabalhos." }),
@@ -56,7 +56,7 @@ export const CredenciamentoSchema = z.object({
     .string()
     .min(20, { message: "Descreva suscintamente o propósito espiritual e as diretrizes do templo." }),
 
-  // Termos Mandatórios de Blindagem Legal e Deontologia
+  // Termos Mandatórios de Blindagem Legal, Sanitária e Deontologia
   concordaComConad012010: z.literal(true, {
     errorMap: () => ({
       message: "A instituição deve anuir formalmente à Resolução CONAD nº 01/2010.",
@@ -70,6 +70,11 @@ export const CredenciamentoSchema = z.object({
   planejamento30Dias: z.literal(true, {
     errorMap: () => ({
       message: "A congregação deve respeitar a antecedência mínima mandatória de 30 dias para o feitio.",
+    }),
+  }),
+  termoSegurancaIntegrativa: z.literal(true, {
+    errorMap: () => ({
+      message: "A congregação deve comprometer-se com a triagem de segurança (washout de 5 semanas de ISRS e triagem clínica).",
     }),
   }),
 });

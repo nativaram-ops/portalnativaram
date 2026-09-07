@@ -206,7 +206,7 @@ export const estudosData: EstudoItem[] = [
     ano: "2026",
     autorOuFonte: "Pesquisa Etnobotânica Nativaram Brasil & Tradições Indígenas",
     resumo:
-      "Estudo detalhado sobre o colírio florestal tradicional obtido da raiz de Tabernaemontana (família Apocynaceae). Analisa a presença de alcaloides indólicos como a coronaridina e voacangina, os mecanismos tradicionais de limpeza de panema para foco perceptivo e caça, os parâmetros microbiológicos de conservação em refrigeração e as diretrizes estritas de manuseio seguro.",
+      "Estudo detalhado sobre o extrato florestal tradicional obtido da raiz de Tabernaemontana (família Apocynaceae). Analisa a presença de alcaloides indólicos como a coronaridina e voacangina, os mecanismos tradicionais de limpeza de panema para foco perceptivo e caça, os parâmetros microbiológicos de conservação em refrigeração e as diretrizes estritas de manuseio seguro.",
     principaisDescobertas: [
       "Caracterização botânica de Tabernaemontana sananho e T. undulata na floresta do Acre.",
       "Perfil fitoquímico com presença de alcaloides indólicos (coronaridina, voacangina e traços sutis de ibogaína).",

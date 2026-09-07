@@ -13,29 +13,31 @@ import {
   CheckCircle2,
   Compass,
   MessageCircle,
-  ShoppingBag,
-  ExternalLink,
   HeartHandshake,
   ArrowDown,
+  ShieldCheck,
+  FlaskConical,
+  Atom,
+  Scale,
 } from "lucide-react";
 import { medicinas, forcaLabels } from "@/data/medicinas";
-import { AnimateOnScroll, StaggerChildren } from "@/components/ui/AnimateOnScroll";
+import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 
 export const metadata: Metadata = {
-  title: "Sacramentos & Tradições Botânicas | Nativaram Brasil",
+  title: "Compêndio Etnobotânico & Tradições Sagradas | Nativaram Brasil",
   description:
-    "Compêndio etnobotânico das 15 essências de rapé sagrado, Sananga ancestral e resinas sagradas da Nativaram Brasil. Feitio artesanal caboclo em sintonia com a floresta.",
+    "Compêndio etnobotânico dos 15 rapés sagrados, Sananga ancestral, resinas sagradas e artefatos cerimoniais da Nativaram Brasil. Alquimia purista em consonância com as etnias originárias e o regime cooperativo.",
   openGraph: {
-    title: "Sacramentos & Tradições Botânicas | Nativaram Brasil",
+    title: "Compêndio Etnobotânico & Tradições Sagradas | Nativaram Brasil",
     description:
-      "Compêndio etnobotânico: 15 rapés sagrados, Sananga tradicional e resinas da Amazônia.",
+      "Compêndio etnobotânico: 15 rapés sagrados, Sananga tradicional, resinas e artefatos de força da Amazônia.",
     images: [
       {
         url: "/assets/banners/1.png",
         width: 600,
         height: 600,
-        alt: "O Feitio do Rapé Sagrado Nativaram Brasil",
+        alt: "O Feitio dos Sacramentos Tradicionais Nativaram Brasil",
       },
     ],
   },
@@ -58,11 +60,11 @@ export default function MedicinasPage() {
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-ambar-500/[0.04] rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 text-center space-y-8">
-          {/* Badge de Identificação da Loja */}
+          {/* Badge de Identificação do Compêndio */}
           <AnimateOnScroll>
             <div className="inline-flex items-center gap-2 rounded-full border border-ambar-500/30 bg-floresta-900/80 backdrop-blur-md px-4 py-1.5 text-[11px] font-semibold tracking-[0.15em] text-ambar-300 uppercase shadow-[0_0_12px_rgba(212,163,89,0.15)]">
-              <ShoppingBag className="h-3.5 w-3.5 text-ambar-400" />
-              <span>Espaço Oficial da Loja Nativaram Brasil</span>
+              <Sparkles className="h-3.5 w-3.5 text-ambar-400" />
+              <span>Compêndio Etnobotânico & Tradições Sagradas</span>
             </div>
           </AnimateOnScroll>
 
@@ -73,74 +75,70 @@ export default function MedicinasPage() {
                 Sacramentos &<br />
                 <span className="text-gradient-solar">Tradições Botânicas</span>
               </h1>
-              <p className="font-serif text-xs sm:text-sm text-ambar-400/90 tracking-wider">
-                Catálogo de Rapés Sagrados, Sananga Ancestral, Resinas e Artefatos da Floresta
+              <p className="font-serif text-xs sm:text-sm text-ambar-400/90 tracking-wider max-w-2xl mx-auto">
+                Compêndio de Rapés Sagrados, Sananga Ancestral, Resinas e Artefatos da Floresta Amazônica para Culto Religioso e Prática Contemplativa
               </p>
             </div>
           </AnimateOnScroll>
 
-          {/* Chamada para o Site-Loja no Header */}
+          {/* Chamadas de Ação */}
           <AnimateOnScroll delay={250}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
-              <a
-                href="https://nativaramcoop.eco.br"
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/credenciamento"
                 className="btn-primary inline-flex items-center gap-2.5 text-xs sm:text-sm font-bold uppercase tracking-wider px-6 py-3.5 shadow-lg group"
               >
-                <ShoppingBag className="h-4 w-4 text-floresta-950" />
-                <span>Acessar Loja Oficial (nativaramcoop.eco.br)</span>
-                <ExternalLink className="h-3.5 w-3.5 text-floresta-950 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-              </a>
+                <ShieldCheck className="h-4 w-4 text-floresta-950" />
+                <span>Solicitar Credenciamento Litúrgico</span>
+                <ArrowRight className="h-3.5 w-3.5 text-floresta-950 group-hover:translate-x-0.5 transition-transform" />
+              </Link>
 
               <a
                 href="#catalogo-rapes"
                 className="btn-secondary inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider px-5 py-3"
               >
-                <span>Explorar Compêndio Abaixo</span>
+                <span>Explorar Compêndio Etnobotânico</span>
                 <ArrowDown className="h-3.5 w-3.5" />
               </a>
             </div>
           </AnimateOnScroll>
 
-          {/* Card de Esclarecimento Institucional: Separação Loja vs. Cooperativa */}
+          {/* Card de Esclarecimento Institucional: Soberania Ancestral & Cooperativismo */}
           <AnimateOnScroll delay={350}>
             <div className="card-elevated max-w-4xl mx-auto rounded-2xl p-6 sm:p-8 text-left border border-ambar-500/25 bg-gradient-to-br from-floresta-900/95 via-floresta-950 to-floresta-900/90 space-y-4">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-ambar-500/20 pb-3">
                 <div className="flex items-center gap-2.5 text-ambar-400">
                   <HeartHandshake className="h-5 w-5 flex-shrink-0" />
                   <h3 className="font-serif text-base sm:text-lg font-bold text-areia-100">
-                    A Loja Nativaram & a Sustentabilidade de Todo o Ciclo da Floresta
+                    Soberania Ancestral & Sustentabilidade das Comunidades Guardiãs
                   </h3>
                 </div>
                 <span className="text-[10px] uppercase tracking-wider font-semibold text-ambar-300/90 bg-ambar-500/10 border border-ambar-500/20 px-2.5 py-1 rounded-full w-fit">
-                  Diferenciação Institucional
+                  Regime Cooperativo • Lei 5.764/71
                 </span>
               </div>
 
               <div className="space-y-3 text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
                 <p>
-                  Esta seção é <strong>destinada exclusivamente à Loja da Nativaram</strong>, separando-se da proposta geral do portal, que é voltado estritamente à <strong>Cooperativa Etnobotânica e ao provimento litúrgico da Ayahuasca</strong> para instituições religiosas credenciadas.
+                  Todos os sacramentos botânicos e artefatos sagrados apresentados neste compêndio são integrados ao ecossistema da <strong>Cooperativa Etnobotânica Nativaram Brasil</strong>. A partilha destas medicinas é regida pelo rateio cooperativo de custos, sem margem de lucro mercantil, em estrita conformidade com a legislação cooperativista e a salvaguarda de cultos religiosos tradicionais.
                 </p>
                 <p>
-                  A Loja é uma iniciativa estruturada para <strong>sustentar todo o ciclo ancestral de maneira viva e digna</strong>, contemplando e remunerando financeiramente todas as <strong>comunidades originárias (Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã)</strong>, os mestres feitores e as dezenas de famílias tradicionais envolvidas na colheita sagrada, manejo botânico e confecção purista dos rapés, sanangas, resinas e artefatos de poder.
+                  Cada preparado de força sustenta com dignidade o ciclo ancestral das comunidades originárias <strong>(Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã)</strong>, remunerando de forma justa mestres feitores, erveiros e famílias tradicionais do Acre que guardam a pureza genética das plantas e a sabedoria secular do manejo sustentável da floresta.
                 </p>
               </div>
 
               <div className="pt-3 border-t border-ambar-500/15 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-ambar-300/90">
                 <span className="flex items-center gap-1.5 font-medium">
-                  <Sparkles className="h-3.5 w-3.5 text-ambar-400" />
-                  Ao adquirir na loja, você fortalece a soberania material das famílias guardiãs da Amazônia.
+                  <Shield className="h-3.5 w-3.5 text-ambar-400" />
+                  Acesso e partilha reservados a templos, dirigentes e associados credenciados.
                 </span>
-                <a
-                  href="https://nativaramcoop.eco.br"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link
+                  href="/credenciamento"
                   className="font-bold underline hover:text-ambar-200 transition-colors inline-flex items-center gap-1 w-fit"
                 >
-                  <span>Ir para nativaramcoop.eco.br</span>
-                  <ExternalLink className="h-3 w-3" />
-                </a>
+                  <span>Credenciar minha instituição</span>
+                  <ArrowRight className="h-3 w-3" />
+                </Link>
               </div>
             </div>
           </AnimateOnScroll>
@@ -156,21 +154,21 @@ export default function MedicinasPage() {
             {
               src: "/assets/banners/1.png",
               title: "15 Rapés Sagrados",
-              desc: "Calcinação purista de cinzas nobres e tabaco orgânico.",
+              desc: "Calcinação purista de cinzas nobres e tabaco orgânico curado à sombra.",
               href: "#catalogo-rapes",
               cta: "Explorar variedades",
             },
             {
               src: "/assets/banners/2.png",
               title: "Sananga Ancestral",
-              desc: "Colírio nativo de Tabernaemontana sananho para visão sutil.",
+              desc: "Extrato botânico puro de Tabernaemontana sananho para acuidade e visão sutil.",
               href: "#sananga-secao",
-              cta: "Ver detalhes",
+              cta: "Ver diretrizes",
             },
             {
               src: "/assets/banners/3.png",
               title: "Resinas & Defumações",
-              desc: "Breu Branco amazônico, Palo Santo nativo e Olíbano.",
+              desc: "Breu Branco amazônico, Palo Santo nativo e Olíbano de alta pureza.",
               href: "#defumacao-secao",
               cta: "Conhecer resinas",
             },
@@ -208,6 +206,84 @@ export default function MedicinasPage() {
             </AnimateOnScroll>
           ))}
         </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          CIÊNCIA BIOGEOQUÍMICA DOS RAPÉS
+          ═══════════════════════════════════════════ */}
+      <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-section-sm">
+        <AnimateOnScroll>
+          <div className="card-elevated rounded-2xl p-6 sm:p-10 border border-ambar-500/25 bg-gradient-to-b from-floresta-900/90 via-floresta-950 to-floresta-900/80 space-y-8">
+            <div className="text-center max-w-3xl mx-auto space-y-3">
+              <div className="inline-flex items-center gap-2 rounded-full border border-ambar-500/20 bg-floresta-800/60 px-3 py-1 text-[11px] font-semibold text-ambar-300 uppercase tracking-widest">
+                <FlaskConical className="h-3.5 w-3.5 text-ambar-400" />
+                <span>Rigor Científico & Tradição Etnobotânica</span>
+              </div>
+              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
+                Ciência Biogeoquímica dos Rapés Sagrados
+              </h2>
+              <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
+                Compreenda a sinergia molecular ancestral entre a biomassa de <em>Nicotiana rustica</em> e a matriz mineral de cinzas nobres calcinadas, documentada em pesquisas de etnofarmacologia e ensaios de pureza da Nativaram Brasil.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Card 1: Alcalinização Tamponada */}
+              <div className="rounded-xl border border-ambar-500/15 bg-floresta-950/70 p-6 space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-ambar-500/10 border border-ambar-500/20 text-ambar-400">
+                    <Atom className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-serif text-base font-bold text-areia-100">
+                    Tamponamento Alcalino (pH 9,75 a 10,2)
+                  </h3>
+                  <p className="text-xs text-areia-300 leading-relaxed font-light">
+                    As cinzas de madeiras densas amazônicas (Tsunú, Cumaru, Mulateiro, Murici) atuam como tampão alcalinizante. Ao elevar o pH da cavidade nasal para a faixa de <strong>9,75 a 10,2</strong>, desprotonam a nicotina para a forma de <em>base livre lipofílica</em>, promovendo absorção limpa, rápida e transmembrana sem nenhuma necessidade de combustão ou inalação de fumaça.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-ambar-500/10 text-[10px] font-mono text-ambar-400/80">
+                  Absorção Transmembrana • Sem Combustão
+                </div>
+              </div>
+
+              {/* Card 2: Calcinação > 250°C */}
+              <div className="rounded-xl border border-ambar-500/15 bg-floresta-950/70 p-6 space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                    <Scale className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-serif text-base font-bold text-areia-100">
+                    Calcinação Purista (&gt; 250°C)
+                  </h3>
+                  <p className="text-xs text-areia-300 leading-relaxed font-light">
+                    O rito de calcinação controlada em alta temperatura assegura a destruição termolítica completa de compostos voláteis e alcaloides visionários termolábeis (como DMT). O rapé consagrado é <strong>estritamente não-alucinógeno</strong>, constituindo um sacramento telúrico de puro ancoramento, silêncio mental e presença sensorial no aqui-agora.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-ambar-500/10 text-[10px] font-mono text-emerald-400/80">
+                  Zero Alcaloides Visionários • Estabilidade Térmica
+                </div>
+              </div>
+
+              {/* Card 3: Moagem Ultrafina & Pureza */}
+              <div className="rounded-xl border border-ambar-500/15 bg-floresta-950/70 p-6 space-y-3 flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                    <ShieldCheck className="h-5 w-5" />
+                  </div>
+                  <h3 className="font-serif text-base font-bold text-areia-100">
+                    Moagem Micronizada & Frasco Âmbar
+                  </h3>
+                  <p className="text-xs text-areia-300 leading-relaxed font-light">
+                    Peneiramento artesanal em malhas de padrão cirúrgico ultrafino, garantindo granulometria micronizada homogênea que acolhe as mucosas sem atrito agressivo. Envasado em frascos de vidro âmbar farmacêutico herméticos com lacre inviolável, resguardando os óleos essenciais contra foto-oxidação e umidade da floresta.
+                  </p>
+                </div>
+                <div className="pt-3 border-t border-ambar-500/10 text-[10px] font-mono text-blue-400/80">
+                  Proteção UV-Âmbar • Pureza Microbiana
+                </div>
+              </div>
+            </div>
+          </div>
+        </AnimateOnScroll>
       </section>
 
       <SectionDivider variant="solar" />
@@ -320,25 +396,24 @@ export default function MedicinasPage() {
               <div className="lg:col-span-7 space-y-5">
                 <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-ambar-400/80">
                   <Eye className="h-3.5 w-3.5" />
-                  <span>Colírio Sagrado da Amazônia</span>
+                  <span>Extrato Botânico Tradicional da Amazônia</span>
                 </div>
                 <h2 className="font-serif text-display-sm font-bold text-areia-100">
-                  Sananga Ancestral
+                  Sananga Ancestral <em>(Tabernaemontana sananho)</em>
                 </h2>
                 <p className="text-sm text-areia-300 leading-relaxed">
-                  Extrato nativo de <em>Tabernaemontana sananho</em>. Na tradição
-                  dos povos Yawanawá e Huni Kuin, é consagrada antes das caçadas
-                  e cerimônias para abrir a <em>visão sutil</em>, desanuviar a
-                  mente e afastar energias estagnadas.
+                  Extrato botânico aquoso tradicional obtido das raízes de <em>Tabernaemontana sananho</em>. Consagrado nas tradições Yawanawá, Katukina e Huni Kuin antes de práticas contemplativas e jornadas da floresta para abrir a <em>visão sutil</em>, harmonizar o ritmo mental e dissipar o estado de sensibilidade ou descompasso do cotidiano.
                 </p>
-                <ul className="space-y-2 text-xs text-areia-300">
+                <ul className="space-y-2.5 text-xs text-areia-300">
                   {[
-                    "Conservação em freezer / refrigeração constante",
-                    "Extração 100% aquosa, sem conservantes químicos",
-                    "Uso exclusivo em contexto ritualístico e meditativo",
+                    "Conservação obrigatória sob congelamento ou refrigeração constante (4°C a 8°C)",
+                    "Intervalo mínimo de 24 horas antes e após a utilização de lentes de contato",
+                    "Contraindicado em casos de cirurgia ocular recente (< 6 meses) ou afecções na córnea",
+                    "Extração artesanal 100% aquosa estéril das raízes, sem conservantes sintéticos",
+                    "Uso exclusivamente ritualístico tradicional em contexto meditativo e de quietude",
                   ].map((text) => (
                     <li key={text} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-ambar-400/70" />
+                      <CheckCircle2 className="h-3.5 w-3.5 text-ambar-400/70 flex-shrink-0" />
                       <span>{text}</span>
                     </li>
                   ))}
@@ -515,14 +590,16 @@ export default function MedicinasPage() {
 
       {/* Disclaimer */}
       <section className="pb-section-sm mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-lg border border-floresta-800/40 bg-floresta-950/50 p-5 text-[10px] text-areia-400/60 leading-relaxed text-center">
-          <strong className="text-areia-300/70">
-            Aviso de Segurança Integrativa (+18):
-          </strong>{" "}
-          Nossos sacramentos são 100% naturais e artesanais. Contém nicotina. Uso
-          estritamente ritualístico e religioso. Não substitui orientações de
-          saúde convencional. Contraindicado para gestantes, lactantes,
-          hipertensos, cardiopatas ou sensíveis ao tabaco.
+        <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/70 p-6 text-[11px] text-areia-300/80 leading-relaxed text-center space-y-2 font-light">
+          <p>
+            <strong className="text-ambar-400 font-semibold uppercase tracking-wider">
+              Aviso de Segurança Integrativa & Conformidade (+18):
+            </strong>{" "}
+            Os sacramentos etnobotânicos da Nativaram Brasil são preparados artesanais e tradicionais de matriz vegetal e mineral. Contêm nicotina natural de <em>Nicotiana rustica</em>. Destinados exclusivamente ao uso litúrgico, religioso tradicional e práticas meditativas por associados maiores de 18 anos.
+          </p>
+          <p className="text-[10px] text-areia-400/70">
+            Estes preparados não possuem finalidade terapêutica, farmacológica ou diagnóstica, não sendo medicamentos nem substitutos de cuidados médicos convencionais. Contraindicado para gestantes, lactantes, pessoas com histórico de cardiopatias severas ou hipertensão descompensada e indivíduos com sensibilidade ao tabaco.
+          </p>
         </div>
       </section>
     </div>
