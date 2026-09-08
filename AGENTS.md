@@ -1,8 +1,12 @@
-# Nativaram Brasil — Regras de Projeto
+# Cooperativa Nativaram — Regras de Projeto
 
-## Identidade Linguística Obrigatória
+## Identidade Institucional & Linguística Obrigatória
 
-Este projeto é o portal institucional da **Cooperativa Etnobotânica Nativaram Brasil**.
+> **Distinção Fundamental de Marcas:**
+> - **Cooperativa Nativaram** (ou *Cooperativa Etnobotânica Nativaram*): É este portal institucional — entidade cooperativa sem fins lucrativos de salvaguarda litúrgica, apoio a templos credenciados e rateio logístico sob a Lei 5.764/71 e CONAD 01/2010.
+> - **Nativaram Brasil**: É a loja comercial / canal de varejo externo da marca.
+> - **Regra:** Neste portal, o nome institucional oficial DEVE ser sempre **Cooperativa Nativaram**.
+
 Todo texto gerado DEVE obedecer ao **Dicionário de Engenharia de Linguagem** abaixo.
 
 ### Termos Proibidos → Substitutos Permitidos
@@ -88,21 +92,29 @@ O conteúdo do Obsidian fica localizado em:
 - **Prioridades Permitidas:** `alta`, `média`, `baixa`, `contínua/obrigatória`.
 - **Separação Importante:** Arquivos de instrução e skills ficam fora do vault (na raiz ou em `.agents/`). Nunca crie regras ou skills dentro de `Segundo-Cerebro/`. Nunca altere `.obsidian/` ou configurações internas do Obsidian.
 
+### 🔄 PROTOCOLO MANDATÓRIO: CICLO ATIVO DE MEMÓRIA DO OBSIDIAN
+**Para toda e qualquer alteração, correção, adição ou refatoração no portal:**
+1. **ANTES de modificar qualquer código:** O agente DEVE consultar a memória do Obsidian no vault `Segundo-Cerebro/` (começando por `06-Arquitetura-do-Portal/Indice-de-Recuperacao-Rapida.md` e a nota de domínio correspondente) para carregar decisões prévias, conformidade e restrições.
+2. **DURANTE o desenvolvimento:** Cumprir estritamente as regras fitoquímicas, faturamento cooperativo e design tokens consultados.
+3. **DEPOIS de modificar o código:** O agente DEVE gravar as alterações de volta na memória do Obsidian (atualizando o `Roadmap-e-Componentes-do-Site.md`, criando ADRs se houver decisões técnicas novas, e mantendo o `Indice-de-Recuperacao-Rapida.md` sincronizado).
+4. **Resposta Final Padrão:** O agente deve explicitar as notas consultadas, os arquivos modificados e as notas atualizadas.
+
 ## Mapeamento de Skills do Agente (Organizadas por Setor)
 
 As habilidades especializadas do projeto estão localizadas em `.agents/skills/` e podem ser acionadas a qualquer momento digitando `/` no chat:
 
 ### Setor 1: Segundo Cérebro (Obsidian & Vault)
-1. **`/segundo-cerebro-atualizar-projeto`** (`.agents/skills/segundo-cerebro-atualizar-projeto/SKILL.md`): Atualizar detalhes, escopo ou relações de notas de projetos existentes no vault.
-2. **`/segundo-cerebro-atualizar-status`** (`.agents/skills/segundo-cerebro-atualizar-status/SKILL.md`): Alterar o status de uma nota (ideia, planejamento, em andamento, pronto, etc.).
-3. **`/segundo-cerebro-auditar-conteudo`** (`.agents/skills/segundo-cerebro-auditar-conteudo/SKILL.md`): Auditar, revisar e higienizar informações mockadas ou temporárias nas notas.
-4. **`/segundo-cerebro-criar-projeto`** (`.agents/skills/segundo-cerebro-criar-projeto/SKILL.md`): Criar nova nota de projeto no vault com templates padrão e frontmatter YAML simples.
-5. **`/segundo-cerebro-registrar-decisao`** (`.agents/skills/segundo-cerebro-registrar-decisao/SKILL.md`): Registrar decisões técnicas ou de arquitetura formalmente no vault.
-6. **`/segundo-cerebro-registrar-ideia`** (`.agents/skills/segundo-cerebro-registrar-ideia/SKILL.md`): Salvar ideias rápidas na Inbox do Obsidian para análise futura.
-7. **`/segundo-cerebro-registrar-relacao`** (`.agents/skills/segundo-cerebro-registrar-relacao/SKILL.md`): Criar ou atualizar conexões/relações (`[[Link]]`) entre diferentes notas.
-8. **`/segundo-cerebro-revisar-dashboard`** (`.agents/skills/segundo-cerebro-revisar-dashboard/SKILL.md`): Revisar o progresso geral e o dashboard principal de projetos do vault.
-9. **`/segundo-cerebro-sugerir-registro`** (`.agents/skills/segundo-cerebro-sugerir-registro/SKILL.md`): Avaliar se marcos técnicos complexos devem ser registrados no vault e propor rascunho.
-10. **`/segundo-cerebro-configuracao`** (`.agents/skills/segundo-cerebro-configuracao/SKILL.md`): Configurar e sincronizar as regras do Segundo Cérebro e o `AGENTS.md`.
+1. **`/segundo-cerebro-ciclo-memoria-ativa`** (`.agents/skills/segundo-cerebro-ciclo-memoria-ativa/SKILL.md`): Executa o ciclo mandatório de ler o Obsidian antes e gravar no Obsidian após qualquer alteração no código.
+2. **`/segundo-cerebro-atualizar-projeto`** (`.agents/skills/segundo-cerebro-atualizar-projeto/SKILL.md`): Atualizar detalhes, escopo ou relações de notas de projetos existentes no vault.
+3. **`/segundo-cerebro-atualizar-status`** (`.agents/skills/segundo-cerebro-atualizar-status/SKILL.md`): Alterar o status de uma nota (ideia, planejamento, em andamento, pronto, etc.).
+4. **`/segundo-cerebro-auditar-conteudo`** (`.agents/skills/segundo-cerebro-auditar-conteudo/SKILL.md`): Auditar, revisar e higienizar informações mockadas ou temporárias nas notas.
+5. **`/segundo-cerebro-criar-projeto`** (`.agents/skills/segundo-cerebro-criar-projeto/SKILL.md`): Criar nova nota de projeto no vault com templates padrão e frontmatter YAML simples.
+6. **`/segundo-cerebro-registrar-decisao`** (`.agents/skills/segundo-cerebro-registrar-decisao/SKILL.md`): Registrar decisões técnicas ou de arquitetura formalmente no vault.
+7. **`/segundo-cerebro-registrar-ideia`** (`.agents/skills/segundo-cerebro-registrar-ideia/SKILL.md`): Salvar ideias rápidas na Inbox do Obsidian para análise futura.
+8. **`/segundo-cerebro-registrar-relacao`** (`.agents/skills/segundo-cerebro-registrar-relacao/SKILL.md`): Criar ou atualizar conexões/relações (`[[Link]]`) entre diferentes notas.
+9. **`/segundo-cerebro-revisar-dashboard`** (`.agents/skills/segundo-cerebro-revisar-dashboard/SKILL.md`): Revisar o progresso geral e o dashboard principal de projetos do vault.
+10. **`/segundo-cerebro-sugerir-registro`** (`.agents/skills/segundo-cerebro-sugerir-registro/SKILL.md`): Avaliar se marcos técnicos complexos devem ser registrados no vault e propor rascunho.
+11. **`/segundo-cerebro-configuracao`** (`.agents/skills/segundo-cerebro-configuracao/SKILL.md`): Configurar e sincronizar as regras do Segundo Cérebro e o `AGENTS.md`.
 
 ### Setor 2: Engenharia & Código (Desenvolvimento & Resiliência)
 11. **`/engenharia-revisar-codigo`** (`.agents/skills/engenharia-revisar-codigo/SKILL.md`): Revisar código recente em relação a padrões da base (standards) e cumprimento da especificação (spec).

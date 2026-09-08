@@ -72,9 +72,9 @@ export const HomePrincipiosFeitio = () => {
                   <Flame className="h-5 w-5" />
                 </Card.Icon>
               </Card.Header>
-              <Card.Title>Prática Constante</Card.Title>
+              <Card.Title>Mestre Feitor & Rede Credenciada</Card.Title>
               <Card.Description>
-                O equilíbrio de cada feitio é resultado de <strong>anos de dedicação e aprimoramento técnico</strong> do nosso feitor caboclo, garantindo um preparado seguro, harmônico e de alta vibração para a condução solene dos ritos.
+                O equilíbrio de cada sacramento é fruto da sabedoria de décadas do nosso <strong>mestre feitor caboclo</strong> aliada à cooperação com <strong>centros tradicionais credenciados no Acre</strong>. Embora cada centro produza para seus próprios templos associados, os sacramentos da Nativaram são elaborados com base no nosso estudo fitoquímico e rigorosa curadoria, garantindo uniformidade e alta vibração.
               </Card.Description>
               <Card.Footer>
                 <span>✦ Segurança & alta vibração</span>

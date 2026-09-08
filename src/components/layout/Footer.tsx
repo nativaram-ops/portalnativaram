@@ -16,10 +16,10 @@ import { CookiePreferencesButton } from "@/components/ui/CookiePreferencesButton
 
 const footerLinks = [
   { href: "/", label: "Início" },
-  { href: "/institucional", label: "O Manifesto" },
-  { href: "/estudos", label: "Estudos & Dossiês" },
-  { href: "/feitio", label: "Feitio Purista" },
+  { href: "/institucional", label: "Manifesto" },
+  { href: "/feitio", label: "Feitio" },
   { href: "/medicinas", label: "Sacramentos" },
+  { href: "/estudos", label: "Estudos & Dossiês" },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal" },
   { href: "/contato", label: "Contato" },
@@ -37,10 +37,10 @@ export const Footer = () => {
           <Logo variant="footer" size={80} />
           <div className="text-center space-y-1">
             <h4 className="font-serif text-base font-bold tracking-[0.2em] text-areia-100 uppercase">
-              Nativaram Brasil
+              Cooperativa Nativaram
             </h4>
             <p className="text-[11px] text-ambar-400/70 tracking-wider italic">
-              &ldquo;O Futuro é Ancestral&rdquo;
+              &ldquo;Salvaguarda Litúrgica &bull; O Futuro é Ancestral&rdquo;
             </p>
           </div>
         </div>
@@ -91,7 +91,7 @@ export const Footer = () => {
                   <span className="text-areia-200 font-medium block">
                     Logística & Apoio
                   </span>
-                  Nova Almeida, Serra/ES
+                  Serra/ES
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
@@ -109,7 +109,36 @@ export const Footer = () => {
                 <Mail className="h-3.5 w-3.5 text-ambar-500/70 flex-shrink-0 mt-0.5" />
                 <span>nativaram@gmail.com</span>
               </div>
-              <div className="flex items-center gap-3 pt-2">
+
+              {/* Destaque Linktree Oficial */}
+              <div className="pt-2">
+                <a
+                  href="https://linktr.ee/nativarambrasil"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-floresta-900 via-floresta-800 to-floresta-900 border border-ambar-500/40 hover:border-ambar-400 text-areia-100 hover:text-ambar-200 transition-all duration-300 shadow-md hover:shadow-solar"
+                  title="Acesse todos os links oficiais da Nativaram Brasil no Linktree"
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all shrink-0">
+                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
+                        <path d="m13.736 5.853 4.005-4.117 2.325 2.38-4.2 4.088h5.908v3.313h-5.908l4.2 4.088-2.325 2.38-4.005-4.117v7.906h-3.472V13.87l-4.005 4.117-2.325-2.38 4.2-4.088H2.226V8.204h5.908l-4.2-4.088 2.325-2.38 4.005 4.117V0h3.472v5.853z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-ambar-400/90 block font-semibold">
+                        Links Oficiais • Central
+                      </span>
+                      <span className="text-xs font-semibold text-areia-100 group-hover:text-ambar-300 transition-colors">
+                        linktr.ee/nativarambrasil
+                      </span>
+                    </div>
+                  </div>
+                  <ExternalLink className="h-3.5 w-3.5 text-ambar-400/70 group-hover:text-ambar-300 group-hover:translate-x-0.5 transition-all shrink-0" />
+                </a>
+              </div>
+
+              <div className="flex items-center gap-3 pt-1">
                 <a
                   href="https://instagram.com/nativarambrasil"
                   target="_blank"
@@ -118,15 +147,6 @@ export const Footer = () => {
                 >
                   <InstagramIcon className="h-3.5 w-3.5" />
                   @nativarambrasil
-                </a>
-                <span className="text-floresta-700">•</span>
-                <a
-                  href="https://linktr.ee/nativarambrasil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-areia-400 hover:text-ambar-300 transition-colors"
-                >
-                  Linktree
                 </a>
               </div>
             </div>
@@ -181,7 +201,7 @@ export const Footer = () => {
             </span>
           </div>
           <p className="text-[10px] text-areia-400/70 leading-relaxed text-justify">
-            A <strong>Nativaram Brasil</strong> é uma cooperativa etnobotânica
+            A <strong>Cooperativa Nativaram</strong> é uma cooperativa etnobotânica
             de caráter espiritual, cultural e de apoio litúrgico, sob amparo do{" "}
             <strong>Art. 5º, incisos VI e VIII da CF</strong> e do{" "}
             <strong>Art. 2º da Lei 11.343/2006</strong>. Sacramento
@@ -196,7 +216,7 @@ export const Footer = () => {
         {/* Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t border-floresta-800/60 py-6 text-[10px] text-areia-400/50">
           <span suppressHydrationWarning>
-            © {new Date().getFullYear()} Nativaram Brasil — Nascidos do Raio de
+            © {new Date().getFullYear()} Cooperativa Nativaram — Nascidos do Raio de
             Sol
           </span>
           <div className="flex flex-wrap items-center gap-3">

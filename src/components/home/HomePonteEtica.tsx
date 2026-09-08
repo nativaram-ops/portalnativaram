@@ -8,9 +8,9 @@ const etapas = [
   {
     num: "01",
     icon: Users,
-    title: "Feitores Regulamentados",
-    subtitle: "Aliança no Acre",
-    desc: "Contato direto com instituições e mestres feitores tradicionais devidamente constituídos em Cruzeiro do Sul/AC, com mais de 28 anos de dietas e capacidade de feitio regular.",
+    title: "Mestre Feitor & Centros Credenciados",
+    subtitle: "Aliança Cooperativa no Acre",
+    desc: "Centralizamos nosso foco no saber do nosso mestre feitor tradicional e atuamos em cooperativa com diversos centros credenciados no Acre, que mantêm seu fluxo comunitário regular e elaboram os sacramentos da Nativaram sob nosso estudo padronizado.",
   },
   {
     num: "02",

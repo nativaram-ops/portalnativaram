@@ -2,6 +2,7 @@ import React from "react";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { HomeHero } from "@/components/home/HomeHero";
 import { HomePilaresBar } from "@/components/home/HomePilaresBar";
+import { HomeNotaSemantica } from "@/components/home/HomeNotaSemantica";
 import { HomeNotaSacralidade } from "@/components/home/HomeNotaSacralidade";
 import { HomePrincipiosFeitio } from "@/components/home/HomePrincipiosFeitio";
 import { HomePonteEtica } from "@/components/home/HomePonteEtica";
@@ -18,6 +19,9 @@ export default function HomePage() {
 
       {/* Barra de Pilares Sagrados */}
       <HomePilaresBar />
+
+      {/* Nota de Semântica da Salvaguarda & Regras Vigentes */}
+      <HomeNotaSemantica />
 
       {/* Nota de Responsabilidade e Sacralidade */}
       <HomeNotaSacralidade />

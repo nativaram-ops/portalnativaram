@@ -94,7 +94,7 @@ export default function CredenciamentoPage() {
                   <span>3. Rateio Operacional Solidário</span>
                 </div>
                 <p className="text-[11px] text-areia-300 font-light leading-relaxed">
-                  Participação cooperativa transparente nos custos reais de feitio, lenha, vidro âmbar e logística.
+                  Participação cooperativa transparente nos custos reais de feitio, lenha, embalagens virgens higienizadas e logística.
                 </p>
               </div>
             </div>

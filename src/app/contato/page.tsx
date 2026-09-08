@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   Sparkles,
   ArrowRight,
+  ExternalLink,
 } from "lucide-react";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
@@ -91,7 +92,7 @@ export default function ContatoPage() {
                   </p>
 
                   <a
-                    href="https://wa.me/5568999979104?text=Ol%C3%A1%20Victor%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20as%20medicinas%20e%20o%20apoio%20lit%C3%BArgico%20da%20Nativaram%20Brasil."
+                    href="https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20os%20sacramentos%20e%20o%20apoio%20lit%C3%BArgico%20da%20Nativaram%20Brasil."
                     target="_blank"
                     rel="noopener noreferrer"
                     className="relative inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-5 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-all active:scale-[0.98]"
@@ -101,7 +102,7 @@ export default function ContatoPage() {
                   </a>
 
                   <p className="relative text-[10px] text-emerald-300/70 text-center font-medium">
-                    Victor atende com presença • Seg a Sex, 09h – 18h
+                    Atendimento fraterno com presença • Seg a Sex, 09h – 18h
                   </p>
                 </div>
               </AnimateOnScroll>
@@ -120,7 +121,7 @@ export default function ContatoPage() {
                         <strong className="text-areia-200 block">
                           Ponto de Partilha & Logística
                         </strong>
-                        Nova Almeida, Serra, ES — Brasil
+                        Serra, ES — Brasil
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
@@ -136,12 +137,9 @@ export default function ContatoPage() {
                       <Mail className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-areia-200 block">
-                          E-mails Oficiais
+                          E-mail Oficial
                         </strong>
-                        <span className="text-ambar-300/80">
-                          nativaram@gmail.com
-                        </span>
-                        <span className="block text-[11px]">
+                        <span className="text-ambar-300/90 font-mono text-[11px]">
                           nativaram@gmail.com
                         </span>
                       </div>
@@ -150,25 +148,25 @@ export default function ContatoPage() {
                       <InstagramIcon className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
                       <div>
                         <strong className="text-areia-200 block">
-                          Redes Sociais
+                          Canais Oficiais
                         </strong>
-                        <div className="flex items-center gap-2 pt-0.5">
-                          <a
-                            href="https://instagram.com/nativarambrasil"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-ambar-400/80 hover:text-ambar-300 transition-colors"
-                          >
-                            @nativarambrasil
-                          </a>
-                          <span className="text-floresta-700">•</span>
+                        <div className="flex flex-col gap-1.5 pt-1">
                           <a
                             href="https://linktr.ee/nativarambrasil"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-areia-400 hover:text-ambar-300 transition-colors"
+                            className="inline-flex items-center gap-1.5 text-xs text-ambar-300 hover:text-ambar-200 font-semibold transition-colors"
                           >
-                            Linktree
+                            <span>linktr.ee/nativarambrasil</span>
+                            <ExternalLink className="h-3 w-3" />
+                          </a>
+                          <a
+                            href="https://instagram.com/nativarambrasil"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-areia-400 hover:text-ambar-300 transition-colors"
+                          >
+                            @nativarambrasil
                           </a>
                         </div>
                       </div>

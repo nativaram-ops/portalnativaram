@@ -14,7 +14,7 @@ categoria: Índice Rápido
 ---
 
 ## 🧭 O Que é o Projeto?
-- **Identidade:** Portal institucional da **Cooperativa Etnobotânica Nativaram Brasil**.
+- **Identidade:** Portal institucional da **Cooperativa Nativaram** (Cooperativa Etnobotânica Nativaram). *Nota:* "Nativaram Brasil" é a denominação da loja comercial externa; este portal é exclusivo da cooperativa institucional.
 - **Natureza:** Cooperativa sem fins lucrativos de salvaguarda litúrgica, apoio mútuo entre templos e rateio logístico de sacramentos tradicionais (Ayahuasca purista Tucunacá e Rapés Sagrados).
 - **Proibição Absoluta:** NÃO é um e-commerce. NÃO tem carrinho de compras nem venda direta aberta ao público geral. O acesso a sacramentos ocorre mediante credenciamento e homologação de pessoas jurídicas religiosas (CNPJ/Ata de Fundação) amparadas na Resolução CONAD nº 01/2010 e no Marco ANVISA 2025.
 
@@ -35,6 +35,7 @@ categoria: Índice Rápido
 | **Validação Zod** | `src/lib/validators/pedido.ts` | Schemas de validação de dados de entrada |
 | **Catálogo de Graduações** | `src/data/graduacoes.ts` | Perfil fitoquímico Tucunacá (Harmina, Harmalina, THH) e porções |
 | **Catálogo de Rapés/Artefatos** | `src/data/sacramentos.ts` e `medicinas.ts` | 10 rapés tradicionais (pH alcalino), Kuripes, Tepis e Sananga |
+| **Casa de Feitio & Etnobotânica** | `src/app/feitio/page.tsx` e `FeitioLanding.tsx` | Alquimia do feitio em menores micras, etnovariedades de cipó, Chacrona, recusa de Anayahuascas e HPLC |
 | **Credenciamento Aberto** | `src/app/credenciamento/page.tsx` | Formulário público para novas congregações solicitarem homologação |
 | **Design Tokens** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0`, Pedra `#1C1917` |
 
@@ -53,6 +54,10 @@ categoria: Índice Rápido
    cmd.exe /c "taskkill /PID <PID> /F"
    ```
 3. **Inicializador em 1 clique:** `iniciar_portal.bat`
+
+## 🧠 Ciclo Mandatório de Memória Ativa (Obsidian)
+- **Antes de qualquer edição de código:** Ler este índice e a nota do componente em `Segundo-Cerebro/` para ancorar decisões e regras fitoquímicas/regulatórias.
+- **Após qualquer edição de código:** Gravar imediatamente o que foi modificado na nota correspondente de `Segundo-Cerebro/` (atualizar arquitetura, roadmap, dados ou ADRs).
 
 ---
 

@@ -8,10 +8,10 @@ import { Lock, Menu, X, ShieldCheck, Sparkles } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Início" },
-  { href: "/institucional", label: "O Manifesto" },
-  { href: "/estudos", label: "Estudos", badge: "PDFs" },
-  { href: "/feitio", label: "Feitio Purista" },
+  { href: "/institucional", label: "Manifesto" },
+  { href: "/feitio", label: "Feitio" },
   { href: "/medicinas", label: "Sacramentos" },
+  { href: "/estudos", label: "Estudos", badge: "PDFs" },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal", icon: true },
   { href: "/contato", label: "Contato" },
@@ -49,73 +49,79 @@ export const Navbar = () => {
           : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-[1536px] items-center justify-between px-3 sm:px-6 lg:px-4 xl:px-8 py-2">
         {/* Logo & Brand Identity */}
         <Link
           href="/"
-          className="group flex items-center gap-3 transition-transform hover:scale-[1.02]"
+          className="group flex items-center gap-2.5 sm:gap-3 transition-transform hover:scale-[1.01] shrink-0"
         >
-          <Logo variant="navbar" size={44} priority />
-          <div>
-            <div className="flex items-baseline gap-1.5 font-serif text-base font-bold tracking-[0.15em] text-areia-100 group-hover:text-ambar-400 transition-colors duration-300">
-              NATIVARAM
-              <span className="text-ambar-500 text-[10px] font-sans tracking-[0.2em] font-semibold uppercase">
-                Brasil
-              </span>
+          <Logo variant="navbar" size={58} priority />
+          <div className="flex flex-col justify-center">
+            <div className="flex items-center gap-1.5 font-serif text-[14px] sm:text-[15px] xl:text-base font-bold tracking-[0.14em] text-areia-100 group-hover:text-ambar-400 transition-colors duration-300 whitespace-nowrap">
+              <span>COOPERATIVA</span>
+              <span className="text-ambar-400 font-serif">NATIVARAM</span>
             </div>
-            <p className="text-[10px] font-medium tracking-wider text-areia-400/70 font-sans hidden sm:block">
-              Nascidos do Raio de Sol
+            <p className="text-[10px] font-medium tracking-wider text-areia-400/80 font-sans hidden xl:block whitespace-nowrap">
+              Salvaguarda Litúrgica &bull; Nascidos do Raio de Sol
             </p>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-1 text-[13px] font-medium">
+        <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 2xl:gap-2.5 text-[12px] xl:text-[13px] 2xl:text-sm font-medium whitespace-nowrap">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`relative px-3 py-2 rounded-md transition-all duration-300 ${
+              className={`relative px-1.5 xl:px-2.5 2xl:px-3 py-1.5 rounded-md transition-all duration-300 whitespace-nowrap ${
                 isActive(link.href)
-                  ? "text-ambar-400"
+                  ? "text-ambar-400 font-semibold"
                   : "text-areia-300/80 hover:text-areia-100 hover:bg-floresta-800/40"
               }`}
             >
-              <span className="flex items-center gap-1.5">
+              <span className="flex items-center gap-1.5 whitespace-nowrap">
                 {link.icon && (
-                  <ShieldCheck className="h-3.5 w-3.5 text-ambar-500" />
+                  <ShieldCheck className="h-3.5 w-3.5 text-ambar-500 shrink-0 hidden xl:inline-block" />
                 )}
-                {link.label}
+                {link.href === "/projetos-de-luz" ? (
+                  <span>
+                    Projetos<span className="hidden xl:inline"> de Luz</span>
+                  </span>
+                ) : (
+                  <span>{link.label}</span>
+                )}
                 {link.badge && (
-                  <span className="rounded-full bg-ambar-500/20 px-1.5 py-0.5 text-[9px] font-bold text-ambar-300">
+                  <span className="hidden xl:inline-flex rounded-full bg-ambar-500/20 px-1.5 py-0.5 text-[9px] font-bold text-ambar-300 shrink-0">
                     {link.badge}
                   </span>
                 )}
               </span>
               {/* Active indicator line */}
               {isActive(link.href) && (
-                <span className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-ambar-500 to-ambar-400 rounded-full" />
+                <span className="absolute bottom-0 left-1.5 right-1.5 xl:left-2.5 xl:right-2.5 h-[2px] bg-gradient-to-r from-ambar-500 to-ambar-400 rounded-full" />
               )}
             </Link>
           ))}
         </nav>
 
         {/* CTAs */}
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
           <Link
             href="/portal-dirigente"
-            className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold text-ambar-300 bg-floresta-900/60 hover:bg-floresta-800 border border-ambar-500/30 hover:border-ambar-500/60 shadow-sm transition-all duration-300"
+            className="flex items-center gap-1.5 rounded-lg px-2 xl:px-3 py-1.5 text-[11px] xl:text-xs font-semibold text-ambar-300 bg-floresta-900/70 hover:bg-floresta-800 border border-ambar-500/30 hover:border-ambar-500/60 shadow-sm transition-all duration-300 whitespace-nowrap shrink-0"
             title="Acesso exclusivo a dirigentes de templos homologados"
           >
-            <Lock className="h-3.5 w-3.5 text-ambar-400" />
-            <span>Portal do Dirigente</span>
+            <Lock className="h-3.5 w-3.5 text-ambar-400 shrink-0" />
+            <span>
+              <span className="hidden xl:inline">Portal do </span>Dirigente
+            </span>
           </Link>
 
           <Link
             href="/credenciamento"
-            className="btn-primary-sm"
+            className="btn-primary-sm px-2.5 xl:px-3.5 py-1.5 text-[11px] xl:text-xs whitespace-nowrap shrink-0"
           >
-            <Sparkles className="h-3.5 w-3.5" />
+            <Sparkles className="h-3.5 w-3.5 shrink-0" />
             <span>Credenciamento</span>
           </Link>
         </div>

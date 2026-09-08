@@ -51,20 +51,16 @@ const todosDocumentosPdf: TodosDocumentosItem[] = [
   // Compêndios e Dossiês Institucionais
   { nome: "Curadoria & Feitio Consciente da Ayahuasca", arquivo: "curadoria-nativaram-ayahuasca.pdf", tamanho: "957 KB", categoria: "Ayahuasca" },
   { nome: "Compêndio Etnobotânico e Base de Conhecimento", arquivo: "nativaram-base-conhecimento-definiva.pdf", tamanho: "254 KB", categoria: "Rapés & Botânica" },
-  { nome: "Catálogo das 15 Essências de Rapé Sagrado", arquivo: "nativaram-catalogo-rapes-completo.pdf", tamanho: "289 KB", categoria: "Rapés Sagrados" },
+  { nome: "Catálogo das 15 Essências de Rapé Sagrado (Edição Canônica)", arquivo: "nativaram-catalogo-v4.pdf", tamanho: "281 KB", categoria: "Rapés Sagrados" },
   { nome: "Manual Unificado de Governança & Compliance Jurídico", arquivo: "manual-compliance-nativaram.pdf", tamanho: "1.022 KB", categoria: "Governança" },
   { nome: "Documento Institucional Nativaram Brasil & Sananga", arquivo: "documento-institucional-nativaram.pdf", tamanho: "988 KB", categoria: "Institucional" },
   { nome: "Diretrizes de Comunicação & Compliance Digital", arquivo: "Diretrizes de Comunicação e Compliance Nativaram Brasil.pdf", tamanho: "169 KB", categoria: "Compliance" },
-  { nome: "Diretrizes Institucionais e Base de Conhecimento (Rev)", arquivo: "Diretrizes Institucionais e Base de Conhecimento - Nativaram Brasil (1).pdf", tamanho: "368 KB", categoria: "Institucional" },
-  { nome: "Diretrizes Institucionais e Base de Conhecimento Original", arquivo: "Diretrizes Institucionais e Base de Conhecimento - Nativaram Brasil.pdf", tamanho: "107 KB", categoria: "Institucional" },
+  { nome: "Diretrizes Institucionais e Base de Conhecimento", arquivo: "Diretrizes Institucionais e Base de Conhecimento - Nativaram Brasil (1).pdf", tamanho: "368 KB", categoria: "Institucional" },
   { nome: "Sobre Nós: História, Povos Originários & Etnociência", arquivo: "sobre nós nativaram.pdf", tamanho: "2.651 KB", categoria: "História & Doutrina" },
   { nome: "Manual de Compliance Definitivo", arquivo: "nativaram-manual-compliance-definitivo.pdf", tamanho: "153 KB", categoria: "Compliance" },
   { nome: "Manual de Comunicação e Conformidade", arquivo: "nativaram-manual-comunicacao-compliance.pdf", tamanho: "203 KB", categoria: "Comunicação" },
-  { nome: "Catálogo Institucional & Mobile 2026", arquivo: "NATIVARAM - INSTITUCIONAL E CATALOGO MOBILE - 2026.pdf", tamanho: "10,3 MB", categoria: "Catálogo" },
-  { nome: "Dossiê Comercial & Logístico Institucional", arquivo: "Nativaram-Brasil-COMERCIAL.pdf", tamanho: "8,6 MB", categoria: "Operacional" },
   { nome: "Catálogo de Essências Tradicionais (Edição V2)", arquivo: "nativaram-catalogo-v2 PDF.pdf", tamanho: "473 KB", categoria: "Catálogo" },
   { nome: "Catálogo de Essências Tradicionais (Edição V3)", arquivo: "nativaram-catalogo-v3.pdf", tamanho: "280 KB", categoria: "Catálogo" },
-  { nome: "Catálogo de Essências Tradicionais (Edição V4)", arquivo: "nativaram-catalogo-v4.pdf", tamanho: "281 KB", categoria: "Catálogo" },
 ];
 
 export function EstudosClient() {
@@ -303,7 +299,7 @@ export function EstudosClient() {
             </div>
             <div className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 px-3 py-1 text-[10px] font-mono text-emerald-300">
               <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>Conexão Local Ativa: 21.trotski@gmail.com</span>
+              <span>Base Sincronizada • Curadoria Etnobotânica</span>
             </div>
           </div>
 

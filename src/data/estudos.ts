@@ -58,6 +58,26 @@ export const estudosData: EstudoItem[] = [
         conteudo:
           "A classificação numérica adotada pela cooperativa fundamenta-se na tradição daimista de biomassa vegetal por litro de preparado: 3.1 Mainumbi (90 a 120 ml, voo manso e acolhedor), 5.1 Pituã (70 a 100 ml, equilíbrio estável e clareza mental), 7.1 Anhangatã (50 a 90 ml, imersão profunda e canto da alma) e 10.1 Wirapuru Semi-Mel (30 a 50 ml, alta densidade e visão prolongada).",
       },
+      {
+        titulo: "4. Taxonomia das Lianas: Variedades de Caapi e Primos Malpighiaceae",
+        conteudo:
+          "Na bacia amazônica ocidental, a liana Banisteriopsis caapi manifesta etnovariedades consagradas: o Tucunacá (caule liso e espiralado, abundante em THH e Harmina com mínima harmalina, nosso padrão ouro); o Caupuri (caule com nós bulbosos e calosidades circulares em rosário, associado a limpezas telúricas intensas); o Ourinho (casca delgada com tons dourados e nós discretos, suave e de acalento); e o Cipó Preto/Yagé Negro (escuro, rico em taninos e betacarbolinas densas de vigília profunda). Parentes botânicos da mesma família Malpighiaceae incluem a Banisteriopsis muricata (cipó-vermelho de zonas de transição e cerrado) e as lianas do gênero Tetrapterys (T. mucronata e T. methystica), consagradas milenarmente por etnias do Alto Rio Negro e Vaupés (Tukano, Desana, Barasana) em rituais autóctones.",
+      },
+      {
+        titulo: "5. A Folha Rainha: Psychotria viridis e Primas Botânicas",
+        conteudo:
+          "A fonte de luz da miração é a folha tenra de Psychotria viridis (Rubiaceae), colhida nas primeiras horas da aurora sob preces dedicadas à Rainha da Floresta, antes que a foto-oxidação solar degrade o N,N-DMT estocado nos vacúolos celulares. Sua prima botânica no mesmo gênero, a Psychotria carthagenensis (Samiruka ou Amiruca), comum em várzeas e beiras de igarapés, exibe morfologia foliar similar, porém com teores menores e erráticos de triptaminas, sendo utilizada em certas tradições como moduladora de suavidade. Em contrapartida, a Chaliponga (Diplopterys cabrerana), embora seja uma trepadeira da família Malpighiaceae (família do cipó!), acumula triptaminas nas folhas e é utilizada no Noroeste Amazônico (Colômbia/Equador), mas é categoricamente vetada no padrão Nativaram para preservar a integridade estrita do binômio canônico brasileiro.",
+      },
+      {
+        titulo: "6. Ayahuasca Tradicional Amazônica vs. Anayahuascas",
+        conteudo:
+          "O termo 'Anahuasca' foi cunhado pelo etnobotânico Jonathan Ott para definir análogos não tradicionais que buscam reproduzir mecanicamente a fórmula [IMAO + DMT] utilizando substitutos exóticos ou laboratoriais. A Nativaram recusa com veemência tais preparações: 1) A Arruda Síria (Peganum harmala) é saturada de Harmalina neurotóxica periférica e desprovida de THH, gerando ataxia motora, tremores severos, sudorese fria e hipotensão abrupta; 2) A casca da raiz de Jurema Preta (Mimosa hostilis) é impregnada de taninos condensados pirogálicos altamente irritantes que causam inflamação gástrica aguda e sobrecarga renal; 3) A combinação caótica de alcaloides estranhos inibe imprevisivelmente as isoenzimas CYP2D6 e CYP1A2 do citocromo P450, elevando o risco de crises hipertensivas e Síndrome Serotoninérgica; e 4) Apenas a Ayahuasca tradicional amazônica (B. caapi + P. viridis) possui respaldo ancestral e salvaguarda legal pela Resolução CONAD nº 01/2010 no Brasil.",
+      },
+      {
+        titulo: "7. Cinética do Feitio: Panos de Menores Micras e Ponto de Apuro",
+        conteudo:
+          "O processo de cozimento decorre em fogo brando (85°C a 96°C) em tachos de aço inox cirúrgico ao longo de 10 a 14 horas por tacho. A clarificação do líquido extraído é executada exclusivamente através de panos técnicos de menores micras, sem deixar massa vegetal, sedimentos ou qualquer resíduo que não deveria permanecer na bebida. O apuro em tacho de acabamento com agitação compassada por remo de madeira nobre atinge o ponto exato de densidade límpida, tonalidade rubi translúcida, aroma balsâmico e estabilidade físico-química estrita.",
+      },
     ],
   },
   {
@@ -170,8 +190,8 @@ export const estudosData: EstudoItem[] = [
     subtitulo: "Famílias Botânicas, Rastreabilidade de Origem, Princípios Físico-Químicos e Dimensões Sutis",
     categoria: "rapes",
     categoriaLabel: "Rapés Sagrados",
-    pdfArquivo: "nativaram-catalogo-rapes-completo.pdf",
-    pdfTamanho: "289 KB",
+    pdfArquivo: "nativaram-catalogo-v4.pdf",
+    pdfTamanho: "281 KB",
     ano: "2026",
     autorOuFonte: "Laboratório Etnofarmacológico Nativaram Brasil",
     resumo:

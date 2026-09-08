@@ -29,6 +29,16 @@ Os **Projetos de Luz** representam o coração solidário da Cooperativa Nativar
 ### 4. Simbiose Sonora e Frequência 432 Hz
 - Produção musical e paisagens sonoras ancestrais sintonizadas na afinação natural de 432 Hz, promovendo relaxamento e acolhimento vibratório durante práticas de quietude.
 
+### 5. Custódia Litúrgica, Envase e Logística Amazônica
+- **Envase Responsável em Garrafas PET 100% Virgens:** Por necessidade do frete interestadual aéreo e inexistência de malha de logística reversa de volta ao interior do Acre, o sacramento da Ayahuasca é envasado em garrafas PET novas de fábrica (grau alimentício), submetidas a assepsia rigorosa completa e seladas com lacres invioláveis.
+- **Transparência Operacional:** Total clareza com os dirigentes de que, embora o vidro seja um nobre cenário em teoria, seu peso excessivo, custo e a impossibilidade de retorno inviabilizam o frete aéreo; garrafas novas virgens de primeiro uso eliminam qualquer risco de contaminação cruzada, quebras ou vazamentos.
+
+### 6. Matriz Oficial de Rateio Cooperativo (40/40/10/10)
+- **40% — Insumos, Alimentação & Lenha:** Lenha sustentável autorizada, alimentação das equipes nas vigílias de cocção, manutenção dos tachos de feitio e suprimentos do barracão.
+- **40% — Famílias Parceiras no Acre:** Remuneração justa e digna das famílias guardiãs, seringueiros, ribeirinhos e comunidades indígenas de Cruzeiro do Sul/AC, assegurando dignidade e quebra de atravessadores.
+- **10% — Logística & Embalagens Virgens:** Garrafas PET 100% novas de primeiro uso, assepsia estéril, lacres invioláveis e transporte aéreo refrigerado até os polos de distribuição.
+- **10% — Fundo Social & Consolidação da Ecovila:** Reserva de sustentabilidade para o plantio agroflorestal perpétuo, infraestrutura da Ecovila e acolhimento de pessoas vulneráveis.
+
 ---
 
 ## Relações

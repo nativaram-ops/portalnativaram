@@ -11,6 +11,7 @@ import {
   X,
   ExternalLink,
   Lock,
+  Scale,
 } from "lucide-react";
 
 export function WelcomeConsentModal() {
@@ -60,7 +61,7 @@ export function WelcomeConsentModal() {
       />
 
       {/* Cartão Modal com Fundo Areia Nobre Brilhante de Leve */}
-      <div className="relative w-full max-w-lg my-auto rounded-3xl border-2 border-ambar-400/60 bg-gradient-to-b from-[#FCFBF7] via-[#F8F4EB] to-[#ECE3D0] shadow-[0_25px_70px_rgba(0,0,0,0.7),0_0_40px_rgba(212,163,89,0.35)] overflow-hidden text-pedra-900 transition-all transform animate-scale-in">
+      <div className="relative w-full max-w-lg max-h-[92vh] my-auto rounded-3xl border-2 border-ambar-400/60 bg-gradient-to-b from-[#FCFBF7] via-[#F8F4EB] to-[#ECE3D0] shadow-[0_25px_70px_rgba(0,0,0,0.7),0_0_40px_rgba(212,163,89,0.35)] overflow-hidden text-pedra-900 transition-all transform animate-scale-in flex flex-col">
         
         {/* Halo de luz âmbar solar radiante ao fundo */}
         <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-80 h-80 bg-gradient-to-b from-ambar-400/30 via-amber-300/20 to-transparent rounded-full blur-2xl pointer-events-none" />
@@ -80,22 +81,22 @@ export function WelcomeConsentModal() {
         </button>
 
         {/* Conteúdo do Modal */}
-        <div className="relative p-6 sm:p-8 space-y-5 text-center">
+        <div className="relative p-5 sm:p-7 space-y-4 text-center overflow-y-auto custom-scrollbar">
           
           {/* Emblema Solar com Animação e Fundo Areia Iluminado */}
-          <div className="relative mx-auto flex items-center justify-center pt-2">
+          <div className="relative mx-auto flex items-center justify-center pt-1">
             
             {/* Anéis concêntricos de irradiação solar suave */}
-            <div className="absolute w-44 h-44 rounded-full border border-amber-400/30 animate-[spin_60s_linear_infinite] pointer-events-none" />
-            <div className="absolute w-36 h-36 rounded-full bg-gradient-to-tr from-amber-400/25 via-yellow-300/15 to-transparent blur-md pointer-events-none animate-pulse" />
+            <div className="absolute w-36 h-36 rounded-full border border-amber-400/30 animate-[spin_60s_linear_infinite] pointer-events-none" />
+            <div className="absolute w-28 h-28 rounded-full bg-gradient-to-tr from-amber-400/25 via-yellow-300/15 to-transparent blur-md pointer-events-none animate-pulse" />
 
             {/* Medalhão central */}
-            <div className="relative flex items-center justify-center w-28 h-28 sm:w-32 sm:h-32 rounded-full border-2 border-amber-500/70 bg-gradient-to-b from-[#FFFDF9] via-[#FAF6ED] to-[#EFE7D5] shadow-[0_8px_24px_rgba(0,0,0,0.18),0_0_20px_rgba(212,163,89,0.3),inset_0_2px_4px_rgba(255,255,255,0.9)] p-2 transition-transform duration-700 hover:scale-105">
+            <div className="relative flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-amber-500/70 bg-gradient-to-b from-[#FFFDF9] via-[#FAF6ED] to-[#EFE7D5] shadow-[0_8px_24px_rgba(0,0,0,0.18),0_0_20px_rgba(212,163,89,0.3),inset_0_2px_4px_rgba(255,255,255,0.9)] p-2 transition-transform duration-700 hover:scale-105">
               <Image
                 src="/assets/emblema-solar-boas-vindas.png"
                 alt="Emblema Sagrado Raio de Sol — Cooperativa Etnobotânica Nativaram Brasil"
-                width={128}
-                height={128}
+                width={112}
+                height={112}
                 priority
                 className="w-full h-full object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.12)]"
               />
@@ -103,7 +104,7 @@ export function WelcomeConsentModal() {
           </div>
 
           {/* Cabeçalho Textual Nobre */}
-          <div className="space-y-1.5 pt-1">
+          <div className="space-y-1 pt-0.5">
             <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-600/25 px-3 py-0.5 text-[10px] sm:text-[11px] font-semibold tracking-widest text-amber-900 uppercase">
               <Sparkles className="h-3 w-3 text-amber-600" />
               <span>Nascidos do Raio de Sol</span>
@@ -111,7 +112,7 @@ export function WelcomeConsentModal() {
 
             <h2
               id="welcome-modal-title"
-              className="font-serif text-xl sm:text-2xl font-bold text-floresta-950 tracking-tight"
+              className="font-serif text-lg sm:text-xl font-bold text-floresta-950 tracking-tight"
             >
               Seja Bem-vindo(a) ao Portal Nativaram
             </h2>
@@ -119,6 +120,48 @@ export function WelcomeConsentModal() {
             <p className="text-xs text-pedra-700 max-w-md mx-auto leading-relaxed font-light">
               Somos uma cooperativa etnobotânica dedicada à salvaguarda do sacramento da Ayahuasca,
               à sabedoria tradicional dos povos da floresta e ao apoio litúrgico a instituições constituídas.
+            </p>
+          </div>
+
+          {/* Caixa de Semântica da Salvaguarda & Regras Vigentes */}
+          <div className="rounded-2xl p-3.5 sm:p-4 bg-gradient-to-r from-amber-500/[0.12] via-amber-400/[0.06] to-amber-500/[0.12] border border-amber-600/30 text-left space-y-2.5 shadow-sm">
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 text-xs font-bold text-floresta-950 font-serif">
+                <Scale className="h-4 w-4 text-amber-700 shrink-0" />
+                <span>Nossa Semântica & Regras Vigentes</span>
+              </div>
+              <span className="text-[9px] font-mono font-semibold px-2 py-0.5 rounded-full bg-amber-600/15 text-amber-900 border border-amber-600/25 uppercase tracking-wider">
+                CONAD & ANVISA
+              </span>
+            </div>
+
+            <p className="text-[11px] sm:text-xs text-pedra-800 leading-relaxed font-light">
+              Para assegurar a conformidade irrestrita com as normas da <strong>ANVISA</strong> e da <strong>Resolução CONAD nº 01/2010</strong>,
+              nossa comunicação <strong>não utiliza vocabulário clínico ou mercantil</strong>. Adotamos intencionalmente a semântica da salvaguarda:
+            </p>
+
+            {/* Pílulas de contraste semântico sutis e chamativas */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-0.5 text-[10px] text-pedra-700 font-medium">
+              <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/70 border border-amber-500/20">
+                <span className="text-amber-700 font-bold">✦</span>
+                <span><strong>Sabedoria Botânica</strong> (e não fármacos)</span>
+              </div>
+              <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/70 border border-amber-500/20">
+                <span className="text-amber-700 font-bold">✦</span>
+                <span><strong>Florescimento Vital</strong> (e não promessas de cura)</span>
+              </div>
+              <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/70 border border-amber-500/20">
+                <span className="text-amber-700 font-bold">✦</span>
+                <span><strong>Partilha Cooperativa</strong> (e não comércio de lucro)</span>
+              </div>
+              <div className="flex items-center gap-1.5 p-1.5 rounded-lg bg-white/70 border border-amber-500/20">
+                <span className="text-amber-700 font-bold">✦</span>
+                <span><strong>Sacramento Sagrado</strong> (e não itens de consumo)</span>
+              </div>
+            </div>
+
+            <p className="text-[10px] text-pedra-600 italic font-light pt-0.5">
+              Preservamos a sacralidade litúrgica, o amparo ao Art. 5º da CF/88 e a total transparência com os órgãos reguladores.
             </p>
           </div>
 

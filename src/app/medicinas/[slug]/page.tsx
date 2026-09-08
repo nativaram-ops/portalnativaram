@@ -340,7 +340,7 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                 <a
-                  href={`https://wa.me/5568999979104?text=${encodeURIComponent(`Olá Victor, gostaria de consultar a disponibilidade e rateio cooperativo do sacramento ${med.nome}.`)}`}
+                  href={`https://wa.me/5568999979104?text=${encodeURIComponent(`Olá, gostaria de consultar a disponibilidade e rateio cooperativo do sacramento ${med.nome}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary flex-shrink-0 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider w-full sm:w-auto justify-center"

@@ -27,22 +27,22 @@ export const Logo = ({
 }: LogoProps) => {
   switch (variant) {
     case "navbar": {
-      const dim = size || 44;
+      const dim = size || 58;
       return (
         <div
-          className={`group relative flex items-center justify-center transition-all duration-500 ${className}`}
+          className={`group relative flex items-center justify-center transition-all duration-500 shrink-0 ${className}`}
         >
           {/* Aura suave de luz âmbar solar da floresta (idêntica ao footer) */}
           <div className="absolute -inset-2 rounded-full bg-gradient-to-b from-ambar-400/25 via-ambar-500/15 to-transparent blur-md pointer-events-none transition-opacity duration-500 group-hover:from-ambar-400/40" />
 
           {/* Disco medalhão no tom areia nobre (idêntico ao footer) */}
           <div
-            className="relative flex items-center justify-center rounded-full border-[1.5px] border-ambar-400/70 bg-gradient-to-b from-[#FAF7F0] via-[#F3ECE0] to-[#E7DEC8] shadow-[0_4px_16px_rgba(0,0,0,0.35),0_0_12px_rgba(212,163,89,0.2),inset_0_1px_2px_rgba(255,255,255,0.7)] transition-transform duration-500 group-hover:scale-105"
+            className="relative flex items-center justify-center rounded-full border-[1.5px] border-ambar-400/70 bg-gradient-to-b from-[#FAF7F0] via-[#F3ECE0] to-[#E7DEC8] shadow-[0_4px_16px_rgba(0,0,0,0.35),0_0_12px_rgba(212,163,89,0.2),inset_0_1px_2px_rgba(255,255,255,0.7)] transition-transform duration-500 group-hover:scale-105 shrink-0"
             style={{ width: dim, height: dim }}
           >
             <Image
               src="/assets/logo.png"
-              alt="Emblema Solar Nativaram Brasil"
+              alt="Emblema Solar Cooperativa Nativaram"
               width={dim}
               height={dim}
               className="h-[92%] w-[92%] object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
@@ -69,7 +69,7 @@ export const Logo = ({
           >
             <Image
               src="/assets/logo.png"
-              alt="Emblema Solar Nativaram Brasil"
+              alt="Emblema Solar Cooperativa Nativaram"
               width={dim}
               height={dim}
               className="h-[92%] w-[92%] object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
@@ -93,7 +93,7 @@ export const Logo = ({
           >
             <Image
               src="/assets/logo.png"
-              alt="Emblema Solar Nativaram Brasil"
+              alt="Emblema Solar Cooperativa Nativaram"
               width={dim}
               height={dim}
               className="h-[92%] w-[92%] object-contain drop-shadow-[0_1px_2px_rgba(0,0,0,0.08)]"
@@ -115,7 +115,7 @@ export const Logo = ({
           <div className="absolute inset-0 rounded-full bg-ambar-400/10 blur-xs pointer-events-none" />
           <Image
             src="/assets/logo.png"
-            alt="Emblema Solar Nativaram Brasil"
+            alt="Emblema Solar Cooperativa Nativaram"
             width={dim}
             height={dim}
             className="relative h-[92%] w-[92%] object-contain drop-shadow-[0_1px_1px_rgba(0,0,0,0.08)]"

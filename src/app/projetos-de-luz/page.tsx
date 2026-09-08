@@ -4,21 +4,21 @@ import { ProjetoDeLuzLanding } from "@/components/projetos-de-luz/ProjetoDeLuzLa
 
 export const metadata: Metadata = {
   title:
-    "Projeto de Luz — Acessibilidade Logística, Pureza Fitoquímica & Salvaguarda dos Templos | Nativaram Brasil",
+    "Projeto de Luz — Acessibilidade Logística, Pureza Fitoquímica & Salvaguarda dos Templos | Cooperativa Nativaram",
   description:
-    "Conheça o Projeto de Luz da Cooperativa Nativaram Brasil: a rede de acessibilidade logística e operacional que garante sacramentos puros, equilíbrio de biomassa, frascos em vidro âmbar farmacotécnico e pleno amparo legal sob a Resolução CONAD nº 01/2010 para casas e templos de todo o país.",
+    "Conheça o Projeto de Luz da Cooperativa Nativaram: a rede de acessibilidade logística e operacional que garante sacramentos puros, equilíbrio de biomassa, garrafas virgens com assepsia estrita e pleno amparo legal sob a Resolução CONAD nº 01/2010 para casas e templos de todo o país.",
   openGraph: {
     title:
-      "Projeto de Luz — Acessibilidade Operacional & Salvaguarda Litúrgica | Nativaram Brasil",
+      "Projeto de Luz — Acessibilidade Operacional & Salvaguarda Litúrgica | Cooperativa Nativaram",
     description:
       "A ponte sagrada que rompe a informalidade: pureza botânica rastreada do Acre até o altar da sua congregação com segurança fitoquímica e amparo institucional.",
     url: "https://nativaramcoop.eco.br/projetos-de-luz",
     images: [
       {
-        url: "/assets/projetos-de-luz/projeto-luz-altar.jpg",
+        url: "/assets/projetos-de-luz/garrafas-ayahuasca-nativaram.jpg",
         width: 1200,
         height: 675,
-        alt: "Altar cerimonial botânico na Amazônia com frascos em vidro âmbar e artefatos sagrados — Nativaram Brasil",
+        alt: "Lote de garrafas de Ayahuasca produzidas artesanalmente pela Cooperativa Nativaram em Cruzeiro do Sul (Acre)",
       },
     ],
   },

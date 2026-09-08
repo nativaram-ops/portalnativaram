@@ -28,6 +28,7 @@ No chat do assistente, basta digitar `/` seguido do nome da skill ou setor para 
 ## 📂 Setores e Comandos Disponíveis
 
 ### 1. 🧠 Segundo Cérebro (Obsidian & Vault)
+- **`/segundo-cerebro-ciclo-memoria-ativa`**: Executa o loop mandatório: consulta prévia no Obsidian antes de atualizar e gravação no vault após a mudança.
 - **`/segundo-cerebro-atualizar-projeto`**: Adiciona tarefas, escopo e relações a notas de projetos existentes.
 - **`/segundo-cerebro-atualizar-status`**: Altera o status da nota (ex: de \`planejamento\` para \`pronto\`).
 - **`/segundo-cerebro-auditar-conteudo`**: Audita e higieniza dados mockados ou temporários no vault.

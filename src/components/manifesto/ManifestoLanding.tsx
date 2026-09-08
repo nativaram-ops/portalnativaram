@@ -49,7 +49,7 @@ const faqsInstitucionais: FaqItem[] = [
   {
     pergunta: "Quem conduz o feitio dos sacramentos da cooperativa?",
     resposta:
-      "Nossos preparados são liderados por um experiente feitor caboclo com mais de 28 anos de dietas de isolamento, oração contínua e vivência prática na floresta de Cruzeiro do Sul (Acre), em aliança de respeito com mestres pajés das etnias Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã. Essa herança alia a Ciência Tradicional dos povos da terra com a sensibilidade cabocla.",
+      "Nossos preparados são liderados por um experiente mestre feitor caboclo com mais de 28 anos de dietas de isolamento e vivência prática na floresta de Cruzeiro do Sul (Acre), aliado a uma aliança de centros tradicionais credenciados de produção no estado. Nossa relação com os povos originários (Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã) é estritamente no campo da salvaguarda intelectual e procedimental de seus saberes tradicionais, sem qualquer vínculo produtivo ou comercial direto com as aldeias indígenas.",
   },
   {
     pergunta: "O que é a 'Alquimia entre Dois Mundos' (Etnociência)?",
@@ -189,22 +189,38 @@ export function ManifestoLanding() {
                     A <strong className="text-areia-100 font-semibold">Cooperativa Etnobotânica Nativaram Brasil</strong> nasce sob o significado sagrado de <strong className="text-ambar-300 font-semibold">&ldquo;Nascidos do Raio de Sol&rdquo;</strong>. Representa a jornada daqueles que escolheram a entrega de alma como única forma de caminhar pela vida.
                   </p>
                   <p>
-                    A instituição, impulsionada pelo guardião e curador etnobotânico <strong className="text-areia-100 font-semibold">Victor Vizeu Barcellos Lau</strong>, transcende categoricamente o conceito de um comércio eletrônico ou negócio convencional. Estruturada como uma cooperativa dedicada ao estudo profundo, à salvaguarda e à partilha ética de sacramentos botânicos amazônicos, a Nativaram atua para resgatar a sacralidade no cotidiano, proporcionando elevação espiritual, serenidade mental e harmonização interior.
+                    A instituição, impulsionada por uma aliança de guardiões, curadores etnobotânicos e mestres tradicionais da floresta, transcende categoricamente o conceito de um comércio eletrônico ou negócio convencional. Estruturada como uma cooperativa dedicada ao estudo profundo, à salvaguarda e à partilha ética de sacramentos botânicos amazônicos, a Nativaram atua para resgatar a sacralidade no cotidiano, proporcionando elevação espiritual, serenidade mental e harmonização interior.
                   </p>
                   <p>
                     Nosso modelo é de <strong className="text-areia-200">economia solidária e desmercantilizada</strong>. Rejeitamos com veemência o turismo psicodélico, a apropriação predatória e a banalização dos ritos da floresta. Para a Nativaram, o comércio não é a finalidade: o rateio de custos operacionais é apenas o veículo logístico indispensável para assegurar a remuneração digna das famílias extrativistas locais e a manutenção litúrgica dos templos parceiros, operando <strong className="text-areia-100">estritamente sem fins lucrativos</strong>.
                   </p>
                 </div>
 
-                {/* Destaque do Feitor Caboclo */}
-                <div className="card-liturgico rounded-2xl p-6 space-y-3 border-l-4 border-l-ambar-500">
+                {/* Destaque do Mestre Feitor Caboclo & Rede de Centros Credenciados */}
+                <div className="card-liturgico rounded-2xl p-6 space-y-4 border-l-4 border-l-ambar-500">
                   <div className="flex items-center gap-2 text-xs font-mono font-bold text-ambar-400 uppercase tracking-wider">
                     <TreePine className="h-4 w-4" />
-                    <span>A Tradição do Feitor Caboclo • Mais de 28 Anos</span>
+                    <span>O Mestre Feitor & A Aliança de Centros Credenciados</span>
                   </div>
                   <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
-                    Nossos sacramentos não provêm de processos industriais terceirizados. São consagrados através da liderança direta do nosso feitor caboclo, com mais de <strong className="text-areia-100 font-medium">28 anos de estudos profundos, dietas rigorosas de isolamento na selva</strong> e alianças de respeito mútuo com mestres e pajés das nações amazônicas <strong className="text-ambar-300">Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã</strong>.
+                    Nossos sacramentos não provêm de processos anônimos ou industriais. Mantemos nosso foco e reverência central na sabedoria do nosso <strong className="text-areia-100 font-medium">mestre feitor caboclo</strong>, com mais de <strong className="text-areia-100 font-medium">28 anos de estudos profundos e dietas rigorosas de isolamento na selva</strong> de Cruzeiro do Sul/AC.
                   </p>
+                  <div className="pt-2.5 border-t border-ambar-500/15 space-y-1.5">
+                    <h4 className="font-serif text-xs font-semibold text-ambar-300 flex items-center gap-1.5">
+                      <span>✦</span> Centros Parceiros & Padronização Litúrgica
+                    </h4>
+                    <p className="text-xs text-areia-300/90 leading-relaxed font-light">
+                      Trabalhamos em aliança cooperativa com <strong>diversos centros tradicionais credenciados de produção no Acre</strong>. Cada um desses centros mantém suas atividades e seu feitio regular independente para abastecer seus próprios templos associados e estudos locais. Todavia, ao integrarem a Nativaram, esses centros recebem nossa curadoria, suporte e respaldo institucional, e elaboram os sacramentos da cooperativa <strong>seguindo estritamente o estudo metodológico e fitoquímico da Nativaram</strong> — mesmo que paralelamente desenvolvam preparados de estudos próprios. Assim, preservamos a autonomia de cada feitor e garantimos a máxima uniformidade e pureza aos templos de todo o Brasil.
+                    </p>
+                  </div>
+                  <div className="pt-2.5 border-t border-ambar-500/15 space-y-1.5">
+                    <h4 className="font-serif text-xs font-semibold text-ambar-300 flex items-center gap-1.5">
+                      <span>✦</span> Povos Originários: Salvaguarda Intelectual e Procedimental
+                    </h4>
+                    <p className="text-xs text-areia-300/90 leading-relaxed font-light">
+                      Nossa conexão e reverência aos povos originários (<strong className="text-ambar-300 font-medium">Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã</strong>) dá-se <strong>estritamente dentro da salvaguarda intelectual e procedimental</strong>, em respeito à memória etnobotânica e à sabedoria imaterial da floresta. <strong>Não possuímos ligação direta com comunidades ou aldeias indígenas para a produção dos sacramentos</strong>: toda a feitura material é conduzida de forma autônoma pelo nosso mestre feitor caboclo e pela rede de centros credenciados cooperados no Acre.
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -213,8 +229,8 @@ export function ManifestoLanding() {
                 <div className="image-reveal rounded-3xl overflow-hidden border border-ambar-500/20 shadow-elevated-lg relative">
                   <div className="relative h-[420px] sm:h-[500px] w-full">
                     <Image
-                      src="/assets/manifesto/alquimia-entre-dois-mundos.jpg"
-                      alt="A Alquimia entre Dois Mundos — Bancada de Etnobotânica e Pesquisa Científica da Nativaram"
+                      src="/assets/manifesto/floresta-amazonica-acre.jpg"
+                      alt="Floresta Amazônica — Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -223,10 +239,10 @@ export function ManifestoLanding() {
                   </div>
                   <div className="absolute bottom-0 inset-x-0 p-6 space-y-1 bg-gradient-to-t from-floresta-950 via-floresta-950/90 to-transparent">
                     <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-widest">
-                      Bancada de Etnociência
+                      Floresta Amazônica • Acre
                     </span>
                     <p className="text-xs text-areia-200 font-serif italic">
-                      O encontro entre a sabedoria ancestral da floresta e a investigação fitoquímica ocidental.
+                      Santuário ancestral e berço das tradições sagradas no Vale do Juruá.
                     </p>
                   </div>
                 </div>
@@ -238,7 +254,7 @@ export function ManifestoLanding() {
                   </div>
                   <div className="card-elevated rounded-xl p-4 space-y-1">
                     <span className="font-serif text-2xl font-bold text-ambar-400">6</span>
-                    <p className="text-[11px] text-areia-400">Nações Indígenas Parceiras</p>
+                    <p className="text-[11px] text-areia-400">Nações em Salvaguarda Intelectual</p>
                   </div>
                 </div>
               </div>

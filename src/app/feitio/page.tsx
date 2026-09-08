@@ -12,10 +12,10 @@ export const metadata: Metadata = {
       "A melhor alquimia para preparar a Ayahuasca: proporção de biomassa, água pura de nascente, quebração em madeira e vigília no fogo sagrado em Cruzeiro do Sul, Acre.",
     images: [
       {
-        url: "/assets/feitio/curadas/feitio-vigilia-noturna-feitor.jpg",
+        url: "/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg",
         width: 1200,
         height: 675,
-        alt: "Vigília noturna do Feitor Caboclo na Casa de Feitio da Nativaram em Cruzeiro do Sul, Acre",
+        alt: "Vigília noturna na Casa de Feitio da Nativaram em Cruzeiro do Sul, Acre",
       },
     ],
   },

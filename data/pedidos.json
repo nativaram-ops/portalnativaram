@@ -1,5 +1,72 @@
 [
   {
+    "id": "SOL-2026-X1HU",
+    "temploId": "NAT-TEMPLO-842",
+    "temploNome": "Templo Céu do Cruzeiro",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "dirigenteNome": "Padrinho Marcos Silva",
+    "dirigenteTelefone": "11987654321",
+    "dirigenteEmail": "dirigente@templo.org.br",
+    "cnpj": "34.567.890/0001-12",
+    "itens": [
+      {
+        "id": "10.1_WIRAPURU",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "10.1 Wirapuru",
+        "codigoOuSubtitulo": "Pureza Tucunacá & Chacrona Rainha",
+        "quantidade": 10,
+        "unidade": "Litros",
+        "rateioUnitarioEstimado": 260,
+        "rateioTotalEstimado": 2600
+      },
+      {
+        "id": "VEIA_DE_PAJE",
+        "tipo": "RAPE_SAGRADO",
+        "nome": "Rapé Sagrado de Veia de Pajé",
+        "codigoOuSubtitulo": "Ativação do ânimo, acolhimento do Chakra Card...",
+        "quantidade": 2,
+        "unidade": "Frascos (20g)",
+        "rateioUnitarioEstimado": 65,
+        "rateioTotalEstimado": 130
+      },
+      {
+        "id": "KURIPE_TRADICIONAL",
+        "tipo": "ARTEFATO_SAGRADO",
+        "nome": "Kuripe Artesanal de Bambu & Resina",
+        "codigoOuSubtitulo": "Aplicador individual sagrado",
+        "quantidade": 1,
+        "unidade": "Unidades",
+        "rateioUnitarioEstimado": 85,
+        "rateioTotalEstimado": 85
+      },
+      {
+        "id": "SACRAMENTO_GEL",
+        "tipo": "GRADUACAO_AYAHUASCA",
+        "nome": "GEL Sacramento Gel",
+        "codigoOuSubtitulo": "Alquimia Ancestral Extrema",
+        "quantidade": 10,
+        "unidade": "Litros",
+        "rateioUnitarioEstimado": 200,
+        "rateioTotalEstimado": 2000
+      }
+    ],
+    "rateioTotal": 4815,
+    "dataCerimoniaPretendida": "2026-10-12",
+    "mensagemIntencao": "Trabalho litúrgico regular de alinhamento e renovação dos votos espirituais da congregação. Agradecemos a dedicação dos irmãos feitores no Acre.",
+    "status": "SOLICITADO",
+    "historico": [
+      {
+        "status": "SOLICITADO",
+        "dataHora": "07/09/2026, 20:46",
+        "observacao": "Solicitação litúrgica registrada no portal da cooperativa.",
+        "responsavel": "Dirigente Homologado"
+      }
+    ],
+    "criadoEm": "2026-09-07T23:46:52.045Z",
+    "atualizadoEm": "2026-09-07T23:46:52.045Z"
+  },
+  {
     "id": "SOL-2026-LZ5K",
     "temploId": "NAT-TEMPLO-842",
     "temploNome": "Templo Céu do Cruzeiro",

@@ -72,14 +72,14 @@ const pipelineSteps: PipelineStep[] = [
   },
   {
     numero: "03",
-    titulo: "Custódia Farmacotécnica & Envasamento Estéril",
-    subtitulo: "Vidro âmbar nobre, lacre inviolável e rastreabilidade de lote",
+    titulo: "Custódia Higiênica, Garrafas Novas & Rastreabilidade",
+    subtitulo: "Recipientes 100% virgens, assepsia rigorosa e lacres invioláveis",
     descricao:
-      "Diferente do mercado informal que utiliza garrafas plásticas recicladas que liberam microplásticos e bisfenol, a Nativaram adota envasamento estéril em recipientes de vidro âmbar com lacres de segurança invioláveis. Cada frasco recebe etiqueta de rastreabilidade com número de lote, data de feitura, safra botânica e proporção de biomassa.",
+      "Diferente do mercado informal que reaproveita garrafas usadas de refrigerante e bebidas (gerando contaminação e fermentação), a Cooperativa Nativaram utiliza exclusivamente garrafas PET novas e 100% virgens de padrão alimentício. Embora o vidro seja um cenário ideal em teoria, seu altíssimo custo, a fragilidade no transporte aéreo e a impossibilidade prática de logística reversa de volta ao interior do Acre inviabilizam seu envio interestadual. Por necessidade e responsabilidade, garantimos assepsia completa, recipientes novos de fábrica, selagem hermética com lacres de segurança e etiqueta de rastreabilidade com lote, data de feitura e safra botânica.",
     destaques: [
-      "Envase em vidro âmbar que protege contra a fotodegradação por raios UV",
-      "Selagem hermética e lacre de segurança contra violação física",
-      "Rastreabilidade de lote com certidão de origem florestal e safra",
+      "Uso exclusivo de garrafas PET novas e virgens de fábrica (zero reaproveitamento)",
+      "Protocolo completo de higienização alimentar e selagem hermética inviolável",
+      "Rastreabilidade de lote com certidão de origem florestal e biomassa mensurada",
     ],
     icone: PackageCheck,
   },
@@ -133,7 +133,7 @@ const faqsProjetoLuz: FaqItem[] = [
   {
     pergunta: "Por que a acessibilidade logística da Nativaram resolve um problema de segurança pública e espiritual?",
     resposta:
-      "Historicamente, centenas de casas e grupos de oração no Brasil sofrem com a falta de acesso a preparados fidedignos, recorrendo ao mercado clandestino informal. Nesse mercado, proliferam sacramentos adulterados com aditivos não regulados, biomassa desbalanceada (que provoca sobrecarga cardiovascular ou crises de pânico) e transporte em garrafas plásticas contaminadas. Ao viabilizar uma cadeia de suprimentos cooperativa, rastreada, purista e em vidro âmbar estéril, a Nativaram devolve a serenidade, a segurança física e a nobreza litúrgica às congregações.",
+      "Historicamente, centenas de casas e grupos de oração no Brasil sofrem com a falta de acesso a preparados fidedignos, recorrendo ao mercado clandestino informal. Nesse mercado, proliferam sacramentos adulterados com aditivos não regulados, biomassa desbalanceada (que provoca sobrecarga cardiovascular ou crises de pânico) e transporte em garrafas reaproveitadas contaminadas. Ao viabilizar uma cadeia de suprimentos cooperativa, rastreada, purista e em recipientes virgens com higienização estéril, a Cooperativa Nativaram devolve a serenidade, a segurança física e a nobreza litúrgica às congregações.",
   },
   {
     pergunta: "Quem pode ser atendido pelo projeto de acessibilidade e receber os sacramentos?",
@@ -148,12 +148,12 @@ const faqsProjetoLuz: FaqItem[] = [
   {
     pergunta: "Como o sacramento é transportado sem fermentar ou degradar?",
     resposta:
-      "O sacramento tradicional, quando livre de aditivos químicos, é uma substância viva. Nosso protocolo logístico envolve envase com controle rigoroso de temperatura, lacração hermética em vidro âmbar farmacotécnico e embalagens com isolamento térmico e tripla camada protetora antichoque. Os envios são monitorados em janelas expressas de transporte aéreo e rodoviário rápido, prevenindo a fermentação e o estufamento.",
+      "O sacramento tradicional, quando livre de aditivos químicos, é uma substância viva. Nosso protocolo logístico envolve envase com controle rigoroso de temperatura, garrafas novas de fábrica com lacração hermética de segurança e embalagens com isolamento térmico e tripla camada protetora antichoque. Os envios são monitorados em janelas expressas de transporte aéreo e rodoviário rápido, prevenindo a fermentação e o estufamento.",
   },
   {
     pergunta: "Como funciona o rateio de custos cooperativo?",
     resposta:
-      "A Nativaram não possui fins lucrativos. Cada contribuição solicitada aos templos credenciados é um rateio solidário de custos operacionais reais: honorários justos dos feitores caboclos no Acre, manejo agroflorestal sustentável, lenha autorizada, recipientes de vidro âmbar esterilizados, frete aéreo interestadual e o fundo cooperativo que subsidia a Ecovila e o acolhimento social. Todo valor é transparente e auditável.",
+      "A Cooperativa Nativaram não possui fins lucrativos. Cada contribuição solicitada aos templos credenciados é um rateio solidário de custos operacionais reais: honorários justos dos feitores caboclos no Acre, manejo agroflorestal sustentável, lenha autorizada, recipientes novos e esterilizados, frete aéreo interestadual e o fundo cooperativo que subsidia a Ecovila e o acolhimento social. Todo valor é transparente e auditável.",
   },
   {
     pergunta: "Qual é o respaldo jurídico do dirigente e da casa com a Nativaram?",
@@ -323,7 +323,7 @@ export function ProjetoDeLuzLanding() {
                     <li className="flex items-start gap-2.5">
                       <span className="text-red-400 font-bold mt-0.5 font-serif">✕</span>
                       <div>
-                        <strong className="text-red-300 font-medium">Envase em Garrafas Plásticas Tóxicas:</strong> Recipientes reaproveitados de refrigerante que liberam antimônio e microplásticos no sacramento e fermentam no calor.
+                        <strong className="text-red-300 font-medium">Garrafas Reutilizadas & Contaminadas:</strong> Recipientes reaproveitados de refrigerante e bebidas recolhidos sem controle sanitário, soltando odores estranhos, açúcares residuais e fermentando no calor do transporte.
                       </div>
                     </li>
                     <li className="flex items-start gap-2.5">
@@ -379,7 +379,7 @@ export function ProjetoDeLuzLanding() {
                     <li className="flex items-start gap-2.5">
                       <CheckCircle2 className="h-4 w-4 text-ambar-400 flex-shrink-0 mt-0.5" />
                       <div>
-                        <strong className="text-ambar-300 font-medium">Vidro Âmbar Farmacotécnico & Lacres:</strong> Frascos estéreis que bloqueiam a radiação solar ultravioleta e garantem que o sacramento não seja violado.
+                        <strong className="text-ambar-300 font-medium">Garrafas PET 100% Virgens & Higienização Completa:</strong> Recipientes novos de fábrica de padrão alimentício com lacre inviolável. Pela inviabilidade de logística reversa do vidro saindo do Acre, garantimos máxima segurança, pureza microbiológica e zero risco de quebra no frete.
                       </div>
                     </li>
                     <li className="flex items-start gap-2.5">
@@ -537,35 +537,35 @@ export function ProjetoDeLuzLanding() {
       <SectionDivider variant="solar" />
 
       {/* ═══════════════════════════════════════════
-          PAINEL VISUAL: A CUSTÓDIA FARMACOTÉCNICA EM DETALHES
+          PAINEL VISUAL: A CUSTÓDIA LITÚRGICA EM DETALHES
           ═══════════════════════════════════════════ */}
       <section className="py-section-lg relative">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            {/* Imagem gerada ultra-realista de custódia (estritamente frascos de vidro âmbar, plantas e ambiente botânico — sem pessoas) */}
+            {/* Fotografia real do lote de garrafas de Ayahuasca produzidas na floresta de Cruzeiro do Sul pela Cooperativa Nativaram */}
             <div className="lg:col-span-6 relative">
               <div className="relative h-[380px] sm:h-[460px] w-full rounded-2xl overflow-hidden border border-ambar-500/30 shadow-elevated group">
                 <Image
-                  src="/assets/projetos-de-luz/projeto-luz-custodia.jpg"
-                  alt="Frascos de vidro âmbar estéril com lacres invioláveis, gotas de água pura e folhagens amazônicas frescas representando a pureza botânica e rastreabilidade da Nativaram"
+                  src="/assets/projetos-de-luz/garrafas-ayahuasca-nativaram.jpg"
+                  alt="Lote de garrafas de Ayahuasca produzidas artesanalmente pela Cooperativa Nativaram em Cruzeiro do Sul (Acre), envasadas em recipientes novos com lacres de segurança sobre altar rústico com folhas de Chacrona"
                   fill
                   className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-floresta-950/90 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-floresta-950/80 backdrop-blur-md border border-ambar-500/20">
+                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-floresta-950/85 backdrop-blur-md border border-ambar-500/20">
                   <div className="flex items-center gap-2 text-ambar-400 text-xs font-semibold">
                     <BadgeCheck className="h-4 w-4" />
-                    <span>Padrão Farmacotécnico Litúrgico</span>
+                    <span>Custódia Litúrgica & Produção Autêntica no Acre</span>
                   </div>
                   <p className="text-[11px] text-areia-300 font-light mt-1">
-                    Vidro âmbar estéril contra fotodegradação UV, selagem hermética e pureza de lote certificada.
+                    Garrafas novas de padrão alimentício com lacre inviolável, inspecionadas na floresta antes do transporte refrigerado aos templos credenciados.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Conteúdo Explicativo da Segurança Fitoquímica */}
+            {/* Conteúdo Explicativo da Segurança Fitoquímica e Envase */}
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ambar-400">
                 <FlaskConical className="h-4 w-4" />
@@ -575,7 +575,7 @@ export function ProjetoDeLuzLanding() {
                 A Certeza de um Sacramento Nobre, Seguro e Estável
               </h2>
               <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-                Quando um dirigente serve o sacramento no altar da sua casa, ele carrega a responsabilidade pelo bem-estar de dezenas de irmãos. Nosso compromisso é assegurar que nunca haja dúvidas quanto à integridade fitoquímica daquilo que está sendo consagrado.
+                Quando um dirigente serve o sacramento no altar da sua casa, ele carrega a responsabilidade pelo bem-estar de dezenas de irmãos. Nosso compromisso é assegurar que nunca haja dúvidas quanto à integridade fitoquímica, à higiene do envase e à rastreabilidade daquilo que está sendo consagrado.
               </p>
 
               <div className="space-y-4 pt-2">
@@ -602,10 +602,10 @@ export function ProjetoDeLuzLanding() {
                 <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/70 p-4 space-y-1.5">
                   <div className="flex items-center gap-2 text-sm font-semibold text-ambar-400 font-serif">
                     <ShieldCheck className="h-4 w-4" />
-                    <span>Eliminação de Riscos Cardiovascular e Hepático</span>
+                    <span>Envase Responsável: Garrafas 100% Novas & Higienização Estéril</span>
                   </div>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Sem plantas aditivas que sobrecarreguem as enzimas do citocromo hepático (CYP2D6), prevenindo picos de pressão arterial e taquicardias desnecessárias durante o ritual.
+                    Utilizamos exclusivamente garrafas PET 100% virgens de primeiro uso com higienização estéril completa e lacres invioláveis. Embora o vidro seja um nobre ideal, o alto custo e a impossibilidade prática de logística reversa a partir dos templos de volta ao interior do Acre inviabilizam o frete interestadual. As garrafas novas garantem vedação absoluta, zero contaminação e ausência de quebras no transporte aéreo.
                   </p>
                 </div>
               </div>
@@ -658,7 +658,7 @@ export function ProjetoDeLuzLanding() {
                     Soberania dos Povos da Terra
                   </h3>
                   <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
-                    Eliminação definitiva de intermediários exploratórios. Pagamento digno e antecipado a feitores caboclos e comunidades indígenas (Huni Kuin, Yawanawá, Shawãdawa), além do fomento à agrofloresta sintrópica que planta mais cipó e chacrona do que colhe.
+                    Eliminação definitiva de intermediários exploratórios. Pagamento digno e antecipado a mestres feitores caboclos e apoio contínuo a iniciativas de salvaguarda cultural com povos originários (Huni Kuin, Yawanawá, Shawãdawa), além do fomento à agrofloresta sintrópica que planta mais cipó e chacrona do que colhe.
                   </p>
                 </div>
                 <ul className="space-y-2.5 text-xs text-areia-300 pt-4 border-t border-ambar-500/15">
@@ -883,7 +883,7 @@ export function ProjetoDeLuzLanding() {
             </AnimateOnScroll>
             <AnimateOnScroll delay={300}>
               <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-                Na Nativaram Brasil não existe lucro comercial. Todo valor transferido pelos templos é estritamente uma partilha cooperativa de custos reais de sustentação.
+                Na Cooperativa Nativaram não existe lucro comercial. Todo valor transferido pelos templos é estritamente uma partilha cooperativa de custos reais de sustentação.
               </p>
             </AnimateOnScroll>
           </div>
@@ -892,39 +892,39 @@ export function ProjetoDeLuzLanding() {
             <AnimateOnScroll delay={100}>
               <div className="rounded-2xl border border-ambar-500/20 bg-floresta-950/80 p-6 space-y-3 h-full">
                 <div className="font-serif text-3xl font-bold text-ambar-400">40%</div>
-                <div className="font-serif text-base font-bold text-areia-100">Manejo & Famílias no Acre</div>
+                <div className="font-serif text-base font-bold text-areia-100">Insumos, Alimentação & Lenha</div>
                 <p className="text-xs text-areia-300 font-light leading-relaxed">
-                  Remuneração justa e digna das famílias guardiãs, seringueiros e comunidades indígenas, assegurando independência de atravessadores.
+                  Lenha sustentável autorizada, alimentação integral das equipes durante as vigílias de feitio, manutenção dos tachos e suprimentos do barracão.
                 </p>
               </div>
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={200}>
               <div className="rounded-2xl border border-ambar-500/20 bg-floresta-950/80 p-6 space-y-3 h-full">
-                <div className="font-serif text-3xl font-bold text-ambar-400">25%</div>
-                <div className="font-serif text-base font-bold text-areia-100">Feitio & Insumos Nobres</div>
+                <div className="font-serif text-3xl font-bold text-ambar-400">40%</div>
+                <div className="font-serif text-base font-bold text-areia-100">Famílias Parceiras no Acre</div>
                 <p className="text-xs text-areia-300 font-light leading-relaxed">
-                  Lenha com autorização ambiental, manutenção dos tachos de feitio, quebração manual e suprimentos para as vigílias de cocção.
+                  Remuneração justa e digna das famílias guardiãs, seringueiros, ribeirinhos e comunidades indígenas do Acre, garantindo independência de atravessadores.
                 </p>
               </div>
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={300}>
               <div className="rounded-2xl border border-ambar-500/20 bg-floresta-950/80 p-6 space-y-3 h-full">
-                <div className="font-serif text-3xl font-bold text-ambar-400">20%</div>
-                <div className="font-serif text-base font-bold text-areia-100">Logística & Vidro Âmbar</div>
+                <div className="font-serif text-3xl font-bold text-ambar-400">10%</div>
+                <div className="font-serif text-base font-bold text-areia-100">Logística & Embalagens</div>
                 <p className="text-xs text-areia-300 font-light leading-relaxed">
-                  Frascos farmacotécnicos esterilizados, lacres de segurança invioláveis e transporte aéreo rápido com controle de temperatura.
+                  Garrafas PET 100% novas virgens, protocolos de higienização estéril, lacres invioláveis e frete aéreo monitorado com isolamento térmico.
                 </p>
               </div>
             </AnimateOnScroll>
 
             <AnimateOnScroll delay={400}>
               <div className="rounded-2xl border border-ambar-500/20 bg-floresta-950/80 p-6 space-y-3 h-full">
-                <div className="font-serif text-3xl font-bold text-ambar-400">15%</div>
-                <div className="font-serif text-base font-bold text-areia-100">Fundo Social & Ecovila</div>
+                <div className="font-serif text-3xl font-bold text-ambar-400">10%</div>
+                <div className="font-serif text-base font-bold text-areia-100">Fundo Social & Consolidação da Ecovila</div>
                 <p className="text-xs text-areia-300 font-light leading-relaxed">
-                  Reserva para plantio agroflorestal perpétuo de mudas e acolhimento comunitário de irmãos em sofrimento psíquico ou vulnerabilidade.
+                  Reserva para plantio agroflorestal perpétuo de mudas, estruturação da Ecovila e acolhimento comunitário de pessoas em vulnerabilidade.
                 </p>
               </div>
             </AnimateOnScroll>

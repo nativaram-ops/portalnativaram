@@ -123,7 +123,7 @@ export default function MedicinasPage() {
                   Todos os sacramentos botânicos e artefatos sagrados apresentados neste compêndio são integrados ao ecossistema da <strong>Cooperativa Etnobotânica Nativaram Brasil</strong>. A partilha destas medicinas é regida pelo rateio cooperativo de custos, sem margem de lucro mercantil, em estrita conformidade com a legislação cooperativista e a salvaguarda de cultos religiosos tradicionais.
                 </p>
                 <p>
-                  Cada preparado de força sustenta com dignidade o ciclo ancestral das comunidades originárias <strong>(Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã)</strong>, remunerando de forma justa mestres feitores, erveiros e famílias tradicionais do Acre que guardam a pureza genética das plantas e a sabedoria secular do manejo sustentável da floresta.
+                  A produção material dos sacramentos é conduzida de forma autônoma por nosso mestre feitor caboclo e por centros tradicionais credenciados no Acre, sob o estudo fitoquímico e padronização da Nativaram. Nossa conexão com os povos originários <strong>(Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã)</strong> reside estritamente na salvaguarda intelectual e procedimental de seus saberes ancestrais, sem qualquer vínculo produtivo direto com as aldeias.
                 </p>
               </div>
 
@@ -497,7 +497,7 @@ export default function MedicinasPage() {
                 </h2>
               </div>
               <a
-                href="https://wa.me/5568999979104?text=Ol%C3%A1%20Victor%2C%20gostaria%20de%20consultar%20a%20disponibilidade%20de%20Kuripes%2C%20Tepis%20e%20Kits%20Sacramentais."
+                href="https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20consultar%20a%20disponibilidade%20de%20Kuripes%2C%20Tepis%20e%20Kits%20Sacramentais."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-md"

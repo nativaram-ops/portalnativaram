@@ -7,28 +7,28 @@ import { Badge } from "@/components/ui/Badge";
 
 const depoimentos = [
   {
-    nome: "Padrinho Marcelo F.",
+    nome: "Padrinho Estevão M.",
     cargo: "Dirigente Espiritual",
-    local: "São Paulo • SP",
-    graduacao: "Graduação 10.1 Wirapuru",
-    depoimento:
-      "O apoio da Nativaram trouxe uma paz inestimável para a nossa casa. Ter a certeza da procedência pura com o Cipó Tucunacá e da reverência ao feitio tradicional acabou com os desconfortos somáticos pesados nos trabalhos. O despacho aéreo via Gollog sempre chega pontual e com a documentação impecável.",
-  },
-  {
-    nome: "Madre Helena S.",
-    cargo: "Guardiã Litúrgica",
-    local: "Belo Horizonte • MG",
+    local: "São Cristóvão • SE",
     graduacao: "Graduação 5.1 Pituã & Rapé Sagrado",
     depoimento:
-      "A seriedade documental e o respeito ao sagrado são exemplares. Para nós, dirigentes, a blindagem com base no CONAD nos traz absoluta tranquilidade perante os associados e os órgãos fiscalizadores. É uma verdadeira corrente de luz com a floresta.",
+      "Em nossa congregação em Sergipe, manter a regularidade e a pureza do sacramento sempre foi um desafio logístico. O suporte cooperativo da Nativaram nos trouxe tranquilidade absoluta: recebemos o sacramento com documentação impecável, procedência do Acre e respeito rigoroso às diretrizes do CONAD. Uma ponte de luz essencial para pequenos templos.",
   },
   {
-    nome: "Dirigente Renato B.",
-    cargo: "Presidente Institucional",
-    local: "Curitiba • PR",
-    graduacao: "Graduação 7.1 Anhangatã & Gel",
+    nome: "Madre Clara N.",
+    cargo: "Guardiã Litúrgica",
+    local: "Marechal Deodoro • AL",
+    graduacao: "Graduação 7.1 Anhangatã",
     depoimento:
-      "A estabilidade de cada lote é notável. Não há variações desagradáveis de consistência ou acidez. Adotamos o formato Gel para otimizar o frete aéreo e a experiência foi perfeita. A Nativaram honra a tradição sagrada do Acre com altíssimo rigor técnico e doutrinário.",
+      "Conduzimos um trabalho fraterno e reservado em Alagoas, onde o recolhimento e a reverência litúrgica são fundamentais. A estabilidade de cada lote e a seriedade com que a Nativaram preserva a tradição ancestral nos dão total segurança institucional perante os associados.",
+  },
+  {
+    nome: "Dirigente Valter C.",
+    cargo: "Presidente Institucional",
+    local: "Parnamirim • RN",
+    graduacao: "Graduação 10.1 Wirapuru & Gel",
+    depoimento:
+      "Estar no Rio Grande do Norte sempre tornava o transporte aéreo um ponto delicado. O apoio logístico refrigerado da Nativaram e a opção pelo formato Gel atenderam com perfeição à nossa escala cerimonial, com respaldo documental que assegura total serenidade perante as autoridades.",
   },
 ];
 

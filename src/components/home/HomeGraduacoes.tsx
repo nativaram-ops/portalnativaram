@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { Compass, ArrowRight, Droplets } from "lucide-react";
+import { Compass, ArrowRight, Droplets, Lock } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { Badge } from "@/components/ui/Badge";
 
@@ -11,7 +11,7 @@ const graduacoes = [
     bird: "Beija-flor",
     dose: "90 a 120 ml",
     duracao: "3h a 4h",
-    rateio: "R$ 200/L",
+    rateio: "Sob credenciamento",
     strength: 25,
     desc: "Voo manso e acolhedor. Ideal para ritos de acolhimento fraterno, introspecções suaves e iniciantes na sagrada comunhão vegetal.",
   },
@@ -21,7 +21,7 @@ const graduacoes = [
     bird: "Bem-te-vi",
     dose: "70 a 100 ml",
     duracao: "4h a 5h",
-    rateio: "R$ 250/L",
+    rateio: "Sob credenciamento",
     strength: 50,
     desc: "Clareza mental cristalina, equilíbrio perene e firmeza serena. Proporciona harmonização completa do campo cerimonial e foco meditativo.",
   },
@@ -31,7 +31,7 @@ const graduacoes = [
     bird: "Rouxinol",
     dose: "50 a 90 ml",
     duracao: "5h a 6h",
-    rateio: "R$ 310/L",
+    rateio: "Sob credenciamento",
     strength: 75,
     desc: "Miração límpida e canto da alma. Indicado para ritos solenes, celebrações doutrinárias profundas e trabalhos espirituais de alinhamento.",
   },
@@ -41,7 +41,7 @@ const graduacoes = [
     bird: "Semi-Mel",
     dose: "30 a 50 ml",
     duracao: "6h a 8h",
-    rateio: "R$ 380/L",
+    rateio: "Sob credenciamento",
     strength: 100,
     desc: "Densidade máxima e visão de longo alcance. Concentração robusta de cipó Tucunacá para vigílias litúrgicas e sustentação de egrégoras elevadas.",
     featured: true,
@@ -92,12 +92,23 @@ export const HomeGraduacoes = () => {
               </div>
             </div>
 
-            <div className="pt-2">
+            {/* Aviso de Rateio Restrito */}
+            <div className="p-4 rounded-xl bg-floresta-950/80 border border-ambar-500/25 space-y-1.5 text-left">
+              <span className="text-[11px] font-mono text-ambar-400 uppercase tracking-wider flex items-center gap-1.5 font-semibold">
+                <Lock className="h-3.5 w-3.5" />
+                Valores Exclusivos para Entidades Cadastradas
+              </span>
+              <p className="text-xs text-areia-300/85 leading-relaxed font-light">
+                As cotas de rateio operacional não são expostas publicamente. Elas são encaminhadas diretamente aos dirigentes responsáveis após o devido credenciamento e homologação litúrgica da congregação.
+              </p>
+            </div>
+
+            <div className="pt-1">
               <Link
-                href="/feitio"
+                href="/credenciamento"
                 className="inline-flex items-center gap-2 text-xs font-semibold text-ambar-400 hover:text-ambar-300 transition-colors"
               >
-                <span>Ver estudo fitoquímico completo e tabela de rateio</span>
+                <span>Solicitar credenciamento institucional para cotas de rateio</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
@@ -130,12 +141,13 @@ export const HomeGraduacoes = () => {
                         ({bird})
                       </span>
                     </div>
-                    <div className="flex items-center gap-2 text-[11px] font-mono">
+                    <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono">
                       <span className="text-areia-300 bg-floresta-800/80 border border-ambar-500/20 px-2 py-0.5 rounded">
                         Porção: {dose}
                       </span>
-                      <span className="text-ambar-300/90 bg-ambar-500/10 border border-ambar-500/20 px-2 py-0.5 rounded">
-                        Rateio: {rateio}
+                      <span className="text-ambar-300/90 bg-ambar-500/10 border border-ambar-500/20 px-2 py-0.5 rounded inline-flex items-center gap-1">
+                        <Lock className="h-2.5 w-2.5 text-ambar-400" />
+                        <span>Rateio sob credenciamento</span>
                       </span>
                     </div>
                   </div>
