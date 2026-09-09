@@ -11,9 +11,9 @@ const navLinks = [
   { href: "/institucional", label: "Manifesto" },
   { href: "/feitio", label: "Feitio" },
   { href: "/medicinas", label: "Sacramentos" },
-  { href: "/estudos", label: "Estudos", badge: "PDFs" },
-  { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal", icon: true },
+  { href: "/projetos-de-luz", label: "Projetos de Luz" },
+  { href: "/estudos", label: "Estudos", badge: "PDFs" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -45,7 +45,7 @@ export const Navbar = () => {
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-500 ${
         isScrolled
-          ? "bg-floresta-950/95 backdrop-blur-lg border-b border-ambar-500/15 shadow-elevated-sm"
+          ? "bg-floresta-950/90 backdrop-blur-xl border-b border-ambar-500/20 shadow-[0_12px_36px_-10px_rgba(0,0,0,0.8),inset_0_1px_0_0_rgba(212,163,89,0.15)]"
           : "bg-transparent border-b border-transparent"
       }`}
     >
@@ -53,7 +53,7 @@ export const Navbar = () => {
         {/* Logo & Brand Identity */}
         <Link
           href="/"
-          className="group flex items-center gap-2.5 sm:gap-3 transition-transform hover:scale-[1.01] shrink-0"
+          className="group flex items-center gap-2.5 sm:gap-3 transition-transform hover:scale-[1.01] active:scale-[0.99] shrink-0"
         >
           <Logo variant="navbar" size={58} priority />
           <div className="flex flex-col justify-center">
@@ -96,9 +96,9 @@ export const Navbar = () => {
                   </span>
                 )}
               </span>
-              {/* Active indicator line */}
+              {/* Active indicator line with solar halo */}
               {isActive(link.href) && (
-                <span className="absolute bottom-0 left-1.5 right-1.5 xl:left-2.5 xl:right-2.5 h-[2px] bg-gradient-to-r from-ambar-500 to-ambar-400 rounded-full" />
+                <span className="absolute bottom-0 left-1.5 right-1.5 xl:left-2.5 xl:right-2.5 h-[2px] bg-gradient-to-r from-ambar-500 via-amber-400 to-ambar-500 rounded-full shadow-[0_0_8px_rgba(212,163,89,0.7)]" />
               )}
             </Link>
           ))}
@@ -108,7 +108,7 @@ export const Navbar = () => {
         <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
           <Link
             href="/portal-dirigente"
-            className="flex items-center gap-1.5 rounded-lg px-2 xl:px-3 py-1.5 text-[11px] xl:text-xs font-semibold text-ambar-300 bg-floresta-900/70 hover:bg-floresta-800 border border-ambar-500/30 hover:border-ambar-500/60 shadow-sm transition-all duration-300 whitespace-nowrap shrink-0"
+            className="btn-press flex items-center gap-1.5 rounded-lg px-2 xl:px-3 py-1.5 text-[11px] xl:text-xs font-semibold text-ambar-300 bg-floresta-900/70 hover:bg-floresta-800 border border-ambar-500/30 hover:border-ambar-500/60 shadow-sm transition-all duration-300 whitespace-nowrap shrink-0"
             title="Acesso exclusivo a dirigentes de templos homologados"
           >
             <Lock className="h-3.5 w-3.5 text-ambar-400 shrink-0" />
@@ -119,7 +119,7 @@ export const Navbar = () => {
 
           <Link
             href="/credenciamento"
-            className="btn-primary-sm px-2.5 xl:px-3.5 py-1.5 text-[11px] xl:text-xs whitespace-nowrap shrink-0"
+            className="btn-primary-sm btn-press px-2.5 xl:px-3.5 py-1.5 text-[11px] xl:text-xs whitespace-nowrap shrink-0"
           >
             <Sparkles className="h-3.5 w-3.5 shrink-0" />
             <span>Credenciamento</span>

@@ -4,14 +4,14 @@ import { ProjetoDeLuzLanding } from "@/components/projetos-de-luz/ProjetoDeLuzLa
 
 export const metadata: Metadata = {
   title:
-    "Projeto de Luz — Acessibilidade Logística, Pureza Fitoquímica & Salvaguarda dos Templos | Cooperativa Nativaram",
+    "Projetos de Luz — Praxeologia Social, Agrofloresta & Refúgio de Fauna no Acre | Cooperativa Nativaram",
   description:
-    "Conheça o Projeto de Luz da Cooperativa Nativaram: a rede de acessibilidade logística e operacional que garante sacramentos puros, equilíbrio de biomassa, garrafas virgens com assepsia estrita e pleno amparo legal sob a Resolução CONAD nº 01/2010 para casas e templos de todo o país.",
+    "Conheça a dimensão socioambiental do cooperativismo da Nativaram: destinação do superávit de rateio para reflorestamento do Vale do Juruá, proteção das Ararajubas e fornecimento litúrgico gratuito para acolhimento de pessoas vulneráveis.",
   openGraph: {
     title:
-      "Projeto de Luz — Acessibilidade Operacional & Salvaguarda Litúrgica | Cooperativa Nativaram",
+      "Projetos de Luz — Regeneração da Floresta & Acolhimento Fraterno | Cooperativa Nativaram",
     description:
-      "A ponte sagrada que rompe a informalidade: pureza botânica rastreada do Acre até o altar da sua congregação com segurança fitoquímica e amparo institucional.",
+      "A economia sagrada sem fins lucrativos: como o rateio dos templos financia a preservação da Amazônia e a caridade litúrgica sob a Lei 5.764/71.",
     url: "https://nativaramcoop.eco.br/projetos-de-luz",
     images: [
       {

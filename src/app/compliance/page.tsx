@@ -15,13 +15,14 @@ import {
 } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
+import { JornadaNavTracker, JornadaNextStep } from "@/components/funil";
 
 export const metadata: Metadata = {
-  title: "Marco Legal & Compliance Jurídico | Nativaram Brasil",
+  title: "Marco Legal & Compliance Jurídico CONAD | Cooperativa Nativaram",
   description:
-    "Conformidade com Art. 5º da CF/88, Lei 11.343/06, Resolução CONAD nº 01/2010 e Marco Sanitário ANVISA 2025. Blindagem jurídica e proteção litúrgica.",
+    "Conformidade com Art. 5º da CF/88, Lei 11.343/06, Resolução CONAD nº 01/2010 e Marco Sanitário ANVISA 2025. Blindagem jurídica e proteção litúrgica da Cooperativa Nativaram.",
   openGraph: {
-    title: "Marco Legal & Compliance Jurídico | Nativaram Brasil",
+    title: "Marco Legal & Compliance Jurídico CONAD | Cooperativa Nativaram",
     description:
       "Conformidade com Art. 5º da CF/88, Lei 11.343/06, Resolução CONAD nº 01/2010 e Marco Regulatório ANVISA 2025.",
   },
@@ -30,6 +31,9 @@ export const metadata: Metadata = {
 export default function CompliancePage() {
   return (
     <div className="space-y-0">
+      {/* Indicador Superior do Caminho Didático */}
+      <JornadaNavTracker etapaAtual={4} />
+
       {/* ═══════════════════════════════════════════
           HERO — Blindagem Jurídica & Deontologia
           ═══════════════════════════════════════════ */}
@@ -258,21 +262,22 @@ export default function CompliancePage() {
             </div>
           </AnimateOnScroll>
 
-          {/* CTA */}
-          <AnimateOnScroll delay={200}>
-            <div className="text-center pt-8">
-              <Link
-                href="/credenciamento"
-                className="btn-primary inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-wider"
-              >
-                <Sparkles className="h-4 w-4" />
-                <span>Submeter Credenciamento Institucional do Templo</span>
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
-          </AnimateOnScroll>
         </div>
       </section>
+
+      {/* ═══════════════════════════════════════════
+          O CLÍMAX DO FUNIL: JORNADANEXTSTEP PARA O CREDENCIAMENTO
+          ═══════════════════════════════════════════ */}
+      <JornadaNextStep
+        etapaAtual={4}
+        tituloEtapaAtual="Marco Legal & Conformidade CONAD"
+        proximaEtapaNumero={5}
+        proximaEtapaTitulo="Homologação Formal: Credenciamento do Seu Templo"
+        proximaEtapaDescricao="Sua congregação atua amparada na Constituição e na Resolução CONAD nº 01/2010? O processo de adesão é transparente, acolhedor e homologado pelo Conselho Guardião em até 48 horas úteis."
+        proximaEtapaHref="/credenciamento"
+        textoBotao="Iniciar Credenciamento da Instituição (Etapa Final)"
+        isClimax={true}
+      />
     </div>
   );
 }

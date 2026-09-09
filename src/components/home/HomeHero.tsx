@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/Badge";
 
 export const HomeHero = () => {
   return (
-    <section className="relative min-h-[92vh] flex items-end overflow-hidden pb-16 pt-32 lg:pb-24">
+    <section className="relative min-h-[90dvh] lg:min-h-[94dvh] flex items-end overflow-hidden pb-16 pt-32 lg:pb-24">
       {/* Imagem de Fundo do Feitio */}
       <Image
         src="/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg"
@@ -34,7 +34,7 @@ export const HomeHero = () => {
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={300}>
-            <h1 className="font-serif text-display-sm sm:text-display-md lg:text-display-lg font-bold text-areia-100 text-glow leading-[1.08]">
+            <h1 className="font-serif text-display-sm sm:text-display-md lg:text-display-lg font-bold text-areia-100 text-glow leading-[1.05] tracking-display text-balance">
               O Portal Sagrado,
               <br />
               <span className="text-gradient-solar">Alquimia Consciente</span>
@@ -44,7 +44,7 @@ export const HomeHero = () => {
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={450}>
-            <p className="text-sm sm:text-base text-areia-200/90 leading-relaxed max-w-2xl font-light">
+            <p className="text-sm sm:text-base text-areia-200/90 leading-relaxed max-w-2xl font-light text-pretty">
               A Cooperativa Nativaram entende a Ayahuasca como um portal sagrado.
               Conectamos dirigentes de instituições religiosas devidamente regulamentadas
               a centros e mestres feitores tradicionais de <strong>Cruzeiro do Sul, no Acre</strong>.
@@ -57,7 +57,7 @@ export const HomeHero = () => {
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
               <Link
                 href="/credenciamento"
-                className="btn-primary flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold tracking-wide"
+                className="btn-primary btn-press flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold tracking-wide"
               >
                 <ShieldCheck className="h-4 w-4" />
                 <span>Solicitar Credenciamento do Templo</span>
@@ -65,7 +65,7 @@ export const HomeHero = () => {
               </Link>
               <Link
                 href="#sacralidade"
-                className="btn-secondary flex items-center justify-center gap-2 text-xs sm:text-sm"
+                className="btn-secondary btn-press flex items-center justify-center gap-2 text-xs sm:text-sm"
               >
                 <Flame className="h-4 w-4 text-ambar-400" />
                 <span>Nossa Nota de Sacralidade</span>

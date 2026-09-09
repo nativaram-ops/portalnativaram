@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
-import { Building2, ShieldCheck, AlertCircle, ArrowRight } from "lucide-react";
+import { Building2, ShieldCheck, AlertCircle, ArrowRight, Lock, KeyRound } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Input } from "@/components/ui/Input";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { templosIniciais } from "@/data/portal-mock";
 
 interface PortalLoginGateProps {
   onAuthenticated: (role: "DIRIGENTE" | "ADMIN", codigoAcesso: string) => void;
@@ -17,46 +18,72 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    const codigoUpper = codigoAcesso.trim().toUpperCase();
+    setErrorMsg("");
 
-    if (modoLogin === "ADMIN" || codigoUpper.includes("ADM") || codigoUpper === "ADMIN") {
-      onAuthenticated("ADMIN", codigoAcesso);
-      setErrorMsg("");
+    const loginLimpo = codigoAcesso.trim();
+    const loginLower = loginLimpo.toLowerCase();
+    const loginUpper = loginLimpo.toUpperCase();
+    const senhaLimpa = senhaAcesso.trim();
+
+    // 1. AUTENTICAÇÃO DO ADMINISTRADOR DA COOPERATIVA
+    if (modoLogin === "ADMIN") {
+      if (loginLower === "adm-nativaram" && senhaLimpa === "adm2026") {
+        onAuthenticated("ADMIN", "ADM-NATIVARAM");
+        return;
+      }
+      setErrorMsg("Credenciais de Administrador inválidas. Verifique o usuário e a senha master.");
       return;
     }
 
-    if (codigoUpper.length >= 4) {
-      onAuthenticated("DIRIGENTE", codigoAcesso);
-      setErrorMsg("");
-    } else {
+    // 2. AUTENTICAÇÃO DO TEMPLO HOMOLOGADO / DIRIGENTE
+    if (modoLogin === "DIRIGENTE") {
+      if (!loginLimpo) {
+        setErrorMsg("Informe o código de homologação do templo (ex: NAT-TEMPLO-842).");
+        return;
+      }
+
+      if (!senhaLimpa || senhaLimpa.length < 4) {
+        setErrorMsg("Informe a chave de segurança litúrgica ou senha do dirigente.");
+        return;
+      }
+
+      // Validação do templo na base de congregações homologadas
+      const temploEncontrado = templosIniciais.find(
+        (t) => t.id.toUpperCase() === loginUpper || t.id.toLowerCase() === loginLower
+      );
+
+      if (temploEncontrado) {
+        // Templo encontrado com chave de acesso
+        onAuthenticated("DIRIGENTE", temploEncontrado.id);
+        return;
+      }
+
+      // Fallback para códigos no padrão NAT-TEMPLO-... ou NAT-...
+      if (loginUpper.startsWith("NAT-")) {
+        onAuthenticated("DIRIGENTE", loginUpper);
+        return;
+      }
+
       setErrorMsg(
-        "Informe o código de homologação do templo (ex: NAT-TEMPLO-842) ou acesse como ADM."
+        "Código de homologação não encontrado. Apenas congregações previamente cadastradas e aprovadas possuem acesso restrito a este portal."
       );
     }
   };
 
-  const loginComoAdminRapido = () => {
-    onAuthenticated("ADMIN", "ADM-NATIVARAM");
-  };
-
-  const loginComoDirigenteRapido = () => {
-    onAuthenticated("DIRIGENTE", "NAT-TEMPLO-842");
-  };
-
   return (
     <AnimateOnScroll>
-      <div className="mx-auto max-w-lg card-elevated rounded-2xl p-6 sm:p-10 space-y-6 border-ambar-500/30">
-        {/* Cabeçalho */}
+      <div className="mx-auto max-w-lg card-elevated rounded-2xl p-6 sm:p-10 space-y-6 border-ambar-500/30 shadow-2xl">
+        {/* Cabeçalho Institucional */}
         <div className="text-center space-y-3">
           <div className="relative mx-auto flex items-center justify-center">
-            <Logo variant="navbar" size={54} className="mx-auto" />
+            <Logo variant="navbar" size={56} className="mx-auto" />
           </div>
           <div>
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-areia-100">
-              Acesso Institucional & Gestão
+              Acesso Institucional &amp; Gestão Litúrgica
             </h3>
             <p className="text-xs text-areia-400 font-light mt-1">
-              Portal de homologação de congregações, solicitações de partilha e administração da cooperativa.
+              Ambiente estritamente restrito a dirigentes de templos credenciados e à gestão central da cooperativa.
             </p>
           </div>
         </div>
@@ -68,58 +95,65 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
             onClick={() => {
               setModoLogin("DIRIGENTE");
               setErrorMsg("");
+              setCodigoAcesso("");
+              setSenhaAcesso("");
             }}
-            className={`py-2 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+            className={`py-2.5 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
               modoLogin === "DIRIGENTE"
                 ? "bg-ambar-500 text-floresta-950 shadow-md font-bold"
                 : "text-areia-300 hover:text-areia-100"
             }`}
           >
             <Building2 className="h-3.5 w-3.5" />
-            <span>Templo Homologado</span>
+            <span>Templo Credenciado</span>
           </button>
           <button
             type="button"
             onClick={() => {
               setModoLogin("ADMIN");
               setErrorMsg("");
+              setCodigoAcesso("");
+              setSenhaAcesso("");
             }}
-            className={`py-2 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
+            className={`py-2.5 rounded-lg transition-all flex items-center justify-center gap-1.5 ${
               modoLogin === "ADMIN"
                 ? "bg-ambar-500 text-floresta-950 shadow-md font-bold"
                 : "text-areia-300 hover:text-areia-100"
             }`}
           >
             <ShieldCheck className="h-3.5 w-3.5" />
-            <span>Gestão Cooperativa (ADM)</span>
+            <span>Administração (ADM)</span>
           </button>
         </div>
 
+        {/* Alerta de Erro */}
         {errorMsg && (
-          <div className="rounded-xl border border-red-500/40 bg-red-950/40 p-3.5 text-xs text-red-300 flex items-center gap-2.5">
-            <AlertCircle className="h-4 w-4 text-red-400 flex-shrink-0" />
+          <div className="rounded-xl border border-red-500/40 bg-red-950/40 p-3.5 text-xs text-red-300 flex items-start gap-2.5 animate-fade-in">
+            <AlertCircle className="h-4 w-4 text-red-400 flex-shrink-0 mt-0.5" />
             <span>{errorMsg}</span>
           </div>
         )}
 
-        {/* Formulário */}
+        {/* Formulário de Autenticação */}
         <form onSubmit={handleLogin} className="space-y-4">
           {modoLogin === "ADMIN" ? (
             <>
               <Input
-                label="Identificação de Administrador (ADM)"
+                label="Usuário Administrador (Login ADM)"
                 required
                 value={codigoAcesso}
                 onChange={(e) => setCodigoAcesso(e.target.value)}
-                placeholder="Ex: ADM-NATIVARAM ou admin"
+                placeholder="adm-nativaram"
+                autoComplete="username"
               />
               <Input
-                label="Chave Mestra de Segurança"
+                label="Senha Master de Segurança"
                 type="password"
                 required
                 value={senhaAcesso}
                 onChange={(e) => setSenhaAcesso(e.target.value)}
                 placeholder="••••••••••••"
+                autoComplete="current-password"
               />
             </>
           ) : (
@@ -130,60 +164,42 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
                 value={codigoAcesso}
                 onChange={(e) => setCodigoAcesso(e.target.value)}
                 placeholder="Ex: NAT-TEMPLO-842"
+                autoComplete="username"
               />
               <Input
-                label="Chave do Dirigente / CPF *"
+                label="Chave Litúrgica do Dirigente / Senha *"
                 type="password"
                 required
                 value={senhaAcesso}
                 onChange={(e) => setSenhaAcesso(e.target.value)}
                 placeholder="••••••••••••"
+                autoComplete="current-password"
               />
             </>
           )}
 
           <button
             type="submit"
-            className="btn-primary w-full py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+            className="btn-primary w-full py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-solar mt-2"
           >
-            <span>{modoLogin === "ADMIN" ? "Acessar Painel ADM" : "Autenticar Acesso"}</span>
+            <Lock className="h-3.5 w-3.5" />
+            <span>{modoLogin === "ADMIN" ? "Acessar Painel Central ADM" : "Entrar no Portal do Dirigente"}</span>
             <ArrowRight className="h-4 w-4" />
           </button>
         </form>
 
-        {/* Atalhos Rápidos para Criação e Testes Conjuntos */}
-        <div className="pt-3 border-t border-ambar-500/15 space-y-2">
-          <span className="text-[10px] uppercase tracking-wider text-areia-400 font-semibold block text-center">
-            Acesso Rápido de Demonstração:
-          </span>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={loginComoAdminRapido}
-              className="py-2 px-3 rounded-lg border border-ambar-500/30 bg-floresta-900/60 hover:bg-floresta-800 text-[11px] text-ambar-300 font-medium flex items-center justify-center gap-1.5 transition-colors"
-            >
-              <ShieldCheck className="h-3.5 w-3.5 text-ambar-400" />
-              <span>Entrar como ADM</span>
-            </button>
-            <button
-              type="button"
-              onClick={loginComoDirigenteRapido}
-              className="py-2 px-3 rounded-lg border border-ambar-500/30 bg-floresta-900/60 hover:bg-floresta-800 text-[11px] text-areia-300 font-medium flex items-center justify-center gap-1.5 transition-colors"
-            >
-              <Building2 className="h-3.5 w-3.5 text-areia-400" />
-              <span>Entrar como Templo</span>
-            </button>
-          </div>
-        </div>
-
-        <div className="text-center pt-1">
+        {/* Rodapé Seguro */}
+        <div className="text-center pt-3 border-t border-ambar-500/15 space-y-2">
           <p className="text-[11px] text-areia-400 font-light">
-            Ainda não possui homologação?{" "}
-            <Link href="/credenciamento" className="text-ambar-400 hover:underline font-medium">
-              Cadastre sua congregação aqui
-            </Link>
-            .
+            Sua congregação ainda não possui código de homologação?
           </p>
+          <Link
+            href="/credenciamento"
+            className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold transition-colors"
+          >
+            <span>Submeter Congregação para Credenciamento Institucional</span>
+            <ArrowRight className="h-3 w-3" />
+          </Link>
         </div>
       </div>
     </AnimateOnScroll>

@@ -16,6 +16,7 @@ import {
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { MedicinasCatalogClient } from "@/components/medicinas/MedicinasCatalogClient";
+import { JornadaNavTracker, JornadaNextStep } from "@/components/funil";
 
 export const metadata: Metadata = {
   title: "Compêndio Etnobotânico & Tradições Sagradas | Cooperativa Nativaram",
@@ -41,6 +42,9 @@ export default function MedicinasPage() {
 
   return (
     <div className="space-y-0">
+      {/* Indicador Superior do Caminho Didático */}
+      <JornadaNavTracker etapaAtual={3} />
+
       {/* ═══════════════════════════════════════════
           HERO
           ═══════════════════════════════════════════ */}
@@ -282,38 +286,25 @@ export default function MedicinasPage() {
       <MedicinasCatalogClient />
 
 
-      {/* ═══════════════════════════════════════════
-          CTA BANNER
-          ═══════════════════════════════════════════ */}
-      <section className="py-section-sm mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <AnimateOnScroll>
-          <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-floresta-900 via-floresta-800 to-floresta-900 p-8 sm:p-10 text-center border border-ambar-500/15">
-            <div className="absolute inset-0 bg-radial-ambar pointer-events-none" />
-            <div className="relative space-y-4">
-              <h4 className="font-serif text-xl sm:text-2xl font-bold text-areia-100">
-                Deseja partilhar esses sacramentos?
-              </h4>
-              <p className="text-xs text-areia-300 max-w-md mx-auto">
-                Inicie o credenciamento litúrgico para avaliação do conselho de
-                guardiões.
-              </p>
-              <Link href="/credenciamento" className="btn-primary">
-                <Sparkles className="h-4 w-4" />
-                <span>Solicitar Credenciamento</span>
-              </Link>
-            </div>
-          </div>
-        </AnimateOnScroll>
-      </section>
+      {/* Transição Fluida para a Próxima Etapa: Marco Legal & CONAD */}
+      <JornadaNextStep
+        etapaAtual={3}
+        tituloEtapaAtual="Compêndio de Sacramentos Sagrados"
+        proximaEtapaNumero={4}
+        proximaEtapaTitulo="Marco Legal, Conformidade CONAD & Laudos"
+        proximaEtapaDescricao="Agora que você conhece nossa linha de sacramentos, compreenda a blindagem jurídica e o amparo constitucional (Art. 5º CF/88 e CONAD nº 01/2010) que protegem a sua instituição."
+        proximaEtapaHref="/compliance"
+        textoBotao="Conferir Marco Legal (Etapa 4/5)"
+      />
 
-      {/* Disclaimer */}
+      {/* Disclaimer de Conformidade */}
       <section className="pb-section-sm mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/70 p-6 text-[11px] text-areia-300/80 leading-relaxed text-center space-y-2 font-light">
           <p>
             <strong className="text-ambar-400 font-semibold uppercase tracking-wider">
               Aviso de Segurança Integrativa & Conformidade (+18):
             </strong>{" "}
-            Os sacramentos etnobotânicos da Nativaram Brasil são preparados artesanais e tradicionais de matriz vegetal e mineral. Contêm nicotina natural de <em>Nicotiana rustica</em>. Destinados exclusivamente ao uso litúrgico, religioso tradicional e práticas meditativas por associados maiores de 18 anos.
+            Os sacramentos etnobotânicos da Cooperativa Nativaram são preparados artesanais e tradicionais de matriz vegetal e mineral. Contêm nicotina natural de <em>Nicotiana rustica</em>. Destinados exclusivamente ao uso litúrgico, religioso tradicional e práticas meditativas por associados maiores de 18 anos.
           </p>
           <p className="text-[10px] text-areia-400/70">
             Estes preparados não possuem finalidade terapêutica, farmacológica ou diagnóstica, não sendo medicamentos nem substitutos de cuidados médicos convencionais. Contraindicado para gestantes, lactantes, pessoas com histórico de cardiopatias severas ou hipertensão descompensada e indivíduos com sensibilidade ao tabaco.

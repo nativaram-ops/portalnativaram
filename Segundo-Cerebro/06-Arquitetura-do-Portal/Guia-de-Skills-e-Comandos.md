@@ -9,12 +9,17 @@ categoria: Catálogo de Comandos
 
 # ⚡ Guia de Skills e Comandos Rápidos do Projeto
 
-Este guia cataloga todas as **39 habilidades especializadas** do portal Nativaram Brasil, traduzidas para o português e categorizadas por setores para ativação imediata via barra (`/`) no chat do Antigravity.
+Este guia cataloga o ecossistema completo de habilidades disponíveis no ambiente de desenvolvimento:
+1. **Camada 1 (Projeto):** As **40 habilidades nativas** do portal Nativaram Brasil em `.agents/skills/`, traduzidas e categorizadas em 7 setores operacionais.
+2. **Camada 2 (IDE Pré-existente):** As **8 habilidades globais** da stack Web/Vercel previamente instaladas pelo desenvolvedor em `C:\Users\victo\.gemini\config\skills\`.
+3. **Camada 3 (Novo Harness da IDE):** As **31 habilidades de alta performance** do novo harness global da IDE (pesquisa temporal, grafo AST, auditoria, anti-overengineering, governança agêntica, design de elite e segurança).
 
 ---
 
 ## 🧭 Como Usar
 No chat do assistente, basta digitar `/` seguido do nome da skill ou setor para acionar o fluxo automatizado:
+
+**Skills do Projeto:**
 - Digite `/segundo` para listar todas as skills do Obsidian.
 - Digite `/engenharia` para comandos de desenvolvimento e resolução de bugs.
 - Digite `/testes` para suítes de testes e pré-commit.
@@ -23,9 +28,18 @@ No chat do assistente, basta digitar `/` seguido do nome da skill ou setor para 
 - Digite `/gestao` para tickets, triagem e especificações.
 - Digite `/documentacao` para redação e manuais de IA.
 
+**Novo Harness da IDE:**
+- Digite `/last30days` para pesquisar tendências e discussões técnicas dos últimos 30 dias.
+- Digite `/graphify` para mapear ou consultar o grafo de conhecimento do repositório (`query`, `path`, `explain`).
+- Digite `/improve` para auditoria sênior e geração de planos em `plans/`.
+- Digite `/ponytail` para postura de eficiência e soluções enxutas (YAGNI).
+- Digite `/ecc` para comandos do harness agêntico (`/ecc-verification-loop`, `/ecc-tdd-workflow`, etc.).
+- Digite `/od` para ferramentas de craft visual e design (`/od-taste-skill`, `/od-master-design`, etc.).
+- Digite `/skill-inspector` para auditar a segurança de novas skills de IA.
+
 ---
 
-## 📂 Setores e Comandos Disponíveis
+## 📂 Camada 1: Setores e Comandos Nativos do Projeto (.agents/skills)
 
 ### 1. 🧠 Segundo Cérebro (Obsidian & Vault)
 - **`/segundo-cerebro-ciclo-memoria-ativa`**: Executa o loop mandatório: consulta prévia no Obsidian antes de atualizar e gravação no vault após a mudança.
@@ -83,6 +97,74 @@ No chat do assistente, basta digitar `/` seguido do nome da skill ou setor para 
 
 ---
 
+## 🌐 Camada 2: Skills Globais Pré-existentes na IDE (Stack Web / Vercel)
+
+Habilidades instaladas previamente a nível global (`C:\Users\victo\.gemini\config\skills\`) para apoiar o desenvolvimento em Next.js 15, React e Tailwind CSS:
+
+- **`accessibility-wcag`**: Diretrizes de acessibilidade WCAG 2.1 AA (contraste, foco, navegação por teclado e leitores de tela).
+- **`nextjs-app-router`**: Arquitetura avançada de rotas, Server Components, layouts e streaming do Next.js 15.
+- **`seo-metadata-optimization`**: Otimização técnica de metadados, OpenGraph, JSON-LD e Core Web Vitals.
+- **`tailwind-design-system`**: Governança e consistência visual do Tailwind CSS com suporte a dark mode.
+- **`typescript-zod-forms`**: Formulários tipados e seguros com validação Zod e Server Actions.
+- **`vercel-composition-patterns`**: Padrões de composição modular e desacoplamento de componentes da Vercel.
+- **`vercel-react-best-practices`**: Melhores práticas oficiais de React para alta performance e zero re-renders desnecessários.
+- **`vercel-web-design-guidelines`**: Padrões estéticos e checklist visual da engenharia Vercel.
+
+---
+
+## 🚀 Camada 3: Novo Harness da IDE (Reta Final — Alta Performance)
+
+Harness de alta performance instalado a nível global (`C:\Users\victo\.gemini\config\skills\`) para acelerar o fechamento do portal com chave de ouro, cobrindo os 7 repositórios do ecossistema agêntico avançado:
+
+### 🔍 1. Pesquisa & Inteligência Temporal (`mvanhorn/last30days-skill`)
+- **`/last30days`**: Pesquisa investigativa focada estritamente nos **últimos 30 dias** em Reddit, X/Twitter, YouTube, TikTok, Hacker News, Polymarket e Web aberta para capturar discussões técnicas e atualizações recentes.
+
+### 🗺️ 2. Grafo de Conhecimento do Código (`Graphify-Labs/graphify`)
+- **`/graphify`**: Mapeamento determinístico da base via AST tree-sitter em grafo navegável interativo (`graph.html`, `graph.json`, `GRAPH_REPORT.md`). Suporta consultas diretas (`/graphify query`, `/graphify path`, `/graphify explain`) e exportação direta para o cofre do Obsidian com o parâmetro `--obsidian`.
+
+### 🧠 3. Consultoria Sênior de Auditoria (`shadcn/improve`)
+- **`/improve`**: Auditoria profunda em 9 categorias (corretude, segurança, performance, testes, débitos, migrações, DX, documentação e direção) gerando planos de implementação autônomos em `plans/`, sem mutação cega do código-fonte.
+
+### ✂️ 4. Eficiência Radical & Anti-Overengineering (`DietrichGebert/ponytail`)
+Metodologia pragmática: standard library first, recursos nativos e o menor código viável (YAGNI):
+- **`/ponytail`**: Ativa a mentalidade minimalista em tarefas de código (`lite`, `full`, `ultra`).
+- **`/ponytail-audit`**: Diagnóstico de código inchado, abstrações prematuras e dependências excessivas.
+- **`/ponytail-debt`**: Mapeamento sistemático de débitos técnicos para remoção imediata.
+- **`/ponytail-gain`**: Mensuração de ganhos em manutenção e velocidade ao deletar código.
+- **`/ponytail-help`**: Guia de auxílio da suíte ponytail.
+- **`/ponytail-review`**: Revisão estrita de PRs e diffs focada em simplicidade e código limpo.
+
+### ⚙️ 5. Engenharia & Harness Agêntico (`WorldFlowAI/everything-claude-code` — prefixo `ecc-*`)
+- **`/ecc-verification-loop`**: Loop automatizado de verificação contínua (build, lint, typecheck e testes).
+- **`/ecc-tdd-workflow`**: Ciclo estrito de Test-Driven Development (Red-Green-Refactor).
+- **`/ecc-security-review`**: Varredura estática de vulnerabilidades e segurança.
+- **`/ecc-strategic-compact`**: Compactação estratégica de contexto e gestão de memória.
+- **`/ecc-continuous-learning`**: Protocolo de reflexão pós-tarefa para registrar aprendizados técnicos.
+- **`/ecc-eval-harness`**: Framework de avaliação formal de tarefas agênticas.
+- **`/ecc-backend-patterns`**: Padrões de arquitetura de backend, resiliência e concorrência.
+- **`/ecc-frontend-patterns`**: Padrões modernos para estado de UI, acessibilidade e composição.
+- **`/ecc-coding-standards`**: Clean Code, SOLID e boas práticas de refatoração.
+- **`/ecc-clickhouse-io`**: Padrões de persistência e consultas colunares de alta escala.
+- **`/ecc-project-guidelines`**: Modelos de governança e documentação de projetos.
+
+### 🎨 6. Craft, Design System & Anti-Slop (`nexu-io/open-design` — prefixo `od-*`)
+Suíte de design de elite para elevar a interface do portal:
+- **`/od-master-design`**: Protocolo mestre OpenDesign: governança de contratos de design (`DESIGN.md`), regras anti-ai-slop (elimina estéticas genéricas de IA), tipografia editorial e disciplina de movimento.
+- **`/od-taste-skill`**: Guardião do bom gosto estético: análise de proporção, contraste, ritmo visual e hierarquia óptica.
+- **`/od-emil-design-eng`**: Princípios de Emil Kowalski: microinterações elegantes, curvas de física reais (springs) e polimento minucioso.
+- **`/od-brandkit`**: Construção e governança de tokens de marca, paletas e espaçamentos.
+- **`/od-brand-extract`**: Extração de paletas e tipografia de imagens e sites de referência.
+- **`/od-design-brief`**: Estruturação de briefs de design e descoberta estética.
+- **`/od-redesign`**: Metodologia sistemática de redesenho e modernização de interfaces.
+- **`/od-review-animations`**: Auditoria de performance, fluidez e timing de animações CSS/JS.
+- **`/od-minimalist`**: Sistema de design minimalista suíço de alta precisão.
+- **`/od-image-to-code`**: Conversão de mockups visuais ou prints diretamente para código Tailwind/CSS.
+
+### 🛡️ 7. Segurança de Habilidades & Auditoria Agêntica (`nvidia/skillspector`)
+- **`/skill-inspector`**: Scanner de segurança estática e semântica da NVIDIA para auditar habilidades de IA contra injeções de prompt, scripts não declarados ou privilégios excessivos.
+
+---
+
 ## Relações
 
 ### Depende de
@@ -91,3 +173,5 @@ No chat do assistente, basta digitar `/` seguido do nome da skill ou setor para 
 
 ### Relacionado a
 - [[00-Mapa-Mental-Portal-Nativaram]]
+- [[Indice-de-Recuperacao-Rapida]]
+

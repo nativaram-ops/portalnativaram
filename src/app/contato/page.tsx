@@ -17,11 +17,11 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { InstagramIcon } from "@/components/ui/icons";
 
 export const metadata: Metadata = {
-  title: "Contato Institucional & Atendimento Litúrgico | Nativaram Brasil",
+  title: "Contato Institucional & Atendimento Litúrgico | Cooperativa Nativaram",
   description:
-    "Entre em contato com os guardiões da Nativaram Brasil. Canal direto via WhatsApp para dirigentes, esclarecimento de dúvidas sobre feitios e agendamento de homologação litúrgica.",
+    "Entre em contato com os guardiões da Cooperativa Nativaram. Canal direto via WhatsApp para dirigentes, esclarecimento de dúvidas sobre feitios e agendamento de homologação litúrgica.",
   openGraph: {
-    title: "Contato Institucional | Nativaram Brasil",
+    title: "Contato Institucional | Cooperativa Nativaram",
     description:
       "Canal oficial de atendimento para templos, pesquisadores e guardiões da floresta.",
     url: "https://nativaramcoop.eco.br/contato",

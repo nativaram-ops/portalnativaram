@@ -6,11 +6,11 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { EstudosClient } from "@/components/estudos/EstudosClient";
 
 export const metadata: Metadata = {
-  title: "Estudos Etnobotânicos & Dossiês Científicos | Nativaram Brasil",
+  title: "Estudos Etnobotânicos & Dossiês Científicos | Cooperativa Nativaram",
   description:
-    "Biblioteca etnobotânica, laudos fitoquímicos e compêndios científicos da Cooperativa Nativaram Brasil: Ayahuasca, Rapés Sagrados, Sananga, Cadernos NotebookLM e Governança CONAD 01/2010.",
+    "Biblioteca etnobotânica, laudos fitoquímicos e compêndios científicos da Cooperativa Nativaram: Ayahuasca, Rapés Sagrados, Sananga, Cadernos NotebookLM e Governança CONAD 01/2010.",
   openGraph: {
-    title: "Estudos Etnobotânicos & Dossiês Científicos | Nativaram Brasil",
+    title: "Estudos Etnobotânicos & Dossiês Científicos | Cooperativa Nativaram",
     description:
       "Acesso aos PDFs oficiais de pesquisa fitoquímica da Ayahuasca, farmacologia dos rapés tradicionais e compliance litúrgico.",
     url: "https://nativaramcoop.eco.br/estudos",

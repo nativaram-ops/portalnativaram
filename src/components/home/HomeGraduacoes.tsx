@@ -119,22 +119,34 @@ export const HomeGraduacoes = () => {
             {graduacoes.map(({ grad, name, bird, dose, duracao, rateio, strength, desc, featured }, i) => (
               <AnimateOnScroll key={grad} delay={i * 90} direction="right">
                 <div
-                  className={`rounded-xl p-5 sm:p-6 space-y-3 transition-all duration-300 ${
+                  className={`rounded-xl p-5 sm:p-6 space-y-3.5 transition-all duration-300 relative overflow-hidden ${
                     featured
-                      ? "card-elevated ring-1 ring-ambar-500/40 bg-floresta-900/85 shadow-solar"
+                      ? "card-elevated ring-1 ring-ambar-500/50 bg-gradient-to-br from-floresta-900/95 via-floresta-950 to-floresta-900/95 shadow-solar border-ambar-400/40"
                       : "card-liturgico hover:border-ambar-500/40"
                   }`}
                 >
+                  {/* Selo Litúrgico Solene no Wirapuru 10.1 */}
+                  {featured && (
+                    <div className="flex items-center justify-between pb-2 mb-1 border-b border-ambar-500/20">
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-ambar-300 flex items-center gap-1.5 font-bold">
+                        <span>✦</span> Densidade Canônica Máxima &bull; Vigílias Litúrgicas
+                      </span>
+                      <span className="text-[9px] bg-ambar-500/25 text-amber-200 border border-ambar-400/30 px-2 py-0.5 rounded-full font-mono uppercase tracking-wider">
+                        Soberano
+                      </span>
+                    </div>
+                  )}
+
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                     <div className="flex items-baseline gap-2.5">
                       <span
-                        className={`font-serif text-2xl font-bold ${
-                          featured ? "text-ambar-300" : "text-ambar-400"
+                        className={`font-serif text-2xl sm:text-3xl font-bold tracking-tight ${
+                          featured ? "text-amber-300 drop-shadow-[0_0_12px_rgba(212,163,89,0.4)]" : "text-ambar-400"
                         }`}
                       >
                         {grad}
                       </span>
-                      <span className="font-serif text-lg font-semibold text-areia-100">
+                      <span className="font-serif text-lg sm:text-xl font-semibold text-areia-100">
                         {name}
                       </span>
                       <span className="text-[11px] text-areia-400 italic">
@@ -153,24 +165,24 @@ export const HomeGraduacoes = () => {
                   </div>
 
                   {/* Barra de Densidade */}
-                  <div className="flex items-center gap-3">
-                    <div className="flex-1 h-1.5 rounded-full bg-floresta-800 overflow-hidden">
+                  <div className="flex items-center gap-3 pt-1">
+                    <div className="flex-1 h-1.5 rounded-full bg-floresta-800/90 overflow-hidden">
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-ambar-600 via-ambar-500 to-ambar-400 transition-all duration-1000"
                         style={{ width: `${strength}%` }}
                       />
                     </div>
-                    <span className="text-[10px] text-ambar-400/80 font-mono w-8 text-right">
+                    <span className="text-[10px] text-ambar-400/90 font-mono w-8 text-right font-semibold">
                       {strength}%
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between text-[10px] text-areia-400/70 font-mono">
+                  <div className="flex items-center justify-between text-[10px] text-areia-400/80 font-mono">
                     <span>Ciclo ritualístico: ~{duracao}</span>
-                    <span>HPLC Tucunacá • Cruzeiro do Sul (AC)</span>
+                    <span>HPLC Tucunacá &bull; Cruzeiro do Sul (AC)</span>
                   </div>
 
-                  <p className="text-xs text-areia-300 leading-relaxed font-light">
+                  <p className="text-xs text-areia-300 leading-relaxed font-light text-pretty">
                     {desc}
                   </p>
                 </div>

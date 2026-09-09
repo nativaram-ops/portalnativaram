@@ -25,10 +25,17 @@ categoria: Índice Rápido
 | Recurso | Caminho no Código | O Que Faz |
 | :--- | :--- | :--- |
 | **Portal do Dirigente** | `src/app/portal-dirigente/page.tsx` | Página restrita para dirigentes de templos e conselho gestor |
-| **Orquestrador de Tela** | `src/components/layout/PortalDirigenteClient.tsx` | Autenticação por perfis (Templo vs ADM) e troca de abas |
+| **Orquestrador de Tela** | `src/components/layout/PortalDirigenteClient.tsx` | Autenticação por perfis (Templo vs ADM) e 10 abas de governança |
+| **Central de Documentos A4** | `src/components/portal-dirigente/PortalCentralDocumentos.tsx` | 5 modelos canônicos abertos (Anamnese, Termo CONAD, Termo de Menores, POP/Ata e Declaração), tripla exportação (A4/Word/Markdown) |
+| **Farmacologia & Washout** | `src/components/portal-dirigente/PortalInteracoesMedicamentosas.tsx` | 15 classes do compêndio, cinética $5\text{ a }7 \times t_{1/2}$, Critérios de Hunter e alerta de Lítio (Status Epilepticus) |
+| **Catálogo de Graduações** | `src/components/portal-dirigente/PortalCatalogoGraduacoes.tsx` | Fitoquímica Tucunacá (8,03 mg/g), Chacrona circadiana, 65–72 °Brix e Tabela de Diluição 10:1 Wirapuru |
+| **FAQ do Dirigente** | `src/components/portal-dirigente/PortalAssessoriaFAQ.tsx` | 12 perguntas aprofundadas (gás CO₂, borra, dosagens, Zendo Project e fiscalizações) |
+| **Calculadora Litúrgica** | `src/components/portal-dirigente/PortalCalculadoraLiturgica.tsx` | Modo Cerimônia (participantes/sacramentos) e Modo Reconstituição 10:1 (água a 45-50°C e cálices) |
+| **Respaldo Jurídico** | `src/components/portal-dirigente/PortalRespaldoJuridico.tsx` | Guia de fiscalização policial/sanitária, ementa CONAD 01/2010 e checklist da pasta |
 | **Formulário de Pedido** | `src/components/portal-dirigente/FormSolicitacaoPedido.tsx` | Catálogo de itens, cálculo de rateio, mensagem livre e disparo WhatsApp |
 | **Acompanhamento (Dirigente)** | `src/components/portal-dirigente/AcompanhamentoPedidos.tsx` | Timeline de 5 fases, visualização de laudos, rastreio e repetição de pedido |
 | **Gestão Central (ADM)** | `src/components/portal-dirigente/AdminGestaoPedidos.tsx` | Métricas em tempo real, atualização de status, rastreio e aviso WhatsApp |
+| **Base Fitoquímica & Canônica** | `src/data/portal-assessoria.ts` | Matriz de fármacos, regras de washout e FAQ estruturado |
 | **Banco de Dados Local** | `data/pedidos.json` e `src/lib/db/pedidos.ts` | Armazenamento atômico seguro com histórico de auditoria |
 | **API de Pedidos** | `src/app/api/pedidos/route.ts` e `[id]/route.ts` | Endpoints REST para listar, criar, atualizar e notificar |
 | **Tipos TypeScript** | `src/types/pedido.ts` | Modelagem estrita de solicitações, itens e métricas |
@@ -37,7 +44,21 @@ categoria: Índice Rápido
 | **Catálogo de Rapés/Artefatos** | `src/data/sacramentos.ts` e `medicinas.ts` | 10 rapés tradicionais (pH alcalino), Kuripes, Tepis e Sananga |
 | **Casa de Feitio & Etnobotânica** | `src/app/feitio/page.tsx` e `FeitioLanding.tsx` | Alquimia do feitio em menores micras, etnovariedades de cipó, Chacrona, recusa de Anayahuascas e HPLC |
 | **Credenciamento Aberto** | `src/app/credenciamento/page.tsx` | Formulário público para novas congregações solicitarem homologação |
-| **Design Tokens** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0`, Pedra `#1C1917` |
+| **Funil Didático (5 Estações)** | `Segundo-Cerebro/06-Arquitetura-do-Portal/Funil-de-Conversao-e-Navegacao-Didatica.md` | Arquitetura das 5 estações (Origem -> Feitio -> Sacramentos -> Marco Legal -> Credenciamento) e política anti-inchaço |
+| **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0` e regras `@media print` |
+| **Harness & Skills Globais** | `Segundo-Cerebro/.../Guia-de-Skills-e-Comandos.md` e `AGENTS.md` | Catálogo das 40 skills locais, 8 da IDE e 31 do Novo Harness (OpenDesign, ECC, Graphify, Improve, Ponytail, Last30days, SkillSpector) |
+
+---
+
+## 🔐 Credenciais Oficiais de Acesso Litúrgico
+- **Administrador Master (Conselho Gestor da Cooperativa):**
+  - **Login:** `adm-nativaram`
+  - **Senha Master:** `adm2026`
+- **Templo Credenciado (Exemplo Homologado):**
+  - **Código:** `NAT-TEMPLO-842` (Templo Céu do Cruzeiro)
+  - **Senha:** chave litúrgica cadastrada do dirigente
+- **Política de Acesso Restrito (Zero Visão de Visitante):**
+  - O portal não permite acesso desautorizado de visitantes nem atalhos de bypass. Congregações não cadastradas devem preencher a ficha pública em `/credenciamento`.
 
 ---
 
@@ -75,4 +96,7 @@ categoria: Índice Rápido
 - [[Portal-do-Dirigente-e-Gestao-Liturgica]]
 - [[Banco-de-Dados-e-Persistencia-Local]]
 - [[ADR-001-Persistencia-Atomica-e-WhatsApp-First]]
+- [[ADR-002-Composicao-Modular-e-Design-System]]
+- [[ADR-003-Funil-de-Conversao-e-Jornada-Didatica]]
+- [[ADR-004-Assessoria-Liturgica-e-Documentos-A4]]
 - [[Manual-de-Comunicacao-e-Blindagem-Algoritmica]]

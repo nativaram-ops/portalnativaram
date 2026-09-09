@@ -112,7 +112,10 @@ export const AdminGestaoPedidos: React.FC = () => {
 
       const res = await fetch(`/api/pedidos/${pedidoEditando.id}`, {
         method: "PATCH",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "x-nativaram-auth": "adm-nativaram-2026",
+        },
         body: JSON.stringify(payload),
       });
 

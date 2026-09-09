@@ -30,11 +30,11 @@ export const viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nativaramcoop.eco.br"),
-  title: "Nativaram Brasil | Cooperativa Etnobotânica & Salvaguarda Litúrgica",
+  title: "Cooperativa Nativaram | Salvaguarda Litúrgica & Etnobotânica da Floresta",
   description:
     "Preservação cultural, ciência do feitio purista da Ayahuasca e apoio logístico e operacional cooperativo a instituições religiosas homologadas sob amparo da CF/88, Resolução CONAD nº 01/2010 e ANVISA.",
   keywords: [
-    "Nativaram Brasil",
+    "Cooperativa Nativaram",
     "Nascidos do Raio de Sol",
     "Cooperativa Etnobotânica",
     "Salvaguarda Litúrgica",
@@ -45,16 +45,16 @@ export const metadata: Metadata = {
     "Rapés Sagrados",
     "Etnociência",
   ],
-  authors: [{ name: "Cooperativa Etnobotânica Nativaram Brasil" }],
+  authors: [{ name: "Cooperativa Etnobotânica Nativaram" }],
   manifest: "/manifest.json",
   openGraph: {
     type: "website",
     locale: "pt_BR",
     url: "https://nativaramcoop.eco.br",
-    siteName: "Nativaram Brasil",
-    title: "Nativaram Brasil | Cooperativa Etnobotânica & Salvaguarda Litúrgica",
+    siteName: "Cooperativa Nativaram",
+    title: "Cooperativa Nativaram | Salvaguarda Litúrgica & Etnobotânica da Floresta",
     description:
-      "Preservação cultural, ciência do feitio purista e provimento assistido de medicinas ancestrais para instituições homologadas.",
+      "Preservação cultural, ciência do feitio purista e provimento assistido de sacramentos tradicionais para instituições homologadas.",
     images: [
       {
         url: "/assets/banners/frasco-rape-apresentacao.jpeg",

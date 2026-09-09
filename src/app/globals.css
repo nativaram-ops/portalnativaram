@@ -75,7 +75,7 @@ body {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(212, 163, 89, 0.15);
-  transition: all 0.5s var(--ease-out-expo);
+  transition: transform 0.4s var(--ease-out-expo), border-color 0.3s ease, box-shadow 0.4s ease;
 }
 
 .card-liturgico:hover {
@@ -89,7 +89,7 @@ body {
   background: linear-gradient(145deg, rgba(16, 29, 22, 0.9), rgba(11, 20, 15, 0.95));
   border: 1px solid rgba(212, 163, 89, 0.12);
   box-shadow: 0 4px 24px -8px rgba(0, 0, 0, 0.5);
-  transition: all 0.5s var(--ease-out-expo);
+  transition: transform 0.4s var(--ease-out-expo), border-color 0.3s ease, box-shadow 0.4s ease;
 }
 
 .card-elevated:hover {
@@ -124,12 +124,6 @@ body {
 
 .glow-emerald {
   box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.25);
-  animation: glow-emerald-pulse 3s ease-in-out infinite;
-}
-
-@keyframes glow-emerald-pulse {
-  0%, 100% { box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.2); }
-  50% { box-shadow: 0 0 40px 0px rgba(16, 185, 129, 0.35); }
 }
 
 /* ═══════════════════════════════════════════════
@@ -350,12 +344,15 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
-   BUTTON REFINEMENTS
+   BUTTON REFINEMENTS & TACTILE FEEDBACK (EMIL KOWALSKI)
    ═══════════════════════════════════════════════ */
 /* Button Base — shared ambar gradient structure */
-.btn-ambar {
+.btn-ambar,
+.btn-primary,
+.btn-primary-sm {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -364,17 +361,24 @@ body {
   background-size: 200% 200%;
   border-radius: 0.5rem;
   box-shadow: 0 0 30px -5px rgba(212, 163, 89, 0.25);
-  transition: all 0.4s var(--ease-out-expo);
+  transition: transform 0.2s var(--ease-out-expo), box-shadow 0.3s ease, background-position 0.4s ease, filter 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
-.btn-ambar:hover {
+.btn-ambar:hover,
+.btn-primary:hover,
+.btn-primary-sm:hover {
   background-position: 100% 100%;
   box-shadow: 0 0 50px 0px rgba(212, 163, 89, 0.4);
   transform: translateY(-1px);
 }
 
-.btn-ambar:active {
+.btn-ambar:active,
+.btn-primary:active,
+.btn-primary-sm:active {
   transform: scale(0.98);
+  filter: brightness(0.95);
 }
 
 /* Size: Default (sections, CTAs) */
@@ -394,6 +398,7 @@ body {
 .btn-secondary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   padding: 0.875rem 1.75rem;
   font-size: 0.75rem;
@@ -402,14 +407,41 @@ body {
   border: 1px solid rgba(212, 163, 89, 0.3);
   background: rgba(22, 40, 30, 0.5);
   backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-radius: 0.5rem;
-  transition: all 0.4s var(--ease-out-expo);
+  transition: transform 0.2s var(--ease-out-expo), border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease, filter 0.2s ease;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 .btn-secondary:hover {
   border-color: rgba(212, 163, 89, 0.6);
   background: rgba(22, 40, 30, 0.8);
   color: #E3BC72;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+
+/* Utilitários OpenDesign & Emil Kowalski */
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.tracking-display {
+  letter-spacing: -0.02em;
+}
+
+.btn-press:active {
+  transform: scale(0.98);
+  filter: brightness(0.95);
 }
 
 /* ═══════════════════════════════════════════════
@@ -499,3 +531,78 @@ body {
     transform: none;
   }
 }
+
+/* ═══════════════════════════════════════════════
+   ESTILOS DE IMPRESSÃO A4 LITÚRGICA (@media print)
+   Geração Vetorial Nativa em PDF de Alta Resolução
+   ═══════════════════════════════════════════ */
+@media print {
+  /* Ocultar elementos da interface web */
+  header,
+  footer,
+  nav,
+  .print-hidden,
+  .whatsapp-fab,
+  .compliance-banner,
+  .skip-to-content,
+  button:not(.print-preserve) {
+    display: none !important;
+  }
+
+  /* Reset de layout e cor de fundo para economia de tinta e nitidez */
+  html,
+  body {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Container do documento A4 */
+  .documento-a4-impressao {
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding: 10mm 15mm !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    page-break-inside: auto;
+  }
+
+  /* Controle de quebras de página */
+  .page-break-before {
+    page-break-before: always !important;
+  }
+
+  .avoid-page-break {
+    page-break-inside: avoid !important;
+  }
+
+  /* Ajuste de textos e bordas para impressão */
+  .documento-a4-impressao h1,
+  .documento-a4-impressao h2,
+  .documento-a4-impressao h3,
+  .documento-a4-impressao h4 {
+    color: #000000 !important;
+    font-family: serif !important;
+  }
+
+  .documento-a4-impressao p,
+  .documento-a4-impressao span,
+  .documento-a4-impressao label {
+    color: #1F2937 !important;
+  }
+
+  .documento-a4-impressao .borda-liturgica {
+    border: 1px solid #9CA3AF !important;
+  }
+
+  .documento-a4-impressao .linha-assinatura {
+    border-top: 1px solid #111827 !important;
+  }
+}
+

@@ -37,6 +37,14 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const authHeader = request.headers.get("x-nativaram-auth");
+    if (!authHeader || authHeader !== "adm-nativaram-2026") {
+      return NextResponse.json(
+        { sucesso: false, erro: "Acesso litúrgico não autorizado para atualização." },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
     const body = await request.json();
 
@@ -89,10 +97,18 @@ export async function PATCH(
 }
 
 export async function DELETE(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const authHeader = request.headers.get("x-nativaram-auth");
+    if (!authHeader || authHeader !== "adm-nativaram-2026") {
+      return NextResponse.json(
+        { sucesso: false, erro: "Acesso litúrgico não autorizado para exclusão." },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
     const removido = await excluirPedido(id);
 

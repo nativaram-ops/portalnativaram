@@ -92,10 +92,10 @@ export const HomeFaqSection = () => {
                 </div>
               </div>
               <div className="flex items-center gap-3 shrink-0">
-                <Link href="/portal-dirigente" className="btn-secondary text-xs font-semibold px-5 py-2.5">
+                <Link href="/portal-dirigente" className="btn-secondary btn-press text-xs font-semibold px-5 py-2.5">
                   Acessar Portal do Dirigente
                 </Link>
-                <Link href="/contato" className="btn-primary text-xs font-semibold px-5 py-2.5">
+                <Link href="/contato" className="btn-primary btn-press text-xs font-semibold px-5 py-2.5">
                   Falar com Guardiões
                 </Link>
               </div>

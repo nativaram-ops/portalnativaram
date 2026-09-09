@@ -10,26 +10,31 @@ import {
   CheckCircle2,
   Scale,
   Sparkles,
+  Clock,
+  KeyRound,
+  Send,
 } from "lucide-react";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { CredenciamentoForm } from "@/components/forms/CredenciamentoForm";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
+import { JornadaNavTracker } from "@/components/funil";
+import { Badge } from "@/components/ui/Badge";
 
 export const metadata: Metadata = {
-  title: "Credenciamento Litúrgico Institucional | Nativaram Brasil",
+  title: "Credenciamento Litúrgico Institucional | Cooperativa Nativaram",
   description:
     "Processo de homologação formal e cadastral para entidades religiosas, templos de oração e círculos xamânicos sob estrita observância à Resolução CONAD nº 01/2010 e CF/88.",
   openGraph: {
-    title: "Credenciamento Litúrgico Institucional | Nativaram Brasil",
+    title: "Credenciamento Litúrgico Institucional | Cooperativa Nativaram",
     description:
-      "Acesso cooperativo exclusivo para casas religiosas e templos homologados perante o conselho de guardiões da Nativaram Brasil.",
+      "Acesso cooperativo exclusivo para casas religiosas e templos homologados perante o conselho de guardiões da Cooperativa Nativaram.",
     url: "https://nativaramcoop.eco.br/credenciamento",
     images: [
       {
         url: "/assets/projetos-de-luz/projeto-luz-altar.jpg",
         width: 1200,
         height: 675,
-        alt: "Credenciamento Litúrgico Institucional — Nativaram Brasil",
+        alt: "Credenciamento Litúrgico Institucional — Cooperativa Nativaram",
       },
     ],
   },
@@ -38,6 +43,9 @@ export const metadata: Metadata = {
 export default function CredenciamentoPage() {
   return (
     <div className="space-y-0">
+      {/* Indicador Superior do Caminho Didático */}
+      <JornadaNavTracker etapaAtual={5} />
+
       {/* ═══════════════════════════════════════════
           HERO — CREDENCIAMENTO LITÚRGICO INSTITUCIONAL
           ═══════════════════════════════════════════ */}
@@ -46,9 +54,13 @@ export default function CredenciamentoPage() {
 
         <div className="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-6">
           <AnimateOnScroll>
-            <div className="inline-flex items-center gap-2 rounded-full border border-ambar-500/30 bg-floresta-900/80 backdrop-blur-md px-4 py-1.5 text-xs font-semibold tracking-[0.16em] text-ambar-400 uppercase shadow-solar">
-              <ShieldCheck className="h-4 w-4 text-ambar-400" />
-              <span>Exclusivo para Entidades Religiosas & Templos Constituídos</span>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <Badge variant="emerald" dot icon={<CheckCircle2 className="h-3 w-3" />}>
+                Etapa 5 de 5 • Clímax da Salvaguarda Litúrgica
+              </Badge>
+              <Badge variant="solar" icon={<ShieldCheck className="h-3 w-3 text-ambar-400" />}>
+                Exclusivo para Casas &amp; Templos Constituídos
+              </Badge>
             </div>
           </AnimateOnScroll>
 
@@ -61,13 +73,49 @@ export default function CredenciamentoPage() {
 
           <AnimateOnScroll delay={300}>
             <p className="text-base sm:text-lg text-areia-200 max-w-3xl mx-auto leading-relaxed font-light">
-              Em estrita conformidade com o <strong>Artigo 5º, VI da Constituição Federal</strong> e a <strong>Resolução CONAD nº 01/2010</strong>, o provimento cooperativo de sacramentos botânicos tradicionais é reservado a congregações homologadas pelo Conselho Guardião da Nativaram Brasil.
+              Em estrita conformidade com o <strong>Artigo 5º, VI da Constituição Federal</strong> e a <strong>Resolução CONAD nº 01/2010</strong>, o provimento cooperativo de sacramentos botânicos tradicionais é reservado a congregações homologadas pelo Conselho Guardião da Cooperativa Nativaram.
             </p>
           </AnimateOnScroll>
 
+          {/* Timeline de Homologação em 3 Passos Claros */}
+          <AnimateOnScroll delay={400}>
+            <div className="rounded-2xl border border-ambar-500/25 bg-floresta-950/90 p-6 text-left max-w-4xl mx-auto shadow-elevated-md space-y-4">
+              <div className="flex items-center gap-2 text-ambar-400 font-mono text-xs font-bold uppercase tracking-wider">
+                <Clock className="h-4 w-4" />
+                <span>Como Funciona o Processo de Homologação em 3 Passos:</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+                <div className="p-3 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-1">
+                  <span className="text-ambar-400 font-bold block font-mono text-[11px]">
+                    1. Submissão Digital
+                  </span>
+                  <p className="text-areia-300 font-light text-[11px] leading-relaxed">
+                    Preenchimento do formulário abaixo com os dados cadastrais da instituição religiosa e ata ou declaração formal.
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-1">
+                  <span className="text-ambar-400 font-bold block font-mono text-[11px]">
+                    2. Análise Ética (48h)
+                  </span>
+                  <p className="text-areia-300 font-light text-[11px] leading-relaxed">
+                    O Conselho Guardião avalia o alinhamento deontológico e o compromisso contra a mercantilização em até 48 horas úteis.
+                  </p>
+                </div>
+                <div className="p-3 rounded-xl bg-floresta-900/60 border border-ambar-500/15 space-y-1">
+                  <span className="text-emerald-400 font-bold block font-mono text-[11px]">
+                    3. Acesso Homologado
+                  </span>
+                  <p className="text-areia-300 font-light text-[11px] leading-relaxed">
+                    Com a homologação deferida, o dirigente recebe as credenciais de acesso seguro ao Portal do Dirigente.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </AnimateOnScroll>
+
           {/* Três Pilares da Homologação */}
-          <AnimateOnScroll delay={450}>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-left max-w-4xl mx-auto">
+          <AnimateOnScroll delay={500}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2 text-left max-w-4xl mx-auto">
               <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/80 p-4 space-y-1.5">
                 <div className="flex items-center gap-2 text-ambar-400 font-serif font-bold text-xs">
                   <Building2 className="h-4 w-4" />
@@ -127,7 +175,7 @@ export default function CredenciamentoPage() {
             <span>Marco Legal & Conformidade Ética</span>
           </div>
           <p className="text-[11px] text-areia-400 leading-relaxed font-light">
-            A Cooperativa Etnobotânica Nativaram Brasil não pratica comércio eletrônico nem disponibiliza sacramentos ao público leigo. Todo o processo de acolhimento e sustentação litúrgica atende estritamente às diretrizes fixadas pela Resolução nº 01 do Conselho Nacional de Políticas sobre Drogas (CONAD), de 25 de janeiro de 2010.
+            A Cooperativa Etnobotânica Nativaram não pratica comércio eletrônico nem disponibiliza sacramentos ao público leigo. Todo o processo de acolhimento e sustentação litúrgica atende estritamente às diretrizes fixadas pela Resolução nº 01 do Conselho Nacional de Políticas sobre Drogas (CONAD), de 25 de janeiro de 2010.
           </p>
         </div>
       </section>

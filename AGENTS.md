@@ -117,44 +117,115 @@ As habilidades especializadas do projeto estão localizadas em `.agents/skills/`
 11. **`/segundo-cerebro-configuracao`** (`.agents/skills/segundo-cerebro-configuracao/SKILL.md`): Configurar e sincronizar as regras do Segundo Cérebro e o `AGENTS.md`.
 
 ### Setor 2: Engenharia & Código (Desenvolvimento & Resiliência)
-11. **`/engenharia-revisar-codigo`** (`.agents/skills/engenharia-revisar-codigo/SKILL.md`): Revisar código recente em relação a padrões da base (standards) e cumprimento da especificação (spec).
-12. **`/engenharia-diagnosticar-bugs`** (`.agents/skills/engenharia-diagnosticar-bugs/SKILL.md`): Investigação e diagnóstico sistemático de falhas, erros de runtime e regressões.
-13. **`/engenharia-resolver-conflitos-git`** (`.agents/skills/engenharia-resolver-conflitos-git/SKILL.md`): Guia seguro para resolver conflitos de merge ou rebase no Git.
-14. **`/engenharia-guardrails-git`** (`.agents/skills/engenharia-guardrails-git/SKILL.md`): Configurar travas e proteções para impedir comandos destrutivos no Git.
-15. **`/engenharia-implementar-especificacao`** (`.agents/skills/engenharia-implementar-especificacao/SKILL.md`): Implementar uma feature ou conjunto de tickets seguindo uma especificação técnica.
-16. **`/engenharia-melhorar-arquitetura`** (`.agents/skills/engenharia-melhorar-arquitetura/SKILL.md`): Escanear a base em busca de desacoplamento e aprofundamento de módulos.
-17. **`/engenharia-migrar-tipos-shoehorn`** (`.agents/skills/engenharia-migrar-tipos-shoehorn/SKILL.md`): Migrar asserções inseguras `as` em testes TypeScript para tipagem estruturada.
+12. **`/engenharia-revisar-codigo`** (`.agents/skills/engenharia-revisar-codigo/SKILL.md`): Revisar código recente em relação a padrões da base (standards) e cumprimento da especificação (spec).
+13. **`/engenharia-diagnosticar-bugs`** (`.agents/skills/engenharia-diagnosticar-bugs/SKILL.md`): Investigação e diagnóstico sistemático de falhas, erros de runtime e regressões.
+14. **`/engenharia-resolver-conflitos-git`** (`.agents/skills/engenharia-resolver-conflitos-git/SKILL.md`): Guia seguro para resolver conflitos de merge ou rebase no Git.
+15. **`/engenharia-guardrails-git`** (`.agents/skills/engenharia-guardrails-git/SKILL.md`): Configurar travas e proteções para impedir comandos destrutivos no Git.
+16. **`/engenharia-implementar-especificacao`** (`.agents/skills/engenharia-implementar-especificacao/SKILL.md`): Implementar uma feature ou conjunto de tickets seguindo uma especificação técnica.
+17. **`/engenharia-melhorar-arquitetura`** (`.agents/skills/engenharia-melhorar-arquitetura/SKILL.md`): Escanear a base em busca de desacoplamento e aprofundamento de módulos.
+18. **`/engenharia-migrar-tipos-shoehorn`** (`.agents/skills/engenharia-migrar-tipos-shoehorn/SKILL.md`): Migrar asserções inseguras `as` em testes TypeScript para tipagem estruturada.
 
 ### Setor 3: Testes & Qualidade (TDD & CI)
-18. **`/testes-desenvolvimento-tdd`** (`.agents/skills/testes-desenvolvimento-tdd/SKILL.md`): Desenvolvimento guiado por testes no ciclo Red-Green-Refactor.
-19. **`/testes-configurar-pre-commit`** (`.agents/skills/testes-configurar-pre-commit/SKILL.md`): Configurar hooks de pré-commit (Husky, lint-staged, formatação e TypeScript).
-20. **`/testes-estruturar-exercicios`** (`.agents/skills/testes-estruturar-exercicios/SKILL.md`): Criar estruturas didáticas com testes e gabaritos automatizados.
+19. **`/testes-desenvolvimento-tdd`** (`.agents/skills/testes-desenvolvimento-tdd/SKILL.md`): Desenvolvimento guiado por testes no ciclo Red-Green-Refactor.
+20. **`/testes-configurar-pre-commit`** (`.agents/skills/testes-configurar-pre-commit/SKILL.md`): Configurar hooks de pré-commit (Husky, lint-staged, formatação e TypeScript).
+21. **`/testes-estruturar-exercicios`** (`.agents/skills/testes-estruturar-exercicios/SKILL.md`): Criar estruturas didáticas com testes e gabaritos automatizados.
 
 ### Setor 4: Arquitetura & Domínio
-21. **`/arquitetura-design-modular`** (`.agents/skills/arquitetura-design-modular/SKILL.md`): Projetar módulos profundos com interfaces simples e desacopladas.
-22. **`/arquitetura-modelagem-dominio`** (`.agents/skills/arquitetura-modelagem-dominio/SKILL.md`): Alinhar o vocabulário ubíquo do projeto, manter `CONTEXT.md` e ADRs.
-23. **`/arquitetura-prototipar-ui`** (`.agents/skills/arquitetura-prototipar-ui/SKILL.md`): Criar protótipos funcionais rápidos de interface para validação visual e ergonômica.
+22. **`/arquitetura-design-modular`** (`.agents/skills/arquitetura-design-modular/SKILL.md`): Projetar módulos profundos com interfaces simples e desacopladas.
+23. **`/arquitetura-modelagem-dominio`** (`.agents/skills/arquitetura-modelagem-dominio/SKILL.md`): Alinhar o vocabulário ubíquo do projeto, manter `CONTEXT.md` e ADRs.
+24. **`/arquitetura-prototipar-ui`** (`.agents/skills/arquitetura-prototipar-ui/SKILL.md`): Criar protótipos funcionais rápidos de interface para validação visual e ergonômica.
 
 ### Setor 5: Produtividade & IA
-24. **`/produtividade-integracao-notebooklm`** (`.agents/skills/produtividade-integracao-notebooklm/SKILL.md`): Consultar notebooks, sincronizar notas do Obsidian e gerar áudios/podcasts via Google NotebookLM.
-25. **`/produtividade-pesquisa-tecnica`** (`.agents/skills/produtividade-pesquisa-tecnica/SKILL.md`): Pesquisa técnica aprofundada com fontes primárias oficiais e registro em Markdown.
-26. **`/produtividade-sabatina-decisoes`** (`.agents/skills/produtividade-sabatina-decisoes/SKILL.md`): Sabatina rigorosa (Grill Me) para estressar e validar planos, decisões e premissas.
-27. **`/produtividade-assistente-wizard`** (`.agents/skills/produtividade-assistente-wizard/SKILL.md`): Gerar assistentes interativos passo a passo (wizard) para operações manuais.
-28. **`/produtividade-orientacao-skills`** (`.agents/skills/produtividade-orientacao-skills/SKILL.md`): Orientar o desenvolvedor sobre qual skill ou abordagem utilizar na tarefa.
+25. **`/produtividade-integracao-notebooklm`** (`.agents/skills/produtividade-integracao-notebooklm/SKILL.md`): Consultar notebooks, sincronizar notas do Obsidian e gerar áudios/podcasts via Google NotebookLM.
+26. **`/produtividade-pesquisa-tecnica`** (`.agents/skills/produtividade-pesquisa-tecnica/SKILL.md`): Pesquisa técnica aprofundada com fontes primárias oficiais e registro em Markdown.
+27. **`/produtividade-sabatina-decisoes`** (`.agents/skills/produtividade-sabatina-decisoes/SKILL.md`): Sabatina rigorosa (Grill Me) para estressar e validar planos, decisões e premissas.
+28. **`/produtividade-assistente-wizard`** (`.agents/skills/produtividade-assistente-wizard/SKILL.md`): Gerar assistentes interativos passo a passo (wizard) para operações manuais.
+29. **`/produtividade-orientacao-skills`** (`.agents/skills/produtividade-orientacao-skills/SKILL.md`): Orientar o desenvolvedor sobre qual skill ou abordagem utilizar na tarefa.
 
 ### Setor 6: Gestão & Fluxo de Trabalho
-29. **`/gestao-triagem-issues`** (`.agents/skills/gestao-triagem-issues/SKILL.md`): Triagem sistemática, categorização e etiquetagem de issues no GitHub.
-30. **`/gestao-especificacao-tecnica`** (`.agents/skills/gestao-especificacao-tecnica/SKILL.md`): Transformar conversas e ideias em especificações técnicas formais e acionáveis.
-31. **`/gestao-gerar-tickets`** (`.agents/skills/gestao-gerar-tickets/SKILL.md`): Quebrar planos e especificações em subtarefas e tickets incrementais.
-32. **`/gestao-questionario-requisitos`** (`.agents/skills/gestao-questionario-requisitos/SKILL.md`): Formular questionários objetivos para resolver requisitos ambíguos.
-33. **`/gestao-handoff-sessao`** (`.agents/skills/gestao-handoff-sessao/SKILL.md`): Compactar e preparar a transição de contexto para uma nova sessão do agente.
-34. **`/gestao-retrospectiva`** (`.agents/skills/gestao-retrospectiva/SKILL.md`): Conduzir retrospectivas técnicas ao fim de marcos de entrega.
-35. **`/gestao-mapa-navegacao`** (`.agents/skills/gestao-mapa-navegacao/SKILL.md`): Planejar e monitorar iniciativas de grande porte através de um mapa de decisões.
+30. **`/gestao-triagem-issues`** (`.agents/skills/gestao-triagem-issues/SKILL.md`): Triagem sistemática, categorização e etiquetagem de issues no GitHub.
+31. **`/gestao-especificacao-tecnica`** (`.agents/skills/gestao-especificacao-tecnica/SKILL.md`): Transformar conversas e ideias em especificações técnicas formais e acionáveis.
+32. **`/gestao-gerar-tickets`** (`.agents/skills/gestao-gerar-tickets/SKILL.md`): Quebrar planos e especificações em subtarefas e tickets incrementais.
+33. **`/gestao-questionario-requisitos`** (`.agents/skills/gestao-questionario-requisitos/SKILL.md`): Formular questionários objetivos para resolver requisitos ambíguos.
+34. **`/gestao-handoff-sessao`** (`.agents/skills/gestao-handoff-sessao/SKILL.md`): Compactar e preparar a transição de contexto para uma nova sessão do agente.
+35. **`/gestao-retrospectiva`** (`.agents/skills/gestao-retrospectiva/SKILL.md`): Conduzir retrospectivas técnicas ao fim de marcos de entrega.
+36. **`/gestao-mapa-navegacao`** (`.agents/skills/gestao-mapa-navegacao/SKILL.md`): Planejar e monitorar iniciativas de grande porte através de um mapa de decisões.
 
 ### Setor 7: Documentação & Redação
-36. **`/documentacao-escrita-para-agentes`** (`.agents/skills/documentacao-escrita-para-agentes/SKILL.md`): Escrever regras, skills e documentações de alta fidelidade para agentes de IA.
-37. **`/documentacao-redacao-estruturada`** (`.agents/skills/documentacao-redacao-estruturada/SKILL.md`): Redigir artigos, manifestos e textos analíticos parágrafo a parágrafo.
-38. **`/documentacao-ensinar-conceito`** (`.agents/skills/documentacao-ensinar-conceito/SKILL.md`): Ensinar conceitos técnicos de forma didática e fundamentada.
-39. **`/documentacao-revisar-clareza`** (`.agents/skills/documentacao-revisar-clareza/SKILL.md`): Reformular explicações complexas para garantir clareza absoluta.
+37. **`/documentacao-escrita-para-agentes`** (`.agents/skills/documentacao-escrita-para-agentes/SKILL.md`): Escrever regras, skills e documentações de alta fidelidade para agentes de IA.
+38. **`/documentacao-redacao-estruturada`** (`.agents/skills/documentacao-redacao-estruturada/SKILL.md`): Redigir artigos, manifestos e textos analíticos parágrafo a parágrafo.
+39. **`/documentacao-ensinar-conceito`** (`.agents/skills/documentacao-ensinar-conceito/SKILL.md`): Ensinar conceitos técnicos de forma didática e fundamentada.
+40. **`/documentacao-revisar-clareza`** (`.agents/skills/documentacao-revisar-clareza/SKILL.md`): Reformular explicações complexas para garantir clareza absoluta.
+
+---
+
+## 🌐 Skills Globais da IDE (Instaladas na IDE — Nível Global)
+
+Para manter a organização cristalina e zero colisão com as 40 skills locais do projeto (`.agents/skills/`), as habilidades abaixo estão instaladas no diretório global da IDE (`C:\Users\victo\.gemini\config\skills\`) e estão acessíveis automaticamente neste e em outros projetos:
+
+### 1. Stack Web & Frontend Pré-existente (Instaladas pelo Desenvolvedor)
+Habilidades que já haviam sido instaladas previamente na IDE para apoiar o stack Next.js e Tailwind:
+- **`accessibility-wcag`**: Conformidade rigorosa com diretrizes de acessibilidade WCAG 2.1 AA (ARIA, foco, contraste e navegação por teclado).
+- **`nextjs-app-router`**: Arquitetura avançada de Next.js 15 App Router (Server Components, Client Components, layouts, metadata e streaming).
+- **`seo-metadata-optimization`**: Otimização técnica de SEO, Open Graph, Twitter Cards, dados estruturados JSON-LD e Core Web Vitals.
+- **`tailwind-design-system`**: Governança de tokens do Tailwind CSS, consistência cromática, modo escuro e design responsivo.
+- **`typescript-zod-forms`**: Formulários seguros de ponta a ponta com validação Zod, React Hook Form e Server Actions.
+- **`vercel-composition-patterns`**: Padrões arquiteturais e composição modular de interfaces pela Vercel.
+- **`vercel-react-best-practices`**: Melhores práticas oficiais de React da engenharia Vercel (prevenção de re-renders e performance).
+- **`vercel-web-design-guidelines`**: Checklist e diretrizes visuais da engenharia Vercel para produtos web.
+
+---
+
+### 2. 🚀 Novo Harness de Alta Performance (Reta Final — IDE Level)
+O novo conjunto de ferramentas trazido para acelerar o fluxo, manter a máxima qualidade técnica e finalizar a plataforma com chave de ouro:
+
+#### 🔍 A. Pesquisa & Inteligência Temporal
+- **`/last30days`** (`mvanhorn/last30days-skill`): Pesquisa investigativa focada rigorosamente nos **últimos 30 dias** em Reddit, X/Twitter, YouTube, TikTok, Hacker News, Polymarket e Web aberta para capturar discussões e soluções recentes do ecossistema.
+
+#### 🗺️ B. Grafo de Conhecimento do Código & Arquitetura
+- **`/graphify`** (`Graphify-Labs/graphify`): Transforma todo o repositório em um **grafo de conhecimento interativo** via AST tree-sitter sem alucinações (gera visualização HTML interativa, relatório analítico e JSON). Permite consultas semânticas diretas (`/graphify query "<pergunta>"`, `/graphify path A B`, `/graphify explain "<componente>"`) e integração direta com o cofre do Obsidian (`--obsidian`).
+
+#### 🧠 C. Consultor Sênior de Auditoria & Planejamento
+- **`/improve`** (`shadcn/improve`): Atua como conselheiro sênior que examina o repositório em 9 frentes (corretude, segurança, performance, testes, débitos, migrações, DX, documentação, direção) e gera planos de implementação executáveis, autônomos e detalhados em `plans/`, sem mutação cega do código-fonte.
+
+#### ✂️ D. Eficiência Radical & Anti-Overengineering (`ponytail`)
+Filosofia de desenvolvedor sênior pragmático: menor caminho viável, YAGNI, recursos nativos e biblioteca padrão antes de código personalizado:
+- **`/ponytail`**: Ativa a postura minimalista radical em tarefas de código (`lite`, `full`, `ultra`).
+- **`/ponytail-audit`**: Varredura em busca de inchaço, abstrações precoces e dependências supérfluas.
+- **`/ponytail-debt`**: Identificação cirúrgica de débitos técnicos para erradicação.
+- **`/ponytail-gain`**: Mensuração dos ganhos de produtividade e manutenção ao deletar código.
+- **`/ponytail-help`**: Guia operacional da suíte ponytail.
+- **`/ponytail-review`**: Revisão estrita de PRs e diffs focada em simplicidade e código enxuto.
+
+#### ⚙️ E. Engenharia & Harness Agêntico (`everything-claude-code` — prefixo `ecc-*`)
+Suíte de automação e guardrails para agentes de software de alta performance:
+- **`/ecc-verification-loop`**: Loop automatizado de verificação (build, lint, typecheck e testes) com correção orientada a falhas.
+- **`/ecc-tdd-workflow`**: Desenvolvimento estrito guiado por testes (Red-Green-Refactor).
+- **`/ecc-security-review`**: Auditoria estática de código focada em segurança e prevenção de vazamentos.
+- **`/ecc-strategic-compact`**: Compactação inteligente de contexto e otimização de memória do agente.
+- **`/ecc-continuous-learning`**: Protocolo de reflexão pós-entrega para registrar aprendizados.
+- **`/ecc-eval-harness`**: Framework de avaliação de comportamento do agente contra especificações.
+- **`/ecc-backend-patterns`**: Padrões para arquitetura de backend, resiliência e concorrência.
+- **`/ecc-frontend-patterns`**: Padrões modernos para estado de interface, acessibilidade e composição.
+- **`/ecc-coding-standards`**: Padrões de legibilidade, SOLID e boas práticas de código.
+- **`/ecc-clickhouse-io`**: Padrões de persistência e analítica colunar de alto débito.
+- **`/ecc-project-guidelines`**: Modelos de governança e documentação de projetos.
+
+#### 🎨 F. Craft, Design System & Anti-Slop (`open-design` — prefixo `od-*`)
+Suíte de design de elite para elevar a interface a padrão de excelência visual internacional:
+- **`/od-master-design`**: Protocolo mestre do OpenDesign: governança de contratos de design (`DESIGN.md`), regras anti-ai-slop (elimina estéticas genéricas de IA), tipografia editorial e disciplina de animações.
+- **`/od-taste-skill`**: Guardião do bom gosto estético: análise de proporção áurea, contraste, ritmo visual, espaçamento óptico e hierarquia.
+- **`/od-emil-design-eng`**: Princípios de engenharia de design de Emil Kowalski: microinterações elegantes, curvas de aceleração física realistas (springs) e polimento minucioso.
+- **`/od-brandkit`**: Construção e governança de tokens cromáticos, tipográficos e espaciais.
+- **`/od-brand-extract`**: Extração de paletas cromáticas e estilos a partir de referências e imagens.
+- **`/od-design-brief`**: Estruturação de briefs de design e descoberta de requisitos estéticos.
+- **`/od-redesign`**: Metodologia passo a passo de redesenho e modernização de interfaces existentes.
+- **`/od-review-animations`**: Auditoria técnica de performance, FPS e fluidez de transições CSS/JS.
+- **`/od-minimalist`**: Sistema de design minimalista com ênfase em espaço negativo, clareza e solidez.
+- **`/od-image-to-code`**: Conversão de mockups visuais, telas de referência ou rascunhos diretamente para código Tailwind/CSS.
+
+#### 🛡️ G. Segurança de Habilidades & Auditoria Agêntica
+- **`/skill-inspector`** (`nvidia/skillspector`): Scanner de segurança estática e semântica da NVIDIA para auditar habilidades de IA contra injeções de prompt, scripts não declarados ou privilégios excessivos.
+
 
 

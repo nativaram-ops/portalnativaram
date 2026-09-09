@@ -23,64 +23,102 @@ export const HomePrincipiosFeitio = () => {
           </p>
         </AnimateOnScroll>
 
-        {/* 3 Pilares Doutrinários Fundamentais */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {/* 1. Rigor Doutrinário */}
-          <AnimateOnScroll delay={100}>
-            <Card variant="elevated" glow className="p-8 space-y-5 h-full border-ambar-500/25 bg-floresta-900/60 shadow-solar">
+        {/* 3 Pilares Doutrinários — Composição Editorial Assimétrica Anti-Slop */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-stretch">
+          {/* 1. Rigor Doutrinário — Card Principal de Destaque (7 cols) */}
+          <AnimateOnScroll delay={100} className="lg:col-span-7 flex">
+            <Card
+              variant="elevated"
+              glow
+              className="p-8 sm:p-10 space-y-6 h-full w-full border-ambar-500/30 bg-floresta-900/80 shadow-solar relative overflow-hidden"
+            >
+              <div className="absolute top-0 right-0 w-48 h-48 bg-ambar-500/10 rounded-full blur-3xl pointer-events-none" />
+              
               <Card.Header>
-                <Card.Badge>Pilar I</Card.Badge>
+                <div className="flex items-center gap-2">
+                  <Card.Badge>Pilar I • Tradição Canônica</Card.Badge>
+                  <span className="text-[10px] text-ambar-400 font-mono tracking-wider uppercase bg-ambar-500/10 px-2 py-0.5 rounded border border-ambar-500/20">
+                    Sustentação
+                  </span>
+                </div>
                 <Card.Icon>
-                  <Scale className="h-5 w-5" />
+                  <Scale className="h-5 w-5 text-ambar-300" />
                 </Card.Icon>
               </Card.Header>
-              <Card.Title>Rigor Doutrinário</Card.Title>
-              <Card.Description>
-                Herdamos o padrão de qualidade, a ordem e a pureza no preparo das grandes escolas ayahuasqueiras (<strong>Santo Daime e UDV</strong>). Cada etapa do feitio respeita o silêncio, a concentração e a hierarquia espiritual consagrada.
-              </Card.Description>
-              <Card.Footer>
-                <span>✦ Padrão das grandes linhagens</span>
+
+              <div className="space-y-3">
+                <Card.Title className="text-2xl sm:text-3xl font-serif text-areia-100">
+                  Rigor Doutrinário das Grandes Escolas
+                </Card.Title>
+                <Card.Description className="text-sm sm:text-base text-areia-200/90 leading-relaxed font-light">
+                  Herdamos o padrão inegociável de qualidade, ordem e pureza no preparo das grandes escolas ayahuasqueiras (<strong>Santo Daime e União do Vegetal</strong>). Cada etapa do feitio sagrado respeita o silêncio absoluto, a concentração, a oração contínua e a hierarquia espiritual consagrada.
+                </Card.Description>
+              </div>
+
+              {/* Bloco de Citação Editorial Solene */}
+              <div className="p-4 rounded-xl border-l-2 border-ambar-500/60 bg-floresta-950/70 space-y-1">
+                <p className="font-serif italic text-xs sm:text-sm text-areia-200 leading-relaxed">
+                  &ldquo;A ordem e a pureza no preparo não são meras regras formais, mas a própria sustentação da egrégora que acolhe os buscadores de luz.&rdquo;
+                </p>
+                <span className="text-[11px] text-ambar-400/80 font-mono block">
+                  — Preceito da Casa de Feitio Nativaram
+                </span>
+              </div>
+
+              <Card.Footer className="pt-2 border-t border-ambar-500/15">
+                <span className="text-xs font-semibold text-ambar-300 flex items-center gap-1.5">
+                  ✦ Padrão das grandes linhagens &bull; Santo Daime & UDV
+                </span>
               </Card.Footer>
             </Card>
           </AnimateOnScroll>
 
-          {/* 2. Sabedoria Ancestral */}
-          <AnimateOnScroll delay={200}>
-            <Card variant="elevated" glow className="p-8 space-y-5 h-full border-ambar-500/25 bg-floresta-900/60 shadow-solar">
-              <Card.Header>
-                <Card.Badge>Pilar II</Card.Badge>
-                <Card.Icon>
-                  <Leaf className="h-5 w-5" />
-                </Card.Icon>
-              </Card.Header>
-              <Card.Title>Sabedoria Ancestral</Card.Title>
-              <Card.Description>
-                Honramos o conhecimento milenar dos <strong>povos originários</strong> no trato, diálogo e colheita com as plantas mestras da Amazônia. O respeito ao tempo das estações, ao orvalho da manhã e aos espíritos guardiões da floresta.
-              </Card.Description>
-              <Card.Footer>
-                <span>✦ Memória viva da floresta</span>
-              </Card.Footer>
-            </Card>
-          </AnimateOnScroll>
+          {/* Coluna Direita: Pilares II e III Articulados (5 cols) */}
+          <div className="lg:col-span-5 flex flex-col gap-6 justify-between">
+            {/* 2. Sabedoria Ancestral */}
+            <AnimateOnScroll delay={200} className="flex-1">
+              <Card
+                variant="elevated"
+                className="p-6 sm:p-7 space-y-4 h-full border-ambar-500/20 bg-floresta-900/60 shadow-sm hover:border-ambar-500/40"
+              >
+                <Card.Header>
+                  <Card.Badge>Pilar II • Memória Viva</Card.Badge>
+                  <Card.Icon>
+                    <Leaf className="h-5 w-5 text-emerald-400" />
+                  </Card.Icon>
+                </Card.Header>
+                <Card.Title className="text-lg sm:text-xl">Sabedoria dos Povos da Floresta</Card.Title>
+                <Card.Description className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
+                  Honramos o conhecimento milenar dos <strong>povos originários</strong> no trato, diálogo e colheita com as plantas mestras da Amazônia. Respeitamos o tempo das estações, o orvalho da manhã e os espíritos guardiões da mata.
+                </Card.Description>
+                <Card.Footer className="pt-1">
+                  <span className="text-[11px] text-emerald-400/90 font-mono">✦ Diálogo com a floresta viva</span>
+                </Card.Footer>
+              </Card>
+            </AnimateOnScroll>
 
-          {/* 3. Prática Constante */}
-          <AnimateOnScroll delay={300}>
-            <Card variant="elevated" glow className="p-8 space-y-5 h-full border-ambar-500/25 bg-floresta-900/60 shadow-solar">
-              <Card.Header>
-                <Card.Badge>Pilar III</Card.Badge>
-                <Card.Icon>
-                  <Flame className="h-5 w-5" />
-                </Card.Icon>
-              </Card.Header>
-              <Card.Title>Mestre Feitor & Rede Credenciada</Card.Title>
-              <Card.Description>
-                O equilíbrio de cada sacramento é fruto da sabedoria de décadas do nosso <strong>mestre feitor caboclo</strong> aliada à cooperação com <strong>centros tradicionais credenciados no Acre</strong>. Embora cada centro produza para seus próprios templos associados, os sacramentos da Nativaram são elaborados com base no nosso estudo fitoquímico e rigorosa curadoria, garantindo uniformidade e alta vibração.
-              </Card.Description>
-              <Card.Footer>
-                <span>✦ Segurança & alta vibração</span>
-              </Card.Footer>
-            </Card>
-          </AnimateOnScroll>
+            {/* 3. Mestre Feitor & Rede Credenciada */}
+            <AnimateOnScroll delay={300} className="flex-1">
+              <Card
+                variant="elevated"
+                className="p-6 sm:p-7 space-y-4 h-full border-ambar-500/20 bg-floresta-900/60 shadow-sm hover:border-ambar-500/40"
+              >
+                <Card.Header>
+                  <Card.Badge>Pilar III • Prática Cabocla</Card.Badge>
+                  <Card.Icon>
+                    <Flame className="h-5 w-5 text-ambar-400" />
+                  </Card.Icon>
+                </Card.Header>
+                <Card.Title className="text-lg sm:text-xl">Mestre Feitor & Rede Credenciada</Card.Title>
+                <Card.Description className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
+                  O equilíbrio de cada sacramento une décadas de prática do nosso <strong>mestre feitor caboclo</strong> à cooperação com centros tradicionais no Acre, garantindo uniformidade fitoquímica e alta vibração serena.
+                </Card.Description>
+                <Card.Footer className="pt-1">
+                  <span className="text-[11px] text-ambar-400/90 font-mono">✦ Cruzeiro do Sul &bull; Vale do Juruá</span>
+                </Card.Footer>
+              </Card>
+            </AnimateOnScroll>
+          </div>
         </div>
 
         {/* O Equilíbrio Sagrado das Matérias-Primas (A Proporção das Plantas) */}

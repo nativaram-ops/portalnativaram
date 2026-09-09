@@ -149,7 +149,7 @@ export const HomeDepoimentosCredenciamento = () => {
                 <div className="pt-2">
                   <Link
                     href="/credenciamento"
-                    className="btn-primary inline-flex items-center gap-2 text-xs font-semibold px-6 py-3"
+                    className="btn-primary btn-press inline-flex items-center gap-2 text-xs font-semibold px-6 py-3"
                   >
                     <ShieldCheck className="h-4 w-4" />
                     <span>Iniciar Formulário de Credenciamento</span>
