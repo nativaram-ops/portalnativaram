@@ -18,6 +18,9 @@ export interface Medicina {
   forca: "suave" | "intermediaria" | "forte" | "extra-forte";
   chakras: string[];
   emoji: string;
+  foto?: string;
+  foto15g?: string;
+  disponivel15g?: boolean;
 }
 
 export const medicinas: Medicina[] = [
@@ -52,6 +55,8 @@ export const medicinas: Medicina[] = [
     forca: "intermediaria",
     chakras: ["Todos os 7 chakras"],
     emoji: "🌿",
+    foto: "/assets/sacramentos/25g/7-ervas.jpg",
+    disponivel15g: true,
   },
   {
     slug: "cacau",
@@ -82,6 +87,8 @@ export const medicinas: Medicina[] = [
     forca: "suave",
     chakras: ["Chakra Cardíaco (Anahata)"],
     emoji: "🤎",
+    foto: "/assets/sacramentos/25g/cacau.jpg",
+    disponivel15g: true,
   },
   {
     slug: "cumaru",
@@ -113,6 +120,8 @@ export const medicinas: Medicina[] = [
     forca: "forte",
     chakras: ["Chakra Básico (Muladhara)", "Chakra Coronário (Sahasrara)"],
     emoji: "🛡️",
+    foto: "/assets/sacramentos/25g/cumaru.jpg",
+    disponivel15g: true,
   },
   {
     slug: "jurema-preta",
@@ -144,6 +153,9 @@ export const medicinas: Medicina[] = [
     forca: "forte",
     chakras: ["Chakra Básico (Muladhara)"],
     emoji: "🌳",
+    foto: "/assets/sacramentos/25g/jurema-preta.jpg",
+    disponivel15g: true,
+    foto15g: "/assets/sacramentos/15g/jurema-preta-15g.jpg",
   },
   {
     slug: "mentolado",
@@ -175,6 +187,8 @@ export const medicinas: Medicina[] = [
     forca: "intermediaria",
     chakras: ["Chakra Frontal (Ajna)", "Plexo Solar (Manipura)"],
     emoji: "❄️",
+    foto: "/assets/sacramentos/25g/pixuri.jpg",
+    disponivel15g: true,
   },
   {
     slug: "mulateiro",
@@ -206,6 +220,8 @@ export const medicinas: Medicina[] = [
     forca: "intermediaria",
     chakras: ["Chakra Básico (Muladhara)", "Chakra Frontal (Ajna)"],
     emoji: "🔄",
+    foto: "/assets/sacramentos/25g/mulateiro.jpg",
+    disponivel15g: true,
   },
   {
     slug: "murici",
@@ -237,6 +253,9 @@ export const medicinas: Medicina[] = [
     forca: "intermediaria",
     chakras: ["Plexo Solar (Manipura)", "Chakra Cardíaco (Anahata)"],
     emoji: "⚡",
+    foto: "/assets/sacramentos/25g/murici.jpg",
+    disponivel15g: true,
+    foto15g: "/assets/sacramentos/15g/murici-15g.jpg",
   },
   {
     slug: "nissural",
@@ -269,6 +288,9 @@ export const medicinas: Medicina[] = [
     forca: "suave",
     chakras: ["Chakra Coronário (Sahasrara)", "Chakra Frontal (Ajna)"],
     emoji: "🙏",
+    foto: "/assets/sacramentos/25g/nissural.jpg",
+    disponivel15g: true,
+    foto15g: "/assets/sacramentos/15g/nissural-15g.jpg",
   },
   {
     slug: "parica",
@@ -300,6 +322,8 @@ export const medicinas: Medicina[] = [
     forca: "extra-forte",
     chakras: ["Chakra Coronário (Sahasrara)", "Plexo Solar (Manipura)"],
     emoji: "🔥",
+    foto: "/assets/sacramentos/25g/parica.jpg",
+    disponivel15g: true,
   },
   {
     slug: "pixuri",
@@ -331,6 +355,8 @@ export const medicinas: Medicina[] = [
     forca: "suave",
     chakras: ["Chakra Frontal (Ajna)", "Chakra Cardíaco (Anahata)"],
     emoji: "🌙",
+    foto: "/assets/sacramentos/25g/pixuri.jpg",
+    disponivel15g: true,
   },
   {
     slug: "rainha",
@@ -362,6 +388,9 @@ export const medicinas: Medicina[] = [
     forca: "suave",
     chakras: ["Chakra Cardíaco (Anahata)", "Chakra Frontal (Ajna)"],
     emoji: "👑",
+    foto: "/assets/sacramentos/25g/rainha.jpg",
+    disponivel15g: true,
+    foto15g: "/assets/sacramentos/15g/rainha-15g.jpg",
   },
   {
     slug: "samauma",
@@ -393,6 +422,8 @@ export const medicinas: Medicina[] = [
     forca: "forte",
     chakras: ["Chakra Básico (Muladhara)", "Chakra Coronário (Sahasrara)"],
     emoji: "🌲",
+    foto: "/assets/sacramentos/25g/tsunu.jpg",
+    disponivel15g: true,
   },
   {
     slug: "sansara",
@@ -424,6 +455,8 @@ export const medicinas: Medicina[] = [
     forca: "intermediaria",
     chakras: ["Chakra Frontal (Ajna)", "Chakra Cardíaco (Anahata)"],
     emoji: "🔓",
+    foto: "/assets/sacramentos/25g/rainha.jpg",
+    disponivel15g: true,
   },
   {
     slug: "tsunu",
@@ -455,6 +488,8 @@ export const medicinas: Medicina[] = [
     forca: "intermediaria",
     chakras: ["Todos os 7 chakras"],
     emoji: "⚖️",
+    foto: "/assets/sacramentos/25g/tsunu.jpg",
+    disponivel15g: true,
   },
   {
     slug: "veia-de-paje",
@@ -486,6 +521,8 @@ export const medicinas: Medicina[] = [
     forca: "forte",
     chakras: ["Chakra Cardíaco (Anahata)", "Chakra Frontal (Ajna)"],
     emoji: "🐍",
+    foto: "/assets/sacramentos/25g/veia-de-paje.jpg",
+    disponivel15g: true,
   },
 ];
 

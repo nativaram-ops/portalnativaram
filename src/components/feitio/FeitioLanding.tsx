@@ -1165,7 +1165,7 @@ export function FeitioLanding() {
                 badge: "Registro em Vídeo • Casa de Feitio no Acre",
                 desc: "Fervura tradicional em caldeirão de aço inox sob a noite da floresta amazônica: o feitor colhe e examina o borbulhar, a consistência translúcida avermelhada e o ponto exato da redução com o rezo da mata.",
                 src: "/assets/feitio/curadas/feitio-video-caldeirao-borbulhando.mp4",
-                poster: "/assets/feitio/curadas/feitio-fervura-chacrona.jpg",
+                poster: "/assets/feitio/curadas/feitio-poster-caldeirao-borbulhando.jpg",
               },
               bateria: {
                 id: "bateria" as const,
@@ -1174,7 +1174,7 @@ export function FeitioLanding() {
                 badge: "Estrutura Tradicional • Cruzeiro do Sul/AC",
                 desc: "Visão panorâmica da bateria de caldeirões de aço inox em cozimento simultâneo, com colunas de vapor subindo sob a estrutura rústica de madeira na floresta do Acre.",
                 src: "/assets/feitio/curadas/feitio-video-caldeiroes-inox.mp4",
-                poster: "/assets/feitio/curadas/feitio-caldeirao-fumegante-floresta.jpg",
+                poster: "/assets/feitio/curadas/feitio-poster-caldeiroes-inox.jpg",
               },
               garrafa: {
                 id: "garrafa" as const,
@@ -1183,7 +1183,7 @@ export function FeitioLanding() {
                 badge: "Inspeção Visual • Pureza & Resfriamento",
                 desc: "Inspeção de cor rubi-âmbar, fluidez e densidade do sacramento recém-envasado, comprovando a eficácia da filtragem em menores micras sem depósito de borras ou sedimentos espessos.",
                 src: "/assets/feitio/curadas/feitio-video-garrafa-sacramento.mp4",
-                poster: "/assets/feitio/curadas/feitio-garrafa-tronco.jpg",
+                poster: "/assets/feitio/curadas/feitio-poster-garrafa-sacramento.jpg",
               },
             };
             const currentVideo = feitioVideos[activeFeitioVideo];
@@ -1223,6 +1223,12 @@ export function FeitioLanding() {
                 <div className="relative aspect-video w-full max-w-4xl mx-auto rounded-2xl overflow-hidden border border-ambar-500/30 bg-black shadow-inner">
                   <video
                     key={currentVideo.src}
+                    ref={(el) => {
+                      if (el) {
+                        el.muted = true;
+                        el.defaultMuted = true;
+                      }
+                    }}
                     controls
                     muted
                     autoPlay

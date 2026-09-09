@@ -28,25 +28,53 @@ O feitio purista em Cruzeiro do Sul/AC utiliza estritamente o binômio *Banister
 
 ---
 
-## 🍃 Rapés Sagrados da Amazônia (Base Alcalinizada pH 9,75 – 10,2)
+## 🌿 Apresentações Litúrgicas Oficiais de Rapé (15g & 25g)
 
-Todos os rapés são elaborados com tabaco selvagem orgânico (*Nicotiana rustica*) e cinzas vegetais calcinadas acima de 250°C (eliminação total de DMT e triptaminas).
+Todos os rapés são elaborados com tabaco selvagem orgânico (*Nicotiana rustica*) e cinzas vegetais calcinadas acima de 250°C (tamponamento em base livre com pH 9,75 a 10,2, eliminando quaisquer alcaloides triptamínicos instáveis e garantindo ausência total de ação psicotrópica).
 
-1. **Rapé Sagrado de Tsunú:** Pilar fundamental da floresta. Cinzas de Pau Pereira ricas em potássio e sais minerais. Aterramento telúrico profundo e silenciamento mental.
-2. **Rapé Sagrado de Mulateiro:** Árvore da regeneração. Rico em ácido ursólico. Alinhamento dos hemisférios mentais e dispersão de tensões na nuca e ombros.
-3. **Rapé Sagrado de Samaúma:** Mãe das Árvores. Conexão com as árvores gigantes da floresta e proteção áurica.
-4. **Rapé Sagrado de Veia de Pajé:** Bioflavonoides de acolhimento cardíaco. Desbloqueia o desânimo e renova a vitalidade com gentileza.
-5. **Rapé Sagrado de Cacau Selvagem:** Teobromina estável. Abertura do centro do peito, empatia fraterna e afeto.
-6. **Rapé Sagrado de Passiflora:** Flavonoides apigenina. Calmaria profunda, rituais noturnos e aquietamento dos pensamentos acelerados.
-7. **Rapé Sagrado de Cumaru:** Semente perfumada de cumarina. Limpeza das vias aéreas superiores e ancoragem de clareza.
+### Calibração de Formatos
+- **Frascos de 25g (Consagração & Altar):** Frasco de alta durabilidade, ideal para cerimônias comunitárias de templos credenciados, rodas de oração e práticas continuadas de dirigentes.
+- **Frascos de 15g (Iniciação & Prática Individual):** Formato compacto e ergonômico, ideal para dirigentes em viagens, momentos de retiro pessoal e para irmãos que estão iniciando a relação sensorial com determinadas forças vegetais da floresta.
+
+### Relação dos 15 Rapés Tradicionais em Acervo Fotográfico Oficial
+1. **Murici:** Cinzas da casca de *Byrsonima verbascifolia*. Desobstrução profunda do baixo ventre, limpeza energética e centramento (disponível em 25g e 15g).
+2. **Rainha:** Flor de Chacrona e cinzas nobres. Expansão sutil de presença e clarividência meditativa (disponível em 25g e 15g).
+3. **Jurema Preta:** Cinzas de *Mimosa tenuiflora* ritualística. Raiz de proteção ancestral e firmeza de pensamentos (disponível em 25g e 15g).
+4. **Nissural:** Erva tradicional indígena. Calmaria mental e proteção espiritual profunda (disponível em 25g e 15g).
+5. **Cacau Selvagem:** Teobromina e cinzas de cacau nativo. Abertura do centro do peito, empatia e calor fraterno (disponível em 25g e 15g).
+6. **Pixuri:** Semente aromática de *Licaria puchury-major*. Desanuviamento da mente e conforto torácico (disponível em 25g e 15g).
+7. **Paricá:** Cinzas de *Anadenanthera colubrina*. Alinhamento coronário e clareza de discernimento (disponível em 25g e 15g).
+8. **Tsunú:** Cinzas de *Platycyamus regnellii* (Pau Pereira). Aterramento telúrico fundamental e silêncio interior (disponível em 25g e 15g).
+9. **Cumaru:** Semente perfumada com cumarinas naturais. Limpeza das vias superiores e frescor de intenção (disponível em 25g e 15g).
+10. **Veia de Pajé:** Cipó sagrado cardiotônico sutil. Dissolução de desânimos e acolhimento do coração (disponível em 25g e 15g).
+11. **7 Ervas da Mata:** Sinergia de ervas aromáticas e de limpeza áurica tradicional (disponível em 25g e 15g).
+12. **Mulateiro:** Cinzas de *Calycophyllum spruceanum*. Regeneração, equilíbrio de hemisférios e alívio de tensões (disponível em 25g e 15g).
+13. **Canela de Velho:** Fortalecimento articular e firmeza estrutural corporal.
+14. **Samaúma:** Força da mãe das árvores e sustentação espiritual ancestral.
+15. **Passiflora:** Sinergia com folha de maracujá selvagem para serenidade noturna e pausas conscientes.
 
 ---
 
-## 🪵 Artefatos Sagrados & Instrumentos de Sopro
+## 💨 Alquimias de Defumação & Acalento (Porções de 50g)
 
-- **Kuripe Individual:** Aplicador em formato de "V" em bambu tratado com resinas naturais da floresta e cera de abelha silvestre.
+Preparados aromáticos puros e resinas vegetais salvaguardadas para harmonização de espaços litúrgicos, limpeza de salas cerimoniais e consagração de instrumentos:
+
+- **Olíbano Sagrado (50g):** Lágrimas de resina pura de *Boswellia carterii*. Fumaça nobre para elevação espiritual, orações e santificação do ar cerimonial.
+- **Breu Branco Amazônico (50g):** Resina aromática pura da árvore *Protium heptaphyllum* extraída de manejo florestal no Acre. Aroma fresco, balsâmico e purificador.
+- **Palo Santo Autêntico (50g):** Madeira sagrada de *Bursera graveolens* de manejo ético sustentável e tombamento natural. Purificação profunda e calmaria sensorial.
+
+---
+
+## 🪵 Artefatos Sagrados, Instrumentos & Kits de Sinergia
+
+- **Kuripes Artesanais:** 9 modelos exclusivos esculpidos manualmente em madeiras nobres e bambus da Amazônia, com bocal ergonômico e canal de sopro calibrado para autossopro preciso.
 - **Tepi Litúrgico:** Aplicador longo cerimonial para condução do sopro do dirigente sobre os participantes do ritual.
-- **Sananga Ancestral:** Extrato purificado de raiz de *Tabernaemontana sananho* conservado rigorosamente a 4°C.
+- **Sananga Ancestral:** Extrato purificado de raiz de *Tabernaemontana sananho* conservado rigorosamente entre -4°C e 4°C. Uso litúrgico ocular (1 gota em cada olho) com intervalo de 24h para lentes de contato.
+- **Kits Litúrgicos:**
+  1. *Kit Aliança dos Ventos:* 1 Kuripe artesanal + 1 Tepi litúrgico cerimonial.
+  2. *Kit Sopro da Mata:* 1 Kuripe entalhado em folha sagrada + 1 preparado tradicional 15g.
+  3. *Kit Trio Caboclos:* 3 alquimias tradicionais (25g cada) com perfil de firmeza telúrica.
+  4. *Kit Trio Guardiões da Floresta:* 3 alquimias florais e regenerativas para abertura de rituais.
 
 ---
 

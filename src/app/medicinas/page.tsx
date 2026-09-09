@@ -4,53 +4,41 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import {
   Sparkles,
-  Leaf,
-  Shield,
-  Flame,
   ArrowRight,
-  Eye,
-  Wind,
-  CheckCircle2,
-  Compass,
-  MessageCircle,
   HeartHandshake,
   ArrowDown,
   ShieldCheck,
   FlaskConical,
   Atom,
   Scale,
+  Shield,
 } from "lucide-react";
-import { medicinas, forcaLabels } from "@/data/medicinas";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
+import { MedicinasCatalogClient } from "@/components/medicinas/MedicinasCatalogClient";
 
 export const metadata: Metadata = {
-  title: "Compêndio Etnobotânico & Tradições Sagradas | Nativaram Brasil",
+  title: "Compêndio Etnobotânico & Tradições Sagradas | Cooperativa Nativaram",
   description:
-    "Compêndio etnobotânico dos 15 rapés sagrados, Sananga ancestral, resinas sagradas e artefatos cerimoniais da Nativaram Brasil. Alquimia purista em consonância com as etnias originárias e o regime cooperativo.",
+    "Compêndio etnobotânico dos 15 rapés sagrados (25g e 15g), Sananga ancestral, resinas sagradas e artefatos cerimoniais da Cooperativa Nativaram. Alquimia purista em consonância com as etnias originárias e o regime cooperativo.",
   openGraph: {
-    title: "Compêndio Etnobotânico & Tradições Sagradas | Nativaram Brasil",
+    title: "Compêndio Etnobotânico & Tradições Sagradas | Cooperativa Nativaram",
     description:
-      "Compêndio etnobotânico: 15 rapés sagrados, Sananga tradicional, resinas e artefatos de força da Amazônia.",
+      "Compêndio etnobotânico: 15 rapés sagrados (25g e 15g), Sananga tradicional, resinas e artefatos de força da Amazônia.",
     images: [
       {
-        url: "/assets/banners/1.png",
-        width: 600,
-        height: 600,
-        alt: "O Feitio dos Sacramentos Tradicionais Nativaram Brasil",
+        url: "/assets/nativaram-oficial/institucional/rapes-linha-completa-25g.png",
+        width: 1200,
+        height: 630,
+        alt: "Linha Completa de Sacramentos Tradicionais Cooperativa Nativaram",
       },
     ],
   },
 };
 
-const forcaIcons: Record<string, React.ReactNode> = {
-  suave: <Leaf className="h-3.5 w-3.5" />,
-  intermediaria: <Sparkles className="h-3.5 w-3.5" />,
-  forte: <Shield className="h-3.5 w-3.5" />,
-  "extra-forte": <Flame className="h-3.5 w-3.5" />,
-};
 
 export default function MedicinasPage() {
+
   return (
     <div className="space-y-0">
       {/* ═══════════════════════════════════════════
@@ -289,280 +277,10 @@ export default function MedicinasPage() {
       <SectionDivider variant="solar" />
 
       {/* ═══════════════════════════════════════════
-          CATÁLOGO DOS 15 RAPÉS
+          COMPÊNDIO INTERATIVO DE SACRAMENTOS
           ═══════════════════════════════════════════ */}
-      <section
-        className="py-section-md lg:py-section-lg mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8"
-        id="catalogo-rapes"
-      >
-        <AnimateOnScroll>
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-ambar-500/15 pb-4">
-            <div>
-              <h2 className="font-serif text-display-sm font-bold text-areia-100">
-                Catálogo dos Rapés
-              </h2>
-              <p className="text-xs text-areia-400 mt-1">
-                Fichas completas com famílias botânicas, intensidades e chakras.
-              </p>
-            </div>
+      <MedicinasCatalogClient />
 
-            {/* Força Legend */}
-            <div className="flex flex-wrap items-center gap-3">
-              {Object.entries(forcaLabels).map(([key, { label, color }]) => (
-                <div key={key} className="flex items-center gap-1.5 text-[11px]">
-                  <span className={color}>{forcaIcons[key]}</span>
-                  <span className={`font-medium ${color}`}>{label}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </AnimateOnScroll>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {medicinas.map((med, i) => {
-            const { label, color } = forcaLabels[med.forca];
-            return (
-              <AnimateOnScroll key={med.slug} delay={Math.min(i * 80, 400)}>
-                <Link
-                  href={`/medicinas/${med.slug}`}
-                  className="group card-elevated rounded-xl p-6 space-y-4 flex flex-col justify-between h-full hover:ring-1 hover:ring-ambar-500/20 transition-all"
-                >
-                  <div className="space-y-3">
-                    {/* Header */}
-                    <div className="flex items-start justify-between">
-                      <div className="space-y-1">
-                        <span className="text-2xl" aria-hidden="true">
-                          {med.emoji}
-                        </span>
-                        <h3 className="font-serif text-lg font-bold text-areia-100 group-hover:text-ambar-400 transition-colors">
-                          {med.nome}
-                        </h3>
-                      </div>
-                      <div
-                        className={`flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider border border-current/20 ${color}`}
-                      >
-                        {forcaIcons[med.forca]}
-                        <span>{label}</span>
-                      </div>
-                    </div>
-
-                    {/* Subtitle */}
-                    <p className="text-xs text-ambar-400/70 italic leading-relaxed">
-                      &ldquo;{med.subtitulo}&rdquo;
-                    </p>
-
-                    {/* Family */}
-                    <p className="text-[11px] text-areia-400 leading-relaxed line-clamp-2">
-                      <span className="font-semibold text-areia-300">
-                        Famílias:
-                      </span>{" "}
-                      {med.familiaBotanica}
-                    </p>
-
-                    {/* Chakras */}
-                    <div className="flex flex-wrap gap-1.5 pt-1">
-                      {med.chakras.map((chakra) => (
-                        <span
-                          key={chakra}
-                          className="rounded-full bg-floresta-800/80 border border-ambar-500/10 px-2 py-0.5 text-[10px] text-areia-300/80"
-                        >
-                          {chakra}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* CTA */}
-                  <div className="flex items-center gap-1 text-xs font-semibold text-ambar-400 group-hover:text-ambar-300 transition-colors pt-3 border-t border-ambar-500/10">
-                    <span>Ver alquimia completa</span>
-                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-1 transition-transform" />
-                  </div>
-                </Link>
-              </AnimateOnScroll>
-            );
-          })}
-        </div>
-      </section>
-
-      <SectionDivider variant="minimal" />
-
-      {/* ═══════════════════════════════════════════
-          SANANGA
-          ═══════════════════════════════════════════ */}
-      <section className="py-section-md mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" id="sananga-secao">
-        <AnimateOnScroll>
-          <div className="card-elevated rounded-2xl p-8 sm:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 space-y-5">
-                <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-ambar-400/80">
-                  <Eye className="h-3.5 w-3.5" />
-                  <span>Extrato Botânico Tradicional da Amazônia</span>
-                </div>
-                <h2 className="font-serif text-display-sm font-bold text-areia-100">
-                  Sananga Ancestral <em>(Tabernaemontana sananho)</em>
-                </h2>
-                <p className="text-sm text-areia-300 leading-relaxed">
-                  Extrato botânico aquoso tradicional obtido das raízes de <em>Tabernaemontana sananho</em>. Consagrado nas tradições Yawanawá, Katukina e Huni Kuin antes de práticas contemplativas e jornadas da floresta para abrir a <em>visão sutil</em>, harmonizar o ritmo mental e dissipar o estado de sensibilidade ou descompasso do cotidiano.
-                </p>
-                <ul className="space-y-2.5 text-xs text-areia-300">
-                  {[
-                    "Conservação obrigatória sob congelamento ou refrigeração constante (4°C a 8°C)",
-                    "Intervalo mínimo de 24 horas antes e após a utilização de lentes de contato",
-                    "Contraindicado em casos de cirurgia ocular recente (< 6 meses) ou afecções na córnea",
-                    "Extração artesanal 100% aquosa estéril das raízes, sem conservantes sintéticos",
-                    "Uso exclusivamente ritualístico tradicional em contexto meditativo e de quietude",
-                  ].map((text) => (
-                    <li key={text} className="flex items-center gap-2">
-                      <CheckCircle2 className="h-3.5 w-3.5 text-ambar-400/70 flex-shrink-0" />
-                      <span>{text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="lg:col-span-5 grid grid-cols-2 gap-3">
-                {[1, 2, 3, 4].map((n) => (
-                  <div
-                    key={n}
-                    className="image-reveal relative h-40 rounded-xl overflow-hidden border border-ambar-500/15"
-                  >
-                    <Image
-                      src={`/assets/sananga/${n}.png`}
-                      alt={`Sananga Nativaram ${n}`}
-                      fill
-                      className="object-cover object-center"
-                      sizes="(max-width: 640px) 50vw, 20vw"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </AnimateOnScroll>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          RESINAS & DEFUMAÇÕES
-          ═══════════════════════════════════════════ */}
-      <section className="py-section-md mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" id="defumacao-secao">
-        <AnimateOnScroll>
-          <div className="card-liturgico rounded-2xl p-8 sm:p-12">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 space-y-4">
-                <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-ambar-400/80">
-                  <Wind className="h-3.5 w-3.5" />
-                  <span>Purificação & Alinhamento Vibracional</span>
-                </div>
-                <h2 className="font-serif text-display-sm font-bold text-areia-100">
-                  Resinas Sagradas
-                </h2>
-                <p className="text-sm text-areia-300 leading-relaxed">
-                  O <strong>Breu Branco</strong> (resina de{" "}
-                  <em>Protium heptaphyllum</em>), o <strong>Palo Santo</strong> e
-                  as resinas ancestrais criam um santuário de proteção e
-                  serenidade para os rezos.
-                </p>
-              </div>
-
-              <div className="lg:col-span-5 image-reveal rounded-xl overflow-hidden border border-ambar-500/15">
-                <div className="relative h-56 w-full">
-                  <Image
-                    src="/assets/banners/3.png"
-                    alt="Resinas sagradas para defumação cerimonial"
-                    fill
-                    className="object-cover object-center"
-                    sizes="(max-width: 1024px) 100vw, 40vw"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </AnimateOnScroll>
-      </section>
-
-      {/* ═══════════════════════════════════════════
-          ARTEFATOS SAGRADOS
-          ═══════════════════════════════════════════ */}
-      <section className="py-section-md mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" id="artefatos-secao">
-        <AnimateOnScroll>
-          <div className="card-elevated rounded-2xl p-8 sm:p-12 space-y-8">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-ambar-500/15 pb-4">
-              <div>
-                <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-ambar-400/80">
-                  <Compass className="h-3.5 w-3.5" />
-                  <span>Geometria Sagrada & Ferramentas de Sopro</span>
-                </div>
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100 mt-1">
-                  Artefatos Sagrados
-                </h2>
-              </div>
-              <a
-                href="https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20consultar%20a%20disponibilidade%20de%20Kuripes%2C%20Tepis%20e%20Kits%20Sacramentais."
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white transition-all shadow-md"
-              >
-                <MessageCircle className="h-3.5 w-3.5" />
-                <span>Consultar via WhatsApp</span>
-              </a>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-              {[
-                {
-                  tag: "Autoaplicação",
-                  type: "Em V",
-                  title: "Kuripe de Madeira Maciça",
-                  desc: "Instrumento anatômico para conexão íntima. Esculpido à mão com madeiras nobres.",
-                  footer: "Alinhamento & Autonomia",
-                },
-                {
-                  tag: "Partilha em Dupla",
-                  type: "Coletivo",
-                  title: "Tepi de Madeira Nobre",
-                  desc: "Transmissão de harmonia por meio do hálito de vida em círculos cerimoniais.",
-                  footer: "Sopro de Amizade & Harmonização",
-                },
-                {
-                  tag: "Sinergia Sagrada",
-                  type: "3 Variedades",
-                  title: "Kit Força da Floresta",
-                  desc: "Trio para ancoramento telúrico, clareza mental e desobstrução das vias.",
-                  footer: "Tsunu • Cumaru • Murici",
-                },
-                {
-                  tag: "Guardiões da Mata",
-                  type: "3 Variedades",
-                  title: "Kit Força dos Caboclos",
-                  desc: "Medicinas raras de acolhimento e proteção áurica sob rezas ancestrais.",
-                  footer: "Cacau • Rainha • Jurema",
-                },
-              ].map(({ tag, type, title, desc, footer }) => (
-                <div
-                  key={title}
-                  className="rounded-xl border border-ambar-500/15 bg-floresta-900/40 p-5 space-y-3 flex flex-col justify-between"
-                >
-                  <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px] text-ambar-400/80 font-semibold">
-                      <span>{tag}</span>
-                      <span className="text-areia-400/60">{type}</span>
-                    </div>
-                    <h3 className="font-serif text-base font-bold text-areia-100">
-                      {title}
-                    </h3>
-                    <p className="text-xs text-areia-400 leading-relaxed">
-                      {desc}
-                    </p>
-                  </div>
-                  <div className="pt-2 border-t border-ambar-500/10 text-[11px] text-ambar-300/70 font-medium">
-                    {footer}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </AnimateOnScroll>
-      </section>
 
       {/* ═══════════════════════════════════════════
           CTA BANNER
