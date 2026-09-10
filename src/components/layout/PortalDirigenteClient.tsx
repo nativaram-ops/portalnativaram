@@ -232,14 +232,14 @@ export const PortalDirigenteClient: React.FC = () => {
           </span>
         </div>
 
-        <div className="flex overflow-x-auto pb-2 gap-2 border-b border-ambar-500/20 scrollbar-thin">
+        <div className="flex overflow-x-auto pb-2.5 gap-2 border-b border-ambar-500/20 touch-scroll-x scroll-smooth">
           {abas.map((tab) => {
             const isAtiva = dirigenteTab === tab.id;
             return (
               <button
                 key={tab.id}
                 onClick={() => setDirigenteTab(tab.id)}
-                className={`px-3.5 py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap flex items-center gap-2 transition-all shrink-0 ${
+                className={`px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 sm:gap-2 transition-all shrink-0 min-h-[40px] ${
                   isAtiva
                     ? "bg-ambar-500 text-floresta-950 font-bold shadow-md ring-2 ring-ambar-400/40"
                     : tab.destaque

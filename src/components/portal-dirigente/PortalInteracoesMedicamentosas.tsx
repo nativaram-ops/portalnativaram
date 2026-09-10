@@ -189,13 +189,116 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
         </div>
 
         {/* Contador de Resultados */}
-        <div className="print-hidden flex items-center justify-between text-xs text-areia-400 font-mono">
+        <div className="print-hidden flex flex-col sm:flex-row sm:items-center justify-between gap-1 text-xs text-areia-400 font-mono">
           <span>Exibindo {farmacosFiltrados.length} princípios ativos cadastrados no acervo técnico</span>
-          <span className="text-ambar-400">Clique na linha para expandir a farmacocinética detalhada</span>
+          <span className="text-ambar-400">Toque no item para expandir a farmacocinética</span>
         </div>
 
-        {/* Tabela Interativa de Fármacos */}
-        <div className="overflow-x-auto">
+        {/* 1. VISUALIZAÇÃO MOBILE: CARDS TÁTEIS ADAPTATIVOS (block md:hidden) */}
+        <div className="block md:hidden space-y-3 print-hidden">
+          {farmacosFiltrados.map((item) => {
+            const isLetal = item.nivelRisco === "LETAL_ABSOLUTO";
+            const isSevero = item.nivelRisco === "SEVERO_MODERADO";
+            const isExpandido = expandidoId === item.id;
+
+            return (
+              <div
+                key={`mob-${item.id}`}
+                onClick={() => toggleExpandir(item.id)}
+                className={`p-4 rounded-xl border transition-all cursor-pointer ${
+                  isLetal
+                    ? "border-red-500/40 bg-red-950/20"
+                    : isSevero
+                    ? "border-amber-500/30 bg-floresta-950/80"
+                    : "border-ambar-500/15 bg-floresta-950/60"
+                } ${isExpandido ? "ring-1 ring-ambar-400/40 shadow-solar" : ""}`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="space-y-0.5">
+                    <span className="text-[10px] font-mono text-ambar-400/80 block">
+                      Classe {item.classeNumero} • {item.classeFarmacologica}
+                    </span>
+                    <h4 className="font-serif text-sm font-bold text-areia-100">
+                      {item.principioAtivo}
+                    </h4>
+                  </div>
+                  <div className="shrink-0">
+                    {isExpandido ? (
+                      <ChevronUp className="h-4 w-4 text-ambar-400" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 text-areia-400" />
+                    )}
+                  </div>
+                </div>
+
+                <p className="text-[11px] text-areia-400/80 mt-1">
+                  Exemplos: {item.nomesComerciais.join(", ")}
+                </p>
+
+                {/* Badges de Risco e Washout */}
+                <div className="flex flex-wrap items-center gap-2 pt-2.5">
+                  {isLetal && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold font-mono text-red-400 bg-red-950/60 border border-red-500/30 px-2 py-0.5 rounded">
+                      <XCircle className="h-3 w-3" />
+                      RISCO LETAL
+                    </span>
+                  )}
+                  {isSevero && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold font-mono text-amber-400 bg-amber-950/60 border border-amber-500/30 px-2 py-0.5 rounded">
+                      <AlertTriangle className="h-3 w-3" />
+                      EXIGE LAUDO
+                    </span>
+                  )}
+                  {!isLetal && !isSevero && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold font-mono text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2 py-0.5 rounded">
+                      <ShieldCheck className="h-3 w-3" />
+                      COMPATÍVEL
+                    </span>
+                  )}
+
+                  <span className="inline-flex items-center gap-1 text-[10px] font-mono text-ambar-300 bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/20">
+                    <Clock className="h-3 w-3 text-ambar-400" />
+                    Washout: {item.washoutMinimo}
+                  </span>
+                </div>
+
+                <p className="text-xs text-areia-300/90 font-light leading-relaxed pt-2 mt-2 border-t border-ambar-500/10">
+                  <strong className="text-areia-100 font-semibold">Diretriz:</strong> {item.recomendacaoLiturgica}
+                </p>
+
+                {/* Conteúdo Expandido no Mobile */}
+                {isExpandido && (
+                  <div className="mt-3 pt-3 border-t border-ambar-500/20 space-y-2 text-xs font-mono animate-fade-in">
+                    <div className="p-3 rounded-lg bg-floresta-900/80 border border-ambar-500/15 space-y-1">
+                      <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider block">
+                        Mecanismo de Interação com Ayahuasca
+                      </span>
+                      <p className="text-[11px] text-areia-200 font-sans font-light leading-relaxed">
+                        {item.mecanismo}
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-2 text-[10px]">
+                      <div className="p-2.5 rounded-lg bg-floresta-900/60 border border-ambar-500/15">
+                        <span className="text-amber-400 font-bold block">Vias CYP450</span>
+                        <span className="text-areia-300 font-sans">{item.viasMetabolicas}</span>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-floresta-900/60 border border-ambar-500/15">
+                        <span className="text-amber-400 font-bold block">Cinética de Eliminação</span>
+                        <span className="text-areia-300 font-sans">
+                          t½: {item.meiaVida} • Janela de Washout: {item.washoutMinimo}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* 2. VISUALIZAÇÃO DESKTOP & IMPRESSÃO A4 (hidden md:block print:block) */}
+        <div className="hidden md:block print:block overflow-x-auto">
           <table className="w-full text-left text-xs text-areia-200 border-collapse">
             <thead>
               <tr className="border-b border-ambar-500/20 text-[11px] font-mono uppercase text-ambar-400 tracking-wider">

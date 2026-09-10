@@ -313,7 +313,7 @@ function Lightbox({
           e.stopPropagation();
           onClose();
         }}
-        className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+        className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/60 border border-white/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
         aria-label="Fechar galeria"
       >
         <X className="w-5 h-5" />
@@ -323,7 +323,7 @@ function Lightbox({
           e.stopPropagation();
           anterior();
         }}
-        className="absolute left-2 sm:left-6 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+        className="absolute left-2 sm:left-6 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 border border-white/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
         aria-label="Foto anterior"
       >
         <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -333,7 +333,7 @@ function Lightbox({
           e.stopPropagation();
           proximo();
         }}
-        className="absolute right-2 sm:right-6 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+        className="absolute right-2 sm:right-6 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/60 border border-white/30 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
         aria-label="Próxima foto"
       >
         <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -341,10 +341,10 @@ function Lightbox({
 
       {/* Imagem */}
       <div
-        className="relative w-full max-w-5xl max-h-[85vh] mx-4 sm:mx-8"
+        className="relative w-full max-w-5xl max-h-[85vh] mx-3 sm:mx-8"
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="relative w-full h-[60vh] sm:h-[75vh]">
+        <div className="relative w-full h-[52vh] sm:h-[75vh]">
           <Image
             src={foto.src}
             alt={foto.alt}

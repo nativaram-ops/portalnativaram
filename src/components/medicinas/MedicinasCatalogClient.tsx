@@ -128,16 +128,16 @@ export function MedicinasCatalogClient() {
       {/* ═══════════════════════════════════════════
           NAV / FILTER TABS
           ═══════════════════════════════════════════ */}
-      <div className="sticky top-20 z-30 bg-floresta-950/90 backdrop-blur-md py-3 border-y border-ambar-500/20 shadow-lg">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-3">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-mono text-ambar-400 font-semibold uppercase tracking-wider hidden sm:inline">
+      <div className="sticky top-[56px] sm:top-[60px] md:top-[65px] z-30 bg-floresta-950/92 backdrop-blur-md py-2 sm:py-2.5 border-y border-ambar-500/20 shadow-lg">
+        <div className="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto touch-scroll-x py-0.5 whitespace-nowrap w-full sm:w-auto">
+            <span className="text-[10px] font-mono text-ambar-400 font-semibold uppercase tracking-wider hidden md:inline shrink-0">
               Navegar:
             </span>
             {[
               { id: "todos", label: "Visão Geral" },
               { id: "rapes", label: "15 Rapés Sagrados" },
-              { id: "15g", label: "Linha 15g (Estudo & Dieta)" },
+              { id: "15g", label: "Linha 15g" },
               { id: "defumacao", label: "Defumação & Resinas" },
               { id: "sananga", label: "Sananga Ancestral" },
               { id: "artefatos", label: "Kuripes & Tepis" },
@@ -147,10 +147,10 @@ export function MedicinasCatalogClient() {
                 key={tab.id}
                 type="button"
                 onClick={() => setActiveCategory(tab.id as any)}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                className={`px-3 py-1.5 rounded-full text-xs font-semibold transition-all shrink-0 ${
                   activeCategory === tab.id
                     ? "bg-ambar-500 text-floresta-950 shadow-md font-bold"
-                    : "text-areia-300 hover:text-ambar-300 hover:bg-floresta-900/60"
+                    : "text-areia-300 hover:text-ambar-300 hover:bg-floresta-900/60 bg-floresta-950/50"
                 }`}
               >
                 {tab.label}
@@ -158,10 +158,10 @@ export function MedicinasCatalogClient() {
             ))}
           </div>
 
-          <div className="flex items-center gap-2 text-xs">
+          <div className="hidden sm:flex items-center gap-2 text-xs shrink-0">
             <Link
               href="/credenciamento"
-              className="text-[11px] font-bold text-ambar-300 hover:text-ambar-200 uppercase tracking-wider flex items-center gap-1 bg-ambar-500/10 border border-ambar-500/25 px-3 py-1 rounded-full transition-all"
+              className="text-[11px] font-bold text-ambar-300 hover:text-ambar-200 uppercase tracking-wider flex items-center gap-1 bg-ambar-500/10 border border-ambar-500/25 px-3 py-1 rounded-full transition-all shrink-0"
             >
               <span>Credenciamento</span>
               <ArrowRight className="h-3 w-3" />

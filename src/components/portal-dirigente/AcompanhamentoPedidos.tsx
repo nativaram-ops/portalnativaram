@@ -378,15 +378,15 @@ export const AcompanhamentoPedidos: React.FC<AcompanhamentoPedidosProps> = ({
                 </div>
 
                 {/* Linha do Tempo Visual das 5 Etapas (Stepper) */}
-                <div className="px-5 sm:px-6 pb-6 pt-2 border-t border-ambar-500/10 bg-floresta-900/20">
-                  <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2">
+                <div className="px-4 sm:px-6 pb-5 sm:pb-6 pt-2 border-t border-ambar-500/10 bg-floresta-900/20">
+                  <div className="flex overflow-x-auto sm:grid sm:grid-cols-5 gap-2 pt-2 touch-scroll-x pb-1 sm:pb-0">
                     {ETAPAS_LITURGICAS.map((etapa, idx) => {
                       const concluida = idx < etapaAtual;
                       const atual = idx === etapaAtual;
                       return (
                         <div
                           key={etapa.label}
-                          className={`p-2.5 rounded-xl border text-left space-y-1 transition-all ${
+                          className={`p-2.5 rounded-xl border text-left space-y-1 transition-all min-w-[135px] sm:min-w-0 shrink-0 sm:shrink ${
                             atual
                               ? "border-amber-500/60 bg-ambar-500/10 shadow-sm"
                               : concluida

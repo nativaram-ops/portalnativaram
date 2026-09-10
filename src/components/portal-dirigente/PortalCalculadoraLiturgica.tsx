@@ -164,13 +164,13 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
               </div>
 
               {/* Botoes rápidos de pessoas */}
-              <div className="flex gap-2">
+              <div className="grid grid-cols-5 gap-1 sm:gap-2">
                 {[15, 25, 35, 50, 80].map((qtd) => (
                   <button
                     key={qtd}
                     type="button"
                     onClick={() => setNumParticipantes(qtd)}
-                    className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                    className={`py-1.5 px-1 rounded-lg text-[11px] sm:text-xs font-semibold text-center transition-all ${
                       numParticipantes === qtd
                         ? "bg-ambar-500 text-floresta-950 font-bold"
                         : "bg-floresta-900/60 text-areia-300 hover:bg-floresta-800 border border-ambar-500/15"
@@ -199,7 +199,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 <FlaskConical className="h-4 w-4 text-ambar-400" />
                 <span>Graduação Litúrgica Adotada</span>
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {GRADUACOES_SACRAMENTAIS.slice(0, 4).map((g) => (
                   <button
                     key={g.id}

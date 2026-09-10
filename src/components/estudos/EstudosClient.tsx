@@ -144,20 +144,20 @@ export function EstudosClient() {
         </div>
 
         {/* Abas de Categoria */}
-        <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+        <div className="flex overflow-x-auto touch-scroll-x sm:flex-wrap items-center justify-start sm:justify-center gap-2 pt-2 pb-1 sm:pb-0">
           {categories.map(({ id, label, icon: Icon }) => {
             const isSelected = selectedCategory === id;
             return (
               <button
                 key={id}
                 onClick={() => setSelectedCategory(id)}
-                className={`inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-semibold transition-all duration-300 ${
+                className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-xl px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold whitespace-nowrap shrink-0 sm:shrink transition-all duration-300 ${
                   isSelected
                     ? "bg-ambar-500 text-floresta-950 shadow-solar scale-105"
                     : "bg-floresta-900/60 border border-ambar-500/20 text-areia-300 hover:border-ambar-500/40 hover:text-areia-100"
                 }`}
               >
-                <Icon className={`h-4 w-4 ${isSelected ? "text-floresta-950" : "text-ambar-400"}`} />
+                <Icon className={`h-3.5 sm:h-4 w-3.5 sm:w-4 ${isSelected ? "text-floresta-950" : "text-ambar-400"}`} />
                 <span>{label}</span>
               </button>
             );

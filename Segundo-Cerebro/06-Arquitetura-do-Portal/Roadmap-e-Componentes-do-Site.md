@@ -111,7 +111,16 @@ src/
     - *Calculadora Litúrgica & Reconstituição 10:1 (`PortalCalculadoraLiturgica.tsx`):* Suporte a "Dimensionar Cerimônia" (cálculo por participantes, 2ª dose/repasse, rapé e sananga com +15% margem) e "Modo Reconstituição 10:1" (cálculo de água mineral estéril a 45-50°C para obter 7:1, 5:1 ou 3:1 e cálices de 60ml correspondentes).
     - *FAQ Canônico do Dirigente (`PortalAssessoriaFAQ.tsx`):* 12 perguntas e respostas aprofundadas sobre conservação, alívio de gás carbônico, borra de alcaloides, purgas intensas, SAMU 192 e fiscalizações.
     - *Respaldo Jurídico & Fiscalização (`PortalRespaldoJuridico.tsx`):* Guia de conduta perante autoridades policiais/sanitárias, ementa CONAD 01/2010 e checklist da pasta física do templo.
-    - *Blindagem de Segurança e Controle de Acesso (`PortalDirigenteClient.tsx` & API):* Erradicação de atalhos de bypass para visitantes; restrição estrita do botão "Painel ADM" exclusivamente para quem autenticou com as credenciais master (`adm-nativaram` / `adm2026`); e proteção das rotas de mutação de pedidos (`PATCH`/`DELETE`) via cabeçalho litúrgico autenticado.
+115: 
+116: 20. **Otimização Modular de Responsividade Mobile Integral (Skill `/arquitetura-design-modular`):**
+Auditoria e reestruturação responsiva de ponta a ponta do portal para smartphones (viewports de 360px a 420px):
+    - *Tipografia & Espaçamentos Fluidos via Clamp (`tailwind.config.ts`):* Configuração de `fontSize.display-*` e `spacing.section-*` com funções `clamp()` nativas, eliminando títulos desproporcionais e reduzindo o vazio vertical entre seções em 45% no mobile sem quebrar a proporção áurea no desktop.
+    - *Blindagem Global Contra Auto-Zoom no iOS Safari (`globals.css`):* Forçamento de `16px !important` em inputs/selects/textareas em telas `<768px`, `overflow-x: clip` no `html, body` e ajuste nos paddings táteis dos botões `.btn-primary` e `.btn-secondary`.
+    - *Navbar & Menu Mobile Resilientes (`Navbar.tsx`):* Logo adaptativo (46px mobile / 58px desktop), menu mobile com safe area padding (`pb-28`) e touch targets de 44px.
+    - *Fitas Deslizantes Horizontais com Inércia Touch (`touch-scroll-x`):* Eliminação do empilhamento vertical de 4 a 5 linhas de botões na barra de sacramentos (`MedicinasCatalogClient.tsx`), nas 10 abas do dirigente (`PortalDirigenteClient.tsx`), no funil (`JornadaNavTracker.tsx`) e nas categorias de estudos (`EstudosClient.tsx`).
+    - *Card View Adaptativa em Fármacos & Washout (`PortalInteracoesMedicamentosas.tsx`):* Conversão da tabela técnica de 6 colunas em cartões táteis expansíveis em 1 toque no mobile (`block md:hidden`), mantendo a tabela clássica para desktop e impressão A4 (`@media print`).
+    - *Ergonomia da Central de Documentos A4 (`PortalCentralDocumentos.tsx`):* Pré-visualização da folha A4 com padding adaptativo (`p-4 sm:p-8 md:p-12`) e botões de ação em grid 2x2.
+    - *Calculadora e Acompanhamento:* Botões de pessoas em grid 5 colunas coeso e stepper linear deslizante em `AcompanhamentoPedidos.tsx` sem fases isoladas.
 
 ---
 

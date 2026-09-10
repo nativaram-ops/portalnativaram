@@ -78,9 +78,9 @@ export const JornadaNavTracker: React.FC<JornadaNavTrackerProps> = ({
   return (
     <nav
       aria-label="Caminho Didático da Salvaguarda Litúrgica"
-      className={`w-full py-3.5 px-4 bg-floresta-950/70 border-b border-ambar-500/15 backdrop-blur-md sticky top-[65px] z-40 ${className}`}
+      className={`w-full py-2 sm:py-3 px-3 sm:px-4 bg-floresta-950/85 border-b border-ambar-500/15 backdrop-blur-md sticky top-[56px] sm:top-[60px] md:top-[65px] z-30 ${className}`}
     >
-      <div className="mx-auto max-w-7xl flex flex-col md:flex-row items-center justify-between gap-3 text-xs">
+      <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 text-xs">
         {/* Indicador de Cabeçalho do Caminho */}
         <div className="flex items-center gap-2 text-areia-300 font-sans shrink-0">
           <span className="flex h-2 w-2 rounded-full bg-ambar-400 animate-pulse" />
@@ -88,13 +88,13 @@ export const JornadaNavTracker: React.FC<JornadaNavTrackerProps> = ({
             Jornada de Salvaguarda
           </span>
           <span className="text-areia-500">•</span>
-          <span className="text-areia-200 font-medium hidden sm:inline">
+          <span className="text-areia-200 font-medium text-[11px]">
             Etapa {etapaAtual} de 5
           </span>
         </div>
 
         {/* Stepper Sequencial com Links */}
-        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto w-full md:w-auto pb-1 md:pb-0 scrollbar-none justify-start md:justify-end">
+        <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto w-full sm:w-auto pb-0.5 sm:pb-0 touch-scroll-x justify-start sm:justify-end">
           {etapasJornada.map((etapa, idx) => {
             const Icon = etapa.icone;
             const isAtiva = etapa.id === etapaAtual;

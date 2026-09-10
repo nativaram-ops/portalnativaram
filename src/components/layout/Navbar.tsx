@@ -53,11 +53,16 @@ export const Navbar = () => {
         {/* Logo & Brand Identity */}
         <Link
           href="/"
-          className="group flex items-center gap-2.5 sm:gap-3 transition-transform hover:scale-[1.01] active:scale-[0.99] shrink-0"
+          className="group flex items-center gap-2 sm:gap-3 transition-transform hover:scale-[1.01] active:scale-[0.99] shrink-0"
         >
-          <Logo variant="navbar" size={58} priority />
+          <div className="block sm:hidden shrink-0">
+            <Logo variant="navbar" size={46} priority />
+          </div>
+          <div className="hidden sm:block shrink-0">
+            <Logo variant="navbar" size={58} priority />
+          </div>
           <div className="flex flex-col justify-center">
-            <div className="flex items-center gap-1.5 font-serif text-[14px] sm:text-[15px] xl:text-base font-bold tracking-[0.14em] text-areia-100 group-hover:text-ambar-400 transition-colors duration-300 whitespace-nowrap">
+            <div className="flex items-center gap-1 sm:gap-1.5 font-serif text-[13px] sm:text-[15px] xl:text-base font-bold tracking-[0.12em] sm:tracking-[0.14em] text-areia-100 group-hover:text-ambar-400 transition-colors duration-300 whitespace-nowrap">
               <span>COOPERATIVA</span>
               <span className="text-ambar-400 font-serif">NATIVARAM</span>
             </div>
@@ -147,7 +152,7 @@ export const Navbar = () => {
 
       {/* Mobile Full-Screen Overlay */}
       <div
-        className={`lg:hidden fixed inset-0 top-[57px] z-40 transition-all duration-500 ${
+        className={`lg:hidden fixed inset-0 top-[56px] sm:top-[60px] z-40 transition-all duration-500 ${
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
@@ -160,7 +165,7 @@ export const Navbar = () => {
         />
 
         {/* Nav Content */}
-        <div className="relative flex flex-col justify-between h-full px-6 py-8 overflow-y-auto">
+        <div className="relative flex flex-col justify-between h-[calc(100dvh-56px)] sm:h-[calc(100dvh-60px)] px-5 sm:px-6 py-6 pb-28 overflow-y-auto touch-pan-y">
           <nav className="space-y-1">
             {navLinks.map((link, i) => (
               <Link

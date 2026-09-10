@@ -375,41 +375,41 @@ Assinatura do Dirigente Responsável: _________________________________________`
         </div>
 
         {/* Botões de Ação Rápida */}
-        <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap items-center gap-2 sm:gap-2.5 w-full lg:w-auto">
           <button
             onClick={() => setMostrarJustificativa(!mostrarJustificativa)}
-            className="btn-secondary text-xs inline-flex items-center gap-1.5 px-3 py-2 text-ambar-300 border-ambar-500/30 hover:bg-ambar-500/10"
+            className="btn-secondary text-xs inline-flex items-center justify-center gap-1.5 px-3 py-2 text-ambar-300 border-ambar-500/30 hover:bg-ambar-500/10 w-full lg:w-auto"
             title="Ver por que cada item existe nos documentos"
           >
-            <Info className="h-3.5 w-3.5 text-ambar-400" />
+            <Info className="h-3.5 w-3.5 text-ambar-400 shrink-0" />
             <span>{mostrarJustificativa ? "Ocultar Justificativas" : "Por Que Cada Item Existe?"}</span>
-            {mostrarJustificativa ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+            {mostrarJustificativa ? <ChevronUp className="h-3 w-3 shrink-0" /> : <ChevronDown className="h-3 w-3 shrink-0" />}
           </button>
 
           <button
             onClick={() => copiarTextoDocumento(getTextoCompleto())}
-            className="btn-secondary text-xs inline-flex items-center gap-1.5 px-3 py-2 text-areia-200 hover:bg-floresta-800"
+            className="btn-secondary text-xs inline-flex items-center justify-center gap-1.5 px-3 py-2 text-areia-200 hover:bg-floresta-800 w-full lg:w-auto"
             title="Copiar texto formatado para colar no Word ou Google Docs"
           >
-            {copiado ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5 text-ambar-400" />}
+            {copiado ? <Check className="h-3.5 w-3.5 text-emerald-400 shrink-0" /> : <Copy className="h-3.5 w-3.5 text-ambar-400 shrink-0" />}
             <span>{copiado ? "Copiado!" : "Copiar Texto (Word/Docs)"}</span>
           </button>
 
           <button
             onClick={() => baixarArquivoTexto(getTextoCompleto(), `nativaram-${docAtivo.toLowerCase()}`)}
-            className="btn-secondary text-xs inline-flex items-center gap-1.5 px-3 py-2 text-areia-200 hover:bg-floresta-800"
+            className="btn-secondary text-xs inline-flex items-center justify-center gap-1.5 px-3 py-2 text-areia-200 hover:bg-floresta-800 w-full lg:w-auto"
             title="Baixar arquivo de texto editável (.md / .txt)"
           >
-            <Download className="h-3.5 w-3.5 text-emerald-400" />
+            <Download className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
             <span>Baixar Editável (.md)</span>
           </button>
 
           <button
             onClick={handleImprimir}
-            className="btn-primary text-xs inline-flex items-center gap-1.5 px-4 py-2 shadow-md active:scale-95 transition-all"
+            className="btn-primary text-xs inline-flex items-center justify-center gap-1.5 px-4 py-2 shadow-md active:scale-95 transition-all w-full lg:w-auto"
             title="Imprimir documento em papel ou salvar em PDF"
           >
-            <Printer className="h-3.5 w-3.5" />
+            <Printer className="h-3.5 w-3.5 shrink-0" />
             <span>Imprimir A4 / PDF</span>
           </button>
         </div>
@@ -510,7 +510,7 @@ Assinatura do Dirigente Responsável: _________________________________________`
       </div>
 
       {/* ÁREA DE IMPRESSÃO / FOLHA A4 NATIVA */}
-      <div className="documento-a4-impressao bg-white text-slate-900 p-8 sm:p-12 rounded-2xl shadow-2xl border border-slate-200 font-sans text-xs sm:text-sm leading-relaxed max-w-4xl mx-auto">
+      <div className="documento-a4-impressao bg-white text-slate-900 p-4 sm:p-8 md:p-12 rounded-2xl shadow-2xl border border-slate-200 font-sans text-xs sm:text-sm leading-relaxed max-w-4xl mx-auto overflow-x-hidden">
         {/* CABEÇALHO INSTITUCIONAL CANÔNICO */}
         <div className="border-b-2 border-slate-800 pb-4 mb-6 text-center space-y-1">
           <p className="text-[10px] tracking-widest uppercase font-bold text-slate-600">
