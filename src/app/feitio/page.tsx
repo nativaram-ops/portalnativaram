@@ -38,7 +38,7 @@ export default function FeitioPage() {
         proximaEtapaNumero={3}
         proximaEtapaTitulo="O Compêndio de Sacramentos Sagrados"
         proximaEtapaDescricao="Agora que você testemunhou o feitio purista em Cruzeiro do Sul, explore as 4 graduações de Ayahuasca (1.8 a 10.1 Wirapuru), os 15 rapés sagrados tamponados e a Sananga refrigerada."
-        proximaEtapaHref="/medicinas"
+        proximaEtapaHref="/sacramentos"
         textoBotao="Conhecer os Sacramentos (Etapa 3/5)"
       />
     </div>

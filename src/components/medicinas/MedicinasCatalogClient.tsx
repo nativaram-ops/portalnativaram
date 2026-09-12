@@ -194,15 +194,15 @@ export function MedicinasCatalogClient() {
                 {/* Card 25g */}
                 <div className="card-elevated rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6 border border-ambar-500/25 bg-floresta-950/80">
                   <div className="space-y-4">
-                    <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-ambar-500/20">
+                    <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5] w-full rounded-2xl overflow-hidden border border-ambar-500/20 bg-floresta-900/90 flex items-center justify-center shadow-inner">
                       <Image
                         src="/assets/nativaram-oficial/institucional/rapes-linha-completa-25g.png"
                         alt="Linha Completa de Rapés Sagrados 25g Cooperativa Nativaram"
                         fill
-                        className="object-cover object-top"
+                        className="object-contain p-2 hover:scale-[1.02] transition-transform duration-500"
                         sizes="(max-width: 1024px) 100vw, 50vw"
                       />
-                      <div className="absolute top-3 left-3 rounded-full bg-floresta-950/90 border border-amber-500/40 px-3 py-1 text-[10px] font-mono text-amber-300 font-bold uppercase">
+                      <div className="absolute top-3 left-3 rounded-full bg-floresta-950/90 border border-amber-500/40 px-3 py-1 text-[10px] font-mono text-amber-300 font-bold uppercase shadow-sm">
                         Padrão Cerimonial • 25g
                       </div>
                     </div>
@@ -251,15 +251,15 @@ export function MedicinasCatalogClient() {
                 {/* Card 15g */}
                 <div className="card-elevated rounded-2xl p-6 sm:p-8 flex flex-col justify-between space-y-6 border border-emerald-500/30 bg-floresta-950/80">
                   <div className="space-y-4">
-                    <div className="relative aspect-[4/3] w-full rounded-xl overflow-hidden border border-emerald-500/20">
+                    <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5] w-full rounded-2xl overflow-hidden border border-emerald-500/20 bg-floresta-900/90 flex items-center justify-center shadow-inner">
                       <Image
                         src="/assets/nativaram-oficial/institucional/rapes-frascos-15g.png"
                         alt="Linha de Frascos 15g Cooperativa Nativaram"
                         fill
-                        className="object-cover object-top"
+                        className="object-contain p-2 hover:scale-[1.02] transition-transform duration-500"
                         sizes="(max-width: 1024px) 100vw, 50vw"
                       />
-                      <div className="absolute top-3 left-3 rounded-full bg-floresta-950/90 border border-emerald-500/40 px-3 py-1 text-[10px] font-mono text-emerald-300 font-bold uppercase">
+                      <div className="absolute top-3 left-3 rounded-full bg-floresta-950/90 border border-emerald-500/40 px-3 py-1 text-[10px] font-mono text-emerald-300 font-bold uppercase shadow-sm">
                         Porta de Entrada • 15g
                       </div>
                     </div>
@@ -593,12 +593,12 @@ export function MedicinasCatalogClient() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 relative aspect-[4/5] rounded-2xl overflow-hidden border border-ambar-500/25 shadow-xl">
+                <div className="lg:col-span-5 relative aspect-[4/5] rounded-2xl overflow-hidden border border-ambar-500/25 shadow-xl bg-floresta-900/90 flex items-center justify-center">
                   <Image
                     src="/assets/nativaram-oficial/institucional/sananga-ancestral-apresentacao.png"
                     alt="Sananga Ancestral Nativaram — Frascos e Gotas de Intenção"
                     fill
-                    className="object-cover object-center"
+                    className="object-contain p-2 hover:scale-[1.02] transition-transform duration-500"
                     sizes="(max-width: 1024px) 100vw, 40vw"
                   />
                 </div>
@@ -641,12 +641,12 @@ export function MedicinasCatalogClient() {
           </AnimateOnScroll>
 
           {/* Banner Central de Artefatos */}
-          <div className="relative aspect-[16/7] w-full rounded-2xl overflow-hidden border border-ambar-500/25 shadow-xl">
+          <div className="relative aspect-[16/9] md:aspect-[21/9] max-h-[460px] w-full rounded-2xl overflow-hidden border border-ambar-500/25 shadow-xl bg-floresta-900/90 flex items-center justify-center">
             <Image
               src="/assets/nativaram-oficial/institucional/artefatos-sagrados-apresentacao.png"
               alt="Artefatos Sagrados da Cooperativa Nativaram — Kuripes e Tepis Nobres"
               fill
-              className="object-cover object-center"
+              className="object-contain p-2"
               sizes="100vw"
             />
           </div>
@@ -658,13 +658,13 @@ export function MedicinasCatalogClient() {
                 key={k.id}
                 className="card-elevated rounded-2xl p-4 border border-ambar-500/15 bg-floresta-950/70 flex items-center gap-4 hover:border-ambar-500/30 transition-all"
               >
-                <div className="relative h-20 w-20 rounded-xl overflow-hidden bg-floresta-900 flex-shrink-0 border border-ambar-500/20">
+                <div className="relative h-24 w-24 rounded-xl overflow-hidden bg-floresta-900/90 flex-shrink-0 border border-ambar-500/25 p-1.5 shadow-sm">
                   <Image
                     src={k.foto}
                     alt={k.nome}
                     fill
-                    className="object-contain p-1"
-                    sizes="80px"
+                    className="object-contain p-1 hover:scale-110 transition-transform duration-300"
+                    sizes="96px"
                   />
                 </div>
                 <div className="space-y-1 flex-1">
@@ -707,16 +707,16 @@ export function MedicinasCatalogClient() {
               <AnimateOnScroll key={kit.nome} delay={idx * 150}>
                 <div className="card-elevated rounded-2xl overflow-hidden border border-ambar-500/25 bg-floresta-950 flex flex-col justify-between h-full group hover:border-ambar-500/45 transition-all">
                   <div className="space-y-4">
-                    <div className="relative aspect-[16/9] w-full overflow-hidden bg-floresta-900">
+                    <div className="relative aspect-[4/3] sm:aspect-[16/10] w-full overflow-hidden bg-floresta-900/90 flex items-center justify-center">
                       <Image
                         src={kit.foto}
                         alt={kit.nome}
                         fill
-                        className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                        className="object-contain p-3 group-hover:scale-105 transition-transform duration-700"
                         sizes="(max-width: 1024px) 100vw, 50vw"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-floresta-950 via-transparent to-transparent opacity-70" />
-                      <span className="absolute top-3 left-3 rounded-full bg-floresta-950/90 border border-amber-500/30 px-3 py-1 text-[10px] font-mono text-amber-300 font-bold uppercase">
+                      <div className="absolute inset-0 bg-gradient-to-t from-floresta-950/40 via-transparent to-transparent pointer-events-none" />
+                      <span className="absolute top-3 left-3 rounded-full bg-floresta-950/90 border border-amber-500/30 px-3 py-1 text-[10px] font-mono text-amber-300 font-bold uppercase shadow-sm">
                         {kit.tipo}
                       </span>
                     </div>

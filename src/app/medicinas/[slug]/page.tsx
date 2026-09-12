@@ -138,17 +138,17 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
             {/* Card Fotográfico Documental da Medicina */}
             <div className="md:col-span-5">
               <AnimateOnScroll delay={250}>
-                <div className="card-elevated overflow-hidden rounded-2xl border border-ambar-500/30 group">
-                  <div className="relative h-72 sm:h-80 w-full overflow-hidden">
+                <div className="card-elevated overflow-hidden rounded-2xl border border-ambar-500/30 group bg-floresta-950 shadow-xl">
+                  <div className="relative aspect-square w-full overflow-hidden bg-floresta-900/80">
                     <Image
-                      src="/assets/banners/frasco-rape-apresentacao.jpeg"
-                      alt={`Apresentação cerimonial do ${med.nome}`}
+                      src={med.foto || "/assets/banners/frasco-rape-apresentacao.jpeg"}
+                      alt={`Fotografia documental autêntica do ${med.nome}`}
                       fill
                       priority
                       className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, 40vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-floresta-950 via-floresta-950/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-floresta-950 via-transparent to-transparent opacity-60 pointer-events-none" />
                   </div>
                   <div className="p-5 space-y-1.5 bg-floresta-950/90 border-t border-ambar-500/20">
                     <div className="flex items-center justify-between text-[11px] text-ambar-400 font-semibold uppercase tracking-wider font-mono">

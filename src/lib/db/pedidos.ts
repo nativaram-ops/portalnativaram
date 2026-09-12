@@ -6,10 +6,90 @@ import {
   AtualizarPedidoInput,
   MetricasPedidos,
   StatusPedido,
-} from "@/types/pedido";
+} from "../../types/pedido";
+import { isSupabaseConfigured } from "../supabase/client";
+import { createClient } from "@supabase/supabase-js";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "pedidos.json");
+
+let cachedDirectClient: any = null;
+
+function getDirectSupabaseClient(): any {
+  if (!isSupabaseConfigured()) return null;
+  if (cachedDirectClient) return cachedDirectClient;
+
+  const key =
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
+
+  cachedDirectClient = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    key
+  );
+  return cachedDirectClient;
+}
+
+function withTimeout<T>(promise: PromiseLike<T>, ms = 2000): Promise<T> {
+  return Promise.race([
+    Promise.resolve(promise),
+    new Promise<T>((_, reject) =>
+      setTimeout(() => reject(new Error(`Timeout de ${ms}ms excedido na consulta remota`)), ms)
+    ),
+  ]);
+}
+
+function mapRowToPedido(row: any): PedidoLiturgico {
+  return {
+    id: row.id,
+    temploId: row.templo_id,
+    temploNome: row.templo_nome,
+    cidade: row.cidade,
+    estado: row.estado,
+    dirigenteNome: row.dirigente_nome,
+    dirigenteTelefone: row.dirigente_telefone,
+    dirigenteEmail: row.dirigente_email,
+    cnpj: row.cnpj,
+    itens: typeof row.itens === "string" ? JSON.parse(row.itens) : row.itens,
+    rateioTotal: Number(row.rateio_total),
+    dataCerimoniaPretendida: row.data_cerimonia_pretendida,
+    mensagemIntencao: row.mensagem_intencao,
+    status: row.status as StatusPedido,
+    loteVinculado: row.lote_vinculado || undefined,
+    codigoRastreio: row.codigo_rastreio || undefined,
+    previsaoEntrega: row.previsao_entrega || undefined,
+    observacoesInternas: row.observacoes_internas || undefined,
+    historico: typeof row.historico === "string" ? JSON.parse(row.historico) : (row.historico || []),
+    criadoEm: row.criado_em,
+    atualizadoEm: row.atualizado_em,
+  };
+}
+
+function mapPedidoToRow(pedido: PedidoLiturgico): any {
+  return {
+    id: pedido.id,
+    templo_id: pedido.temploId,
+    templo_nome: pedido.temploNome,
+    cidade: pedido.cidade,
+    estado: pedido.estado,
+    dirigente_nome: pedido.dirigenteNome,
+    dirigente_telefone: pedido.dirigenteTelefone,
+    dirigente_email: pedido.dirigenteEmail,
+    cnpj: pedido.cnpj,
+    itens: pedido.itens,
+    rateio_total: pedido.rateioTotal,
+    data_cerimonia_pretendida: pedido.dataCerimoniaPretendida,
+    mensagem_intencao: pedido.mensagemIntencao,
+    status: pedido.status,
+    lote_vinculado: pedido.loteVinculado || null,
+    codigo_rastreio: pedido.codigoRastreio || null,
+    previsao_entrega: pedido.previsaoEntrega || null,
+    historico: pedido.historico,
+    criado_em: pedido.criadoEm,
+    atualizado_em: pedido.atualizadoEm,
+  };
+}
+
 
 // Pedidos Iniciais de Demonstração (em estrita conformidade litúrgica)
 const SEED_PEDIDOS: PedidoLiturgico[] = [
@@ -336,13 +416,56 @@ export function formatarMensagemAtualizacaoWhatsApp(
 }
 
 /**
- * Retorna todos os pedidos, com suporte a filtros
+ * Retorna todos os pedidos, com suporte a filtros e integração Supabase
  */
 export async function obterTodosPedidos(filtros?: {
   temploId?: string;
   status?: StatusPedido | "TODOS";
   busca?: string;
 }): Promise<PedidoLiturgico[]> {
+  const supabase = getDirectSupabaseClient();
+
+  if (supabase) {
+    try {
+      let query = supabase
+        .from("pedidos_liturgicos")
+        .select("*")
+        .order("criado_em", { ascending: false });
+
+      if (filtros?.temploId) {
+        query = query.ilike("templo_id", filtros.temploId);
+      }
+
+      if (filtros?.status && filtros.status !== "TODOS") {
+        query = query.eq("status", filtros.status);
+      }
+
+      const { data, error } = await withTimeout(query, 2000);
+
+      if (!error && data && data.length > 0) {
+        let pedidos: PedidoLiturgico[] = data.map(mapRowToPedido);
+
+        if (filtros?.busca) {
+          const termo = filtros.busca.toLowerCase();
+          pedidos = pedidos.filter(
+            (p: PedidoLiturgico) =>
+              p.id.toLowerCase().includes(termo) ||
+              p.temploNome.toLowerCase().includes(termo) ||
+              p.dirigenteNome.toLowerCase().includes(termo) ||
+              p.cidade.toLowerCase().includes(termo) ||
+              (p.codigoRastreio && p.codigoRastreio.toLowerCase().includes(termo)) ||
+              p.itens.some((i: any) => i.nome.toLowerCase().includes(termo))
+          );
+        }
+
+        return pedidos;
+      }
+    } catch {
+      // Fallback gracioso para arquivo local se a rede ou Supabase falhar
+    }
+  }
+
+  // Fallback seguro em data/pedidos.json
   await garantirBanco();
   const raw = await fs.readFile(DB_FILE, "utf-8");
   let pedidos: PedidoLiturgico[] = JSON.parse(raw);
@@ -368,7 +491,6 @@ export async function obterTodosPedidos(filtros?: {
     );
   }
 
-  // Ordena por data de criação mais recente primeiro
   return pedidos.sort((a, b) => new Date(b.criadoEm).getTime() - new Date(a.criadoEm).getTime());
 }
 
@@ -376,6 +498,27 @@ export async function obterTodosPedidos(filtros?: {
  * Busca pedido por ID
  */
 export async function obterPedidoPorId(id: string): Promise<PedidoLiturgico | null> {
+  const supabase = getDirectSupabaseClient();
+
+  if (supabase) {
+    try {
+      const { data, error } = await withTimeout(
+        supabase
+          .from("pedidos_liturgicos")
+          .select("*")
+          .eq("id", id)
+          .single(),
+        2000
+      );
+
+      if (!error && data) {
+        return mapRowToPedido(data);
+      }
+    } catch {
+      // Fallback para disco
+    }
+  }
+
   await garantirBanco();
   const pedidos = await obterTodosPedidos();
   return pedidos.find((p) => p.id.toUpperCase() === id.toUpperCase()) || null;
@@ -392,9 +535,6 @@ export async function obterPedidosPorTemplo(temploId: string): Promise<PedidoLit
  * Cria uma nova solicitação de partilha litúrgica
  */
 export async function criarPedido(input: NovoPedidoInput): Promise<PedidoLiturgico> {
-  await garantirBanco();
-  const pedidos = await obterTodosPedidos();
-
   const id = gerarProtocoloLiturgico();
   const agora = new Date().toISOString();
   const agoraFormatada = new Date().toLocaleString("pt-BR", {
@@ -439,8 +579,25 @@ export async function criarPedido(input: NovoPedidoInput): Promise<PedidoLiturgi
     atualizadoEm: agora,
   };
 
+  // 1. Tentar salvar no Supabase se configurado
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      await withTimeout(
+        supabase.from("pedidos_liturgicos").insert(mapPedidoToRow(novoPedido)),
+        2000
+      );
+    } catch (e) {
+      console.warn("Falha ao salvar no Supabase, mantendo persistência local:", e);
+    }
+  }
+
+  // 2. Sempre salvar no backup local atômico
+  await garantirBanco();
+  const pedidos = await obterTodosPedidos();
   pedidos.unshift(novoPedido);
   await salvarBancoAtomico(pedidos);
+
   return novoPedido;
 }
 
@@ -451,13 +608,6 @@ export async function atualizarPedido(
   id: string,
   alteracoes: AtualizarPedidoInput
 ): Promise<PedidoLiturgico | null> {
-  await garantirBanco();
-  const pedidos = await obterTodosPedidos();
-  const index = pedidos.findIndex((p) => p.id.toUpperCase() === id.toUpperCase());
-
-  if (index === -1) return null;
-
-  const pedidoAtual = pedidos[index];
   const agora = new Date().toISOString();
   const agoraFormatada = new Date().toLocaleString("pt-BR", {
     day: "2-digit",
@@ -467,9 +617,15 @@ export async function atualizarPedido(
     minute: "2-digit",
   });
 
+  await garantirBanco();
+  const pedidos = await obterTodosPedidos();
+  const index = pedidos.findIndex((p) => p.id.toUpperCase() === id.toUpperCase());
+
+  if (index === -1) return null;
+
+  const pedidoAtual = pedidos[index];
   const statusAnterior = pedidoAtual.status;
   const novoStatus = alteracoes.status || statusAnterior;
-
   const novoHistorico = [...pedidoAtual.historico];
 
   if (alteracoes.status && alteracoes.status !== statusAnterior) {
@@ -499,8 +655,26 @@ export async function atualizarPedido(
     atualizadoEm: agora,
   };
 
+  // 1. Tentar atualizar no Supabase se configurado
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      await withTimeout(
+        supabase
+          .from("pedidos_liturgicos")
+          .update(mapPedidoToRow(pedidoAtualizado))
+          .eq("id", id),
+        2000
+      );
+    } catch (e) {
+      console.warn("Falha ao atualizar no Supabase, atualizando local:", e);
+    }
+  }
+
+  // 2. Persistir localmente
   pedidos[index] = pedidoAtualizado;
   await salvarBancoAtomico(pedidos);
+
   return pedidoAtualizado;
 }
 
@@ -508,6 +682,18 @@ export async function atualizarPedido(
  * Remove um pedido do banco de dados
  */
 export async function excluirPedido(id: string): Promise<boolean> {
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      await withTimeout(
+        supabase.from("pedidos_liturgicos").delete().eq("id", id),
+        2000
+      );
+    } catch {
+      // Continua
+    }
+  }
+
   await garantirBanco();
   const pedidos = await obterTodosPedidos();
   const novaLista = pedidos.filter((p) => p.id.toUpperCase() !== id.toUpperCase());

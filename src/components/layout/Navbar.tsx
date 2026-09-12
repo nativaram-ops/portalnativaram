@@ -10,7 +10,7 @@ const navLinks = [
   { href: "/", label: "Início" },
   { href: "/institucional", label: "Manifesto" },
   { href: "/feitio", label: "Feitio" },
-  { href: "/medicinas", label: "Sacramentos" },
+  { href: "/sacramentos", label: "Sacramentos" },
   { href: "/compliance", label: "Marco Legal", icon: true },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/estudos", label: "Estudos", badge: "PDFs" },
@@ -38,6 +38,7 @@ export const Navbar = () => {
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
     if (href === "/institucional") return pathname === "/institucional" || pathname === "/manifesto";
+    if (href === "/sacramentos") return pathname.startsWith("/sacramentos") || pathname.startsWith("/medicinas");
     return pathname.startsWith(href);
   };
 

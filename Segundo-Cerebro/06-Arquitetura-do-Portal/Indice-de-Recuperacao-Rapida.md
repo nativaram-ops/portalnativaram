@@ -36,8 +36,8 @@ categoria: Índice Rápido
 | **Acompanhamento (Dirigente)** | `src/components/portal-dirigente/AcompanhamentoPedidos.tsx` | Timeline de 5 fases, visualização de laudos, rastreio e repetição de pedido |
 | **Gestão Central (ADM)** | `src/components/portal-dirigente/AdminGestaoPedidos.tsx` | Métricas em tempo real, atualização de status, rastreio e aviso WhatsApp |
 | **Base Fitoquímica & Canônica** | `src/data/portal-assessoria.ts` | Matriz de fármacos, regras de washout e FAQ estruturado |
-| **Banco de Dados Local** | `data/pedidos.json` e `src/lib/db/pedidos.ts` | Armazenamento atômico seguro com histórico de auditoria |
-| **API de Pedidos** | `src/app/api/pedidos/route.ts` e `[id]/route.ts` | Endpoints REST para listar, criar, atualizar e notificar |
+| **Banco de Dados Híbrido** | `src/lib/supabase/` e `src/lib/db/pedidos.ts` | Supabase PostgreSQL em nuvem (`qpgtngknrrawpaatiofe`) com fallback local atômico `data/pedidos.json` |
+| **API de Pedidos** | `src/app/api/pedidos/route.ts` e `[id]/route.ts` | Endpoints REST para listar, criar, atualizar e notificar com Supabase + local |
 | **Tipos TypeScript** | `src/types/pedido.ts` | Modelagem estrita de solicitações, itens e métricas |
 | **Validação Zod** | `src/lib/validators/pedido.ts` | Schemas de validação de dados de entrada |
 | **Catálogo de Graduações** | `src/data/graduacoes.ts` | Perfil fitoquímico Tucunacá (Harmina, Harmalina, THH) e porções |
@@ -99,4 +99,6 @@ categoria: Índice Rápido
 - [[ADR-002-Composicao-Modular-e-Design-System]]
 - [[ADR-003-Funil-de-Conversao-e-Jornada-Didatica]]
 - [[ADR-004-Assessoria-Liturgica-e-Documentos-A4]]
+- [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]
+- [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]
 - [[Manual-de-Comunicacao-e-Blindagem-Algoritmica]]

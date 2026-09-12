@@ -144,21 +144,21 @@ export default function MedicinasPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
-              src: "/assets/banners/1.png",
+              src: "/assets/banners/frasco-rape-apresentacao.jpeg",
               title: "15 Rapés Sagrados",
               desc: "Calcinação purista de cinzas nobres e tabaco orgânico curado à sombra.",
               href: "#catalogo-rapes",
               cta: "Explorar variedades",
             },
             {
-              src: "/assets/banners/2.png",
+              src: "/assets/sananga/1.png",
               title: "Sananga Ancestral",
               desc: "Extrato botânico puro de Tabernaemontana sananho para acuidade e visão sutil.",
               href: "#sananga-secao",
               cta: "Ver diretrizes",
             },
             {
-              src: "/assets/banners/3.png",
+              src: "/assets/sacramentos/defumacao/breu-branco-50g.jpg",
               title: "Resinas & Defumações",
               desc: "Breu Branco amazônico, Palo Santo nativo e Olíbano de alta pureza.",
               href: "#defumacao-secao",
@@ -168,19 +168,19 @@ export default function MedicinasPage() {
             <AnimateOnScroll key={title} delay={i * 150}>
               <a
                 href={href}
-                className="group card-elevated rounded-2xl overflow-hidden flex flex-col h-full"
+                className="group card-elevated rounded-2xl overflow-hidden flex flex-col h-full border border-ambar-500/20 hover:border-ambar-500/40 transition-all shadow-md hover:shadow-xl"
               >
-                <div className="image-reveal relative h-48 w-full">
+                <div className="image-reveal relative h-52 sm:h-56 w-full bg-floresta-900/80 overflow-hidden">
                   <Image
                     src={src}
                     alt={title}
                     fill
-                    className="object-cover object-center"
+                    className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     sizes="(max-width: 768px) 100vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-floresta-950 via-transparent to-transparent opacity-60" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-floresta-950 via-floresta-950/30 to-transparent opacity-80" />
                 </div>
-                <div className="p-6 space-y-2 flex-1 flex flex-col justify-between">
+                <div className="p-6 space-y-2 flex-1 flex flex-col justify-between bg-floresta-950/80">
                   <div>
                     <h3 className="font-serif text-lg font-bold text-areia-100 group-hover:text-ambar-400 transition-colors">
                       {title}

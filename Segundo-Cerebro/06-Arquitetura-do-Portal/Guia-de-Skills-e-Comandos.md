@@ -10,7 +10,7 @@ categoria: Catálogo de Comandos
 # ⚡ Guia de Skills e Comandos Rápidos do Projeto
 
 Este guia cataloga o ecossistema completo de habilidades disponíveis no ambiente de desenvolvimento:
-1. **Camada 1 (Projeto):** As **40 habilidades nativas** do portal Nativaram Brasil em `.agents/skills/`, traduzidas e categorizadas em 7 setores operacionais.
+1. **Camada 1 (Projeto):** As **43 habilidades nativas** do portal Nativaram Brasil em `.agents/skills/`, traduzidas e categorizadas em 8 setores operacionais.
 2. **Camada 2 (IDE Pré-existente):** As **8 habilidades globais** da stack Web/Vercel previamente instaladas pelo desenvolvedor em `C:\Users\victo\.gemini\config\skills\`.
 3. **Camada 3 (Novo Harness da IDE):** As **31 habilidades de alta performance** do novo harness global da IDE (pesquisa temporal, grafo AST, auditoria, anti-overengineering, governança agêntica, design de elite e segurança).
 
@@ -27,6 +27,7 @@ No chat do assistente, basta digitar `/` seguido do nome da skill ou setor para 
 - Digite `/produtividade` para NotebookLM, pesquisa e sabatina.
 - Digite `/gestao` para tickets, triagem e especificações.
 - Digite `/documentacao` para redação e manuais de IA.
+- Digite `/subagente` para acionar subagentes de execução paralela isolada.
 
 **Novo Harness da IDE:**
 - Digite `/last30days` para pesquisar tendências e discussões técnicas dos últimos 30 dias.
@@ -94,6 +95,11 @@ No chat do assistente, basta digitar `/` seguido do nome da skill ou setor para 
 - **`/documentacao-redacao-estruturada`**: Redação analítica de textos institucionais e científicos.
 - **`/documentacao-ensinar-conceito`**: Explicação didática de tecnologias e conceitos da base.
 - **`/documentacao-revisar-clareza`**: Reformulação de mensagens técnicas para máxima clareza.
+
+### 8. ⚡ Subagentes de Execução Paralela (Frentes Isoladas)
+- **`/subagente-frontend`**: Focado exclusivamente na interface visual, componentes React e Tailwind (`src/components/**`, `src/app/**/page.tsx`, `src/app/globals.css`).
+- **`/subagente-backend`**: Focado exclusivamente em rotas REST, serviços Supabase, persistência atômica JSON e validações Zod (`src/app/api/**`, `src/lib/**`, `src/types/**`, `data/**`).
+- **`/subagente-governanca`**: Focado exclusivamente na memória ativa do Obsidian, base fitoquímica canônica e conformidade regulatória (`Segundo-Cerebro/**`, `src/data/**`, `AGENTS.md`).
 
 ---
 

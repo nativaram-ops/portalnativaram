@@ -122,6 +122,32 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
     - *Ergonomia da Central de Documentos A4 (`PortalCentralDocumentos.tsx`):* Pré-visualização da folha A4 com padding adaptativo (`p-4 sm:p-8 md:p-12`) e botões de ação em grid 2x2.
     - *Calculadora e Acompanhamento:* Botões de pessoas em grid 5 colunas coeso e stepper linear deslizante em `AcompanhamentoPedidos.tsx` sem fases isoladas.
 
+21. **Persistência em Nuvem via Supabase (PostgreSQL), Supabase Auth & Correção Visual de Sacramentos (ADR-005):**
+    - *Integração Supabase Free Tier (`qpgtngknrrawpaatiofe`):* Banco de dados relacional PostgreSQL com tabelas `pedidos_liturgicos` e `templos_credenciados`, script DDL executável (`src/lib/supabase/schema.sql`) e clientes browser/server com detecção inteligente de ambiente (`src/lib/supabase/client.ts` e `server.ts`).
+    - *Persistência Híbrida Resiliente (`src/lib/db/pedidos.ts`):* Operação com fallback local automático (`data/pedidos.json`) garantindo que a aplicação e a suíte de testes nunca falhem mesmo offline ou em máquinas sem variáveis configuradas.
+    - *Autenticação Dupla no Portal do Dirigente (`PortalLoginGate.tsx` & `PortalDirigenteClient.tsx`):* Suporte nativo a E-mail/Senha e Magic Link gratuito via Supabase Auth com persistência de sessão e escuta a `onAuthStateChange`, mantendo a chave litúrgica canônica (`NAT-TEMPLO-842` / `adm-nativaram`) como via de acesso rápido.
+    - *Correção Integral de Enquadramento em Sacramentos (`/medicinas`):*
+        - Resolução das distorções de proporção nas apresentações de 25g e 15g: substituição do recorte forçado em paisagem 4:3 por containers harmônicos verticais com `object-contain p-2`, revelando integralmente os frascos, lacres e rótulos sem nenhum corte de produto.
+        - Banners superiores atualizados para fotografias autênticas de alta resolução (frascos cerimoniais, Sananga ancestral e resinas nativas).
+        - Banner de Artefatos & Kuripes ajustado para container panorâmico proporcional, ícones ampliados para 24x24 com zoom tátil e cards de Kits de Sinergia com visualização 100% integral dos componentes.
+        - Ficha individual (`/medicinas/[slug]`): exibição da foto documental específica de cada medicina com enquadramento quadrado e fundo escuro nobre.
+
+22. **Supervisão por Gauntlet Loops e Auditoria Geral por Subagentes Paralelos (/improve):**
+    - *Frente 1 (Frontend & UI):* Inspeção de tokens, acessibilidade WCAG, integridade visual de layouts e identificação de necessidade de arquivo de configuração para o ESLint (Plano 003).
+    - *Frente 2 (Backend & APIs):* Auditoria de segurança de rotas REST, identificação de credencial literal em cabeçalho administrativo em `src/app/api/pedidos/[id]/route.ts`, memoização do cliente Supabase e estruturação de testes de integração HTTP (Plano 002).
+    - *Frente 3 (Governança & Fitoquímica):* Verificação semântica do vocabulário litúrgico (9/9 testes de conformidade aprovados) e planejamento da rota canônica `/sacramentos` com redirect de `/medicinas` para zerar qualquer menção residual em URLs.
+
+23. **Homologação do Grafo de Orquestração & Gauntlet Loops Concluídos (ADR-006):**
+    - *Nó 1 (Fundação & Contratos):* `.eslintrc.json` configurado, schemas Zod tipados e rota canônica `/sacramentos` estabelecida com rewrites transparentes no Next.js.
+    - *Nó 2 (Engine & Segurança):* Token de autenticação administrativo sanitizado (`ADMIN_SECRET_KEY`), cliente Supabase memoizado com singleton e suíte automatizada expandida para 11 testes instantâneos via `jiti` (0.8s).
+    - *Nó 3 (Frontend & Funil):* Módulos do Funil em 5 etapas integrados, navegação sincronizada com `/sacramentos` e templates A4 print preservados.
+    - *Nó 4 (Consolidação):* Formalização da [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]] e atualização do catálogo em `plans/README.md`.
+24. **Decomposição Retrógrada (Backwards Design), Auditoria Cega Gauntlet Loop & Fechamento de Sprint:**
+    - *Varredura AST:* 87 arquivos TypeScript inspecionados com 0 violações de acoplamento vertical.
+    - *Arquitetura em 4 Camadas:* Formalizada em `implementation_plan.md` e `task.md`. Implementado helper `withTimeout` (2000ms) para resiliência no banco remoto Supabase.
+    - *Auditoria Factual Gauntlet Loop:* Inspeção visual com Google Chrome DevTools Protocol (zero erros no console), 8 rotas verificadas com HTTP 200 via crawler e 16/16 testes automatizados verdes.
+    - *Fechamento e Handoff:* Gerados `walkthrough.md`, `HANDOFF.md` e registro de aprendizado contínuo em `.agents/skills/learned-resilient-db-timeouts/`.
+
 ---
 
 ## Relações
@@ -131,6 +157,8 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 - [[Blindagem-Juridica-e-Sanitaria]]
 - [[Dicionario-Semantico-Nativaram]]
 - [[Banco-de-Dados-e-Persistencia-Local]]
+- [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]
+- [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]
 
 ### Feito em
 - [[Portal-do-Dirigente-e-Gestao-Liturgica]]
@@ -145,8 +173,12 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 ### Relacionado a
 - [[00-Mapa-Mental-Portal-Nativaram]]
 - [[Guia-de-Skills-e-Comandos]]
+- [[Indice-de-Recuperacao-Rapida]]
 - [[ADR-001-Persistencia-Atomica-e-WhatsApp-First]]
 - [[ADR-002-Composicao-Modular-e-Design-System]]
 - [[ADR-003-Funil-de-Conversao-e-Jornada-Didatica]]
 - [[ADR-004-Assessoria-Liturgica-e-Documentos-A4]]
+- [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]
+- [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]
+
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   LogOut,
   ShieldCheck,
@@ -30,6 +30,7 @@ import { PortalCalculadoraLiturgica } from "@/components/portal-dirigente/Portal
 import { PortalRespaldoJuridico } from "@/components/portal-dirigente/PortalRespaldoJuridico";
 import { ItemPedido } from "@/types/pedido";
 import { templosIniciais, TemploMock } from "@/data/portal-mock";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 type DirigenteTab =
   | "SOLICITACOES"
@@ -61,6 +62,40 @@ export const PortalDirigenteClient: React.FC = () => {
   // Estado interativo de congregações
   const [templos, setTemplos] = useState<TemploMock[]>(templosIniciais);
 
+  // Verificar sessão persistente no Supabase no carregamento inicial
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    if (!supabase) return;
+
+    supabase.auth.getSession().then((res: any) => {
+      const session = res?.data?.session;
+      if (session?.user) {
+        const isAdmin =
+          session.user.email?.includes("adm") ||
+          session.user.user_metadata?.papel === "ADMIN";
+
+        setUserRole(isAdmin ? "ADMIN" : "DIRIGENTE");
+        setAuthenticatedAsAdmin(isAdmin);
+        setCodigoAcesso(
+          session.user.user_metadata?.codigo_liturgico ||
+          session.user.email ||
+          "USUARIO-SUPABASE"
+        );
+        setIsAuthenticated(true);
+      }
+    });
+
+    const { data } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
+      if (!session) {
+        setIsAuthenticated(false);
+      }
+    });
+
+    return () => {
+      data?.subscription?.unsubscribe();
+    };
+  }, []);
+
   // Templo selecionado com fallback seguro
   const temploAtual =
     templos.find(
@@ -74,6 +109,17 @@ export const PortalDirigenteClient: React.FC = () => {
     setAuthenticatedAsAdmin(role === "ADMIN");
     setCodigoAcesso(codigo);
     setIsAuthenticated(true);
+  };
+
+  const handleLogout = async () => {
+    const supabase = getSupabaseBrowserClient();
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
+    setIsAuthenticated(false);
+    setUserRole("DIRIGENTE");
+    setAuthenticatedAsAdmin(false);
+    setCodigoAcesso("");
   };
 
   const homologarTemplo = (id: string) => {
@@ -103,10 +149,11 @@ export const PortalDirigenteClient: React.FC = () => {
         templos={templos}
         onHomologarTemplo={homologarTemplo}
         onSimularVisaoTemplo={() => setUserRole("DIRIGENTE")}
-        onLogout={() => setIsAuthenticated(false)}
+        onLogout={handleLogout}
       />
     );
   }
+
 
   // Definição das Abas do Dirigente
   const abas = [
@@ -206,12 +253,7 @@ export const PortalDirigenteClient: React.FC = () => {
               </button>
             )}
             <button
-              onClick={() => {
-                setIsAuthenticated(false);
-                setAuthenticatedAsAdmin(false);
-                setUserRole("DIRIGENTE");
-                setCodigoAcesso("");
-              }}
+              onClick={handleLogout}
               className="rounded-xl border border-pedra-700/60 bg-pedra-900/60 hover:bg-pedra-800 text-areia-300 text-xs inline-flex items-center gap-1.5 px-3 py-2 transition-colors"
             >
               <LogOut className="h-3.5 w-3.5" />

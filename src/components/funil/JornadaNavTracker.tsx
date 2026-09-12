@@ -40,10 +40,10 @@ export const etapasJornada: EtapaJornada[] = [
   },
   {
     id: 3,
-    slug: "medicinas",
+    slug: "sacramentos",
     label: "Etapa 3 de 5",
     tituloCurto: "Sacramentos Sagrados",
-    href: "/medicinas",
+    href: "/sacramentos",
     icone: Sparkles,
   },
   {

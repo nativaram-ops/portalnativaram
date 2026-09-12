@@ -14,6 +14,30 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256],
   },
 
+  // Rota canônica litúrgica (/sacramentos) e redirecionamento de manifesto
+  async rewrites() {
+    return [
+      {
+        source: "/sacramentos",
+        destination: "/medicinas",
+      },
+      {
+        source: "/sacramentos/:slug*",
+        destination: "/medicinas/:slug*",
+      },
+    ];
+  },
+
+  async redirects() {
+    return [
+      {
+        source: "/manifesto",
+        destination: "/institucional",
+        permanent: true,
+      },
+    ];
+  },
+
   // Headers de segurança e compliance
   async headers() {
     return [

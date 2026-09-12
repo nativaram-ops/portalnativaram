@@ -9,11 +9,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "npx tsx scripts/test-liturgico.mjs",
+    "test": "node node_modules/jiti/bin/jiti.js scripts/test-liturgico.mjs",
     "notebooklm": "tools\\notebooklm-py\\.venv\\Scripts\\notebooklm.exe"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.116.0",
     "@types/pdfkit": "^0.17.6",
     "clsx": "^2.1.1",
     "lucide-react": "^1.16.0",

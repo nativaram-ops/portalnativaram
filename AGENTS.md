@@ -157,11 +157,16 @@ As habilidades especializadas do projeto estão localizadas em `.agents/skills/`
 39. **`/documentacao-ensinar-conceito`** (`.agents/skills/documentacao-ensinar-conceito/SKILL.md`): Ensinar conceitos técnicos de forma didática e fundamentada.
 40. **`/documentacao-revisar-clareza`** (`.agents/skills/documentacao-revisar-clareza/SKILL.md`): Reformular explicações complexas para garantir clareza absoluta.
 
+### Setor 8: Subagentes de Execução Paralela (Frentes Isoladas)
+41. **`/subagente-frontend`** (`.agents/skills/subagente-frontend/SKILL.md`): Especialista visual e UI (`src/components/**`, `src/app/**/page.tsx`, `src/app/globals.css`).
+42. **`/subagente-backend`** (`.agents/skills/subagente-backend/SKILL.md`): Especialista em APIs, banco e tipagem (`src/app/api/**`, `src/lib/**`, `src/types/**`, `data/**`).
+43. **`/subagente-governanca`** (`.agents/skills/subagente-governanca/SKILL.md`): Especialista em Segundo Cérebro, fitoquímica e compliance (`Segundo-Cerebro/**`, `src/data/**`, `AGENTS.md`).
+
 ---
 
 ## 🌐 Skills Globais da IDE (Instaladas na IDE — Nível Global)
 
-Para manter a organização cristalina e zero colisão com as 40 skills locais do projeto (`.agents/skills/`), as habilidades abaixo estão instaladas no diretório global da IDE (`C:\Users\victo\.gemini\config\skills\`) e estão acessíveis automaticamente neste e em outros projetos:
+Para manter a organização cristalina e zero colisão com as 43 skills locais do projeto (`.agents/skills/`), as habilidades abaixo estão instaladas no diretório global da IDE (`C:\Users\victo\.gemini\config\skills\`) e estão acessíveis automaticamente neste e em outros projetos:
 
 ### 1. Stack Web & Frontend Pré-existente (Instaladas pelo Desenvolvedor)
 Habilidades que já haviam sido instaladas previamente na IDE para apoiar o stack Next.js e Tailwind:

@@ -41,7 +41,7 @@ const passosDoFunil = [
     subtitulo: "Compêndio Etnobotânico",
     descricao:
       "As 4 graduações de Ayahuasca (1.8 a 10.1 Wirapuru), 15 rapés sagrados tamponados (pH 10) e Sananga ancestral.",
-    href: "/medicinas",
+    href: "/sacramentos",
     icone: Sparkles,
     cta: "Ver Sacramentos",
   },
