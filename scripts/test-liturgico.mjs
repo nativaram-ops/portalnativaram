@@ -425,6 +425,130 @@ async function runAllTests() {
     assert.ok(decoded.includes("CONAD nº 01/2010"), "Deve referenciar o CONAD");
   });
 
+  // 9. FLUXO DE HOMOLOGAÇÃO, GERAÇÃO DE ACESSO & LOGIN DINÂMICO
+  console.log("\n9. Homologação, Geração de Acesso & Autenticação de Congregações:");
+
+  await test("Registro de solicitação inicia com status PENDENTE_LIBERACAO", async () => {
+    const { registrarSolicitacao, obterTodasSolicitacoes } = await import(
+      "../src/lib/db/homologacoes.ts"
+    );
+
+    const testId = `TEST-SOL-${Date.now()}`;
+    const nova = await registrarSolicitacao({
+      id: testId,
+      tipo: "GRUPO_INFORMAL",
+      nomeEntidade: "Círculo das Águas Claras",
+      nomeResponsavel: "Padrinho João",
+      telefone: "68999991122",
+      email: "joao@aguasclaras.org",
+      cidade: "Rio Branco",
+      estado: "AC",
+      linhagem: "Linha da Floresta",
+      graduacao: "5.1 Pituã",
+      volumeEstimado: "5 Litros",
+      intencao: "Rezos comunitários mensais",
+    });
+
+    assert.strictEqual(nova.status, "PENDENTE_LIBERACAO");
+    assert.strictEqual(nova.id, testId);
+
+    const todas = await obterTodasSolicitacoes();
+    const encontrada = todas.find((s) => s.id === testId);
+    assert.ok(encontrada, "Solicitação deve persistir no banco de homologações");
+    assert.strictEqual(encontrada.status, "PENDENTE_LIBERACAO");
+  });
+
+  await test("Homologação gera Login, Senha litúrgica e mensagem de WhatsApp com link de acesso", async () => {
+    const { registrarSolicitacao, homologarSolicitacao } = await import(
+      "../src/lib/db/homologacoes.ts"
+    );
+
+    const testId = `TEST-HOM-${Date.now()}`;
+    await registrarSolicitacao({
+      id: testId,
+      tipo: "INSTITUICAO_FORMAL",
+      nomeEntidade: "Templo Estrela da Alvorada",
+      nomeResponsavel: "Madre Teresa",
+      telefone: "61998765432",
+      email: "teresa@alvorada.org",
+      cidade: "Brasília",
+      estado: "DF",
+      cnpj: "12.345.678/0001-90",
+      linhagem: "Santo Daime",
+      graduacao: "10.1 Wirapuru",
+      volumeEstimado: "20 Litros",
+      intencao: "Sessões oficiais e trabalhos litúrgicos",
+    });
+
+    const resultado = await homologarSolicitacao(testId);
+    assert.ok(resultado, "Homologação deve retornar sucesso");
+    assert.strictEqual(resultado.solicitacao.status, "HOMOLOGADO");
+    assert.ok(
+      resultado.loginGerado.startsWith("NAT-TEMPLO-"),
+      `Login ${resultado.loginGerado} deve iniciar com NAT-TEMPLO- para instituição formal`
+    );
+    assert.ok(
+      resultado.senhaGerada.startsWith("Luz"),
+      `Senha ${resultado.senhaGerada} deve iniciar com Luz`
+    );
+    assert.ok(resultado.whatsappUrl.includes("wa.me/5561998765432"), "URL deve apontar para o WhatsApp do dirigente");
+    assert.ok(decodeURIComponent(resultado.whatsappUrl).includes(resultado.loginGerado), "Mensagem deve conter o login gerado");
+    assert.ok(decodeURIComponent(resultado.whatsappUrl).includes(resultado.senhaGerada), "Mensagem deve conter a senha gerada");
+    assert.ok(decodeURIComponent(resultado.whatsappUrl).includes("/portal-dirigente"), "Mensagem deve conter link do portal");
+  });
+
+  await test("Autenticador de dirigente valida credenciais geradas dinamicamente e bloqueia senhas incorretas", async () => {
+    const { registrarSolicitacao, homologarSolicitacao, validarCredenciaisDirigente } = await import(
+      "../src/lib/db/homologacoes.ts"
+    );
+
+    const testId = `TEST-AUTH-${Date.now()}`;
+    await registrarSolicitacao({
+      id: testId,
+      tipo: "GRUPO_INFORMAL",
+      nomeEntidade: "Espaço Luz da Serra",
+      nomeResponsavel: "Guardião Carlos",
+      telefone: "11977778888",
+      email: "carlos@luzdaserra.org",
+      cidade: "Campos do Jordão",
+      estado: "SP",
+      linhagem: "Xamanismo",
+      graduacao: "3.1 Mainumbi",
+      volumeEstimado: "3 Litros",
+      intencao: "Jornadas de meditação sensorial",
+    });
+
+    const resHom = await homologarSolicitacao(testId);
+    assert.ok(resHom, "Resultado de homologação não pode ser nulo");
+    const { loginGerado, senhaGerada } = resHom;
+
+    // 1. Acesso correto com login gerado e senha gerada
+    const congregaoValida = await validarCredenciaisDirigente(loginGerado, senhaGerada);
+    assert.ok(congregaoValida, "Deve permitir acesso com credenciais válidas recém-homologadas");
+    assert.strictEqual(congregaoValida.nomeEntidade, "Espaço Luz da Serra");
+
+    // 2. Bloqueio com senha errada
+    const congregaoInvalida = await validarCredenciaisDirigente(loginGerado, "senha-totalmente-errada");
+    assert.strictEqual(congregaoInvalida, null, "Deve rejeitar senha incorreta");
+
+    // 3. Bloqueio com login inexistente
+    const loginInexistente = await validarCredenciaisDirigente("NAT-INEXISTENTE-999", "qualquer123");
+    assert.strictEqual(loginInexistente, null, "Deve rejeitar login inexistente");
+
+    // Limpeza de registros de teste
+    const fs = await import("fs/promises");
+    const path = await import("path");
+    const dbPath = path.join(process.cwd(), "data", "solicitacoes_homologacao.json");
+    try {
+      const raw = await fs.readFile(dbPath, "utf-8");
+      const list = JSON.parse(raw);
+      const cleaned = list.filter((item) => !item.id.startsWith("TEST-"));
+      await fs.writeFile(dbPath, JSON.stringify(cleaned, null, 2), "utf-8");
+    } catch {
+      // Ignora erro de limpeza
+    }
+  });
+
   console.log("\n=======================================================");
   console.log(`   RESULTADOS: ${passed} passaram | ${failed} falharam`);
   console.log("=======================================================\n");

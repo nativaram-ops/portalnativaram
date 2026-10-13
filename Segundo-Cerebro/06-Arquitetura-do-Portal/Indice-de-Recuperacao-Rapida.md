@@ -45,6 +45,9 @@ categoria: Índice Rápido
 | **Casa de Feitio & Etnobotânica** | `src/app/feitio/page.tsx` e `FeitioLanding.tsx` | Alquimia do feitio em menores micras, etnovariedades de cipó, Chacrona, recusa de Anayahuascas e HPLC |
 | **Credenciamento Aberto** | `src/app/credenciamento/page.tsx` | Formulário público para novas congregações institucionais solicitarem homologação (CNPJ/Ata) |
 | **Acolhimento de Grupos** | `src/app/reconhecimento/page.tsx` | Ficha de Reconhecimento e amparo fraterno para grupos informais e rezadores em desenvolvimento |
+| **Gestão de Homologações (ADM)** | `src/components/portal-dirigente/AdminGestaoHomologacoes.tsx` | Painel de homologação de congregações, filtros por tipo/status e emissão de login/senha |
+| **Motor de Homologações & Acesso** | `src/lib/db/homologacoes.ts` | Base de dados de solicitações, geração de credenciais (NAT-TEMPLO/NAT-GRP) e mensagens WhatsApp |
+| **APIs de Homologação & Auth** | `src/app/api/solicitacoes/` e `/api/auth/verificar-chave` | Endpoints REST para recepção de fichas, homologação pelo conselho e autenticação dinâmica |
 | **Funil Didático (5 Estações)** | `Segundo-Cerebro/06-Arquitetura-do-Portal/Funil-de-Conversao-e-Navegacao-Didatica.md` | Arquitetura das 5 estações (Origem -> Feitio -> Sacramentos -> Marco Legal -> Credenciamento) e política anti-inchaço |
 | **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0` e regras `@media print` |
 | **Harness & Skills Globais** | `Segundo-Cerebro/.../Guia-de-Skills-e-Comandos.md` e `AGENTS.md` | Catálogo das 40 skills locais, 8 da IDE e 31 do Novo Harness (OpenDesign, ECC, Graphify, Improve, Ponytail, Last30days, SkillSpector) |

@@ -98,8 +98,31 @@ export const CredenciamentoForm = () => {
       graduacaoInfo: getGraduacaoPorId(data.graduacaoPretendida),
     };
 
-    // Simula validação e armazenamento no conselho
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    // Registrar no banco de homologações do ADM
+    try {
+      await fetch("/api/solicitacoes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: protocolo,
+          tipo: "INSTITUICAO_FORMAL",
+          nomeEntidade: data.nomeInstituicao,
+          nomeResponsavel: data.nomeDirigente,
+          telefone: data.telefoneContato,
+          email: data.emailOficial,
+          cidade: data.cidade,
+          estado: data.estado,
+          cnpj: data.cnpj,
+          linhagem: "Tradição Institucional Formal",
+          graduacao: data.graduacaoPretendida,
+          volumeEstimado: `${data.numeroMembrosAtivos} membros`,
+          intencao: data.intencaoTrabalho,
+        }),
+      });
+    } catch (err) {
+      console.warn("Aviso ao persistir solicitação no ADM:", err);
+    }
+
     setDossier(newDossier);
     window.scrollTo({ top: 150, behavior: "smooth" });
   };
@@ -113,8 +136,23 @@ export const CredenciamentoForm = () => {
 
   // TELA DE SUCESSO: COMPROVANTE LITÚRGICO OFICIAL
   if (dossier) {
-    const whatsappQuery = formatDossierForWhatsApp(dossier);
-    const whatsappUrl = `https://wa.me/5527999818818?text=${whatsappQuery}`;
+    const msgLiberacao = [
+      `🏛️ *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
+      ``,
+      `Olá, Conselho Gestor da Cooperativa Nativaram!`,
+      `Acabamos de preencher nossa Ficha de Credenciamento no portal e gostaríamos de solicitar a liberação de acesso ao Portal do Dirigente.`,
+      ``,
+      `📜 *Protocolo:* \`${dossier.protocolo}\``,
+      `🏛️ *Instituição:* ${dossier.data.nomeInstituicao}`,
+      `👤 *Dirigente:* ${dossier.data.nomeDirigente}`,
+      `📱 *Contato:* ${dossier.data.telefoneContato}`,
+      `📍 *Sede:* ${dossier.data.cidade}/${dossier.data.estado}`,
+      `🌿 *Graduação Pretendida:* ${dossier.data.graduacaoPretendida}`,
+      ``,
+      `_Aguardamos a análise no sistema para recebermos nosso código de login e chave de segurança litúrgica._`,
+    ].join("\n");
+
+    const whatsappUrl = `https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`;
 
     return (
       <div className="card-elevated rounded-3xl p-6 sm:p-12 space-y-8 border-ambar-500/40 shadow-elevated relative overflow-hidden">
@@ -184,11 +222,11 @@ export const CredenciamentoForm = () => {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary w-full py-4 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-solar"
+            className="btn-primary w-full py-4 text-xs sm:text-sm font-bold flex items-center justify-center gap-2.5 shadow-solar rounded-2xl"
           >
             <Sparkles className="h-4 w-4" />
-            <span>Enviar Dossiê ao Conselho Guardião via WhatsApp</span>
-            <ExternalLink className="h-4 w-4" />
+            <span>Enviar para o WhatsApp do Conselho e Pedir Liberação</span>
+            <ExternalLink className="h-4 w-4 opacity-70" />
           </a>
 
           <div className="rounded-xl border border-ambar-500/20 bg-floresta-950/60 p-4 text-xs text-areia-300/90 leading-relaxed font-light space-y-2">

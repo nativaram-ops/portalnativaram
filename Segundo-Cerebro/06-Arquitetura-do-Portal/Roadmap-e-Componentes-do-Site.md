@@ -162,6 +162,15 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
     - *Página Dedicada e Pontes:* Criada `src/app/reconhecimento/page.tsx` com FAQ didático e link cruzado em `src/app/credenciamento/page.tsx` e no rodapé `Footer.tsx`.
     - *Verificação:* 19/19 testes automatizados verdes e compilação de produção com 34 rotas estáticas (`npm run build`).
 
+26. **Fluxo Integrado de Liberação de Acesso via WhatsApp & Homologação Administrativa Dinâmica:**
+    - *Disparo de Solicitação ao Conselho Gestor:* Ao concluir qualquer formulário (`/credenciamento` para instituições formais ou `/reconhecimento` para grupos em desenvolvimento), a tela de confirmação exibe botão proeminente "Enviar para o WhatsApp do Conselho e Pedir Liberação" (`556899779104`) com mensagem estruturada contendo Protocolo, Entidade, Dirigente, Localidade e pedido explícito de liberação.
+    - *Banco Central de Homologações (`src/lib/db/homologacoes.ts`):* Persistência de solicitações em `data/solicitacoes_homologacao.json` com status inicial `PENDENTE_LIBERACAO`.
+    - *Painel de Gestão e Homologação no ADM (`AdminGestaoHomologacoes.tsx`):* Integrado na aba CREDENCIAMENTOS do dashboard do Conselho Gestor (`PortalAdminDashboard.tsx`). Exibe métricas em tempo real, filtros por status e tipo, e botão de ação "Aceitar e Gerar Login/Senha".
+    - *Geração Automática de Credenciais Litúrgicas:* Ao aceitar, o sistema gera instantaneamente Login canônico (`NAT-TEMPLO-XXXX` para instituições ou `NAT-GRP-XXXX` para grupos) e Senha litúrgica segura (`Luz2026-XXXX`), atualizando o status para `HOMOLOGADO`.
+    - *Envio das Credenciais ao Dirigente via WhatsApp:* O painel gera link de disparo direto com mensagem pré-formatada contendo Login, Senha e URL de entrada (`/portal-dirigente`).
+    - *Autenticação Dinâmica no Gate (`PortalLoginGate.tsx` & `/api/auth/verificar-chave`):* Validação assíncrona das credenciais recém-geradas no gate de entrada, permitindo acesso imediato ao Portal do Dirigente sem necessidade de reinício do servidor.
+    - *Cobertura de Testes Automatizados:* 22/22 testes aprovados (`scripts/test-liturgico.mjs`), incluindo validação de persistência, homologação, geração de chaves e bloqueio de senhas incorretas.
+
 ---
 
 ## Relações

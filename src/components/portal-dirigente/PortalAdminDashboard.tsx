@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { AdminGestaoPedidos } from "@/components/portal-dirigente/AdminGestaoPedidos";
+import { AdminGestaoHomologacoes } from "@/components/portal-dirigente/AdminGestaoHomologacoes";
 import { PortalCooperativismo } from "@/components/portal-dirigente/PortalCooperativismo";
 import { TemploMock, lotesFeitio, enviosLogistica } from "@/data/portal-mock";
 
@@ -216,89 +217,8 @@ export const PortalAdminDashboard: React.FC<PortalAdminDashboardProps> = ({
         </div>
       )}
 
-      {/* CONTEÚDO DA ABA 2: HOMOLOGAÇÃO DE TEMPLOS */}
-      {activeTab === "CREDENCIAMENTOS" && (
-        <div className="space-y-6 animate-fade-in">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div>
-              <h3 className="font-serif text-xl font-bold text-areia-100">
-                Congregações & Templos em Processo de Homologação
-              </h3>
-              <p className="text-xs text-areia-400 font-light">
-                Análise de atas de fundação, conformidade CONAD 01/2010 e termo de responsabilidade litúrgica.
-              </p>
-            </div>
-          </div>
-
-          <div className="card-elevated rounded-2xl overflow-hidden border-ambar-500/20 bg-floresta-950/90">
-            <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs text-areia-300">
-                <thead className="bg-floresta-900/90 text-[11px] uppercase tracking-wider text-areia-400 border-b border-ambar-500/15">
-                  <tr>
-                    <th className="py-3.5 px-4 font-semibold">Templo / Instituição</th>
-                    <th className="py-3.5 px-4 font-semibold">Dirigente Litúrgico</th>
-                    <th className="py-3.5 px-4 font-semibold">CNPJ</th>
-                    <th className="py-3.5 px-4 font-semibold">Graduação Solicitada</th>
-                    <th className="py-3.5 px-4 font-semibold">Status CONAD</th>
-                    <th className="py-3.5 px-4 font-semibold text-right">Ação</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-ambar-500/10">
-                  {templosFiltrados.map((templo) => (
-                    <tr key={templo.id} className="hover:bg-floresta-900/40 transition-colors">
-                      <td className="py-4 px-4">
-                        <strong className="font-serif text-areia-100 block font-bold">
-                          {templo.nome}
-                        </strong>
-                        <span className="text-[11px] text-areia-400 font-light">
-                          {templo.cidade} • {templo.id}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4">{templo.dirigente}</td>
-                      <td className="py-4 px-4 font-mono text-[11px]">{templo.cnpj}</td>
-                      <td className="py-4 px-4">
-                        <span className="text-amber-300 font-medium">{templo.graduacao}</span>
-                        <span className="block text-[10px] text-areia-400 font-light">
-                          Volume: {templo.volume}
-                        </span>
-                      </td>
-                      <td className="py-4 px-4">
-                        {templo.status === "HOMOLOGADO" ? (
-                          <span className="inline-flex items-center gap-1 text-emerald-400 font-semibold text-[11px]">
-                            <CheckCircle2 className="h-3.5 w-3.5" />
-                            <span>Homologado</span>
-                          </span>
-                        ) : (
-                          <span className="inline-flex items-center gap-1 text-amber-400 font-semibold text-[11px]">
-                            <Clock className="h-3.5 w-3.5" />
-                            <span>Em Análise</span>
-                          </span>
-                        )}
-                      </td>
-                      <td className="py-4 px-4 text-right">
-                        {templo.status !== "HOMOLOGADO" ? (
-                          <button
-                            type="button"
-                            onClick={() => onHomologarTemplo(templo.id)}
-                            className="py-1 px-3 rounded-lg border border-emerald-500/30 bg-emerald-950/40 hover:bg-emerald-900/60 text-emerald-300 text-xs font-semibold inline-flex items-center gap-1 transition-colors"
-                          >
-                            <Check className="h-3 w-3" />
-                            <span>Homologar</span>
-                          </button>
-                        ) : (
-                          <span className="text-[11px] text-areia-400 font-light italic">
-                            Aprovado em {templo.dataAprovacao}
-                          </span>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* CONTEÚDO DA ABA 2: HOMOLOGAÇÕES DE TEMPLOS & ACOLHIMENTO DE GRUPOS */}
+      {activeTab === "CREDENCIAMENTOS" && <AdminGestaoHomologacoes />}
 
       {/* CONTEÚDO DA ABA 3: GESTÃO DE LOTES NO ACRE */}
       {activeTab === "LOTES" && (

@@ -1,0 +1,42 @@
+[
+  {
+    "id": "NAT-TEMPLO-842",
+    "tipo": "INSTITUICAO_FORMAL",
+    "nomeEntidade": "Templo Céu do Cruzeiro",
+    "nomeResponsavel": "Padrinho Marcos Silva",
+    "telefone": "11987654321",
+    "email": "marcos@ceudocruzeiro.org",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "cnpj": "34.567.890/0001-12",
+    "linhagem": "Linha do Santo Daime",
+    "graduacao": "10.1 Wirapuru",
+    "volumeEstimado": "10 Litros",
+    "intencao": "Sessões doutrinárias e hinários de cura.",
+    "status": "HOMOLOGADO",
+    "loginGerado": "NAT-TEMPLO-842",
+    "senhaGerada": "cruzeiro2026",
+    "dataEnvio": "14/05/2025",
+    "dataHomologacao": "14/05/2025"
+  },
+  {
+    "id": "NAT-TEMPLO-913",
+    "tipo": "INSTITUICAO_FORMAL",
+    "nomeEntidade": "Fraternidade Rainha da Floresta",
+    "nomeResponsavel": "Madre Clara Albuquerque",
+    "telefone": "21998877665",
+    "email": "clara@rainhadafloresta.org",
+    "cidade": "Petrópolis",
+    "estado": "RJ",
+    "cnpj": "45.678.901/0001-23",
+    "linhagem": "Xamanismo Universalista",
+    "graduacao": "5.1 Pituã",
+    "volumeEstimado": "15 Litros",
+    "intencao": "Ritos de autocuidado e reconexão sensorial.",
+    "status": "HOMOLOGADO",
+    "loginGerado": "NAT-TEMPLO-913",
+    "senhaGerada": "floresta2026",
+    "dataEnvio": "02/08/2025",
+    "dataHomologacao": "03/08/2025"
+  }
+]

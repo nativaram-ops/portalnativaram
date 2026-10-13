@@ -115,7 +115,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
   };
 
   // Login Canônico via Chave de Segurança
-  const handleLoginCanonico = (e: React.FormEvent) => {
+  const handleLoginCanonico = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
 
@@ -134,10 +134,10 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
       return;
     }
 
-    // 2. TEMPLO
+    // 2. TEMPLO / GRUPO
     if (modoLogin === "DIRIGENTE") {
       if (!loginLimpo) {
-        setErrorMsg("Informe o código de homologação do templo (ex: NAT-TEMPLO-842).");
+        setErrorMsg("Informe o código de homologação da congregação (ex: NAT-TEMPLO-842 ou NAT-GRP-XXX).");
         return;
       }
 
@@ -146,6 +146,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         return;
       }
 
+      // 1. Checagem em congregações pré-cadastradas
       const temploEncontrado = templosIniciais.find(
         (t) => t.id.toUpperCase() === loginUpper || t.id.toLowerCase() === loginLower
       );
@@ -155,13 +156,33 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         return;
       }
 
+      // 2. Checagem no banco de congregações e grupos homologados pelo ADM
+      try {
+        const res = await fetch("/api/auth/verificar-chave", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ login: loginLimpo, senha: senhaLimpa }),
+        });
+
+        if (res.ok) {
+          const json = await res.json();
+          if (json.sucesso && json.congregao) {
+            onAuthenticated("DIRIGENTE", json.congregao.id);
+            return;
+          }
+        }
+      } catch (errApi) {
+        console.warn("Aviso ao validar chave com API:", errApi);
+      }
+
+      // 3. Fallback para códigos canônicos prefixados com NAT-
       if (loginUpper.startsWith("NAT-")) {
         onAuthenticated("DIRIGENTE", loginUpper);
         return;
       }
 
       setErrorMsg(
-        "Código de homologação não encontrado. Apenas congregações previamente cadastradas e aprovadas possuem acesso restrito a este portal."
+        "Código de homologação ou senha não encontrados. Apenas congregações e grupos aprovados pelo Conselho possuem acesso ao portal."
       );
     }
   };

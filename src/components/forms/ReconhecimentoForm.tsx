@@ -132,7 +132,49 @@ export const ReconhecimentoForm = () => {
       if (res.ok) {
         const json = await res.json();
         setDossier(json.dossier);
-        setWhatsappDirectUrl(json.whatsappUrl);
+
+        // Mensagem formatada pedindo liberação direta do acesso
+        const msgLiberacao = [
+          `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
+          ``,
+          `Olá, Conselho Gestor da Cooperativa Nativaram!`,
+          `Acabei de preencher a Ficha de Reconhecimento no portal e gostaria de solicitar a liberação de acesso ao Portal do Dirigente.`,
+          ``,
+          `📜 *Protocolo:* \`${json.protocolo}\``,
+          `🪶 *Grupo / Rezo:* ${data.nomeIdentificacao}`,
+          `👤 *Guardião Responsável:* ${data.nomeResponsavel}`,
+          `📱 *WhatsApp:* ${data.telefoneContato}`,
+          `📍 *Localidade:* ${data.cidade}/${data.estado}`,
+          `✨ *Graduação Desejada:* ${data.graduacaoPretendida} (~${data.litragemEstimadaMensal}L/mês)`,
+          ``,
+          `_Aguardamos a apreciação no sistema para recebermos nosso código de login e senha de acesso._`,
+        ].join("\n");
+
+        setWhatsappDirectUrl(`https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`);
+
+        // Registrar no banco central de homologações para o ADM
+        try {
+          await fetch("/api/solicitacoes", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              id: json.protocolo,
+              tipo: "GRUPO_INFORMAL",
+              nomeEntidade: data.nomeIdentificacao,
+              nomeResponsavel: data.nomeResponsavel,
+              telefone: data.telefoneContato,
+              email: data.emailContato,
+              cidade: data.cidade,
+              estado: data.estado,
+              linhagem: data.linhagemEspiritual,
+              graduacao: data.graduacaoPretendida,
+              volumeEstimado: `${data.litragemEstimadaMensal} Litros`,
+              intencao: data.intencaoTrabalho,
+            }),
+          });
+        } catch (errSync) {
+          console.warn("Aviso ao sincronizar com ADM:", errSync);
+        }
       } else {
         // Fallback local se a rota de API oscilar
         const fallbackProtocolo = generateProtocoloReconhecimento();
@@ -149,9 +191,25 @@ export const ReconhecimentoForm = () => {
           data,
           graduacaoInfo: getGraduacaoPorId(data.graduacaoPretendida),
         };
-        const query = formatReconhecimentoWhatsApp(fallbackDossier);
+
+        const msgLiberacao = [
+          `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
+          ``,
+          `Olá, Conselho Gestor da Cooperativa Nativaram!`,
+          `Acabei de preencher a Ficha de Reconhecimento no portal e gostaria de solicitar a liberação de acesso ao Portal do Dirigente.`,
+          ``,
+          `📜 *Protocolo:* \`${fallbackProtocolo}\``,
+          `🪶 *Grupo / Rezo:* ${data.nomeIdentificacao}`,
+          `👤 *Guardião Responsável:* ${data.nomeResponsavel}`,
+          `📱 *WhatsApp:* ${data.telefoneContato}`,
+          `📍 *Localidade:* ${data.cidade}/${data.estado}`,
+          `✨ *Graduação Desejada:* ${data.graduacaoPretendida} (~${data.litragemEstimadaMensal}L/mês)`,
+          ``,
+          `_Aguardamos a apreciação no sistema para recebermos nosso código de login e senha de acesso._`,
+        ].join("\n");
+
         setDossier(fallbackDossier);
-        setWhatsappDirectUrl(`https://wa.me/556899779104?text=${query}`);
+        setWhatsappDirectUrl(`https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`);
       }
     } catch {
       // Fallback gracioso offline
@@ -169,9 +227,25 @@ export const ReconhecimentoForm = () => {
         data,
         graduacaoInfo: getGraduacaoPorId(data.graduacaoPretendida),
       };
-      const query = formatReconhecimentoWhatsApp(fallbackDossier);
+
+      const msgLiberacao = [
+        `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
+        ``,
+        `Olá, Conselho Gestor da Cooperativa Nativaram!`,
+        `Acabei de preencher a Ficha de Reconhecimento no portal e gostaria de solicitar a liberação de acesso ao Portal do Dirigente.`,
+        ``,
+        `📜 *Protocolo:* \`${fallbackProtocolo}\``,
+        `🪶 *Grupo / Rezo:* ${data.nomeIdentificacao}`,
+        `👤 *Guardião Responsável:* ${data.nomeResponsavel}`,
+        `📱 *WhatsApp:* ${data.telefoneContato}`,
+        `📍 *Localidade:* ${data.cidade}/${data.estado}`,
+        `✨ *Graduação Desejada:* ${data.graduacaoPretendida} (~${data.litragemEstimadaMensal}L/mês)`,
+        ``,
+        `_Aguardamos a apreciação no sistema para recebermos nosso código de login e senha de acesso._`,
+      ].join("\n");
+
       setDossier(fallbackDossier);
-      setWhatsappDirectUrl(`https://wa.me/556899779104?text=${query}`);
+      setWhatsappDirectUrl(`https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`);
     }
 
     window.scrollTo({ top: 200, behavior: "smooth" });
@@ -298,7 +372,7 @@ export const ReconhecimentoForm = () => {
             className="btn-primary w-full flex items-center justify-center gap-3 py-4 text-sm font-semibold rounded-2xl shadow-solar"
           >
             <MessageCircle className="h-5 w-5" />
-            <span>Enviar Ficha pelo WhatsApp do Conselho</span>
+            <span>Enviar para o WhatsApp do Conselho e Pedir Liberação</span>
             <ExternalLink className="h-4 w-4 opacity-70" />
           </a>
           <p className="text-[11px] text-center text-areia-400 font-light">
