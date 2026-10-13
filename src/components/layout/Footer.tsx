@@ -19,7 +19,7 @@ const footerLinks = [
   { href: "/institucional", label: "Manifesto" },
   { href: "/feitio", label: "Feitio" },
   { href: "/medicinas", label: "Sacramentos" },
-  { href: "/estudos", label: "Estudos & Dossiês" },
+  { href: "/estudos", label: "Estudos & Comunidade" },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal" },
   { href: "/credenciamento", label: "Credenciamento Litúrgico" },

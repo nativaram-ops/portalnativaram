@@ -13,7 +13,7 @@ const navLinks = [
   { href: "/sacramentos", label: "Sacramentos" },
   { href: "/compliance", label: "Marco Legal", icon: true },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
-  { href: "/estudos", label: "Estudos", badge: "PDFs" },
+  { href: "/estudos", label: "Estudos", badge: "Comunidade" },
   { href: "/contato", label: "Contato" },
 ];
 
