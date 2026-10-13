@@ -39,6 +39,7 @@ src/
 │   ├── medicinas/ (Compêndio Etnobotânico: Ciência Biogeoquímica, pH 9.75-10.2, Sananga e Artefatos)
 │   ├── medicinas/[slug]/ (Ficha Individual Fitoquímica, Benefícios e Rateio Cooperativo)
 │   ├── credenciamento/ (Ficha Institucional, Termo Deontológico e Triagem ISRS)
+│   ├── reconhecimento/ (Acolhimento Fraterno para Grupos em Formação e Rezadores)
 │   ├── compliance/ (Blindagem Jurídica ANVISA 2025 e Resoluções CONAD)
 │   ├── estudos/ (Compêndio de Ensaios Científicos e Artigos Etnofarmacológicos)
 │   └── projetos-de-luz/ (Regeneração Social, Apoio Comunitário e Agrofloresta)
@@ -58,7 +59,9 @@ src/
 │   │   ├── FormSolicitacaoPedido.tsx (Catálogo de sacramentos, rateio, mensagem e WhatsApp)
 │   │   ├── AcompanhamentoPedidos.tsx (Timeline 5 fases, rastreio, lotes e re-order)
 │   │   └── AdminGestaoPedidos.tsx (Métricas vivas, gestão de status, lotes e avisos WhatsApp)
-│   ├── forms/CredenciamentoForm.tsx (Anamnese, Prévia Dinâmica HPLC e Washout 5 Semanas)
+│   ├── forms/
+│   │   ├── CredenciamentoForm.tsx (Anamnese Institucional com CNPJ/Ata)
+│   │   └── ReconhecimentoForm.tsx (Acolhimento Fraterno de Grupos Informais e Rezadores)
 │   ├── layout/PortalDirigenteClient.tsx (Orquestrador inteligente com autenticação por perfis)
 │   ├── manifesto/ManifestoLanding.tsx (Gênese e Etnociência Horizontal)
 │   └── ui/ (Compound Components: Card, Badge, Section, PageHero, AnimateOnScroll, Input, Logo)
@@ -73,9 +76,12 @@ src/
 │   ├── db/pedidos.ts (Persistência atômica em data/pedidos.json e gerador de protocolos)
 │   ├── validators/pedido.ts (Schemas Zod de pedidos e atualizações)
 │   ├── validators/credenciamento.ts (Schema Zod com Termo de Segurança Integrativa)
-│   └── credenciamento/engine.ts (Motor de Análise, Dossiê Litúrgico e Sanitização WhatsApp)
+│   ├── validators/reconhecimento.ts (Schema Zod de Acolhimento Fraterno sem CNPJ)
+│   ├── credenciamento/engine.ts (Motor de Dossiê e Sanitização WhatsApp Institucional)
+│   └── reconhecimento/engine.ts (Motor de Protocolo REC- e Sanitização WhatsApp de Acolhimento)
 └── data/
-    └── pedidos.json (Base de dados JSON atômica das solicitações litúrgicas)
+    ├── pedidos.json (Base de dados JSON atômica das solicitações litúrgicas)
+    └── reconhecimentos.json (Base atômica de cadastros de grupos em formação)
 ```
 
 ---
@@ -147,6 +153,14 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
     - *Arquitetura em 4 Camadas:* Formalizada em `implementation_plan.md` e `task.md`. Implementado helper `withTimeout` (2000ms) para resiliência no banco remoto Supabase.
     - *Auditoria Factual Gauntlet Loop:* Inspeção visual com Google Chrome DevTools Protocol (zero erros no console), 8 rotas verificadas com HTTP 200 via crawler e 16/16 testes automatizados verdes.
     - *Fechamento e Handoff:* Gerados `walkthrough.md`, `HANDOFF.md` e registro de aprendizado contínuo em `.agents/skills/learned-resilient-db-timeouts/`.
+25. **Acolhimento Fraterno de Grupos Informais & Rezadores Autônomos (`/reconhecimento`):**
+    - *Motivação e Propósito:* Acolher núcleos espirituais em formação, rodas familiares de oração e rezadores tradicionais que ainda não possuem personalidade jurídica (CNPJ/Ata), sem frieza burocrática, garantindo acesso a sacramentos puristas e amparo pedagógico até uma futura formalização institucional sob a Resolução CONAD nº 01/2010.
+    - *Schema e Validação Zod:* Criado `src/lib/validators/reconhecimento.ts` com validação de perfil (Grupo, Rezador, Círculo de Estudos, Comunidade Tradicional), linhagem, participantes, graduações canônicas, litragem (cota de 5L+), antecedência de 30 dias e triagem integrativa de segurança.
+    - *Engine de Protocolo & WhatsApp:* Implementado `src/lib/reconhecimento/engine.ts` com gerador de protocolo `REC-2026-XXXX` e formatador de mensagem estruturada e respeitosa para envio via WhatsApp do Conselho Gestor da Cooperativa.
+    - *Persistência Híbrida & API:* Rota REST `src/app/api/reconhecimento/route.ts` com persistência local atômica em `data/reconhecimentos.json`.
+    - *Componente Interativo:* `ReconhecimentoForm.tsx` com stepper em 3 etapas, seleção tátil de perfis, showcase das 4 graduações canônicas e tela solene de comprovante.
+    - *Página Dedicada e Pontes:* Criada `src/app/reconhecimento/page.tsx` com FAQ didático e link cruzado em `src/app/credenciamento/page.tsx` e no rodapé `Footer.tsx`.
+    - *Verificação:* 19/19 testes automatizados verdes e compilação de produção com 34 rotas estáticas (`npm run build`).
 
 ---
 

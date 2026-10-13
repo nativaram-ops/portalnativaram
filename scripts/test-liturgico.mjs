@@ -331,6 +331,100 @@ async function runAllTests() {
     assert.ok(centralContent.includes("window.print()"), "Deve conter gatilho de impressão A4");
   });
 
+  // 8. ACOLHIMENTO LITÚRGICO & GRUPOS INFORMAIS (OPÇÃO B - /reconhecimento)
+  console.log("\n8. Acolhimento Litúrgico & Grupos Informais em Desenvolvimento:");
+
+  await test("Validador de Reconhecimento aceita grupo informal em desenvolvimento", async () => {
+    const { ReconhecimentoSchema } = await import("../src/lib/validators/reconhecimento.ts");
+    const payloadValido = {
+      tipoVinculo: "GRUPO_EM_FORMACAO",
+      nomeIdentificacao: "Círculo Flor da Mata",
+      linhagemEspiritual: "Xamanismo Universalista",
+      tempoJornada: "3 anos de estudos",
+      quantidadeParticipantes: "8 a 12 participantes",
+      frequenciaEncontros: "MENSAL",
+      graduacaoPretendida: "5.1_PITUA",
+      litragemEstimadaMensal: "5",
+      intencaoTrabalho: "Vigílias de oração e reconexão espiritual fraterna.",
+      nomeResponsavel: "Condutor Fraterno",
+      telefoneContato: "11987654321",
+      emailContato: "condutor@flordamata.org",
+      cidade: "São Paulo",
+      estado: "SP",
+      metodoContatoPreferencial: "WHATSAPP",
+      concordaUsoLiturgico: true,
+      planejamentoAntecedencia30Dias: true,
+      compromissoTriagemSeguranca: true,
+    };
+    const result = ReconhecimentoSchema.safeParse(payloadValido);
+    assert.ok(result.success, "Payload válido deve ser aceito sem exigência de CNPJ");
+  });
+
+  await test("Validador de Reconhecimento rejeita dados sem compromisso litúrgico", async () => {
+    const { ReconhecimentoSchema } = await import("../src/lib/validators/reconhecimento.ts");
+    const payloadSemCompromisso = {
+      tipoVinculo: "REZADOR_AUTONOMO",
+      nomeIdentificacao: "Rezo da Serra",
+      linhagemEspiritual: "Linha Nativa",
+      tempoJornada: "5 anos",
+      quantidadeParticipantes: "5 pessoas",
+      frequenciaEncontros: "QUINZENAL",
+      graduacaoPretendida: "10.1_WIRAPURU",
+      litragemEstimadaMensal: "5",
+      intencaoTrabalho: "Cerimônias tradicionais de acalento.",
+      nomeResponsavel: "Rezador João",
+      telefoneContato: "27999887766",
+      emailContato: "joao@rezo.org",
+      cidade: "Serra",
+      estado: "ES",
+      metodoContatoPreferencial: "WHATSAPP",
+      concordaUsoLiturgico: false, // Rejeita!
+      planejamentoAntecedencia30Dias: true,
+      compromissoTriagemSeguranca: true,
+    };
+    const result = ReconhecimentoSchema.safeParse(payloadSemCompromisso);
+    assert.strictEqual(result.success, false, "Deve rejeitar ausência de compromisso com CONAD 01/2010");
+  });
+
+  await test("Motor de Reconhecimento formata protocolo REC- e mensagem WhatsApp respeitosa", async () => {
+    const { generateProtocoloReconhecimento, formatReconhecimentoWhatsApp } = await import(
+      "../src/lib/reconhecimento/engine.ts"
+    );
+    const protocolo = generateProtocoloReconhecimento();
+    assert.ok(protocolo.startsWith("REC-"), "Protocolo deve iniciar com REC-");
+
+    const mockDossier = {
+      protocolo,
+      dataSubmissao: "13/10/2026",
+      data: {
+        tipoVinculo: "GRUPO_EM_FORMACAO",
+        nomeIdentificacao: "Círculo Sol Nascente",
+        linhagemEspiritual: "Linha do Santo Daime",
+        tempoJornada: "2 anos",
+        quantidadeParticipantes: "10 pessoas",
+        frequenciaEncontros: "MENSAL",
+        graduacaoPretendida: "5.1_PITUA",
+        litragemEstimadaMensal: "5",
+        intencaoTrabalho: "Estudos dos hinários e orações.",
+        nomeResponsavel: "Maria Guardiã",
+        telefoneContato: "31988887777",
+        emailContato: "maria@solnascente.org",
+        cidade: "Belo Horizonte",
+        estado: "MG",
+        metodoContatoPreferencial: "WHATSAPP",
+        concordaUsoLiturgico: true,
+        planejamentoAntecedencia30Dias: true,
+        compromissoTriagemSeguranca: true,
+      },
+    };
+
+    const textoUrl = formatReconhecimentoWhatsApp(mockDossier);
+    const decoded = decodeURIComponent(textoUrl);
+    assert.ok(decoded.includes(protocolo), "Deve conter o protocolo gerado");
+    assert.ok(decoded.includes("Círculo Sol Nascente"), "Deve conter o nome do grupo");
+    assert.ok(decoded.includes("CONAD nº 01/2010"), "Deve referenciar o CONAD");
+  });
+
   console.log("\n=======================================================");
   console.log(`   RESULTADOS: ${passed} passaram | ${failed} falharam`);
   console.log("=======================================================\n");

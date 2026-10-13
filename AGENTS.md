@@ -166,7 +166,7 @@ As habilidades especializadas do projeto estão localizadas em `.agents/skills/`
 
 ## 🌐 Skills Globais da IDE (Instaladas na IDE — Nível Global)
 
-Para manter a organização cristalina e zero colisão com as 43 skills locais do projeto (`.agents/skills/`), as habilidades abaixo estão instaladas no diretório global da IDE (`C:\Users\victo\.gemini\config\skills\`) e estão acessíveis automaticamente neste e em outros projetos:
+Todas as habilidades abaixo (além do espelhamento global das 44 skills locais do projeto) estão instaladas no diretório global da IDE (`C:\Users\victo\.gemini\config\skills\`) e estão acessíveis automaticamente neste e em qualquer outro projeto do ambiente:
 
 ### 1. Stack Web & Frontend Pré-existente (Instaladas pelo Desenvolvedor)
 Habilidades que já haviam sido instaladas previamente na IDE para apoiar o stack Next.js e Tailwind:
@@ -232,5 +232,59 @@ Suíte de design de elite para elevar a interface a padrão de excelência visua
 #### 🛡️ G. Segurança de Habilidades & Auditoria Agêntica
 - **`/skill-inspector`** (`nvidia/skillspector`): Scanner de segurança estática e semântica da NVIDIA para auditar habilidades de IA contra injeções de prompt, scripts não declarados ou privilégios excessivos.
 
+---
 
+### 3. ⚡ Novos Diretórios do GitHub (Instaladas na IDE — Nível Global)
+As 10 ferramentas e frameworks adicionados para expansão de capacidades operacionais, automação web e engenharia avançada:
 
+1. **Firecrawl Web Scraping & MCP** (`firecrawl/firecrawl-mcp-server` & `glebis/claude-skills`):
+   - **`/firecrawl-research`**: Acesso à web em tempo real, pesquisa aprofundada, extração em Markdown limpo e mapeamento estruturado de páginas.
+   - **MCP Server**: Registrado globalmente como `firecrawl` (`npx -y firecrawl-mcp`).
+
+2. **stop-slop** (`hardikpandya/stop-slop`):
+   - **`/stop-slop`**: Filtra e elimina vícios de escrita de IA, jargões corporativos, travessões em excesso e aberturas prolixas em documentações e textos.
+
+3. **Handoff Session Suite** (`pborenstein/handoff`):
+   - **`/handoff`**: Protocolo de transição estruturada de sessões.
+   - **`/handoff-session-wrapup`**: Comprime e resume a sessão atual com histórico de entregas, decisões e arquivos modificados.
+   - **`/handoff-session-pickup`**: Lê o estado a partir do handoff anterior e retoma a execução sem perda de contexto.
+   - **`/handoff-project-tracking`**: Estrutura a documentação viva (`docs/CONTEXT.md`, `docs/IMPLEMENTATION.md`, `docs/DECISIONS.md`).
+
+4. **Grill Me** (`RobMitt/grill-me-skill`):
+   - **`/grill-me`**: Entrevista o desenvolvedor de forma rigorosa antes de codificar, eliminando ambiguidades e validando premissas de arquitetura.
+
+5. **Obra Superpowers** (`obra/superpowers`):
+   - **`/obra-superpowers`**: Framework completo de desenvolvimento agêntico.
+   - **`/obra-brainstorming`**: Formulação e estresse de ideias em especificações claras.
+   - **`/obra-using-git-worktrees`**: Criação de diretórios de trabalho isolados e seguros para cada branch.
+   - **`/obra-test-driven-development`**: Ciclo TDD estrito (Red-Green-Refactor).
+   - **`/obra-systematic-debugging`**: Diagnóstico metódico de causa raiz e hipóteses falsificáveis.
+   - **`/obra-subagent-driven-development`**: Orquestração e despacho de subagentes paralelos e especializados.
+   - **`/obra-finishing-a-development-branch`**: Fechamento seguro de branches com verificação e testes.
+
+6. **Understand-Anything** (`Egonex-AI/Understand-Anything`):
+   - **`/understand-anything`** / **`/understand`**: Converte a base de código em um grafo interativo de conhecimento.
+   - **`/understand-dashboard`**: Dashboard executivo com métricas de complexidade e acoplamento.
+   - **`/understand-knowledge`**: Mapeamento semântico de contratos de domínio e dependências.
+   - **`/understand-explain`**: Explica a finalidade técnica de módulos específicos.
+   - **`/understand-diff`**: Análise de impacto arquitetural de diffs.
+   - **`/understand-onboard`**: Guia de integração para novos desenvolvedores e agentes.
+
+7. **Caveman** (`JuliusBrussee/caveman`):
+   - **`/caveman`**: Modo conciso extremo que economiza ~65% de tokens de saída, eliminando cortesias e narrações vazias e focando 100% em código e fatos técnicos.
+   - **`/caveman-compress`**: Compressão de especificações e prompts.
+   - **`/caveman-commit`**: Mensagens de commit ultra diretas e sem ruído.
+   - **`/caveman-review`**: Revisão sucinta e cirúrgica de código.
+
+8. **skill-optimizer** (`hqhq1025/skill-optimizer`):
+   - **`/skill-optimizer`**: Kit de ciclo de vida para evolução de habilidades agênticas.
+   - **`/skill-miner`**: Minera o histórico de sessões para identificar rotinas repetitivas e criar novas skills.
+   - **`/skill-personalizer`**: Ajusta skills para estilos e restrições específicas do usuário.
+   - **`/skill-generalizer`**: Generaliza e higieniza skills para reuso e compartilhamento.
+
+9. **Vault Daydream** (`glebis/claude-skills` — *daydream*):
+   - **`/vault-daydream`**: Análise de notas em cofres do Obsidian com subagentes em paralelo para descobrir conexões ocultas, links conceituais e novos insights.
+
+10. **Composio** (`ComposioHQ/composio` & `ComposioHQ/awesome-claude-skills`):
+    - **`/composio`**: Gateway para conectar o agente a mais de 1.000 integrações SaaS (GitHub, Linear, Slack, Stripe, Jira, Google Workspace).
+    - **MCP Server**: Registrado globalmente como `composio` (`npx -y composio-core mcp start`).

@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import Image from "next/image";
 import {
   ShieldCheck,
@@ -13,6 +14,7 @@ import {
   Clock,
   KeyRound,
   Send,
+  ArrowRight,
 } from "lucide-react";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { CredenciamentoForm } from "@/components/forms/CredenciamentoForm";
@@ -75,6 +77,23 @@ export default function CredenciamentoPage() {
             <p className="text-base sm:text-lg text-areia-200 max-w-3xl mx-auto leading-relaxed font-light">
               Em estrita conformidade com o <strong>Artigo 5º, VI da Constituição Federal</strong> e a <strong>Resolução CONAD nº 01/2010</strong>, o provimento cooperativo de sacramentos botânicos tradicionais é reservado a congregações homologadas pelo Conselho Guardião da Cooperativa Nativaram.
             </p>
+          </AnimateOnScroll>
+
+          {/* Banner de Acolhimento Fraterno para Grupos em Formação e Rezadores */}
+          <AnimateOnScroll delay={350}>
+            <div className="inline-flex flex-wrap items-center justify-center gap-2 p-2 px-4 rounded-2xl bg-floresta-900/90 border border-ambar-500/25 text-xs text-areia-300 shadow-sm max-w-2xl mx-auto">
+              <span className="px-2.5 py-0.5 rounded-full bg-ambar-500/20 text-ambar-300 font-semibold font-mono text-[11px]">
+                Grupo em Formação ou Rezador?
+              </span>
+              <span>Ainda não possui CNPJ ou personalidade jurídica formal?</span>
+              <Link
+                href="/reconhecimento"
+                className="text-ambar-400 font-semibold hover:underline flex items-center gap-1"
+              >
+                <span>Acesse a Ficha de Reconhecimento Fraterno</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
           </AnimateOnScroll>
 
           {/* Timeline de Homologação em 3 Passos Claros */}

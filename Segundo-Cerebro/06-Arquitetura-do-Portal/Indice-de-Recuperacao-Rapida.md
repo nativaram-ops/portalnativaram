@@ -43,7 +43,8 @@ categoria: Índice Rápido
 | **Catálogo de Graduações** | `src/data/graduacoes.ts` | Perfil fitoquímico Tucunacá (Harmina, Harmalina, THH) e porções |
 | **Catálogo de Rapés/Artefatos** | `src/data/sacramentos.ts` e `medicinas.ts` | 10 rapés tradicionais (pH alcalino), Kuripes, Tepis e Sananga |
 | **Casa de Feitio & Etnobotânica** | `src/app/feitio/page.tsx` e `FeitioLanding.tsx` | Alquimia do feitio em menores micras, etnovariedades de cipó, Chacrona, recusa de Anayahuascas e HPLC |
-| **Credenciamento Aberto** | `src/app/credenciamento/page.tsx` | Formulário público para novas congregações solicitarem homologação |
+| **Credenciamento Aberto** | `src/app/credenciamento/page.tsx` | Formulário público para novas congregações institucionais solicitarem homologação (CNPJ/Ata) |
+| **Acolhimento de Grupos** | `src/app/reconhecimento/page.tsx` | Ficha de Reconhecimento e amparo fraterno para grupos informais e rezadores em desenvolvimento |
 | **Funil Didático (5 Estações)** | `Segundo-Cerebro/06-Arquitetura-do-Portal/Funil-de-Conversao-e-Navegacao-Didatica.md` | Arquitetura das 5 estações (Origem -> Feitio -> Sacramentos -> Marco Legal -> Credenciamento) e política anti-inchaço |
 | **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0` e regras `@media print` |
 | **Harness & Skills Globais** | `Segundo-Cerebro/.../Guia-de-Skills-e-Comandos.md` e `AGENTS.md` | Catálogo das 40 skills locais, 8 da IDE e 31 do Novo Harness (OpenDesign, ECC, Graphify, Improve, Ponytail, Last30days, SkillSpector) |

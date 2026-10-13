@@ -22,6 +22,8 @@ const footerLinks = [
   { href: "/estudos", label: "Estudos & Dossiês" },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal" },
+  { href: "/credenciamento", label: "Credenciamento Litúrgico" },
+  { href: "/reconhecimento", label: "Acolhimento de Grupos" },
   { href: "/contato", label: "Contato" },
 ];
 

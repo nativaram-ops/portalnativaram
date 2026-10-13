@@ -30,7 +30,7 @@ function getDirectSupabaseClient(): any {
   return cachedDirectClient;
 }
 
-function withTimeout<T>(promise: PromiseLike<T>, ms = 2000): Promise<T> {
+function withTimeout<T = any>(promise: PromiseLike<T>, ms = 2000): Promise<T> {
   return Promise.race([
     Promise.resolve(promise),
     new Promise<T>((_, reject) =>
@@ -440,7 +440,7 @@ export async function obterTodosPedidos(filtros?: {
         query = query.eq("status", filtros.status);
       }
 
-      const { data, error } = await withTimeout(query, 2000);
+      const { data, error } = (await withTimeout(query, 2000)) as any;
 
       if (!error && data && data.length > 0) {
         let pedidos: PedidoLiturgico[] = data.map(mapRowToPedido);
@@ -502,14 +502,14 @@ export async function obterPedidoPorId(id: string): Promise<PedidoLiturgico | nu
 
   if (supabase) {
     try {
-      const { data, error } = await withTimeout(
+      const { data, error } = (await withTimeout(
         supabase
           .from("pedidos_liturgicos")
           .select("*")
           .eq("id", id)
           .single(),
         2000
-      );
+      )) as any;
 
       if (!error && data) {
         return mapRowToPedido(data);
