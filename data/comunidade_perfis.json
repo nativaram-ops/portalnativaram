@@ -1,0 +1,55 @@
+[
+  {
+    "codigoLiturgico": "NAT-TEMPLO-842",
+    "slug": "ceu-do-cruzeiro",
+    "nomeInstituicao": "Templo Céu do Cruzeiro",
+    "dirigenteResponsavel": "Padrinho Marcos Silva",
+    "linhagem": "Linha do Santo Daime",
+    "cidade": "São Paulo",
+    "estado": "SP",
+    "bioApresentacao": "Igreja filiada e homologada para trabalhos litúrgicos de concentração, hinários de cura espiritual e missas da doutrina. Cultivamos o respeito ao sacramento puro e à memória da floresta amazônica sob as resoluções do CONAD.",
+    "fotoPerfilUrl": "/documentos/nativaram-catalogo-v4.pdf",
+    "fotoCapaUrl": "",
+    "fotosEspaco": [
+      "/images/feitio-caldeirao-tucunaca.jpg",
+      "/images/cipo-tucunaca-bruto-barracao.jpg"
+    ],
+    "redesSociais": {
+      "instagram": "https://instagram.com/ceudocruzeiro.oficial",
+      "youtube": "https://youtube.com/@ceudocruzeiro",
+      "website": "https://ceudocruzeiro.org.br"
+    },
+    "whatsappContato": "5511987654321",
+    "emailContato": "contato@ceudocruzeiro.org.br",
+    "agenda": [],
+    "publicado": true,
+    "criadoEm": "14/02/2024",
+    "atualizadoEm": "13/10/2026"
+  },
+  {
+    "codigoLiturgico": "NAT-TEMPLO-913",
+    "slug": "rainha-da-floresta",
+    "nomeInstituicao": "Fraternidade Rainha da Floresta",
+    "dirigenteResponsavel": "Madre Clara Albuquerque",
+    "linhagem": "Xamanismo Universalista",
+    "cidade": "Petrópolis",
+    "estado": "RJ",
+    "bioApresentacao": "Espaço sagrado de reconexão sensorial, vigílias e ritos tradicionais da floresta na serra carioca. Conduzimos cerimônias de acalento e ancoramento meditativo amparados na etnobotânica dos povos originários.",
+    "fotoPerfilUrl": "",
+    "fotoCapaUrl": "",
+    "fotosEspaco": [
+      "/images/feitio-vigilia-noturna.jpg",
+      "/images/folhas-chacrona-orvalho.jpg"
+    ],
+    "redesSociais": {
+      "instagram": "https://instagram.com/fraternidaderainhadafloresta",
+      "spotify": "https://open.spotify.com/playlist/floresta-sagrada"
+    },
+    "whatsappContato": "5521998877665",
+    "emailContato": "contato@rainhadafloresta.org.br",
+    "agenda": [],
+    "publicado": true,
+    "criadoEm": "02/08/2025",
+    "atualizadoEm": "13/10/2026"
+  }
+]

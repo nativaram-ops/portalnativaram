@@ -14,6 +14,7 @@ import {
   HelpCircle,
   Calculator,
   Compass,
+  Share2,
 } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { FormSolicitacaoPedido } from "@/components/portal-dirigente/FormSolicitacaoPedido";
@@ -28,6 +29,7 @@ import { PortalCatalogoGraduacoes } from "@/components/portal-dirigente/PortalCa
 import { PortalAssessoriaFAQ } from "@/components/portal-dirigente/PortalAssessoriaFAQ";
 import { PortalCalculadoraLiturgica } from "@/components/portal-dirigente/PortalCalculadoraLiturgica";
 import { PortalRespaldoJuridico } from "@/components/portal-dirigente/PortalRespaldoJuridico";
+import { PortalComunidadeGestao } from "@/components/portal-dirigente/PortalComunidadeGestao";
 import { ItemPedido } from "@/types/pedido";
 import { templosIniciais, TemploMock } from "@/data/portal-mock";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -35,6 +37,7 @@ import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 type DirigenteTab =
   | "SOLICITACOES"
   | "NOVA_SOLICITACAO"
+  | "COMUNIDADE_GESTAO"
   | "CENTRAL_DOCUMENTOS"
   | "INTERACOES_FARMACIA"
   | "GRADUACOES_CATALOGO"
@@ -168,6 +171,13 @@ export const PortalDirigenteClient: React.FC = () => {
       label: "Nova Solicitação",
       icon: <Sparkles className="h-4 w-4" />,
       categoria: "PEDIDOS",
+    },
+    {
+      id: "COMUNIDADE_GESTAO" as const,
+      label: "Meu Templo & Publicações",
+      icon: <Share2 className="h-4 w-4 text-ambar-400" />,
+      categoria: "PEDIDOS",
+      destaque: true,
     },
     {
       id: "CALCULADORA" as const,
@@ -321,6 +331,15 @@ export const PortalDirigenteClient: React.FC = () => {
             setDirigenteTab("SOLICITACOES");
           }}
           onIrParaAcompanhamento={() => setDirigenteTab("SOLICITACOES")}
+        />
+      )}
+
+      {/* 2.1. GESTÃO DE CONTEÚDO DA COMUNIDADE & PERFIL DO TEMPLO */}
+      {dirigenteTab === "COMUNIDADE_GESTAO" && (
+        <PortalComunidadeGestao
+          temploCodigo={temploAtual.id}
+          temploNome={temploAtual.nome}
+          cidade={temploAtual.cidade}
         />
       )}
 

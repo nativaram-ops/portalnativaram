@@ -48,6 +48,9 @@ categoria: Índice Rápido
 | **Gestão de Homologações (ADM)** | `src/components/portal-dirigente/AdminGestaoHomologacoes.tsx` | Painel de homologação de congregações, filtros por tipo/status e emissão de login/senha |
 | **Motor de Homologações & Acesso** | `src/lib/db/homologacoes.ts` | Base de dados de solicitações, geração de credenciais (NAT-TEMPLO/NAT-GRP) e mensagens WhatsApp |
 | **APIs de Homologação & Auth** | `src/app/api/solicitacoes/` e `/api/auth/verificar-chave` | Endpoints REST para recepção de fichas, homologação pelo conselho e autenticação dinâmica |
+| **Hub Comunitário & Blog** | `src/app/estudos/page.tsx` e `ComunidadeBlogMural.tsx` | Mural aberto de publicações, perfis de templos e agenda sob o CONAD 01/2010 |
+| **Perfis Públicos de Templos** | `src/app/estudos/comunidade/[slug]/page.tsx` | Página dedicada de cada congregação credenciada (galeria, bio, agenda e WhatsApp) |
+| **Gestão de Conteúdo (Templo)** | `src/components/portal-dirigente/PortalComunidadeGestao.tsx` | Editor de posts com WebP, agenda, galeria do espaço e linter CONAD em tempo real |
 | **Funil Didático (5 Estações)** | `Segundo-Cerebro/06-Arquitetura-do-Portal/Funil-de-Conversao-e-Navegacao-Didatica.md` | Arquitetura das 5 estações (Origem -> Feitio -> Sacramentos -> Marco Legal -> Credenciamento) e política anti-inchaço |
 | **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0` e regras `@media print` |
 | **Harness & Skills Globais** | `Segundo-Cerebro/.../Guia-de-Skills-e-Comandos.md` e `AGENTS.md` | Catálogo das 40 skills locais, 8 da IDE e 31 do Novo Harness (OpenDesign, ECC, Graphify, Improve, Ponytail, Last30days, SkillSpector) |
@@ -105,4 +108,5 @@ categoria: Índice Rápido
 - [[ADR-004-Assessoria-Liturgica-e-Documentos-A4]]
 - [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]
 - [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]
+- [[ADR-007-Hub-Comunitario-e-Blog-Etnobotanico]]
 - [[Manual-de-Comunicacao-e-Blindagem-Algoritmica]]

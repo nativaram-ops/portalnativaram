@@ -22,8 +22,10 @@ import {
   Layers,
   HelpCircle,
   FileCheck,
+  Share2,
 } from "lucide-react";
 import { estudosData, EstudoItem } from "@/data/estudos";
+import { ComunidadeBlogMural } from "./ComunidadeBlogMural";
 
 interface TodosDocumentosItem {
   nome: string;
@@ -64,6 +66,7 @@ const todosDocumentosPdf: TodosDocumentosItem[] = [
 ];
 
 export function EstudosClient() {
+  const [visaoAtiva, setVisaoAtiva] = useState<"COMUNIDADE" | "DOSSIES">("COMUNIDADE");
   const [selectedCategory, setSelectedCategory] = useState<string>("todos");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activePdfModal, setActivePdfModal] = useState<string | null>(null);
@@ -118,7 +121,48 @@ export function EstudosClient() {
   };
 
   return (
-    <div className="space-y-16">
+    <div className="space-y-12">
+      {/* ═══════════════════════════════════════════
+          ALTERNADOR MESTRE: COMUNIDADE VS DOSSIÊS
+          ═══════════════════════════════════════════ */}
+      <div className="flex justify-center">
+        <div className="inline-flex p-1.5 rounded-2xl bg-floresta-950/90 border-2 border-ambar-500/30 shadow-solar max-w-full overflow-x-auto touch-scroll-x">
+          <button
+            onClick={() => setVisaoAtiva("COMUNIDADE")}
+            className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+              visaoAtiva === "COMUNIDADE"
+                ? "bg-ambar-500 text-floresta-950 font-bold shadow-solar scale-[1.02]"
+                : "text-areia-300 hover:text-areia-100 hover:bg-floresta-900/60"
+            }`}
+          >
+            <Share2 className="h-4 w-4" />
+            <span>Mural da Comunidade & Vozes dos Templos</span>
+            <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hidden sm:inline">
+              Aberto
+            </span>
+          </button>
+
+          <button
+            onClick={() => setVisaoAtiva("DOSSIES")}
+            className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+              visaoAtiva === "DOSSIES"
+                ? "bg-ambar-500 text-floresta-950 font-bold shadow-solar scale-[1.02]"
+                : "text-areia-300 hover:text-areia-100 hover:bg-floresta-900/60"
+            }`}
+          >
+            <GraduationCap className="h-4 w-4" />
+            <span>Dossiês Científicos da Floresta</span>
+            <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-ambar-500/20 text-ambar-300 border border-ambar-500/30 hidden sm:inline">
+              Acervo
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {visaoAtiva === "COMUNIDADE" ? (
+        <ComunidadeBlogMural />
+      ) : (
+        <div className="space-y-16 animate-fade-in">
       {/* ═══════════════════════════════════════════
           BARRA DE PESQUISA & ABAS DE FILTRO
           ═══════════════════════════════════════════ */}
@@ -598,6 +642,8 @@ export function EstudosClient() {
           </div>
         </div>
       </section>
+      </div>
+      )}
 
       {/* ═══════════════════════════════════════════
           MODAL: VISUALIZADOR DE PDF INTERNO

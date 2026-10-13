@@ -549,6 +549,74 @@ async function runAllTests() {
     }
   });
 
+  // 6. TESTES DO HUB COMUNITÁRIO, LINTER CONAD & BLOG DOS TEMPLOS
+  console.log("\n6. Hub Comunitário & Linter de Conformidade CONAD:");
+
+  await test("Linter de linguagem detecta termos proibidos e propõe substituições canônicas", async () => {
+    const { verificarConformidadeTexto } = await import("../src/lib/validators/comunidade.ts");
+
+    // Texto com infrações regulatórias
+    const textoInfracao = "Esta medicina sagrada garante a cura para ansiedade. Temos doses à venda na loja.";
+    const alertas = verificarConformidadeTexto(textoInfracao);
+
+    assert.ok(alertas.length >= 4, "Deve detectar pelo menos medicina, cura, dose e venda/loja");
+
+    const termosDetectados = alertas.map((a) => a.termoDetectado);
+    assert.ok(termosDetectados.includes("medicina"), "Deve detectar 'medicina'");
+    assert.ok(termosDetectados.includes("cura"), "Deve detectar 'cura'");
+    assert.ok(termosDetectados.includes("venda"), "Deve detectar 'venda'");
+  });
+
+  await test("Linter de linguagem aprova texto estritamente em conformidade", async () => {
+    const { verificarConformidadeTexto } = await import("../src/lib/validators/comunidade.ts");
+
+    const textoAprovado =
+      "O sacramento tradicional da floresta acolhe a busca pelo reequilíbrio vital e harmonização dos sentidos.";
+    const alertas = verificarConformidadeTexto(textoAprovado);
+
+    assert.strictEqual(alertas.length, 0, "Texto canônico não deve gerar alertas");
+  });
+
+  await test("Motor de persistência de comunidade salva e recupera publicações atomicamente", async () => {
+    const { salvarPublicacao, obterPublicacoesComunidade, deletarPublicacao } = await import(
+      "../src/lib/db/comunidade.ts"
+    );
+
+    const postCriado = await salvarPublicacao({
+      temploCodigo: "NAT-TEMPLO-842",
+      temploNome: "Templo Céu do Cruzeiro",
+      temploSlug: "ceu-do-cruzeiro",
+      slug: `teste-automacao-${Date.now()}`,
+      titulo: "Ensaio de Teste de Automação Litúrgica",
+      resumo: "Resumo estruturado para teste automatizado do banco.",
+      conteudoMarkdown: "Corpo do texto com reflexões sobre o silêncio da mata e a concentração.",
+      categoria: "REFLEXAO_DOUTRINARIA",
+      categoriaLabel: "Reflexão Doutrinária",
+      anexos: [],
+      embeds: [],
+      status: "PUBLICADO",
+    });
+
+    assert.ok(postCriado.id, "ID do post deve ter sido gerado");
+
+    const lista = await obterPublicacoesComunidade({ temploCodigo: "NAT-TEMPLO-842" });
+    const encontrado = lista.find((p) => p.id === postCriado.id);
+    assert.ok(encontrado, "Post salvo deve ser recuperado na listagem");
+    assert.strictEqual(encontrado.titulo, "Ensaio de Teste de Automação Litúrgica");
+
+    // Limpeza
+    await deletarPublicacao(postCriado.id, "NAT-TEMPLO-842");
+  });
+
+  await test("Consulta de perfis de templos comunitários resolve por slug canônico", async () => {
+    const { obterPerfilPorSlugOuCodigo } = await import("../src/lib/db/comunidade.ts");
+
+    const perfil = await obterPerfilPorSlugOuCodigo("ceu-do-cruzeiro");
+    assert.ok(perfil, "Perfil por slug deve existir");
+    assert.strictEqual(perfil.codigoLiturgico, "NAT-TEMPLO-842");
+    assert.strictEqual(perfil.nomeInstituicao, "Templo Céu do Cruzeiro");
+  });
+
   console.log("\n=======================================================");
   console.log(`   RESULTADOS: ${passed} passaram | ${failed} falharam`);
   console.log("=======================================================\n");

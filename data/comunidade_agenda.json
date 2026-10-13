@@ -1,0 +1,24 @@
+[
+  {
+    "id": "AGE-001",
+    "temploCodigo": "NAT-TEMPLO-842",
+    "tituloRito": "Sessão Doutrinária de Concentração & Estudo de Hinário",
+    "descricao": "Trabalho espiritual de silêncio e cânticos doutrinários. Obrigatória entrevista prévia de anamnese e cumprimento das 5 semanas de washout para candidatos.",
+    "dataEvento": "2026-10-24",
+    "horarioInicio": "19:30",
+    "vagasInfo": "Vagas limitadas mediante anamnese CONAD 01/2010",
+    "linkInscricao": "https://wa.me/5511987654321?text=Ola,%20gostaria%20de%20participar%20da%20anamnese",
+    "status": "CONFIRMADO"
+  },
+  {
+    "id": "AGE-002",
+    "temploCodigo": "NAT-TEMPLO-913",
+    "tituloRito": "Vigília Noturna de Reconexão e Rito com Rapé Tradicional",
+    "descricao": "Círculo sagrado com cantos da floresta, fogueira ritual e consagração de medicinas tradicionais de proteção e quietude da mente.",
+    "dataEvento": "2026-11-07",
+    "horarioInicio": "20:00",
+    "vagasInfo": "Inscrições abertas para cooperados e visitantes acolhidos",
+    "linkInscricao": "https://wa.me/5521998877665?text=Ola,%20tenho%20interesse%20na%20vigilia",
+    "status": "CONFIRMADO"
+  }
+]

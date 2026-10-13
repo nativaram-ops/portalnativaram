@@ -171,6 +171,14 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
     - *Autenticação Dinâmica no Gate (`PortalLoginGate.tsx` & `/api/auth/verificar-chave`):* Validação assíncrona das credenciais recém-geradas no gate de entrada, permitindo acesso imediato ao Portal do Dirigente sem necessidade de reinício do servidor.
     - *Cobertura de Testes Automatizados:* 22/22 testes aprovados (`scripts/test-liturgico.mjs`), incluindo validação de persistência, homologação, geração de chaves e bloqueio de senhas incorretas.
 
+27. **Hub Comunitário, Blog Colaborativo de Templos, Agenda Litúrgica & Otimização Mobile (ADR-007):**
+    - *Evolução da Aba `/estudos`:* Expansão da rota para atuar como Hub duplo, unificando o **Mural da Comunidade (Vozes dos Templos)** e os **Dossiês Científicos da Floresta** (acervo HPLC, fitoquímica e cadernos NotebookLM mantido 100% preservado).
+    - *Plano Grátis & Custo Zero Perpétuo:* Compressão automática de imagens no navegador via Canvas/WebP (`image-compressor.ts`), reduzindo fotos de alta resolução de 10 MB para ~180 KB; incorporação de mídias de redes sociais (Instagram, YouTube, Spotify) com custo zero de banda e armazenamento.
+    - *Linter de Conformidade CONAD/ANVISA em Tempo Real:* Scanner léxico ativo no editor que detecta termos clínicos ou comerciais e sugere em 1 toque a substituição canônica aprovada no dicionário da cooperativa.
+    - *Gestão no Portal do Dirigente (`PortalComunidadeGestao.tsx`):* Nova aba "Meu Templo & Publicações" com gerenciamento de posts, perfil público, fotos do espaço sagrado e agenda de cerimônias.
+    - *Páginas Públicas Individuais de Templos (`/estudos/comunidade/[slug]`):* Página dedicada de cada congregação credenciada com galeria, missão, agenda e contato seguro via WhatsApp.
+    - *Validação & Qualidade:* 26/26 testes automatizados verdes (`npm test`) e 39/39 rotas compiladas estaticamente no build de produção do Next.js 15 (`npm run build`).
+
 ---
 
 ## Relações
@@ -203,5 +211,6 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 - [[ADR-004-Assessoria-Liturgica-e-Documentos-A4]]
 - [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]
 - [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]
+- [[ADR-007-Hub-Comunitario-e-Blog-Etnobotanico]]
 
 

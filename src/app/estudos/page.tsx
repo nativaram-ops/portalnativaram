@@ -6,13 +6,13 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { EstudosClient } from "@/components/estudos/EstudosClient";
 
 export const metadata: Metadata = {
-  title: "Estudos Etnobotânicos & Dossiês Científicos | Cooperativa Nativaram",
+  title: "Estudos Etnobotânicos & Mural da Comunidade | Cooperativa Nativaram",
   description:
-    "Biblioteca etnobotânica, laudos fitoquímicos e compêndios científicos da Cooperativa Nativaram: Ayahuasca, Rapés Sagrados, Sananga, Cadernos NotebookLM e Governança CONAD 01/2010.",
+    "Mural colaborativo de congregações credenciadas, relatos doutrinários, fotos de altares sagrados, laudos fitoquímicos da Ayahuasca e compêndios científicos sob o marco CONAD 01/2010.",
   openGraph: {
-    title: "Estudos Etnobotânicos & Dossiês Científicos | Cooperativa Nativaram",
+    title: "Estudos Etnobotânicos & Mural da Comunidade | Cooperativa Nativaram",
     description:
-      "Acesso aos PDFs oficiais de pesquisa fitoquímica da Ayahuasca, farmacologia dos rapés tradicionais e compliance litúrgico.",
+      "Vozes das congregações homologadas, laudos HPLC de Ayahuasca Tucunacá, fitoquímica de rapés e cadernos de inteligência etnobotânica.",
     url: "https://nativaramcoop.eco.br/estudos",
   },
 };
@@ -21,21 +21,21 @@ export default function EstudosPage() {
   return (
     <div className="space-y-0">
       {/* ═══════════════════════════════════════════
-          HERO — Estudos Etnobotânicos & Dossiês
+          HERO — Estudos Etnobotânicos & Comunidade
           ═══════════════════════════════════════════ */}
       <PageHero
         badgeIcon={<GraduationCap className="h-3.5 w-3.5" />}
-        badgeText="Etnociência & Base de Conhecimento Oficial"
+        badgeText="Etnociência, Dossiês & Vozes dos Templos"
         maxWidth="max-w-4xl"
         title={
           <>
             Estudos Científicos,{" "}
-            <span className="text-gradient-solar">Fitoquímica</span>
+            <span className="text-gradient-solar">Mural Litúrgico</span>
             <br />
-            & Dossiês da Floresta
+            & Vozes da Floresta
           </>
         }
-        description="Acervo aberto de pesquisas botânicas puristas, fitoquímica da Ayahuasca, biogeoquímica do rapé sagrado, farmacologia da Sananga e cadernos de inteligência etnobotânica com Google NotebookLM."
+        description="Mural colaborativo de congregações homologadas, agenda de ritos, relatos de consagração e acervo aberto de fitoquímica purista, HPLC da Ayahuasca e inteligência com Google NotebookLM."
       />
 
       <SectionDivider variant="solar" />
