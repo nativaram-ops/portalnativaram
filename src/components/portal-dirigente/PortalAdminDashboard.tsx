@@ -97,54 +97,54 @@ export const PortalAdminDashboard: React.FC<PortalAdminDashboardProps> = ({
         </div>
       </AnimateOnScroll>
 
-      {/* Abas de Navegação do ADM */}
-      <div className="flex overflow-x-auto pb-2 gap-2 border-b border-ambar-500/20">
+      {/* Abas de Navegação do ADM (Grade Responsiva sem Barra Escondida) */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-2 pb-2 border-b border-ambar-500/20">
         {[
           {
             id: "PEDIDOS" as const,
             label: "Solicitações de Partilha",
-            icon: <PackageCheck className="h-4 w-4" />,
+            icon: <PackageCheck className="h-4 w-4 shrink-0" />,
           },
           {
             id: "METRICAS" as const,
             label: "Resumo Litúrgico",
-            icon: <FlaskConical className="h-4 w-4" />,
+            icon: <FlaskConical className="h-4 w-4 shrink-0" />,
           },
           {
             id: "CREDENCIAMENTOS" as const,
             label: "Homologações de Templos",
-            icon: <Building2 className="h-4 w-4" />,
+            icon: <Building2 className="h-4 w-4 shrink-0" />,
             count: templos.length,
           },
           {
             id: "LOTES" as const,
             label: "Feitio no Acre & Lotes",
-            icon: <Droplets className="h-4 w-4" />,
+            icon: <Droplets className="h-4 w-4 shrink-0" />,
           },
           {
             id: "LOGISTICA" as const,
             label: "Despachos & Rastreamento",
-            icon: <Truck className="h-4 w-4" />,
+            icon: <Truck className="h-4 w-4 shrink-0" />,
           },
           {
             id: "COOPERATIVISMO" as const,
             label: "Tabela Evolutiva & Cotas",
-            icon: <Scale className="h-4 w-4" />,
+            icon: <Scale className="h-4 w-4 shrink-0" />,
           },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-3 rounded-xl text-xs font-semibold whitespace-nowrap flex items-center gap-2 transition-all ${
+            className={`px-3 py-3 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all text-center ${
               activeTab === tab.id
                 ? "bg-ambar-500 text-floresta-950 font-bold shadow-md"
                 : "bg-floresta-900/50 text-areia-300 hover:text-areia-100 hover:bg-floresta-800/60 border border-ambar-500/10"
             }`}
           >
             {tab.icon}
-            <span>{tab.label}</span>
+            <span className="truncate">{tab.label}</span>
             {tab.count !== undefined && (
-              <span className="ml-1 rounded-full bg-floresta-950/80 px-1.5 py-0.2 text-[10px] text-amber-300">
+              <span className="rounded-full bg-floresta-950/80 px-1.5 py-0.2 text-[10px] text-amber-300 shrink-0">
                 {tab.count}
               </span>
             )}

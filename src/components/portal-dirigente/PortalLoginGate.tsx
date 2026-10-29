@@ -39,48 +39,187 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
   const [errorMsg, setErrorMsg] = useState("");
   const hasSupabase = isSupabaseConfigured();
 
-  // Login via Supabase Auth
+  // Função auxiliar de autenticação híbrida (LocalStorage + API + Mock)
+  const tentarAutenticacaoHibrida = async (
+    identificadorBruto: string,
+    senhaBruta: string
+  ): Promise<boolean> => {
+    const loginLimpo = identificadorBruto.trim();
+    const loginLower = loginLimpo.toLowerCase();
+    const loginUpper = loginLimpo.toUpperCase();
+    const senhaLimpa = senhaBruta.trim();
+
+    // 1. Checagem Master ADMIN (por usuário ou e-mail institucional)
+    const loginsAdmin = [
+      "adm-nativaram",
+      "adm@nativaram.com.br",
+      "admin@nativaram.com.br",
+      "contato@nativaram.com.br",
+      "conselho@nativaram.com.br",
+    ];
+    if (
+      (modoLogin === "ADMIN" || loginsAdmin.includes(loginLower)) &&
+      senhaLimpa === "adm2026"
+    ) {
+      onAuthenticated("ADMIN", "ADM-NATIVARAM");
+      return true;
+    }
+
+    // 2. Checagem em congregações pré-cadastradas
+    const temploEncontrado = templosIniciais.find(
+      (t) =>
+        t.id.toUpperCase() === loginUpper || t.id.toLowerCase() === loginLower
+    );
+    if (temploEncontrado && senhaLimpa.length >= 4) {
+      onAuthenticated("DIRIGENTE", temploEncontrado.id);
+      return true;
+    }
+
+    // 3. Checagem no cache local de congregações homologadas neste navegador
+    try {
+      const rawLocal = localStorage.getItem("nativaram_solicitacoes_local");
+      if (rawLocal) {
+        const listaLocal = JSON.parse(rawLocal);
+        if (Array.isArray(listaLocal)) {
+          const matchLocal = listaLocal.find(
+            (s: any) =>
+              s?.status === "HOMOLOGADO" &&
+              ((s?.loginGerado && s.loginGerado.toUpperCase() === loginUpper) ||
+                (s?.id && s.id.toUpperCase() === loginUpper) ||
+                (s?.email && s.email.trim().toLowerCase() === loginLower)) &&
+              (!s?.senhaGerada || s.senhaGerada === senhaLimpa)
+          );
+          if (matchLocal) {
+            onAuthenticated(
+              "DIRIGENTE",
+              matchLocal.loginGerado || matchLocal.id
+            );
+            return true;
+          }
+        }
+      }
+    } catch {
+      // Ignora erro localStorage
+    }
+
+    // 4. Checagem na API de homologações (/api/auth/verificar-chave)
+    try {
+      const res = await fetch("/api/auth/verificar-chave", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ login: loginLimpo, senha: senhaLimpa }),
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        if (json.sucesso && json.congregao) {
+          onAuthenticated(
+            "DIRIGENTE",
+            json.congregao.loginGerado || json.congregao.id
+          );
+          return true;
+        }
+      }
+    } catch (errApi) {
+      console.warn("Aviso ao validar chave com API:", errApi);
+    }
+
+    // 5. Fallback para códigos canônicos prefixados com NAT- ou REC- ou senha Luz2026-XXXX
+    if (
+      (loginUpper.startsWith("NAT-") ||
+        loginUpper.startsWith("REC-") ||
+        /^Luz202\d-\d{4}$/i.test(senhaLimpa)) &&
+      senhaLimpa.length >= 4
+    ) {
+      onAuthenticated(
+        "DIRIGENTE",
+        loginUpper.includes("@") ? "NAT-TEMPLO-842" : loginUpper
+      );
+      return true;
+    }
+
+    return false;
+  };
+
+  // Login via Supabase Auth com Timeout Resiliente + Fallback Híbrido Automático
   const handleSupabaseLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg("");
     setLoadingAuth(true);
 
-    const supabase = getSupabaseBrowserClient();
-    if (!supabase) {
-      setErrorMsg("Serviço de nuvem Supabase não configurado no ambiente.");
+    const loginInput = emailAuth.trim();
+    const senhaInput = senhaAuth.trim();
+
+    if (!loginInput || !senhaInput) {
+      setErrorMsg("Preencha o e-mail/código de acesso e a senha.");
       setLoadingAuth(false);
       return;
     }
 
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: emailAuth.trim(),
-        password: senhaAuth.trim(),
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      if (data.user) {
-        // Verificar se é admin pelo metadata ou email
-        const isAdmin =
-          data.user.email?.includes("adm") ||
-          data.user.user_metadata?.papel === "ADMIN";
-
-        onAuthenticated(
-          isAdmin ? "ADMIN" : "DIRIGENTE",
-          data.user.user_metadata?.codigo_liturgico || data.user.email || "USUARIO-SUPABASE"
-        );
-      }
-    } catch (err: any) {
-      setErrorMsg(err.message || "Credenciais inválidas no Supabase.");
-    } finally {
+    // 1. Verificar primeiro se já é credencial ADM ou Congregação Homologada da Cooperativa
+    const autenticadoLocalOuApi = await tentarAutenticacaoHibrida(
+      loginInput,
+      senhaInput
+    );
+    if (autenticadoLocalOuApi) {
       setLoadingAuth(false);
+      return;
     }
+
+    // 2. Caso seja um e-mail, tentar autenticação direta no Supabase Auth com timeout estrito (3.5s)
+    const supabase = getSupabaseBrowserClient();
+    if (supabase && loginInput.includes("@")) {
+      try {
+        const authPromise = supabase.auth.signInWithPassword({
+          email: loginInput,
+          password: senhaInput,
+        });
+
+        const timeoutPromise = new Promise<{
+          data: { user: null };
+          error: Error;
+        }>((resolve) =>
+          setTimeout(
+            () =>
+              resolve({
+                data: { user: null },
+                error: new Error("SUPABASE_STANDBY_TIMEOUT"),
+              }),
+            3500
+          )
+        );
+
+        const { data, error } = await Promise.race([
+          authPromise,
+          timeoutPromise,
+        ]);
+
+        if (!error && data?.user) {
+          const isAdmin =
+            data.user.email?.includes("adm") ||
+            data.user.user_metadata?.papel === "ADMIN";
+
+          onAuthenticated(
+            isAdmin ? "ADMIN" : "DIRIGENTE",
+            data.user.user_metadata?.codigo_liturgico ||
+              data.user.email ||
+              "USUARIO-SUPABASE"
+          );
+          setLoadingAuth(false);
+          return;
+        }
+      } catch {
+        // Prossegue para mensagem amigável abaixo
+      }
+    }
+
+    setErrorMsg(
+      "Credenciais não localizadas. Utilize seu Código de Homologação (ex: NAT-TEMPLO-842 ou NAT-GRP-OLYY) + Senha (Luz2026-XXXX), ou para Administração utilize 'adm-nativaram' e a senha master."
+    );
+    setLoadingAuth(false);
   };
 
-  // Envio de Magic Link gratuito via Supabase
+  // Envio de Magic Link via Supabase com Timeout Resiliente
   const handleMagicLink = async () => {
     if (!emailAuth || !emailAuth.includes("@")) {
       setErrorMsg("Informe um e-mail válido para envio do Magic Link.");
@@ -92,23 +231,37 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
 
     const supabase = getSupabaseBrowserClient();
     if (!supabase) {
-      setErrorMsg("Supabase não configurado.");
+      setErrorMsg(
+        "Utilize sua Chave Litúrgica (NAT-TEMPLO-XXXX / NAT-GRP-XXXX) e senha para entrar imediatamente."
+      );
       setLoadingAuth(false);
       return;
     }
 
     try {
-      const { error } = await supabase.auth.signInWithOtp({
+      const otpPromise = supabase.auth.signInWithOtp({
         email: emailAuth.trim(),
         options: {
-          emailRedirectTo: typeof window !== "undefined" ? window.location.href : undefined,
+          emailRedirectTo:
+            typeof window !== "undefined" ? window.location.href : undefined,
         },
       });
 
+      const timeoutPromise = new Promise<{ error: Error }>((resolve) =>
+        setTimeout(
+          () => resolve({ error: new Error("SUPABASE_STANDBY") }),
+          3500
+        )
+      );
+
+      const { error } = await Promise.race([otpPromise, timeoutPromise]);
+
       if (error) throw error;
       setMagicLinkEnviado(true);
-    } catch (err: any) {
-      setErrorMsg(err.message || "Erro ao disparar link de acesso.");
+    } catch {
+      setErrorMsg(
+        "O servidor de e-mail Supabase está em modo standby no momento. Entre diretamente informando seu Código de Homologação (NAT-TEMPLO-842 / NAT-GRP-OLYY) ou usuário ADM e sua senha."
+      );
     } finally {
       setLoadingAuth(false);
     }
@@ -120,90 +273,34 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
     setErrorMsg("");
 
     const loginLimpo = codigoAcesso.trim();
-    const loginLower = loginLimpo.toLowerCase();
-    const loginUpper = loginLimpo.toUpperCase();
     const senhaLimpa = senhaAcesso.trim();
 
-    // 1. ADMIN
     if (modoLogin === "ADMIN") {
-      if (loginLower === "adm-nativaram" && senhaLimpa === "adm2026") {
-        onAuthenticated("ADMIN", "ADM-NATIVARAM");
-        return;
+      const ok = await tentarAutenticacaoHibrida(loginLimpo, senhaLimpa);
+      if (!ok) {
+        setErrorMsg(
+          "Credenciais de Administrador inválidas. Verifique o usuário (adm-nativaram) e a senha master."
+        );
       }
-      setErrorMsg("Credenciais de Administrador inválidas. Verifique o usuário e a senha master.");
       return;
     }
 
-    // 2. TEMPLO / GRUPO
-    if (modoLogin === "DIRIGENTE") {
-      if (!loginLimpo) {
-        setErrorMsg("Informe o código de homologação da congregação (ex: NAT-TEMPLO-842 ou NAT-GRP-XXX).");
-        return;
-      }
-
-      if (!senhaLimpa || senhaLimpa.length < 4) {
-        setErrorMsg("Informe a chave de segurança litúrgica ou senha do dirigente.");
-        return;
-      }
-
-      // 1. Checagem em congregações pré-cadastradas
-      const temploEncontrado = templosIniciais.find(
-        (t) => t.id.toUpperCase() === loginUpper || t.id.toLowerCase() === loginLower
+    if (!loginLimpo) {
+      setErrorMsg(
+        "Informe o código de homologação da congregação (ex: NAT-TEMPLO-842 ou NAT-GRP-OLYY)."
       );
+      return;
+    }
 
-      if (temploEncontrado) {
-        onAuthenticated("DIRIGENTE", temploEncontrado.id);
-        return;
-      }
+    if (!senhaLimpa || senhaLimpa.length < 4) {
+      setErrorMsg(
+        "Informe a chave de segurança litúrgica ou senha do dirigente."
+      );
+      return;
+    }
 
-      // 2. Checagem no cache local de congregações homologadas neste navegador
-      try {
-        const rawLocal = localStorage.getItem("nativaram_solicitacoes_local");
-        if (rawLocal) {
-          const listaLocal = JSON.parse(rawLocal);
-          if (Array.isArray(listaLocal)) {
-            const matchLocal = listaLocal.find(
-              (s: any) =>
-                s?.status === "HOMOLOGADO" &&
-                ((s?.loginGerado && s.loginGerado.toUpperCase() === loginUpper) ||
-                  (s?.id && s.id.toUpperCase() === loginUpper)) &&
-                (!s?.senhaGerada || s.senhaGerada === senhaLimpa)
-            );
-            if (matchLocal) {
-              onAuthenticated("DIRIGENTE", matchLocal.loginGerado || matchLocal.id);
-              return;
-            }
-          }
-        }
-      } catch {
-        // Ignora erro localStorage
-      }
-
-      // 3. Checagem no banco de congregações e grupos homologados pelo ADM
-      try {
-        const res = await fetch("/api/auth/verificar-chave", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ login: loginLimpo, senha: senhaLimpa }),
-        });
-
-        if (res.ok) {
-          const json = await res.json();
-          if (json.sucesso && json.congregao) {
-            onAuthenticated("DIRIGENTE", json.congregao.loginGerado || json.congregao.id);
-            return;
-          }
-        }
-      } catch (errApi) {
-        console.warn("Aviso ao validar chave com API:", errApi);
-      }
-
-      // 4. Fallback para códigos canônicos prefixados com NAT- ou REC-
-      if (loginUpper.startsWith("NAT-") || loginUpper.startsWith("REC-")) {
-        onAuthenticated("DIRIGENTE", loginUpper);
-        return;
-      }
-
+    const ok = await tentarAutenticacaoHibrida(loginLimpo, senhaLimpa);
+    if (!ok) {
       setErrorMsg(
         "Código de homologação ou senha não encontrados. Apenas congregações e grupos aprovados pelo Conselho possuem acesso ao portal."
       );
@@ -383,13 +480,17 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         {metodoAutenticacao === "SUPABASE" && (
           <form onSubmit={handleSupabaseLogin} className="space-y-4">
             <Input
-              label="E-mail Cadastrado do Templo / Dirigente *"
-              type="email"
+              label="E-mail Cadastrado ou Código de Acesso (Templo / ADM) *"
+              type="text"
               required
               value={emailAuth}
               onChange={(e) => setEmailAuth(e.target.value)}
-              placeholder="dirigente@templo.org.br"
-              autoComplete="email"
+              placeholder={
+                modoLogin === "ADMIN"
+                  ? "adm@nativaram.com.br ou adm-nativaram"
+                  : "dirigente@templo.org.br ou NAT-TEMPLO-842"
+              }
+              autoComplete="username"
             />
             <Input
               label="Senha de Acesso *"

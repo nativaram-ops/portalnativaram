@@ -365,14 +365,17 @@ export async function validarCredenciaisDirigente(
   senha: string
 ): Promise<SolicitacaoAcesso | null> {
   const solicitacoes = await obterTodasSolicitacoes();
-  const loginUpper = login.trim().toUpperCase();
+  const loginLimpo = login.trim();
+  const loginUpper = loginLimpo.toUpperCase();
+  const loginLower = loginLimpo.toLowerCase();
   const senhaLimpa = senha.trim();
 
   const match = solicitacoes.find((s) => {
     if (s.status !== "HOMOLOGADO") return false;
     const loginValido =
       (s.loginGerado && s.loginGerado.toUpperCase() === loginUpper) ||
-      s.id.toUpperCase() === loginUpper;
+      s.id.toUpperCase() === loginUpper ||
+      (s.email && s.email.trim().toLowerCase() === loginLower);
     if (!loginValido) return false;
 
     if (s.senhaGerada) {
@@ -381,25 +384,26 @@ export async function validarCredenciaisDirigente(
     return senhaLimpa.length >= 4;
   });
 
-  // Fallback para qualquer chave homologada com padrão NAT-GRP-XXXX ou NAT-TEMPLO-XXXX
+  // Fallback para qualquer chave homologada com padrão NAT-GRP-XXXX ou NAT-TEMPLO-XXXX ou e-mail institucional
   // caso tenha sido gerada em outra instância serverless e a senha siga o padrão Luz2026-XXXX
   if (
     !match &&
     (loginUpper.startsWith("NAT-GRP-") ||
       loginUpper.startsWith("NAT-TEMPLO-") ||
-      loginUpper.startsWith("REC-2026-")) &&
+      loginUpper.startsWith("REC-2026-") ||
+      loginLower.includes("@")) &&
     /^Luz202\d-\d{4}$/i.test(senhaLimpa)
   ) {
     const isGrupo = loginUpper.startsWith("NAT-GRP-") || loginUpper.startsWith("REC-");
     return {
-      id: loginUpper,
+      id: loginLower.includes("@") ? `NAT-TEMPLO-${senhaLimpa.slice(-4)}` : loginUpper,
       tipo: isGrupo ? "GRUPO_INFORMAL" : "INSTITUICAO_FORMAL",
       nomeEntidade: isGrupo
         ? `Núcleo Homologado (${loginUpper})`
-        : `Templo Credenciado (${loginUpper})`,
+        : `Congregação Homologada (${loginLimpo})`,
       nomeResponsavel: "Dirigente Homologado",
       telefone: "",
-      email: "",
+      email: loginLower.includes("@") ? loginLower : "",
       cidade: "Brasil",
       estado: "BR",
       linhagem: "Tradição Ayahuasqueira",
@@ -407,7 +411,9 @@ export async function validarCredenciaisDirigente(
       volumeEstimado: "5 Litros",
       intencao: "Congregação homologada com chave litúrgica válida.",
       status: "HOMOLOGADO",
-      loginGerado: loginUpper,
+      loginGerado: loginLower.includes("@")
+        ? `NAT-TEMPLO-${senhaLimpa.slice(-4)}`
+        : loginUpper,
       senhaGerada: senhaLimpa,
       dataEnvio: new Date().toLocaleDateString("pt-BR"),
       dataHomologacao: new Date().toLocaleDateString("pt-BR"),

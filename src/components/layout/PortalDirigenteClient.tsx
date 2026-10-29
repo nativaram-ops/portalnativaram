@@ -15,7 +15,14 @@ import {
   Calculator,
   Compass,
   Share2,
+  Download,
+  FileSpreadsheet,
+  Printer,
 } from "lucide-react";
+import {
+  exportarMedicamentosExcel,
+  exportarMedicamentosPDF,
+} from "@/lib/export-medicamentos";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { FormSolicitacaoPedido } from "@/components/portal-dirigente/FormSolicitacaoPedido";
 import { AcompanhamentoPedidos } from "@/components/portal-dirigente/AcompanhamentoPedidos";
@@ -132,34 +139,56 @@ export const PortalDirigenteClient: React.FC = () => {
     sincronizarCongregacoesHomologadas();
   }, [isAuthenticated, codigoAcesso]);
 
-  // Verificar sessão persistente no Supabase no carregamento inicial
+  // Verificar sessão persistente (SessionStorage + Supabase) no carregamento inicial
   useEffect(() => {
+    try {
+      const sessaoSalva = sessionStorage.getItem("nativaram_sessao_ativa");
+      if (sessaoSalva) {
+        const parsed = JSON.parse(sessaoSalva);
+        if (parsed?.codigo && parsed?.role) {
+          setUserRole(parsed.role);
+          setAuthenticatedAsAdmin(parsed.role === "ADMIN");
+          setCodigoAcesso(parsed.codigo);
+          setIsAuthenticated(true);
+        }
+      }
+    } catch {
+      // Ignora erro de sessionStorage
+    }
+
     const supabase = getSupabaseBrowserClient();
     if (!supabase) return;
 
-    supabase.auth.getSession().then((res: any) => {
-      const session = res?.data?.session;
-      if (session?.user) {
-        const isAdmin =
-          session.user.email?.includes("adm") ||
-          session.user.user_metadata?.papel === "ADMIN";
+    supabase.auth
+      .getSession()
+      .then((res: any) => {
+        const session = res?.data?.session;
+        if (session?.user) {
+          const isAdmin =
+            session.user.email?.includes("adm") ||
+            session.user.user_metadata?.papel === "ADMIN";
 
-        setUserRole(isAdmin ? "ADMIN" : "DIRIGENTE");
-        setAuthenticatedAsAdmin(isAdmin);
-        setCodigoAcesso(
-          session.user.user_metadata?.codigo_liturgico ||
-          session.user.email ||
-          "USUARIO-SUPABASE"
-        );
-        setIsAuthenticated(true);
-      }
-    });
+          setUserRole(isAdmin ? "ADMIN" : "DIRIGENTE");
+          setAuthenticatedAsAdmin(isAdmin);
+          setCodigoAcesso(
+            session.user.user_metadata?.codigo_liturgico ||
+              session.user.email ||
+              "USUARIO-SUPABASE"
+          );
+          setIsAuthenticated(true);
+        }
+      })
+      .catch(() => {
+        // Ignora erro caso nuvem Supabase esteja em standby
+      });
 
-    const { data } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
-      if (!session) {
-        setIsAuthenticated(false);
+    const { data } = supabase.auth.onAuthStateChange(
+      (event: any, session: any) => {
+        if (event === "SIGNED_OUT" && !session) {
+          setIsAuthenticated(false);
+        }
       }
-    });
+    );
 
     return () => {
       data?.subscription?.unsubscribe();
@@ -179,12 +208,25 @@ export const PortalDirigenteClient: React.FC = () => {
     setAuthenticatedAsAdmin(role === "ADMIN");
     setCodigoAcesso(codigo);
     setIsAuthenticated(true);
+    try {
+      sessionStorage.setItem(
+        "nativaram_sessao_ativa",
+        JSON.stringify({ role, codigo })
+      );
+    } catch {
+      // Ignora erro de sessionStorage
+    }
   };
 
   const handleLogout = async () => {
+    try {
+      sessionStorage.removeItem("nativaram_sessao_ativa");
+    } catch {
+      // Ignora erro de sessionStorage
+    }
     const supabase = getSupabaseBrowserClient();
     if (supabase) {
-      await supabase.auth.signOut();
+      supabase.auth.signOut().catch(() => {});
     }
     setIsAuthenticated(false);
     setUserRole("DIRIGENTE");
@@ -225,104 +267,144 @@ export const PortalDirigenteClient: React.FC = () => {
   }
 
 
-  // Definição das Abas do Dirigente
-  const abas = [
+  // Grupos Estruturados de Módulos do Dirigente (Sem barra de rolagem escondida)
+  const gruposModulos: {
+    idGrupo: string;
+    titulo: string;
+    subtitulo: string;
+    destaqueBorda?: string;
+    itens: {
+      id: DirigenteTab;
+      label: string;
+      subLabel: string;
+      icon: React.ReactNode;
+      badge?: string;
+      corBadge?: string;
+    }[];
+  }[] = [
     {
-      id: "SOLICITACOES" as const,
-      label: "Minhas Solicitações",
-      icon: <PackageCheck className="h-4 w-4" />,
-      categoria: "PEDIDOS",
+      idGrupo: "SALVAGUARDA",
+      titulo: "1. Salvaguarda Clínica, Medicamentos & Documentos",
+      subtitulo: "Triagem farmacológica (PDF/Excel), fichas A4 e amparo CONAD",
+      destaqueBorda: "border-emerald-500/35 bg-floresta-950/90",
+      itens: [
+        {
+          id: "INTERACOES_FARMACIA",
+          label: "Lista de Medicamentos & Washout",
+          subLabel: "20 Classes • +185 Marcas • PDF & Excel",
+          icon: <Pill className="h-4 w-4 text-emerald-400" />,
+          badge: "PDF / EXCEL",
+          corBadge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+        },
+        {
+          id: "CENTRAL_DOCUMENTOS",
+          label: "Documentos & Modelos A4",
+          subLabel: "Anamnese, TCLE, Menores, POP e Trânsito",
+          icon: <FileCheck className="h-4 w-4 text-ambar-400" />,
+          badge: "5 DOCS",
+          corBadge: "bg-ambar-500/20 text-ambar-300 border-ambar-500/40",
+        },
+        {
+          id: "RESPALDO_JURIDICO",
+          label: "Marco Legal & Trânsito",
+          subLabel: "Conduta CONAD 01/2010 e Fiscalização",
+          icon: <Scale className="h-4 w-4 text-sky-400" />,
+        },
+      ],
     },
     {
-      id: "NOVA_SOLICITACAO" as const,
-      label: "Nova Solicitação",
-      icon: <Sparkles className="h-4 w-4" />,
-      categoria: "PEDIDOS",
+      idGrupo: "GESTAO",
+      titulo: "2. Gestão de Partilha & Comunidade do Templo",
+      subtitulo: "Solicitações de sacramentos, calculadora e perfil público",
+      destaqueBorda: "border-ambar-500/25 bg-floresta-950/80",
+      itens: [
+        {
+          id: "SOLICITACOES",
+          label: "Minhas Solicitações",
+          subLabel: "Rastreio de lotes e histórico",
+          icon: <PackageCheck className="h-4 w-4 text-ambar-400" />,
+        },
+        {
+          id: "NOVA_SOLICITACAO",
+          label: "Nova Solicitação",
+          subLabel: "Solicitar partilha cooperativa",
+          icon: <Sparkles className="h-4 w-4 text-ambar-400" />,
+        },
+        {
+          id: "CALCULADORA",
+          label: "Calculadora Litúrgica",
+          subLabel: "Dimensionamento e diluição 10:1",
+          icon: <Calculator className="h-4 w-4 text-ambar-300" />,
+        },
+        {
+          id: "COMUNIDADE_GESTAO",
+          label: "Meu Templo & Publicações",
+          subLabel: "Agenda e mural na comunidade",
+          icon: <Share2 className="h-4 w-4 text-ambar-400" />,
+        },
+      ],
     },
     {
-      id: "COMUNIDADE_GESTAO" as const,
-      label: "Meu Templo & Publicações",
-      icon: <Share2 className="h-4 w-4 text-ambar-400" />,
-      categoria: "PEDIDOS",
-      destaque: true,
-    },
-    {
-      id: "CALCULADORA" as const,
-      label: "Calculadora Litúrgica",
-      icon: <Calculator className="h-4 w-4" />,
-      categoria: "ASSESSORIA",
-    },
-    {
-      id: "CENTRAL_DOCUMENTOS" as const,
-      label: "Documentos & PDFs A4",
-      icon: <FileCheck className="h-4 w-4 text-ambar-400" />,
-      categoria: "ASSESSORIA",
-      destaque: true,
-    },
-    {
-      id: "INTERACOES_FARMACIA" as const,
-      label: "Fármacos & Washout",
-      icon: <Pill className="h-4 w-4 text-emerald-400" />,
-      categoria: "ASSESSORIA",
-    },
-    {
-      id: "GRADUACOES_CATALOGO" as const,
-      label: "Catálogo de Graduações",
-      icon: <BookOpen className="h-4 w-4" />,
-      categoria: "ASSESSORIA",
-    },
-    {
-      id: "ASSESSORIA_FAQ" as const,
-      label: "FAQ do Dirigente",
-      icon: <HelpCircle className="h-4 w-4" />,
-      categoria: "ASSESSORIA",
-    },
-    {
-      id: "RESPALDO_JURIDICO" as const,
-      label: "Marco Legal & Trânsito",
-      icon: <Scale className="h-4 w-4" />,
-      categoria: "JURIDICO",
-    },
-    {
-      id: "LAUDOS" as const,
-      label: "Laudos do Acre",
-      icon: <FileText className="h-4 w-4" />,
-      categoria: "TRANSPARENCIA",
-    },
-    {
-      id: "COOPERATIVISMO" as const,
-      label: "Tabela Evolutiva",
-      icon: <Compass className="h-4 w-4" />,
-      categoria: "TRANSPARENCIA",
+      idGrupo: "ACERVO",
+      titulo: "3. Acervo Técnico, Graduações & Transparência",
+      subtitulo: "Fichas fitoquímicas, laudos do Acre, dúvidas e rateio",
+      destaqueBorda: "border-ambar-500/20 bg-floresta-950/70",
+      itens: [
+        {
+          id: "GRADUACOES_CATALOGO",
+          label: "Catálogo de Graduações",
+          subLabel: "3.1 Mainumbi a 10.1 Wirapuru",
+          icon: <BookOpen className="h-4 w-4 text-ambar-300" />,
+        },
+        {
+          id: "ASSESSORIA_FAQ",
+          label: "FAQ do Dirigente",
+          subLabel: "Conservação, fermentação e rito",
+          icon: <HelpCircle className="h-4 w-4 text-ambar-300" />,
+        },
+        {
+          id: "LAUDOS",
+          label: "Laudos & Custódia (Acre)",
+          subLabel: "Análises fitoquímicas de safra",
+          icon: <FileText className="h-4 w-4 text-ambar-300" />,
+        },
+        {
+          id: "COOPERATIVISMO",
+          label: "Tabela Evolutiva & Cotas",
+          subLabel: "Rateio operacional sem fins lucrativos",
+          icon: <Compass className="h-4 w-4 text-ambar-300" />,
+        },
+      ],
     },
   ];
 
   // 3. PORTAL DO DIRIGENTE (TEMPLO HOMOLOGADO)
   return (
-    <div className="space-y-8 animate-fade-in">
+    <div className="space-y-6 animate-fade-in">
       {/* Barra Superior do Templo (Oculta na Impressão) */}
       <AnimateOnScroll className="print-hidden">
-        <div className="card-elevated rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-ambar-500/30 bg-gradient-to-r from-floresta-950 via-floresta-900 to-floresta-950">
+        <div className="card-elevated rounded-2xl p-5 sm:p-7 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 border-ambar-500/30 bg-gradient-to-r from-floresta-950 via-floresta-900 to-floresta-950">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">
-                Homologação Ativa & Regularizada • CONAD 01/2010
+                Homologação Ativa &amp; Regularizada • CONAD 01/2010
               </span>
             </div>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
               {temploAtual.nome}
             </h2>
             <p className="text-xs text-areia-300 font-light">
-              Dirigente: {temploAtual.dirigente} • Código: #{temploAtual.id} • {temploAtual.cidade}
+              Dirigente: {temploAtual.dirigente} • Código: #{temploAtual.id} •{" "}
+              {temploAtual.cidade}
             </p>
           </div>
 
-          <div className="flex items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2.5 w-full lg:w-auto">
             {authenticatedAsAdmin && (
               <button
                 onClick={() => setUserRole("ADMIN")}
-                className="btn-secondary text-xs inline-flex items-center gap-1.5 px-3 py-2 border-amber-500/50 text-amber-300"
+                className="btn-secondary text-xs inline-flex items-center justify-center gap-1.5 px-3 py-2 border-amber-500/50 text-amber-300 flex-1 sm:flex-initial"
                 title="Voltar ao Painel Geral da Cooperativa"
               >
                 <ShieldCheck className="h-3.5 w-3.5 text-ambar-400" />
@@ -331,7 +413,7 @@ export const PortalDirigenteClient: React.FC = () => {
             )}
             <button
               onClick={handleLogout}
-              className="rounded-xl border border-pedra-700/60 bg-pedra-900/60 hover:bg-pedra-800 text-areia-300 text-xs inline-flex items-center gap-1.5 px-3 py-2 transition-colors"
+              className="rounded-xl border border-pedra-700/60 bg-pedra-900/60 hover:bg-pedra-800 text-areia-300 text-xs inline-flex items-center justify-center gap-1.5 px-3.5 py-2 transition-colors"
             >
               <LogOut className="h-3.5 w-3.5" />
               <span>Sair</span>
@@ -340,37 +422,155 @@ export const PortalDirigenteClient: React.FC = () => {
         </div>
       </AnimateOnScroll>
 
-      {/* Abas de Navegação do Dirigente (Ocultas na Impressão) */}
-      <div className="print-hidden space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold text-areia-400 uppercase tracking-wider">
-            Navegação da Assessoria & Gestão
+      {/* FAIXA DE ACESSO DIRETO: DOWNLOAD DA LISTA DE MEDICAMENTOS (PDF & EXCEL) */}
+      <div className="print-hidden rounded-2xl border border-emerald-500/35 bg-gradient-to-r from-emerald-950/50 via-floresta-900/90 to-floresta-950 p-4 sm:p-5 shadow-lg">
+        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 shrink-0 mt-0.5">
+              <Pill className="h-5 w-5" />
+            </div>
+            <div className="space-y-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs sm:text-sm font-serif font-bold text-areia-100">
+                  Tabela Oficial de Medicamentos Controlados &amp; Conflitos com Ayahuasca
+                </span>
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  4 Cores • 20 Classes • +185 Medicamentos
+                </span>
+              </div>
+              <p className="text-xs text-areia-300 font-light leading-relaxed">
+                Acesso imediato para triagem no computador ou celular: baixe a lista completa em{" "}
+                <strong className="text-areia-100">PDF A4 pronto para impressão</strong> ou em{" "}
+                <strong className="text-areia-100">Planilha Excel (.xls) colorida</strong>, ou consulte o buscador interativo.
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setDirigenteTab("INTERACOES_FARMACIA")}
+              className={`px-3.5 py-2.5 rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-2 transition-all border ${
+                dirigenteTab === "INTERACOES_FARMACIA"
+                  ? "bg-emerald-500 text-floresta-950 font-bold border-emerald-400 shadow-md"
+                  : "bg-floresta-950/90 text-emerald-300 border-emerald-500/40 hover:bg-emerald-950/60"
+              }`}
+            >
+              <Pill className="h-4 w-4 shrink-0" />
+              <span>Abrir Buscador de Fármacos</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={exportarMedicamentosPDF}
+              className="px-3.5 py-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 bg-ambar-500 hover:bg-ambar-400 text-floresta-950 shadow-md transition-all"
+              title="Gerar e baixar PDF A4 da Tabela de Medicamentos Controlados"
+            >
+              <Printer className="h-4 w-4 shrink-0" />
+              <span>Baixar Lista em PDF (A4)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={exportarMedicamentosExcel}
+              className="px-3.5 py-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition-all"
+              title="Baixar planilha Excel (.xls) com todas as marcas comerciais e tempos de washout"
+            >
+              <FileSpreadsheet className="h-4 w-4 shrink-0" />
+              <span>Baixar Planilha Excel (.xls)</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* CENTRAL DE NAVEGAÇÃO EM GRADE POR PILARES (SEM BARRA ESCONDIDA NO PC OU CELULAR) */}
+      <div className="print-hidden space-y-2.5">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 px-1">
+          <span className="text-[11px] font-bold text-areia-300 uppercase tracking-wider">
+            Painel de Navegação da Assessoria &amp; Gestão do Templo
           </span>
-          <span className="text-[11px] text-ambar-400 font-medium hidden sm:inline">
-            10 Módulos Integrados para o Templo
+          <span className="text-[11px] text-ambar-400 font-medium">
+            Todos os 11 módulos visíveis • Toque para alternar
           </span>
         </div>
 
-        <div className="flex overflow-x-auto pb-2.5 gap-2 border-b border-ambar-500/20 touch-scroll-x scroll-smooth">
-          {abas.map((tab) => {
-            const isAtiva = dirigenteTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setDirigenteTab(tab.id)}
-                className={`px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs font-semibold whitespace-nowrap flex items-center gap-1.5 sm:gap-2 transition-all shrink-0 min-h-[40px] ${
-                  isAtiva
-                    ? "bg-ambar-500 text-floresta-950 font-bold shadow-md ring-2 ring-ambar-400/40"
-                    : tab.destaque
-                    ? "bg-floresta-900/90 text-ambar-300 hover:text-ambar-200 hover:bg-floresta-800 border border-ambar-500/40"
-                    : "bg-floresta-900/50 text-areia-300 hover:text-areia-100 hover:bg-floresta-800/60 border border-ambar-500/10"
-                }`}
-              >
-                {tab.icon}
-                <span>{tab.label}</span>
-              </button>
-            );
-          })}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-3.5">
+          {gruposModulos.map((grupo) => (
+            <div
+              key={grupo.idGrupo}
+              className={`rounded-2xl border p-3.5 sm:p-4 space-y-3 ${
+                grupo.destaqueBorda || "border-ambar-500/20 bg-floresta-950/80"
+              }`}
+            >
+              <div className="border-b border-ambar-500/15 pb-2">
+                <h3 className="text-xs font-bold text-areia-100 uppercase tracking-wide">
+                  {grupo.titulo}
+                </h3>
+                <p className="text-[11px] text-areia-400 font-light">
+                  {grupo.subtitulo}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2">
+                {grupo.itens.map((item) => {
+                  const isAtiva = dirigenteTab === item.id;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setDirigenteTab(item.id)}
+                      className={`p-2.5 sm:p-3 rounded-xl text-left transition-all flex items-start gap-2.5 border ${
+                        isAtiva
+                          ? "bg-ambar-500 text-floresta-950 font-bold border-ambar-400 shadow-md ring-2 ring-ambar-400/40"
+                          : "bg-floresta-900/60 text-areia-200 hover:text-areia-100 hover:bg-floresta-800/80 border-ambar-500/15"
+                      }`}
+                    >
+                      <div
+                        className={`p-1.5 rounded-lg shrink-0 mt-0.5 ${
+                          isAtiva
+                            ? "bg-floresta-950/20 text-floresta-950"
+                            : "bg-floresta-950/80"
+                        }`}
+                      >
+                        {item.icon}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-center justify-between gap-1">
+                          <span
+                            className={`text-xs font-semibold leading-tight truncate ${
+                              isAtiva ? "text-floresta-950 font-bold" : "text-areia-100"
+                            }`}
+                          >
+                            {item.label}
+                          </span>
+                          {item.badge && (
+                            <span
+                              className={`px-1.5 py-0.2 rounded text-[9px] font-mono font-bold border shrink-0 ${
+                                isAtiva
+                                  ? "bg-floresta-950 text-ambar-300 border-floresta-900"
+                                  : item.corBadge
+                              }`}
+                            >
+                              {item.badge}
+                            </span>
+                          )}
+                        </div>
+                        <p
+                          className={`text-[10px] leading-snug mt-0.5 truncate ${
+                            isAtiva
+                              ? "text-floresta-900 font-medium"
+                              : "text-areia-400 font-light"
+                          }`}
+                        >
+                          {item.subLabel}
+                        </p>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

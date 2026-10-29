@@ -15,8 +15,14 @@ import {
   Scale,
   HeartPulse,
   Users,
+  FileSpreadsheet,
+  Pill,
 } from "lucide-react";
 import { TemploMock } from "@/data/portal-mock";
+import {
+  exportarMedicamentosExcel,
+  exportarMedicamentosPDF,
+} from "@/lib/export-medicamentos";
 
 interface PortalCentralDocumentosProps {
   templo: TemploMock;
@@ -491,10 +497,28 @@ Assinatura do Dirigente / Portador Credenciado: ________________________________
           <button
             onClick={handleImprimir}
             className="btn-primary text-xs inline-flex items-center justify-center gap-1.5 px-4 py-2 shadow-md active:scale-95 transition-all w-full lg:w-auto"
-            title="Imprimir documento em papel ou salvar em PDF"
+            title="Imprimir documento selecionado em papel ou salvar em PDF"
           >
             <Printer className="h-3.5 w-3.5 shrink-0" />
-            <span>Imprimir A4 / PDF</span>
+            <span>Imprimir Doc Atual (A4 / PDF)</span>
+          </button>
+
+          <button
+            onClick={exportarMedicamentosPDF}
+            className="px-3.5 py-2 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-1.5 bg-rose-950/90 hover:bg-rose-900 text-rose-200 border border-rose-500/40 transition-all w-full lg:w-auto"
+            title="Baixar a Tabela Oficial de Medicamentos Controlados separada em PDF A4"
+          >
+            <Pill className="h-3.5 w-3.5 text-rose-400 shrink-0" />
+            <span>Lista Medicamentos (PDF)</span>
+          </button>
+
+          <button
+            onClick={exportarMedicamentosExcel}
+            className="px-3.5 py-2 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-1.5 bg-emerald-950/90 hover:bg-emerald-900 text-emerald-200 border border-emerald-500/40 transition-all w-full lg:w-auto"
+            title="Baixar a Tabela Oficial de Medicamentos Controlados em Planilha Excel (.xls)"
+          >
+            <FileSpreadsheet className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
+            <span>Lista Medicamentos (Excel)</span>
           </button>
         </div>
       </div>
@@ -559,58 +583,69 @@ Assinatura do Dirigente / Portador Credenciado: ________________________________
         </div>
       )}
 
-      {/* SELEÇÃO DAS 5 ABAS DE DOCUMENTOS */}
-      <div className="print-hidden flex overflow-x-auto gap-2 pb-1 border-b border-ambar-500/20">
-        {[
-          {
-            id: "ANAMNESE" as const,
-            nome: "Doc 01: Ficha de Anamnese Completa",
-            sub: "Triagem Clínica, Psiquiátrica & Tabela de Medicamentos",
-            icon: <HeartPulse className="h-4 w-4 text-rose-400" />,
-          },
-          {
-            id: "TERMO" as const,
-            nome: "Doc 02: Termo de Responsabilidade & TCLE",
-            sub: "Amparo CONAD 01/2010 e Art. 5º CF/88 (9 Cláusulas)",
-            icon: <Scale className="h-4 w-4 text-ambar-400" />,
-          },
-          {
-            id: "MENORES" as const,
-            nome: "Doc 05: Termo para Menor de Idade",
-            sub: "Poder Familiar Conjunto & CONAD 01/2010 (Item 4.1)",
-            icon: <Users className="h-4 w-4 text-purple-400" />,
-          },
-          {
-            id: "ATA" as const,
-            nome: "Doc 03: POP & Ata de Condução Litúrgica",
-            sub: "Zendo Project, Critérios de Hunter e Ata de Sessão",
-            icon: <ShieldCheck className="h-4 w-4 text-emerald-400" />,
-          },
-          {
-            id: "TRANSITO" as const,
-            nome: "Doc 04: Declaração de Trânsito Litúrgico",
-            sub: "Salvaguarda para Viagens Aéreas e Terrestres",
-            icon: <Building2 className="h-4 w-4 text-blue-400" />,
-          },
-        ].map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setDocAtivo(tab.id)}
-            className={`px-4 py-3 rounded-xl text-left transition-all shrink-0 border ${
-              docAtivo === tab.id
-                ? "bg-ambar-500/15 border-ambar-500 text-areia-100 shadow-md ring-1 ring-ambar-400/30"
-                : "bg-floresta-900/40 border-ambar-500/10 text-areia-300 hover:bg-floresta-800/50 hover:text-areia-100"
-            }`}
-          >
-            <div className="flex items-center gap-2 text-xs font-bold text-areia-100">
-              {tab.icon}
-              <span>{tab.nome}</span>
-            </div>
-            <p className="text-[10px] text-areia-400 font-light mt-0.5">
-              {tab.sub}
-            </p>
-          </button>
-        ))}
+      {/* SELEÇÃO DAS 5 ABAS DE DOCUMENTOS (GRADE RESPONSIVA SEM BARRA ESCONDIDA) */}
+      <div className="print-hidden space-y-2">
+        <div className="flex items-center justify-between px-1">
+          <span className="text-[11px] font-bold text-areia-300 uppercase tracking-wider">
+            Escolha o Modelo Canônico Abaixo (5 Documentos Oficiais)
+          </span>
+          <span className="text-[11px] text-ambar-400 font-medium hidden sm:inline">
+            Clique no cartão para alternar a folha A4
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 pb-1">
+          {[
+            {
+              id: "ANAMNESE" as const,
+              nome: "Doc 01: Ficha de Anamnese",
+              sub: "Triagem Clínica, Psiquiátrica & Medicamentos",
+              icon: <HeartPulse className="h-4 w-4 text-rose-400 shrink-0" />,
+            },
+            {
+              id: "TERMO" as const,
+              nome: "Doc 02: Termo & TCLE",
+              sub: "Amparo CONAD 01/2010 e CF/88 (9 Cláusulas)",
+              icon: <Scale className="h-4 w-4 text-ambar-400 shrink-0" />,
+            },
+            {
+              id: "MENORES" as const,
+              nome: "Doc 05: Termo p/ Menores",
+              sub: "Poder Familiar Conjunto & CONAD (Item 4.1)",
+              icon: <Users className="h-4 w-4 text-purple-400 shrink-0" />,
+            },
+            {
+              id: "ATA" as const,
+              nome: "Doc 03: POP & Ata Ritual",
+              sub: "Zendo Project, Critérios de Hunter e Ata",
+              icon: <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" />,
+            },
+            {
+              id: "TRANSITO" as const,
+              nome: "Doc 04: Trânsito Litúrgico",
+              sub: "Salvaguarda Aérea (ANAC) e Rodoviária",
+              icon: <Building2 className="h-4 w-4 text-blue-400 shrink-0" />,
+            },
+          ].map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setDocAtivo(tab.id)}
+              className={`p-3 rounded-xl text-left transition-all border flex flex-col justify-between ${
+                docAtivo === tab.id
+                  ? "bg-ambar-500/20 border-ambar-400 text-areia-100 shadow-md ring-2 ring-ambar-400/40"
+                  : "bg-floresta-900/50 border-ambar-500/15 text-areia-300 hover:bg-floresta-800/60 hover:text-areia-100"
+              }`}
+            >
+              <div className="flex items-center gap-2 text-xs font-bold text-areia-100">
+                {tab.icon}
+                <span className="leading-tight">{tab.nome}</span>
+              </div>
+              <p className="text-[10px] text-areia-400 font-light mt-1 leading-snug">
+                {tab.sub}
+              </p>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* ÁREA DE IMPRESSÃO / FOLHA A4 NATIVA */}
