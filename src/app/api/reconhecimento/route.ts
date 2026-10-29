@@ -8,6 +8,7 @@ import {
   ReconhecimentoDossier,
 } from "@/lib/reconhecimento/engine";
 import { getGraduacaoPorId } from "@/data/graduacoes";
+import { registrarSolicitacao } from "@/lib/db/homologacoes";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const RECONHECIMENTOS_FILE = path.join(DATA_DIR, "reconhecimentos.json");
@@ -81,6 +82,29 @@ export async function POST(request: NextRequest) {
       data,
       graduacaoInfo,
     };
+
+    // Persistência unificada na fila de Homologação do ADM
+    try {
+      await registrarSolicitacao({
+        id: protocolo,
+        tipo: "GRUPO_INFORMAL",
+        nomeEntidade: data.nomeIdentificacao,
+        nomeResponsavel: data.nomeResponsavel,
+        telefone: data.telefoneContato,
+        email: data.emailContato,
+        cidade: data.cidade,
+        estado: data.estado,
+        linhagem: data.linhagemEspiritual,
+        graduacao: graduacaoInfo
+          ? `${graduacaoInfo.codigo} ${graduacaoInfo.nomeSagrado}`
+          : data.graduacaoPretendida,
+        volumeEstimado: `${data.litragemEstimadaMensal} Litros`,
+        intencao: data.intencaoTrabalho,
+        dataEnvio: dataSubmissao,
+      });
+    } catch (homologErr) {
+      console.warn("Aviso ao registrar na fila de homologação:", homologErr);
+    }
 
     // Persistência local atômica
     await garantirArquivoReconhecimentos();

@@ -65,6 +65,73 @@ export const PortalDirigenteClient: React.FC = () => {
   // Estado interativo de congregações
   const [templos, setTemplos] = useState<TemploMock[]>(templosIniciais);
 
+  // Sincronizar congregações homologadas pelo ADM (API + LocalStorage) para popular perfil do dirigente
+  useEffect(() => {
+    const sincronizarCongregacoesHomologadas = async () => {
+      const converterParaTemplo = (s: any): TemploMock => ({
+        id: s.loginGerado || s.id,
+        nome: s.nomeEntidade || `Congregação (${s.id})`,
+        dirigente: s.nomeResponsavel || "Dirigente Homologado",
+        cidade: s.cidade && s.estado ? `${s.cidade}/${s.estado}` : s.cidade || "Brasil",
+        cnpj:
+          s.cnpj ||
+          (s.tipo === "GRUPO_INFORMAL"
+            ? `Protocolo ${s.id} (CONAD 01/2010)`
+            : "Homologado pelo Conselho"),
+        status: "HOMOLOGADO",
+        graduacao: s.graduacao || "3.1 Mainumbi",
+        volume: s.volumeEstimado || "5L / mês",
+        dataAprovacao: s.dataHomologacao || s.dataEnvio || "2026",
+        membros: 15,
+        conadAprovado: true,
+      });
+
+      const mapa = new Map<string, TemploMock>();
+      for (const t of templosIniciais) {
+        mapa.set(t.id.toUpperCase(), t);
+      }
+
+      try {
+        const rawLocal = localStorage.getItem("nativaram_solicitacoes_local");
+        if (rawLocal) {
+          const locais = JSON.parse(rawLocal);
+          if (Array.isArray(locais)) {
+            for (const s of locais) {
+              if (s && s.status === "HOMOLOGADO") {
+                const tm = converterParaTemplo(s);
+                mapa.set(tm.id.toUpperCase(), tm);
+                if (s.id) mapa.set(s.id.toUpperCase(), { ...tm, id: s.id });
+              }
+            }
+          }
+        }
+      } catch {
+        // Ignora erro localStorage
+      }
+
+      try {
+        const res = await fetch("/api/solicitacoes", { cache: "no-store" });
+        if (res.ok) {
+          const json = await res.json();
+          const lista = json.solicitacoes || [];
+          for (const s of lista) {
+            if (s && s.status === "HOMOLOGADO") {
+              const tm = converterParaTemplo(s);
+              mapa.set(tm.id.toUpperCase(), tm);
+              if (s.id) mapa.set(s.id.toUpperCase(), { ...tm, id: s.id });
+            }
+          }
+        }
+      } catch {
+        // Continua com dados iniciais + cache local
+      }
+
+      setTemplos(Array.from(mapa.values()));
+    };
+
+    sincronizarCongregacoesHomologadas();
+  }, [isAuthenticated, codigoAcesso]);
+
   // Verificar sessão persistente no Supabase no carregamento inicial
   useEffect(() => {
     const supabase = getSupabaseBrowserClient();

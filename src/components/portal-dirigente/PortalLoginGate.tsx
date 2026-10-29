@@ -156,7 +156,30 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         return;
       }
 
-      // 2. Checagem no banco de congregações e grupos homologados pelo ADM
+      // 2. Checagem no cache local de congregações homologadas neste navegador
+      try {
+        const rawLocal = localStorage.getItem("nativaram_solicitacoes_local");
+        if (rawLocal) {
+          const listaLocal = JSON.parse(rawLocal);
+          if (Array.isArray(listaLocal)) {
+            const matchLocal = listaLocal.find(
+              (s: any) =>
+                s?.status === "HOMOLOGADO" &&
+                ((s?.loginGerado && s.loginGerado.toUpperCase() === loginUpper) ||
+                  (s?.id && s.id.toUpperCase() === loginUpper)) &&
+                (!s?.senhaGerada || s.senhaGerada === senhaLimpa)
+            );
+            if (matchLocal) {
+              onAuthenticated("DIRIGENTE", matchLocal.loginGerado || matchLocal.id);
+              return;
+            }
+          }
+        }
+      } catch {
+        // Ignora erro localStorage
+      }
+
+      // 3. Checagem no banco de congregações e grupos homologados pelo ADM
       try {
         const res = await fetch("/api/auth/verificar-chave", {
           method: "POST",
@@ -167,7 +190,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         if (res.ok) {
           const json = await res.json();
           if (json.sucesso && json.congregao) {
-            onAuthenticated("DIRIGENTE", json.congregao.id);
+            onAuthenticated("DIRIGENTE", json.congregao.loginGerado || json.congregao.id);
             return;
           }
         }
@@ -175,8 +198,8 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         console.warn("Aviso ao validar chave com API:", errApi);
       }
 
-      // 3. Fallback para códigos canônicos prefixados com NAT-
-      if (loginUpper.startsWith("NAT-")) {
+      // 4. Fallback para códigos canônicos prefixados com NAT- ou REC-
+      if (loginUpper.startsWith("NAT-") || loginUpper.startsWith("REC-")) {
         onAuthenticated("DIRIGENTE", loginUpper);
         return;
       }

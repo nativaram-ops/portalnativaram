@@ -98,6 +98,35 @@ export const CredenciamentoForm = () => {
       graduacaoInfo: getGraduacaoPorId(data.graduacaoPretendida),
     };
 
+    // Salvar cache local no navegador
+    try {
+      const key = "nativaram_solicitacoes_local";
+      const atual = JSON.parse(localStorage.getItem(key) || "[]");
+      const novoItem = {
+        id: protocolo,
+        tipo: "INSTITUICAO_FORMAL" as const,
+        nomeEntidade: data.nomeInstituicao,
+        nomeResponsavel: data.nomeDirigente,
+        telefone: data.telefoneContato,
+        email: data.emailOficial,
+        cidade: data.cidade,
+        estado: data.estado,
+        cnpj: data.cnpj,
+        linhagem: "Tradição Institucional Formal",
+        graduacao: data.graduacaoPretendida,
+        volumeEstimado: `${data.numeroMembrosAtivos} membros`,
+        intencao: data.intencaoTrabalho,
+        status: "PENDENTE_LIBERACAO" as const,
+        dataEnvio: dataSubmissao,
+      };
+      const filtrada = Array.isArray(atual)
+        ? atual.filter((x: { id?: string }) => x?.id !== protocolo)
+        : [];
+      localStorage.setItem(key, JSON.stringify([novoItem, ...filtrada]));
+    } catch {
+      // Ignora erro localStorage
+    }
+
     // Registrar no banco de homologações do ADM
     try {
       await fetch("/api/solicitacoes", {

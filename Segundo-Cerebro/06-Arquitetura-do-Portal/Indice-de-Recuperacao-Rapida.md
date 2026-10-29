@@ -26,8 +26,8 @@ categoria: Índice Rápido
 | :--- | :--- | :--- |
 | **Portal do Dirigente** | `src/app/portal-dirigente/page.tsx` | Página restrita para dirigentes de templos e conselho gestor |
 | **Orquestrador de Tela** | `src/components/layout/PortalDirigenteClient.tsx` | Autenticação por perfis (Templo vs ADM) e 10 abas de governança |
-| **Central de Documentos A4** | `src/components/portal-dirigente/PortalCentralDocumentos.tsx` | 5 modelos canônicos abertos (Anamnese, Termo CONAD, Termo de Menores, POP/Ata e Declaração), tripla exportação (A4/Word/Markdown) |
-| **Farmacologia & Washout** | `src/components/portal-dirigente/PortalInteracoesMedicamentosas.tsx` | 15 classes do compêndio, cinética $5\text{ a }7 \times t_{1/2}$, Critérios de Hunter e alerta de Lítio (Status Epilepticus) |
+| **Central de Documentos A4** | `src/components/portal-dirigente/PortalCentralDocumentos.tsx` | 5 modelos canônicos abertos (Anamnese com Tabela de 4 Cores de Medicamentos, Termo CONAD, Termo de Menores, POP/Ata e Declaração), tripla exportação (A4/Word/Markdown) |
+| **Farmacologia & Washout** | `src/components/portal-dirigente/PortalInteracoesMedicamentosas.tsx` | 20 classes farmacológicas (+180 marcas), filtro pelas 4 cores da Tabela de Medicamentos Controlados, GLP-1, Limbitrol, Exceção de Desintoxicação, Critérios de Hunter e alerta de Lítio |
 | **Catálogo de Graduações** | `src/components/portal-dirigente/PortalCatalogoGraduacoes.tsx` | Fitoquímica Tucunacá (8,03 mg/g), Chacrona circadiana, 65–72 °Brix e Tabela de Diluição 10:1 Wirapuru |
 | **FAQ do Dirigente** | `src/components/portal-dirigente/PortalAssessoriaFAQ.tsx` | 12 perguntas aprofundadas (gás CO₂, borra, dosagens, Zendo Project e fiscalizações) |
 | **Calculadora Litúrgica** | `src/components/portal-dirigente/PortalCalculadoraLiturgica.tsx` | Modo Cerimônia (participantes/sacramentos) e Modo Reconstituição 10:1 (água a 45-50°C e cálices) |

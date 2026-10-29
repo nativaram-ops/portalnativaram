@@ -179,6 +179,11 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
     - *Páginas Públicas Individuais de Templos (`/estudos/comunidade/[slug]`):* Página dedicada de cada congregação credenciada com galeria, missão, agenda e contato seguro via WhatsApp.
     - *Validação & Qualidade:* 26/26 testes automatizados verdes (`npm test`) e 39/39 rotas compiladas estaticamente no build de produção do Next.js 15 (`npm run build`).
 
+28. **Resiliência de Homologação (`REC-2026-OLYY`), Cadastro de Protocolos WhatsApp & Expansão Farmacológica (20 Classes / 4 Cores):**
+    - *Correção e Sincronização de Homologações (`src/lib/db/homologacoes.ts`, `src/app/api/reconhecimento/route.ts`, `AdminGestaoHomologacoes.tsx`):* Inclusão imediata do protocolo `REC-2026-OLYY` na fila de aprovação do ADM; integração direta de `POST /api/reconhecimento` com `registrarSolicitacao`; fallback em `os.tmpdir()` para ambientes serverless (`EROFS`) somado à sincronização em `localStorage` (`nativaram_solicitacoes_local`); edição inline de dados da congregação e botão **"Cadastrar Protocolo (WhatsApp)"** para homologar qualquer código recebido externamente em 1 clique.
+    - *Sincronização de Perfil Homologado (`PortalLoginGate.tsx` & `PortalDirigenteClient.tsx`):* Grupos e templos recém-homologados (`NAT-GRP-XXXX` / `NAT-TEMPLO-XXXX`) carregam automaticamente seus dados reais na sessão do Portal do Dirigente.
+    - *Compêndio de 20 Classes Farmacológicas & Tabela de Medicamentos Controlados (`src/data/portal-assessoria.ts`, `PortalInteracoesMedicamentosas.tsx`, `PortalCentralDocumentos.tsx`):* Incorporação integral de todos os fármacos e marcas comerciais do documento oficial `MEDICAMENTOS CONTROLADOS` (divididos em 🔴 Não pode participar, 🟠 Caso clínico não recomendado, 🔵 Interromper dias antes e 🟡 Não tomar no dia), além de interações modernas (canetas GLP-1 Ozempic/Mounjaro, Triptanos, Opioides, Antibiótico Linezolida, Antiparkinsonianos e alerta sobre a associação de Amitriptilina no Limbitrol) e nota de Exceção para Tratamentos de Desintoxicação, tanto na matriz interativa quanto nos 5 documentos canônicos A4/Word/Markdown.
+
 ---
 
 ## Relações

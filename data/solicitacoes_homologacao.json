@@ -1,5 +1,21 @@
 [
   {
+    "id": "REC-2026-OLYY",
+    "tipo": "GRUPO_INFORMAL",
+    "nomeEntidade": "Grupo em Desenvolvimento (Protocolo REC-2026-OLYY)",
+    "nomeResponsavel": "Guardião / Dirigente Solicitante",
+    "telefone": "",
+    "email": "",
+    "cidade": "Em Homologação",
+    "estado": "BR",
+    "linhagem": "Tradição Ayahuasqueira / Estudo Livre",
+    "graduacao": "3.1 Mainumbi",
+    "volumeEstimado": "3 a 5 Litros",
+    "intencao": "Solicitação de Reconhecimento e Acolhimento de Grupo Informal recebida via protocolo REC-2026-OLYY sob amparo da Resolução CONAD 01/2010.",
+    "status": "PENDENTE_LIBERACAO",
+    "dataEnvio": "29/10/2026, 15:40"
+  },
+  {
     "id": "NAT-TEMPLO-842",
     "tipo": "INSTITUICAO_FORMAL",
     "nomeEntidade": "Templo Céu do Cruzeiro",

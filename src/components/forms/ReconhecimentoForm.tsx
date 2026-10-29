@@ -122,6 +122,60 @@ export const ReconhecimentoForm = () => {
   };
 
   const onSubmit = async (data: ReconhecimentoInput) => {
+    const salvarCacheLocal = (protocoloGerado: string, dataEnvioStr: string) => {
+      try {
+        const key = "nativaram_solicitacoes_local";
+        const atual = JSON.parse(localStorage.getItem(key) || "[]");
+        const novoItem = {
+          id: protocoloGerado,
+          tipo: "GRUPO_INFORMAL" as const,
+          nomeEntidade: data.nomeIdentificacao,
+          nomeResponsavel: data.nomeResponsavel,
+          telefone: data.telefoneContato,
+          email: data.emailContato,
+          cidade: data.cidade,
+          estado: data.estado,
+          linhagem: data.linhagemEspiritual,
+          graduacao: data.graduacaoPretendida,
+          volumeEstimado: `${data.litragemEstimadaMensal} Litros`,
+          intencao: data.intencaoTrabalho,
+          status: "PENDENTE_LIBERACAO" as const,
+          dataEnvio: dataEnvioStr,
+        };
+        const filtrada = Array.isArray(atual)
+          ? atual.filter((x: { id?: string }) => x?.id !== protocoloGerado)
+          : [];
+        localStorage.setItem(key, JSON.stringify([novoItem, ...filtrada]));
+      } catch {
+        // Ignora erro de localStorage
+      }
+    };
+
+    const sincronizarApiSolicitacoes = async (protocoloGerado: string) => {
+      try {
+        await fetch("/api/solicitacoes", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: protocoloGerado,
+            tipo: "GRUPO_INFORMAL",
+            nomeEntidade: data.nomeIdentificacao,
+            nomeResponsavel: data.nomeResponsavel,
+            telefone: data.telefoneContato,
+            email: data.emailContato,
+            cidade: data.cidade,
+            estado: data.estado,
+            linhagem: data.linhagemEspiritual,
+            graduacao: data.graduacaoPretendida,
+            volumeEstimado: `${data.litragemEstimadaMensal} Litros`,
+            intencao: data.intencaoTrabalho,
+          }),
+        });
+      } catch (errSync) {
+        console.warn("Aviso ao sincronizar com ADM:", errSync);
+      }
+    };
+
     try {
       const res = await fetch("/api/reconhecimento", {
         method: "POST",
@@ -132,6 +186,7 @@ export const ReconhecimentoForm = () => {
       if (res.ok) {
         const json = await res.json();
         setDossier(json.dossier);
+        salvarCacheLocal(json.protocolo, json.dataSubmissao || new Date().toLocaleDateString("pt-BR"));
 
         // Mensagem formatada pedindo liberação direta do acesso
         const msgLiberacao = [
@@ -151,30 +206,7 @@ export const ReconhecimentoForm = () => {
         ].join("\n");
 
         setWhatsappDirectUrl(`https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`);
-
-        // Registrar no banco central de homologações para o ADM
-        try {
-          await fetch("/api/solicitacoes", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              id: json.protocolo,
-              tipo: "GRUPO_INFORMAL",
-              nomeEntidade: data.nomeIdentificacao,
-              nomeResponsavel: data.nomeResponsavel,
-              telefone: data.telefoneContato,
-              email: data.emailContato,
-              cidade: data.cidade,
-              estado: data.estado,
-              linhagem: data.linhagemEspiritual,
-              graduacao: data.graduacaoPretendida,
-              volumeEstimado: `${data.litragemEstimadaMensal} Litros`,
-              intencao: data.intencaoTrabalho,
-            }),
-          });
-        } catch (errSync) {
-          console.warn("Aviso ao sincronizar com ADM:", errSync);
-        }
+        await sincronizarApiSolicitacoes(json.protocolo);
       } else {
         // Fallback local se a rota de API oscilar
         const fallbackProtocolo = generateProtocoloReconhecimento();
@@ -191,6 +223,9 @@ export const ReconhecimentoForm = () => {
           data,
           graduacaoInfo: getGraduacaoPorId(data.graduacaoPretendida),
         };
+
+        salvarCacheLocal(fallbackProtocolo, fallbackSubmissao);
+        await sincronizarApiSolicitacoes(fallbackProtocolo);
 
         const msgLiberacao = [
           `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
@@ -227,6 +262,9 @@ export const ReconhecimentoForm = () => {
         data,
         graduacaoInfo: getGraduacaoPorId(data.graduacaoPretendida),
       };
+
+      salvarCacheLocal(fallbackProtocolo, fallbackSubmissao);
+      await sincronizarApiSolicitacoes(fallbackProtocolo);
 
       const msgLiberacao = [
         `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,

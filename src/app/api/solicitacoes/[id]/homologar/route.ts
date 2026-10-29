@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { homologarSolicitacao } from "@/lib/db/homologacoes";
 
 export async function POST(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
@@ -15,7 +15,17 @@ export async function POST(
       );
     }
 
-    const resultado = await homologarSolicitacao(id);
+    let dadosComplementares = undefined;
+    try {
+      const body = await request.json();
+      if (body && typeof body === "object") {
+        dadosComplementares = body;
+      }
+    } catch {
+      // Request sem body JSON (chamada simples)
+    }
+
+    const resultado = await homologarSolicitacao(id, dadosComplementares);
 
     if (!resultado) {
       return NextResponse.json(
