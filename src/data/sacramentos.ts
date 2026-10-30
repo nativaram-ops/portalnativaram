@@ -1,8 +1,8 @@
 /**
- * Catálogo Oficial de Alquimias Sagradas, Rapés e Artefatos — Nativaram Brasil
+ * Catálogo Oficial de Alquimias Sagradas, Rapés e Artefatos — Cooperativa Nativaram
  *
  * Em estrita observância à Resolução CONAD nº 01/2010, Marco Sanitário ANVISA e
- * Dossiê de Compliance Etnobotânico Nativaram Brasil.
+ * Dossiê de Compliance Etnobotânico Cooperativa Nativaram.
  * Todo texto obedece rigorosamente ao Dicionário de Engenharia de Linguagem.
  */
 
@@ -150,6 +150,66 @@ export const RAPES_TRADICIONAIS: SacramentoRape[] = [
     propositoTradicional: "Força e resiliência do sertão. Ancoramento absoluto na matéria, blindagem energética e firmeza.",
     goldenCopy: "A resiliência inabalável da Jurema em cinzas de queima cerimonial completa. Traz a solidez e a firmeza da terra seca, convidando à coragem interior e ao enraizamento seguro diante das oscilações do cotidiano.",
     elementos: ["Tabaco Orgânico Selvagem", "Cinzas Cerimoniais de Jurema Preta"],
+  },
+  {
+    id: "CUMARU",
+    nome: "Rapé Sagrado de Cumaru",
+    nomeCientifico: "Nicotiana rustica & Dipteryx odorata",
+    familiaBotanica: "Solanaceae & Fabaceae",
+    biomaOrigem: "Floresta Amazônica",
+    pHMedio: "9,70 a 10,05",
+    perfilFitoquimico: "Cinzas minerais ricas em potássio e cálcio biodisponíveis combinadas com cumarinas aromáticas naturais.",
+    propositoTradicional: "Força vital, proteção áurica e ancoragem telúrica com frescor respiratório.",
+    goldenCopy: "A nobreza perfumada do Cumaru amazônico unida ao tabaco selvagem. Proporciona clareza cognitiva, foco estável e forte ligação com a terra para ritos de proteção e firmeza.",
+    elementos: ["Tabaco Orgânico Selvagem", "Sementes e Cinzas de Cumaru", "Breu Preto"],
+  },
+  {
+    id: "PARICA",
+    nome: "Rapé Sagrado de Paricá",
+    nomeCientifico: "Nicotiana rustica & Schizolobium amazonicum",
+    familiaBotanica: "Solanaceae & Fabaceae",
+    biomaOrigem: "Floresta Amazônica",
+    pHMedio: "9,85 a 10,20",
+    perfilFitoquimico: "Cinzas da casca do tronco calcinadas acima de 250°C (100% isentas de compostos triptamínicos), altamente alcalinas.",
+    propositoTradicional: "Força do guerreiro, alinhamento coronário, discernimento límpido e fogo de transformação.",
+    goldenCopy: "Alquimia de presença intensa elaborada com cinzas puristas da casca de Paricá. Desperta a atenção plena, silencia inquietações mentais e sustenta a postura firme em vigílias solenes.",
+    elementos: ["Tabaco Orgânico Selvagem", "Cinzas da Casca de Paricá"],
+  },
+  {
+    id: "PIXURI",
+    nome: "Rapé Sagrado de Pixuri",
+    nomeCientifico: "Nicotiana rustica & Licaria puchury-major",
+    familiaBotanica: "Solanaceae & Lauraceae",
+    biomaOrigem: "Floresta Amazônica",
+    pHMedio: "9,45 a 9,80",
+    perfilFitoquimico: "Sementes aromáticas ricas em linalol natural combinadas a cinzas alcalinas de Tsunú.",
+    propositoTradicional: "Guardião do repouso, serenidade mental noturna e proteção sutil dos sonhos.",
+    goldenCopy: "Notas aromáticas acolhedoras da semente de Pixuri em sinergia com cinzas nobres. Ideal para o recolhimento ao anoitecer, convidando à quietude mental e a um repouso sereno.",
+    elementos: ["Tabaco Orgânico Selvagem", "Sementes de Pixuri", "Cinzas de Tsunú"],
+  },
+  {
+    id: "RAINHA",
+    nome: "Rapé Sagrado de Rainha (Chacrona)",
+    nomeCientifico: "Nicotiana rustica & Psychotria viridis",
+    familiaBotanica: "Solanaceae & Rubiaceae",
+    biomaOrigem: "Floresta Amazônica",
+    pHMedio: "9,50 a 9,85",
+    perfilFitoquimico: "Folhas desidratadas e calcinadas acima de 200°C (degradação térmica total de alcaloides visionários), retendo flavonoides e taninos.",
+    propositoTradicional: "Conexão ao sagrado feminino, delicadeza intuitiva e paz interior.",
+    goldenCopy: "Uma composição serena e luminosa que honra a folha Rainha da floresta. Favorece a escuta interior, a sensibilidade meditativa e a harmonia do centro cardíaco.",
+    elementos: ["Tabaco Orgânico Selvagem", "Folhas de Chacrona", "Cinzas de Tsunú"],
+  },
+  {
+    id: "CANELA_DE_VELHO",
+    nome: "Rapé Sagrado de Canela de Velho",
+    nomeCientifico: "Nicotiana rustica & Miconia albicans",
+    familiaBotanica: "Solanaceae & Melastomataceae",
+    biomaOrigem: "Cerrado, Caatinga e Transição Amazônica",
+    pHMedio: "9,65 a 9,95",
+    perfilFitoquimico: "Rico em flavonoides e compostos triterpênicos (ácido oleanólico e ácido ursólico) termoestáveis em matriz alcalina.",
+    propositoTradicional: "Sabedoria dos anciãos, firmeza estrutural do corpo, enraizamento e resiliência física.",
+    goldenCopy: "A tradição das ervas de força do Brasil profundo em uma alquimia terrosa e reconfortante. Apoia o centramento corporal, a estabilidade postural para longas meditações e a serenidade dos sentidos.",
+    elementos: ["Tabaco Orgânico Selvagem", "Folhas de Canela de Velho", "Cinzas de Tsunú"],
   },
 ];
 

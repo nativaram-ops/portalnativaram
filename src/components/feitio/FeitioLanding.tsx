@@ -592,7 +592,7 @@ export function FeitioLanding() {
               <h4 className="font-serif text-lg font-bold text-areia-100">Cipó Preto / Yagé</h4>
               <span className="text-xs text-amber-300/80 font-mono italic">Etnovariedade Florestal</span>
               <p className="text-xs text-areia-300 font-light leading-relaxed">
-                Possui córtex escuro, textura rígida e alta concentração de taninos naturais da mata fechada. Tradicionalmente consagrado em ritos noturnos de cura profunda e vigília nas tradições do Noroeste Amazônico, gerando estados de imersão densa e introspecção solene.
+                Possui córtex escuro, textura rígida e alta concentração de taninos naturais da mata fechada. Tradicionalmente consagrado em ritos noturnos de reequilíbrio vital profundo e vigília nas tradições do Noroeste Amazônico, gerando estados de imersão densa e introspecção solene.
               </p>
             </div>
           </div>

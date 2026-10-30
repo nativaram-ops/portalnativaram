@@ -228,7 +228,7 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
       "MECANISMO LETAL: O Lítio inibe a enzima inositol monofosfatase (IMPase), depletando o inositol livre neuronal e gerando hipersensibilização extrema dos receptores 5-HT2A. A entrada de DMT e beta-carbolinas deflagra descargas epilépticas corticais maciças ( ~47% de incidência de convulsões tônico-clônicas e Status Epilepticus refratário), além de toxicidade renal aguda agravada pela purga/desidratação.",
     viasMetabolicas: "Exclusivamente Renal (95% inalterado; janela terapêutica estreitíssima).",
     meiaVida: "18 a 36 horas.",
-    washoutMinimo: "NÃO PODE PARTICIPAR (Veto absoluto e permanente)",
+    washoutMinimo: "NÃO PODE PARTICIPAR (Veto absoluto e permanente / mínimo 30 dias se suspenso no passado por psiquiatra)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Portadores de Transtorno Afetivo Bipolar em uso de Carbolitium ou Priadel estão terminantemente proibidos de consagrar Ayahuasca.",
   },
@@ -671,12 +671,12 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     nivelRisco: "LETAL_ABSOLUTO",
     diretrizPdf: "INTERROMPER_DIAS_ANTES",
     mecanismo:
-      "PERIGO OCULTO GRAVÍSSIMO: A Sibutramina (Biomag, Vazy, Sibutral, Reductil, Plenty, Saciette) foi originalmente desenvolvida como um antidepressivo inibidor da recaptação de serotonina e noradrenalina (ISRSN)! Sua combinação com a Ayahuasca provoca Síndrome Serotoninérgica fulminante e Crise Hipertensiva/Infarto. Muitos participantes omitem seu uso por considerarem apenas um 'remédio para emagrecer'.",
+      "PERIGO OCULTO GRAVÍSSIMO: A Sibutramina (Biomag, Vazy, Sibutral, Reductil, Plenty, Saciette) foi originalmente desenvolvida como um antidepressivo inibidor da recaptação de serotonina e noradrenalina (ISRSN)! Sua combinação com a Ayahuasca provoca Síndrome Serotoninérgica fulminante e Crise Hipertensiva/Infarto. Muitos participantes omitem seu uso por considerarem apenas um 'fármaco para emagrecer'.",
     viasMetabolicas: "Hepática: CYP2B6 e CYP3A4 (gera metabólitos ativos M1 e M2 de longa duração).",
     meiaVida: "Metabólitos ativos M1 e M2: 14 a 16 horas.",
     washoutMinimo: "14 a 21 dias (2 a 3 semanas completas antes do ritual)",
     recomendacaoLiturgica:
-      "INTERROMPER DIAS ANTES (Classificação Azul / Risco Letal). Perguntar ativamente na triagem sobre remédios ou fórmulas manipuladas para emagrecimento!",
+      "INTERROMPER DIAS ANTES (Classificação Azul / Risco Letal). Perguntar ativamente na triagem sobre fármacos ou fórmulas manipuladas para emagrecimento!",
   },
 
   // ============================================================================

@@ -1,53 +1,43 @@
-import fs from "fs/promises";
-import os from "os";
-import path from "path";
 import {
   PedidoLiturgico,
   NovoPedidoInput,
   AtualizarPedidoInput,
   MetricasPedidos,
   StatusPedido,
+  ItemPedido,
+  HistoricoStatus,
 } from "../../types/pedido";
 import {
-  isSupabaseConfigured,
-  SUPABASE_PUBLIC_URL,
-  SUPABASE_PUBLIC_ANON_KEY,
-} from "../supabase/client";
-import { createClient } from "@supabase/supabase-js";
+  getDirectSupabaseClient,
+  withTimeout,
+  createHybridJsonStore,
+} from "./core-hybrid-store";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const DB_FILE = path.join(DATA_DIR, "pedidos.json");
-const TMP_DB_FILE = path.join(os.tmpdir(), "nativaram_pedidos.json");
-
-let cachedDirectClient: any = null;
-
-function getDirectSupabaseClient(): any {
-  if (!isSupabaseConfigured()) return null;
-  if (cachedDirectClient) return cachedDirectClient;
-
-  try {
-    if (!SUPABASE_PUBLIC_URL || !SUPABASE_PUBLIC_ANON_KEY) return null;
-    cachedDirectClient = createClient(
-      SUPABASE_PUBLIC_URL,
-      SUPABASE_PUBLIC_ANON_KEY,
-      { auth: { persistSession: false } }
-    );
-    return cachedDirectClient;
-  } catch {
-    return null;
-  }
+export interface PedidoRow {
+  id: string;
+  templo_id: string;
+  templo_nome: string;
+  cidade: string;
+  estado: string;
+  dirigente_nome: string;
+  dirigente_telefone: string;
+  dirigente_email: string;
+  cnpj: string;
+  itens: ItemPedido[] | string;
+  rateio_total: number | string;
+  data_cerimonia_pretendida: string;
+  mensagem_intencao: string;
+  status: StatusPedido;
+  lote_vinculado: string | null;
+  codigo_rastreio: string | null;
+  previsao_entrega: string | null;
+  observacoes_internas: string | null;
+  historico: HistoricoStatus[] | string | null;
+  criado_em: string;
+  atualizado_em: string;
 }
 
-function withTimeout<T = any>(promise: PromiseLike<T>, ms = 2000): Promise<T> {
-  return Promise.race([
-    Promise.resolve(promise),
-    new Promise<T>((_, reject) =>
-      setTimeout(() => reject(new Error(`Timeout de ${ms}ms excedido na consulta remota`)), ms)
-    ),
-  ]);
-}
-
-function mapRowToPedido(row: any): PedidoLiturgico {
+function mapRowToPedido(row: PedidoRow): PedidoLiturgico {
   return {
     id: row.id,
     temploId: row.templo_id,
@@ -73,7 +63,7 @@ function mapRowToPedido(row: any): PedidoLiturgico {
   };
 }
 
-function mapPedidoToRow(pedido: PedidoLiturgico): any {
+function mapPedidoToRow(pedido: PedidoLiturgico): PedidoRow {
   return {
     id: pedido.id,
     templo_id: pedido.temploId,
@@ -92,6 +82,7 @@ function mapPedidoToRow(pedido: PedidoLiturgico): any {
     lote_vinculado: pedido.loteVinculado || null,
     codigo_rastreio: pedido.codigoRastreio || null,
     previsao_entrega: pedido.previsaoEntrega || null,
+    observacoes_internas: pedido.observacoesInternas || null,
     historico: pedido.historico,
     criado_em: pedido.criadoEm,
     atualizado_em: pedido.atualizadoEm,
@@ -309,100 +300,11 @@ const SEED_PEDIDOS: PedidoLiturgico[] = [
   },
 ];
 
-/**
- * Garante a existência do arquivo de banco de dados (resiliente a EROFS em serverless)
- */
-async function garantirBanco(): Promise<void> {
-  try {
-    await fs.access(DB_FILE);
-    return;
-  } catch {
-    // Tenta criar no diretório local (funciona em dev)
-  }
-
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.writeFile(DB_FILE, JSON.stringify(SEED_PEDIDOS, null, 2), "utf-8");
-  } catch {
-    // Em ambiente serverless read-only (EROFS), garante no tmpdir
-    try {
-      await fs.access(TMP_DB_FILE);
-    } catch {
-      try {
-        await fs.writeFile(
-          TMP_DB_FILE,
-          JSON.stringify(SEED_PEDIDOS, null, 2),
-          "utf-8"
-        );
-      } catch {
-        // Fallback em memória com SEED_PEDIDOS
-      }
-    }
-  }
-}
-
-/**
- * Leitura resiliente mesclando SEED_PEDIDOS + data/pedidos.json + os.tmpdir()
- */
-async function lerBancoSeguro(): Promise<PedidoLiturgico[]> {
-  const mapa = new Map<string, PedidoLiturgico>();
-
-  for (const item of SEED_PEDIDOS) {
-    mapa.set(item.id.toUpperCase(), item);
-  }
-
-  try {
-    const rawMain = await fs.readFile(DB_FILE, "utf-8");
-    const parsedMain = JSON.parse(rawMain);
-    if (Array.isArray(parsedMain)) {
-      for (const item of parsedMain) {
-        if (item && item.id) {
-          mapa.set(String(item.id).toUpperCase(), item);
-        }
-      }
-    }
-  } catch {
-    // Continua com SEED_PEDIDOS
-  }
-
-  try {
-    const rawTmp = await fs.readFile(TMP_DB_FILE, "utf-8");
-    const parsedTmp = JSON.parse(rawTmp);
-    if (Array.isArray(parsedTmp)) {
-      for (const item of parsedTmp) {
-        if (item && item.id) {
-          mapa.set(String(item.id).toUpperCase(), item);
-        }
-      }
-    }
-  } catch {
-    // Sem arquivo em tmpdir ainda
-  }
-
-  return Array.from(mapa.values());
-}
-
-/**
- * Gravação atômica segura no disco (resiliente a EROFS na Vercel via os.tmpdir)
- */
-async function salvarBancoAtomico(pedidos: PedidoLiturgico[]): Promise<void> {
-  const payload = JSON.stringify(pedidos, null, 2);
-
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    const tmpFile = `${DB_FILE}.tmp.${Date.now()}.${Math.random().toString(36).slice(2, 6)}`;
-    await fs.writeFile(tmpFile, payload, "utf-8");
-    await fs.rename(tmpFile, DB_FILE);
-  } catch {
-    // Ignora EROFS em produção serverless
-  }
-
-  try {
-    await fs.writeFile(TMP_DB_FILE, payload, "utf-8");
-  } catch {
-    // Ignora erro secundário de tmpdir
-  }
-}
+const pedidosStore = createHybridJsonStore<PedidoLiturgico>({
+  filename: "pedidos.json",
+  seedData: SEED_PEDIDOS,
+  getKey: (item) => item.id.trim().toUpperCase(),
+});
 
 /**
  * Gera um protocolo litúrgico único
@@ -426,7 +328,7 @@ export function formatarMensagemWhatsApp(pedido: PedidoLiturgico): string {
     .join("\n");
 
   const msg = [
-    `*COOPERATIVA NATIVARAM BRASIL — SOLICITAÇÃO LITÚRGICA*`,
+    `*COOPERATIVA NATIVARAM — SOLICITAÇÃO LITÚRGICA*`,
     `📜 *Protocolo Oficial:* \`${pedido.id}\``,
     `📅 *Data do Pedido:* ${new Date(pedido.criadoEm).toLocaleDateString("pt-BR")}`,
     ``,
@@ -452,7 +354,7 @@ export function formatarMensagemWhatsApp(pedido: PedidoLiturgico): string {
     `[x] Rateio estrito de apoio logístico (sem caráter mercantil)`,
     `[x] Antecedência cerimonial respeitada para o feitio no Acre`,
     ``,
-    `_Mensagem gerada via Portal do Dirigente Nativaram Brasil._`,
+    `_Mensagem gerada via Portal do Dirigente Cooperativa Nativaram._`,
   ];
 
   return encodeURIComponent(msg.join("\n"));
@@ -477,7 +379,7 @@ export function formatarMensagemAtualizacaoWhatsApp(
   };
 
   const msg = [
-    `*NATIVARAM BRASIL — ATUALIZAÇÃO LITÚRGICA*`,
+    `*COOPERATIVA NATIVARAM — ATUALIZAÇÃO LITÚRGICA*`,
     `Olá, *${pedido.dirigenteNome}* (${pedido.temploNome})!`,
     ``,
     `Informamos que a sua solicitação de partilha *${pedido.id}* teve seu status atualizado:`,
@@ -520,7 +422,10 @@ export async function obterTodosPedidos(filtros?: {
         query = query.eq("status", filtros.status);
       }
 
-      const { data, error } = (await withTimeout(query, 2000)) as any;
+      const { data, error } = await withTimeout<{
+        data: PedidoRow[] | null;
+        error: unknown;
+      }>(query, 2000);
 
       if (!error && data && data.length > 0) {
         let pedidos: PedidoLiturgico[] = data.map(mapRowToPedido);
@@ -534,7 +439,7 @@ export async function obterTodosPedidos(filtros?: {
               p.dirigenteNome.toLowerCase().includes(termo) ||
               p.cidade.toLowerCase().includes(termo) ||
               (p.codigoRastreio && p.codigoRastreio.toLowerCase().includes(termo)) ||
-              p.itens.some((i: any) => i.nome.toLowerCase().includes(termo))
+              p.itens.some((i: ItemPedido) => i.nome.toLowerCase().includes(termo))
           );
         }
 
@@ -546,8 +451,7 @@ export async function obterTodosPedidos(filtros?: {
   }
 
   // Fallback seguro mesclando SEED_PEDIDOS + data/pedidos.json + os.tmpdir()
-  await garantirBanco();
-  let pedidos: PedidoLiturgico[] = await lerBancoSeguro();
+  let pedidos: PedidoLiturgico[] = await pedidosStore.readAll();
 
   if (filtros?.temploId) {
     pedidos = pedidos.filter((p) => p.temploId.toUpperCase() === filtros.temploId?.toUpperCase());
@@ -581,14 +485,17 @@ export async function obterPedidoPorId(id: string): Promise<PedidoLiturgico | nu
 
   if (supabase) {
     try {
-      const { data, error } = (await withTimeout(
+      const { data, error } = await withTimeout<{
+        data: PedidoRow | null;
+        error: unknown;
+      }>(
         supabase
           .from("pedidos_liturgicos")
           .select("*")
           .eq("id", id)
           .single(),
         2000
-      )) as any;
+      );
 
       if (!error && data) {
         return mapRowToPedido(data);
@@ -598,7 +505,6 @@ export async function obterPedidoPorId(id: string): Promise<PedidoLiturgico | nu
     }
   }
 
-  await garantirBanco();
   const pedidos = await obterTodosPedidos();
   return pedidos.find((p) => p.id.toUpperCase() === id.toUpperCase()) || null;
 }
@@ -672,10 +578,9 @@ export async function criarPedido(input: NovoPedidoInput): Promise<PedidoLiturgi
   }
 
   // 2. Sempre salvar no backup local atômico
-  await garantirBanco();
-  const pedidos = await obterTodosPedidos();
+  const pedidos = await pedidosStore.readAll();
   pedidos.unshift(novoPedido);
-  await salvarBancoAtomico(pedidos);
+  await pedidosStore.writeAll(pedidos);
 
   return novoPedido;
 }
@@ -696,7 +601,6 @@ export async function atualizarPedido(
     minute: "2-digit",
   });
 
-  await garantirBanco();
   const pedidos = await obterTodosPedidos();
   const index = pedidos.findIndex((p) => p.id.toUpperCase() === id.toUpperCase());
 
@@ -752,7 +656,7 @@ export async function atualizarPedido(
 
   // 2. Persistir localmente
   pedidos[index] = pedidoAtualizado;
-  await salvarBancoAtomico(pedidos);
+  await pedidosStore.writeAll(pedidos);
 
   return pedidoAtualizado;
 }
@@ -773,13 +677,12 @@ export async function excluirPedido(id: string): Promise<boolean> {
     }
   }
 
-  await garantirBanco();
   const pedidos = await obterTodosPedidos();
   const novaLista = pedidos.filter((p) => p.id.toUpperCase() !== id.toUpperCase());
 
   if (novaLista.length === pedidos.length) return false;
 
-  await salvarBancoAtomico(novaLista);
+  await pedidosStore.writeAll(novaLista);
   return true;
 }
 

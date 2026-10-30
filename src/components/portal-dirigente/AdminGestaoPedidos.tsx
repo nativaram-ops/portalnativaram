@@ -57,7 +57,9 @@ export const AdminGestaoPedidos: React.FC = () => {
     try {
       setCarregando(true);
       setErro("");
-      const res = await fetch("/api/pedidos?metricas=true");
+      const res = await fetch("/api/pedidos?metricas=true", {
+        credentials: "include",
+      });
       const data = await res.json();
 
       if (!res.ok || !data.sucesso) {
@@ -112,9 +114,9 @@ export const AdminGestaoPedidos: React.FC = () => {
 
       const res = await fetch(`/api/pedidos/${pedidoEditando.id}`, {
         method: "PATCH",
+        credentials: "include",
         headers: {
           "Content-Type": "application/json",
-          "x-nativaram-auth": "adm-nativaram-2026",
         },
         body: JSON.stringify(payload),
       });

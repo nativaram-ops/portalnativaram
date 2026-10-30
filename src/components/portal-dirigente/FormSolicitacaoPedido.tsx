@@ -45,34 +45,34 @@ interface FormSolicitacaoPedidoProps {
 
 // Opções de sacramentos rápidos para catálogo interativo
 const ITENS_CATALOGO = [
-  ...GRADUACOES_SACRAMENTAIS.map((g) => ({
-    id: g.id,
-    tipo: "GRADUACAO_AYAHUASCA" as const,
-    nome: `${g.codigo} ${g.nomeSagrado}`,
-    codigoOuSubtitulo: g.arquetipo,
-    unidade: "Litros" as const,
-    rateioUnitario: g.codigo === "10.1" ? 260 : g.codigo === "7.1" ? 230 : 200,
-    quantidadePadrao: 10,
-    minimo: 5,
-    passo: 5,
-  })),
-  {
-    id: "MEDICINA_MEL",
-    tipo: "GRADUACAO_AYAHUASCA" as const,
-    nome: "Alquimia Sagrada Mel (Alta Redução)",
-    codigoOuSubtitulo: "Densidade máxima sem aditivos",
-    unidade: "kg" as const,
-    rateioUnitario: 480,
-    quantidadePadrao: 5,
-    minimo: 2,
-    passo: 1,
-  },
-  ...RAPES_TRADICIONAIS.slice(0, 4).map((r) => ({
+  ...GRADUACOES_SACRAMENTAIS.map((g) => {
+    const isReducao = g.id === "SACRAMENTO_MEL" || g.id === "SACRAMENTO_GEL";
+    return {
+      id: g.id,
+      tipo: isReducao
+        ? ("SACRAMENTO_REDUZIDO" as const)
+        : ("GRADUACAO_AYAHUASCA" as const),
+      nome: isReducao ? g.nomeSagrado : `${g.codigo} ${g.nomeSagrado}`,
+      codigoOuSubtitulo: g.arquetipo,
+      unidade: isReducao ? ("kg" as const) : ("Litros" as const),
+      rateioUnitario: isReducao
+        ? 480
+        : g.codigo === "10.1"
+          ? 260
+          : g.codigo === "7.1"
+            ? 230
+            : 200,
+      quantidadePadrao: isReducao ? 1 : 10,
+      minimo: isReducao ? 1 : 5,
+      passo: isReducao ? 1 : 5,
+    };
+  }),
+  ...RAPES_TRADICIONAIS.map((r) => ({
     id: r.id,
     tipo: "RAPE_SAGRADO" as const,
     nome: r.nome,
     codigoOuSubtitulo: r.propositoTradicional.slice(0, 45) + "...",
-    unidade: "Frascos (20g)" as const,
+    unidade: "Frascos (25g)" as const,
     rateioUnitario: 65,
     quantidadePadrao: 2,
     minimo: 1,
@@ -99,15 +99,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
 }) => {
   // Itens selecionados no formulário
   const [itensSelecionados, setItensSelecionados] = useState<
-    {
-      id: string;
-      tipo: "GRADUACAO_AYAHUASCA" | "RAPE_SAGRADO" | "ARTEFATO_SAGRADO";
-      nome: string;
-      codigoOuSubtitulo: string;
-      quantidade: number;
-      unidade: "Litros" | "Frascos (20g)" | "Unidades" | "kg";
-      rateioUnitarioEstimado: number;
-    }[]
+    Omit<ItemPedido, "rateioTotalEstimado">[]
   >(() => {
     if (pedidoParaRepetir?.itens && pedidoParaRepetir.itens.length > 0) {
       return pedidoParaRepetir.itens.map((it) => ({

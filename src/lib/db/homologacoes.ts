@@ -1,6 +1,8 @@
-import fs from "fs/promises";
-import os from "os";
-import path from "path";
+import {
+  getDirectSupabaseClient,
+  withTimeout,
+  createHybridJsonStore,
+} from "./core-hybrid-store";
 
 export interface SolicitacaoAcesso {
   id: string; // Protocolo (ex: NAT-2026-A1B2 ou REC-2026-OLYY)
@@ -24,9 +26,75 @@ export interface SolicitacaoAcesso {
   observacoesConselho?: string;
 }
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const DB_FILE = path.join(DATA_DIR, "solicitacoes_homologacao.json");
-const TMP_DB_FILE = path.join(os.tmpdir(), "nativaram_solicitacoes_homologacao.json");
+interface SolicitacaoRow {
+  id: string;
+  tipo: "INSTITUICAO_FORMAL" | "GRUPO_INFORMAL";
+  nome_entidade: string;
+  nome_responsavel: string;
+  telefone: string;
+  email: string;
+  cidade: string;
+  estado: string;
+  cnpj: string | null;
+  linhagem: string;
+  graduacao: string;
+  volume_estimado: string;
+  intencao: string;
+  status: "PENDENTE_LIBERACAO" | "HOMOLOGADO" | "RECUSADO";
+  login_gerado: string | null;
+  senha_gerada: string | null;
+  data_envio: string;
+  data_homologacao: string | null;
+  observacoes_conselho: string | null;
+}
+
+function mapRowToSolicitacao(row: SolicitacaoRow): SolicitacaoAcesso {
+  return {
+    id: row.id,
+    tipo: row.tipo || "INSTITUICAO_FORMAL",
+    nomeEntidade: row.nome_entidade,
+    nomeResponsavel: row.nome_responsavel,
+    telefone: row.telefone || "",
+    email: row.email || "",
+    cidade: row.cidade || "",
+    estado: row.estado || "",
+    cnpj: row.cnpj || undefined,
+    linhagem: row.linhagem || "",
+    graduacao: row.graduacao || "",
+    volumeEstimado: row.volume_estimado || "",
+    intencao: row.intencao || "",
+    status: row.status || "PENDENTE_LIBERACAO",
+    loginGerado: row.login_gerado || undefined,
+    senhaGerada: row.senha_gerada || undefined,
+    dataEnvio: row.data_envio || "",
+    dataHomologacao: row.data_homologacao || undefined,
+    observacoesConselho: row.observacoes_conselho || undefined,
+  };
+}
+
+function mapSolicitacaoToRow(sol: SolicitacaoAcesso): SolicitacaoRow {
+  return {
+    id: sol.id,
+    tipo: sol.tipo,
+    nome_entidade: sol.nomeEntidade,
+    nome_responsavel: sol.nomeResponsavel,
+    telefone: sol.telefone || "",
+    email: sol.email || "",
+    cidade: sol.cidade || "",
+    estado: sol.estado || "",
+    cnpj: sol.cnpj || null,
+    linhagem: sol.linhagem || "",
+    graduacao: sol.graduacao || "",
+    volume_estimado: sol.volumeEstimado || "",
+    intencao: sol.intencao || "",
+    status: sol.status,
+    login_gerado: sol.loginGerado || null,
+    senha_gerada: sol.senhaGerada || null,
+    data_envio: sol.dataEnvio || "",
+    data_homologacao: sol.dataHomologacao || null,
+    observacoes_conselho: sol.observacoesConselho || null,
+  };
+}
 
 // Congregações e solicitações canônicas garantidas no sistema
 const DADOS_INICIAIS: SolicitacaoAcesso[] = [
@@ -60,7 +128,7 @@ const DADOS_INICIAIS: SolicitacaoAcesso[] = [
     linhagem: "Linha do Santo Daime",
     graduacao: "10.1 Wirapuru",
     volumeEstimado: "10 Litros",
-    intencao: "Sessões doutrinárias e hinários de cura.",
+    intencao: "Sessões doutrinárias e hinários de alinhamento espiritual.",
     status: "HOMOLOGADO",
     loginGerado: "NAT-TEMPLO-842",
     senhaGerada: "cruzeiro2026",
@@ -89,35 +157,11 @@ const DADOS_INICIAIS: SolicitacaoAcesso[] = [
   },
 ];
 
-async function lerArquivoSeguro(caminho: string): Promise<SolicitacaoAcesso[]> {
-  try {
-    const raw = await fs.readFile(caminho, "utf-8");
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch {
-    return [];
-  }
-}
-
-async function salvarSolicitacoesSeguro(lista: SolicitacaoAcesso[]): Promise<void> {
-  const payload = JSON.stringify(lista, null, 2);
-  let salvouPrincipal = false;
-  try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    await fs.writeFile(DB_FILE, payload, "utf-8");
-    salvouPrincipal = true;
-  } catch {
-    // Em ambiente serverless read-only (EROFS), persiste no diretório temporário do SO
-  }
-
-  try {
-    await fs.writeFile(TMP_DB_FILE, payload, "utf-8");
-  } catch (err) {
-    if (!salvouPrincipal) {
-      console.warn("Aviso ao persistir solicitações em fallback temporário:", err);
-    }
-  }
-}
+const solicitacoesStore = createHybridJsonStore<SolicitacaoAcesso>({
+  filename: "solicitacoes_homologacao.json",
+  seedData: DADOS_INICIAIS,
+  getKey: (item) => item.id.trim().toUpperCase(),
+});
 
 function mesclarSolicitacoes(...listas: SolicitacaoAcesso[][]): SolicitacaoAcesso[] {
   const mapa = new Map<string, SolicitacaoAcesso>();
@@ -151,9 +195,28 @@ function mesclarSolicitacoes(...listas: SolicitacaoAcesso[][]): SolicitacaoAcess
 }
 
 export async function obterTodasSolicitacoes(): Promise<SolicitacaoAcesso[]> {
-  const doDisco = await lerArquivoSeguro(DB_FILE);
-  const doTmp = await lerArquivoSeguro(TMP_DB_FILE);
-  const mescladas = mesclarSolicitacoes(DADOS_INICIAIS, doDisco, doTmp);
+  const locais = await solicitacoesStore.readAll();
+  let remotas: SolicitacaoAcesso[] = [];
+
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      const { data, error } = await withTimeout<{
+        data: SolicitacaoRow[] | null;
+        error: unknown;
+      }>(
+        supabase.from("solicitacoes_homologacao").select("*"),
+        2000
+      );
+      if (!error && data && data.length > 0) {
+        remotas = data.map(mapRowToSolicitacao);
+      }
+    } catch {
+      // Fallback silencioso para armazenamento híbrido local
+    }
+  }
+
+  const mescladas = mesclarSolicitacoes(DADOS_INICIAIS, remotas, locais);
 
   // Ordenar: PENDENTE_LIBERACAO primeiro, depois HOMOLOGADO
   return mescladas.sort((a, b) => {
@@ -207,8 +270,24 @@ export async function registrarSolicitacao(
     solicitacoes.unshift(registroCompleto);
   }
 
-  await salvarSolicitacoesSeguro(solicitacoes);
-  return solicitacoes.find((s) => s.id.toUpperCase() === idNormalizado) || registroCompleto;
+  const salvo =
+    solicitacoes.find((s) => s.id.toUpperCase() === idNormalizado) || registroCompleto;
+
+  await solicitacoesStore.writeAll(solicitacoes);
+
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      await withTimeout(
+        supabase.from("solicitacoes_homologacao").upsert(mapSolicitacaoToRow(salvo)),
+        2000
+      );
+    } catch {
+      // Mantido com segurança no repositório híbrido local
+    }
+  }
+
+  return salvo;
 }
 
 /**
@@ -292,7 +371,8 @@ export async function homologarSolicitacao(
   } as SolicitacaoAcesso;
 
   // 1. Gerar Login único baseado no protocolo para fácil rastreabilidade
-  const sufixoProtocolo = idUpper.split("-").pop() || Math.random().toString(36).substring(2, 6).toUpperCase();
+  const sufixoProtocolo =
+    idUpper.split("-").pop() || Math.random().toString(36).substring(2, 6).toUpperCase();
   const prefixo = sol.tipo === "INSTITUICAO_FORMAL" ? "NAT-TEMPLO" : "NAT-GRP";
   const loginGerado = sol.loginGerado || `${prefixo}-${sufixoProtocolo}`;
 
@@ -317,7 +397,19 @@ export async function homologarSolicitacao(
   };
 
   solicitacoes[index] = atualizada;
-  await salvarSolicitacoesSeguro(solicitacoes);
+  await solicitacoesStore.writeAll(solicitacoes);
+
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      await withTimeout(
+        supabase.from("solicitacoes_homologacao").upsert(mapSolicitacaoToRow(atualizada)),
+        2000
+      );
+    } catch {
+      // Mantido com segurança no repositório híbrido local
+    }
+  }
 
   // 3. Montar Mensagem pronta para o WhatsApp do Dirigente
   const telefoneLimpo = (atualizada.telefone || "").replace(/\D/g, "");

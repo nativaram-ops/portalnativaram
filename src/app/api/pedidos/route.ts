@@ -8,7 +8,7 @@ import {
 import { NovoPedidoSchema } from "@/lib/validators/pedido";
 import { StatusPedido } from "@/types/pedido";
 
-const WHATSAPP_CONSELHO_PADRAO = "5568999979104";
+const WHATSAPP_COOPERATIVA = "556899779104";
 
 const STATUS_VALIDOS: readonly string[] = [
   "SOLICITADO",
@@ -74,7 +74,7 @@ export async function POST(request: NextRequest) {
 
     const pedidoCriado = await criarPedido(parseResult.data);
     const whatsappQuery = formatarMensagemWhatsApp(pedidoCriado);
-    const whatsappUrl = `https://wa.me/${WHATSAPP_CONSELHO_PADRAO}?text=${whatsappQuery}`;
+    const whatsappUrl = `https://wa.me/${WHATSAPP_COOPERATIVA}?text=${whatsappQuery}`;
 
     return NextResponse.json(
       {

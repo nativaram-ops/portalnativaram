@@ -145,6 +145,7 @@ export const Navbar = () => {
             onClick={() => setIsOpen(!isOpen)}
             className="rounded-md p-2 text-areia-200 hover:bg-floresta-800/60 hover:text-ambar-400 focus:outline-none transition-colors"
             aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isOpen}
           >
             {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -153,10 +154,11 @@ export const Navbar = () => {
 
       {/* Mobile Full-Screen Overlay */}
       <div
+        aria-hidden={!isOpen}
         className={`lg:hidden fixed inset-0 top-[56px] sm:top-[60px] z-40 transition-all duration-500 ${
           isOpen
             ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
+            : "opacity-0 pointer-events-none invisible"
         }`}
       >
         {/* Backdrop */}

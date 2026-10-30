@@ -16,11 +16,21 @@ export type StatusPedido =
 
 export interface ItemPedido {
   id: string;
-  tipo: "GRADUACAO_AYAHUASCA" | "RAPE_SAGRADO" | "ARTEFATO_SAGRADO";
+  tipo:
+    | "GRADUACAO_AYAHUASCA"
+    | "SACRAMENTO_REDUZIDO"
+    | "RAPE_SAGRADO"
+    | "ARTEFATO_SAGRADO";
   nome: string;
   codigoOuSubtitulo: string;
   quantidade: number;
-  unidade: "Litros" | "Frascos (20g)" | "Unidades" | "kg";
+  unidade:
+    | "Litros"
+    | "kg"
+    | "Frascos (25g)"
+    | "Frascos (15g)"
+    | "Frascos (20g)"
+    | "Unidades";
   rateioUnitarioEstimado: number;
   rateioTotalEstimado: number;
 }

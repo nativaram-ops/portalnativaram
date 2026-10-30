@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { obterPublicacaoPorSlug, deletarPublicacao } from "@/lib/db/comunidade";
+import { verifyAdminRequest } from "@/lib/auth/session";
 
 export async function GET(
   _request: NextRequest,
@@ -17,11 +18,10 @@ export async function GET(
     }
 
     return NextResponse.json({ success: true, post });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error.message || "Erro ao consultar publicação" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao consultar publicação";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
 
@@ -33,15 +33,16 @@ export async function DELETE(
     const { id } = await params;
     const { searchParams } = new URL(request.url);
     const temploCodigo = searchParams.get("temploCodigo") || "";
+    const isAdmin = verifyAdminRequest(request);
 
-    if (!temploCodigo) {
+    if (!temploCodigo && !isAdmin) {
       return NextResponse.json(
         { success: false, error: "Código litúrgico de autorização ausente" },
         { status: 401 }
       );
     }
 
-    const excluido = await deletarPublicacao(id, temploCodigo);
+    const excluido = await deletarPublicacao(id, temploCodigo, isAdmin);
 
     if (!excluido) {
       return NextResponse.json(
@@ -53,11 +54,13 @@ export async function DELETE(
       );
     }
 
-    return NextResponse.json({ success: true, message: "Publicação removida com sucesso" });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error.message || "Erro ao excluir publicação" },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      success: true,
+      message: "Publicação removida com sucesso",
+    });
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao excluir publicação";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

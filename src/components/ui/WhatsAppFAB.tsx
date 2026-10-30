@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { WhatsAppIcon } from "@/components/ui/icons";
 
 const WHATSAPP_URL =
-  "https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Cooperativa%20Nativaram%20Brasil.";
+  "https://wa.me/556899779104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Cooperativa%20Nativaram.";
 
 /**
  * Botão flutuante de WhatsApp.
@@ -25,11 +25,13 @@ export const WhatsAppFAB = () => {
       href={WHATSAPP_URL}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Conversar pelo WhatsApp com a Nativaram Brasil"
-      className={`fixed bottom-6 right-4 sm:right-6 z-50 flex h-13 w-13 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-[0_4px_20px_rgba(16,185,129,0.35)] transition-all duration-500 hover:bg-emerald-500 hover:scale-105 hover:shadow-[0_6px_28px_rgba(16,185,129,0.5)] active:scale-95 ${
+      aria-label="Conversar pelo WhatsApp com a Cooperativa Nativaram"
+      aria-hidden={!visible}
+      tabIndex={visible ? 0 : -1}
+      className={`fixed bottom-6 right-4 sm:right-6 z-50 flex h-14 w-14 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-emerald-600 text-white shadow-[0_4px_20px_rgba(16,185,129,0.35)] transition-all duration-500 hover:bg-emerald-500 hover:scale-105 hover:shadow-[0_6px_28px_rgba(16,185,129,0.5)] active:scale-95 ${
         visible
           ? "translate-y-0 opacity-100"
-          : "translate-y-4 opacity-0 pointer-events-none"
+          : "translate-y-4 opacity-0 pointer-events-none invisible"
       }`}
     >
       <WhatsAppIcon className="h-6 w-6" />

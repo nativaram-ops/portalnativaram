@@ -2,11 +2,23 @@ import { z } from "zod";
 
 export const ItemPedidoSchema = z.object({
   id: z.string().min(1, "Identificador do sacramento é obrigatório"),
-  tipo: z.enum(["GRADUACAO_AYAHUASCA", "RAPE_SAGRADO", "ARTEFATO_SAGRADO"]),
+  tipo: z.enum([
+    "GRADUACAO_AYAHUASCA",
+    "SACRAMENTO_REDUZIDO",
+    "RAPE_SAGRADO",
+    "ARTEFATO_SAGRADO",
+  ]),
   nome: z.string().min(2, "Nome do sacramento é obrigatório"),
   codigoOuSubtitulo: z.string().default(""),
   quantidade: z.number().min(1, "Quantidade mínima é 1"),
-  unidade: z.enum(["Litros", "Frascos (20g)", "Unidades", "kg"]),
+  unidade: z.enum([
+    "Litros",
+    "kg",
+    "Frascos (25g)",
+    "Frascos (15g)",
+    "Frascos (20g)",
+    "Unidades",
+  ]),
   rateioUnitarioEstimado: z.number().min(0),
 });
 

@@ -1,5 +1,12 @@
 import type { MetadataRoute } from "next";
-import { medicinas } from "@/data/medicinas";
+import { medicinas } from "../data/medicinas";
+import { estudosData } from "../data/estudos";
+
+const PERFIS_COMUNIDADE_SLUGS = [
+  "ceu-do-cruzeiro",
+  "rainha-da-floresta",
+  "circulo-yawanawa-sp",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://nativaramcoop.eco.br";
@@ -24,7 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/medicinas`,
+      url: `${baseUrl}/sacramentos`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 0.9,
@@ -48,12 +55,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/portal-dirigente`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
       url: `${baseUrl}/estudos`,
       lastModified: new Date(),
       changeFrequency: "daily",
@@ -73,12 +74,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  const medicinasRoutes: MetadataRoute.Sitemap = medicinas.map((medicina) => ({
-    url: `${baseUrl}/medicinas/${medicina.slug}`,
+  const sacramentosRoutes: MetadataRoute.Sitemap = medicinas.map((medicina) => ({
+    url: `${baseUrl}/sacramentos/${medicina.slug}`,
     lastModified: new Date(),
     changeFrequency: "weekly",
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...medicinasRoutes];
+  const comunidadeRoutes: MetadataRoute.Sitemap = PERFIS_COMUNIDADE_SLUGS.map(
+    (slug) => ({
+      url: `${baseUrl}/estudos/comunidade/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: "weekly",
+      priority: 0.8,
+    })
+  );
+
+  const dossiesRoutes: MetadataRoute.Sitemap = estudosData.map((dossie) => ({
+    url: `${baseUrl}/estudos/dossies/${dossie.id}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...sacramentosRoutes,
+    ...comunidadeRoutes,
+    ...dossiesRoutes,
+  ];
 }

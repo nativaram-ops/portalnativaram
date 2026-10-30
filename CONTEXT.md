@@ -1,6 +1,6 @@
-# Nativaram Brasil — Modelo de Domínio e Vocabulário Sagrado
+# Cooperativa Nativaram — Modelo de Domínio e Vocabulário Sagrado
 
-Ecossistema institucional e litúrgico da Cooperativa Etnobotânica Nativaram Brasil, dedicado à salvaguarda cultural, ciência do feitio purista e provimento assistido de preparados tradicionais amazônicos a templos e entidades homologadas.
+Ecossistema institucional e litúrgico da Cooperativa Etnobotânica Nativaram, dedicado à salvaguarda cultural, ciência do feitio purista e provimento assistido de preparados tradicionais amazônicos a templos e entidades homologadas.
 
 ## Linguagem Ubíqua do Domínio
 
@@ -47,7 +47,7 @@ Iniciativa cooperativa de acessibilidade operacional, logística segura e custó
 _Avoid_: E-commerce, sistema de entregas, marketplace.
 
 **Rateio de Custos Cooperativo**:
-Divisão solidária e transparente dos custos reais de manejo agroflorestal, honorários dos feitores, lenha autorizada, frascos de vidro âmbar estéril e frete aéreo monitorado.
+Divisão solidária e transparente dos custos reais de manejo agroflorestal, honorários dos feitores, lenha autorizada, garrafas PET 100% virgens de padrão alimentício com lacres invioláveis e frete aéreo monitorado.
 _Avoid_: Preço, valor de venda, taxa de lucro, carrinho de compras.
 
 **Credenciamento Litúrgico**:

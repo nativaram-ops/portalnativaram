@@ -124,7 +124,7 @@ INSERT INTO public.perfis_comunidade (
     'Linha do Santo Daime',
     'São Paulo',
     'SP',
-    'Igreja filiada e homologada para trabalhos litúrgicos de concentração, hinários de cura espiritual e missas da doutrina sob o marco CONAD 01/2010.',
+    'Igreja filiada e homologada para trabalhos litúrgicos de concentração, hinários de alinhamento espiritual e missas da doutrina sob o marco CONAD 01/2010.',
     '{"instagram": "https://instagram.com/ceudocruzeiro.oficial", "youtube": "https://youtube.com/@ceudocruzeiro"}'::jsonb,
     '5511987654321',
     true

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Building,
@@ -35,6 +35,15 @@ interface Props {
 
 export const PerfilTemploClient: React.FC<Props> = ({ perfil, posts }) => {
   const [selectedFotoModal, setSelectedFotoModal] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!selectedFotoModal) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedFotoModal(null);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [selectedFotoModal]);
 
   const telefoneLimpo = (perfil.whatsappContato || "").replace(/\D/g, "");
   const whatsappUrl = telefoneLimpo
@@ -350,6 +359,7 @@ export const PerfilTemploClient: React.FC<Props> = ({ perfil, posts }) => {
             />
             <button
               onClick={() => setSelectedFotoModal(null)}
+              aria-label="Fechar foto"
               className="absolute top-3 right-3 p-2 rounded-full bg-floresta-950/80 text-areia-100 hover:bg-floresta-900"
             >
               <X className="h-5 w-5" />

@@ -4,11 +4,12 @@ How the engineering skills should consume this repo's domain documentation when 
 
 ## Before exploring, read these
 
-- **`CONTEXT.md`** at the repo root, or
-- **`CONTEXT-MAP.md`** at the repo root if it exists: it points at one `CONTEXT.md` per context. Read each one relevant to the topic.
-- **`docs/adr/`**: read ADRs that touch the area you're about to work in. In multi-context repos, also check `src/<context>/docs/adr/` for context-scoped decisions.
+- **`AGENTS.md`** at the repo root: canonical lexical compliance rules, brand identity (`Cooperativa Nativaram`), and project skills.
+- **`Segundo-Cerebro/06-Arquitetura-do-Portal/Indice-de-Recuperacao-Rapida.md`**: quick-recovery index for architecture, routes, and active constraints.
+- **`Segundo-Cerebro/06-Arquitetura-do-Portal/`**: read the ADRs (`ADR-001` through `ADR-007`) and `Roadmap-e-Componentes-do-Site.md` that touch the area you're about to work in.
+- **`CONTEXT.md`** at the repo root, or **`docs/adr/`** if present.
 
-If any of these files don't exist, **proceed silently**. Don't flag their absence; don't suggest creating them upfront. The `/domain-modeling` skill (reached via `/grill-with-docs` and `/improve-codebase-architecture`) creates them lazily when terms or decisions actually get resolved.
+If any optional files don't exist, **proceed silently**. Don't flag their absence; don't suggest creating them upfront. The `/arquitetura-modelagem-dominio` and `/segundo-cerebro-registrar-decisao` skills maintain the canonical decisions inside `Segundo-Cerebro/06-Arquitetura-do-Portal/`.
 
 ## File structure
 

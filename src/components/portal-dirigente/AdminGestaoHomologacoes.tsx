@@ -161,7 +161,10 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     setLoading(true);
     const locais = lerCacheLocal();
     try {
-      const res = await fetch("/api/solicitacoes", { cache: "no-store" });
+      const res = await fetch("/api/solicitacoes", {
+        cache: "no-store",
+        credentials: "include",
+      });
       if (res.ok) {
         const json = await res.json();
         const mescladas = mesclarSolicitacoesCliente(
@@ -216,6 +219,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     try {
       await fetch("/api/solicitacoes", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(atualizado),
       });
@@ -235,6 +239,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     try {
       const res = await fetch(`/api/solicitacoes/${encodeURIComponent(id)}/homologar`, {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payloadComplementar || {}),
       });
@@ -332,6 +337,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     try {
       await fetch("/api/solicitacoes", {
         method: "POST",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(novaSol),
       });

@@ -33,6 +33,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [whatsappUrl, setWhatsappUrl] = useState("");
 
   const {
     register,
@@ -53,8 +54,29 @@ export const ContactForm = () => {
   });
 
   const onSubmit = async (data: ContactFormData) => {
-    // Simulate server submission
-    await new Promise((resolve) => setTimeout(resolve, 800));
+    const interesseLabels: Record<ContactFormData["tipoInteresse"], string> = {
+      credenciamento: "Credenciamento Litúrgico de Templo",
+      "duvidas-feitio": "Dúvidas sobre Feitio Purista e Graduações",
+      "projetos-luz": "Parcerias para a Ecovila e Projetos de Luz",
+      etnociencia: "Pesquisa Acadêmica & Etnociência",
+      outro: "Outro assunto institucional",
+    };
+
+    const texto = [
+      "*COOPERATIVA NATIVARAM — CONTATO INSTITUCIONAL*",
+      "",
+      `• *Nome:* ${data.nome}`,
+      `• *Instituição/Templo:* ${data.instituicao}`,
+      `• *WhatsApp:* ${data.whatsapp}`,
+      `• *E-mail:* ${data.email}`,
+      `• *Assunto:* ${interesseLabels[data.tipoInteresse]}`,
+      "",
+      "*Mensagem:*",
+      data.mensagem,
+    ].join("\n");
+
+    const url = `https://wa.me/556899779104?text=${encodeURIComponent(texto)}`;
+    setWhatsappUrl(url);
     setSubmitted(true);
     reset();
   };
@@ -69,14 +91,28 @@ export const ContactForm = () => {
           Mensagem Recebida com Sucesso!
         </h3>
         <p className="text-sm text-areia-300 max-w-md mx-auto leading-relaxed">
-          Agradecemos pelo contato fraterno. Nossos guardiões e conselho etnobotânico analisarão sua mensagem e responderão via WhatsApp ou e-mail com brevidade.
+          Agradecemos pelo contato fraterno. Nossos guardiões e conselho etnobotânico analisarão sua mensagem. Você também pode encaminhá-la diretamente ao WhatsApp institucional abaixo.
         </p>
-        <button
-          onClick={() => setSubmitted(false)}
-          className="inline-flex items-center gap-2 rounded-lg border border-ambar-500/30 px-4 py-2 text-xs font-semibold text-ambar-400 hover:bg-floresta-800 transition-colors"
-        >
-          Enviar Outra Mensagem
-        </button>
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+          {whatsappUrl && (
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-ambar-600 via-ambar-500 to-ambar-600 px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-floresta-950 shadow-solar hover:brightness-110 transition-all"
+            >
+              <Send className="h-3.5 w-3.5" />
+              <span>Abrir no WhatsApp Institucional</span>
+            </a>
+          )}
+          <button
+            type="button"
+            onClick={() => setSubmitted(false)}
+            className="inline-flex items-center gap-2 rounded-lg border border-ambar-500/30 px-4 py-2.5 text-xs font-semibold text-ambar-400 hover:bg-floresta-800 transition-colors"
+          >
+            Enviar Outra Mensagem
+          </button>
+        </div>
       </div>
     );
   }
@@ -93,7 +129,7 @@ export const ContactForm = () => {
           <span>Formulário de Contato & Apoio Litúrgico</span>
         </h3>
         <p className="text-xs text-areia-400 mt-1">
-          Canal formal de comunicação com os guardiões da Cooperativa Nativaram Brasil.
+          Canal formal de comunicação com os guardiões da Cooperativa Nativaram.
         </p>
       </div>
 
@@ -239,7 +275,7 @@ export const ContactForm = () => {
             className="mt-1 h-4 w-4 rounded border-ambar-500/30 bg-floresta-950 text-ambar-500 focus:ring-ambar-400"
           />
           <span className="text-xs text-areia-300 leading-relaxed">
-            Declaro ciência de que a Nativaram Brasil é uma cooperativa etnobotânica de caráter puramente espiritual e litúrgico, regulada pela Resolução CONAD nº 01/2010, sem fins lucrativos ou apelo recreativo.
+            Declaro ciência de que a Cooperativa Nativaram é uma cooperativa etnobotânica de caráter puramente espiritual e litúrgico, regulada pela Resolução CONAD nº 01/2010, sem fins lucrativos ou apelo recreativo.
           </span>
         </label>
         {errors.aceitouTermos && (

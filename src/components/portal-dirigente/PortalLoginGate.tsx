@@ -15,7 +15,6 @@ import {
 import { Logo } from "@/components/ui/Logo";
 import { Input } from "@/components/ui/Input";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
-import { templosIniciais } from "@/data/portal-mock";
 import { isSupabaseConfigured, getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 interface PortalLoginGateProps {
@@ -39,7 +38,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
   const [errorMsg, setErrorMsg] = useState("");
   const hasSupabase = isSupabaseConfigured();
 
-  // Função auxiliar de autenticação híbrida (LocalStorage + API + Mock)
+  // Função auxiliar de autenticação via servidor (/api/auth/verificar-chave) com fallback local homologado
   const tentarAutenticacaoHibrida = async (
     identificadorBruto: string,
     senhaBruta: string
@@ -49,45 +48,63 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
     const loginUpper = loginLimpo.toUpperCase();
     const senhaLimpa = senhaBruta.trim();
 
-    // 1. Checagem Master ADMIN (por usuário ou e-mail institucional)
-    const loginsAdmin = [
-      "adm-nativaram",
-      "adm@nativaram.com.br",
-      "admin@nativaram.com.br",
-      "contato@nativaram.com.br",
-      "conselho@nativaram.com.br",
-    ];
-    if (
-      (modoLogin === "ADMIN" || loginsAdmin.includes(loginLower)) &&
-      senhaLimpa === "adm2026"
-    ) {
-      onAuthenticated("ADMIN", "ADM-NATIVARAM");
-      return true;
+    if (!loginLimpo || !senhaLimpa) {
+      return false;
     }
 
-    // 2. Checagem em congregações pré-cadastradas
-    const temploEncontrado = templosIniciais.find(
-      (t) =>
-        t.id.toUpperCase() === loginUpper || t.id.toLowerCase() === loginLower
-    );
-    if (temploEncontrado && senhaLimpa.length >= 4) {
-      onAuthenticated("DIRIGENTE", temploEncontrado.id);
-      return true;
+    // 1. Validação primária no servidor (define cookie HttpOnly nativaram_session)
+    try {
+      const res = await fetch("/api/auth/verificar-chave", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ login: loginLimpo, senha: senhaLimpa }),
+      });
+
+      if (res.ok) {
+        const json = await res.json();
+        if (json.sucesso) {
+          if (json.role === "ADMIN") {
+            onAuthenticated("ADMIN", json.congregao?.id || "ADM-NATIVARAM");
+            return true;
+          }
+          if (modoLogin !== "ADMIN" && json.congregao) {
+            onAuthenticated(
+              "DIRIGENTE",
+              json.congregao.loginGerado || json.congregao.id
+            );
+            return true;
+          }
+        }
+      }
+    } catch (errApi) {
+      console.warn("Aviso ao validar chave com API:", errApi);
     }
 
-    // 3. Checagem no cache local de congregações homologadas neste navegador
+    if (modoLogin === "ADMIN") {
+      return false;
+    }
+
+    // 2. Fallback estrito no cache local apenas se houver senhaGerada explícita coincidente
     try {
       const rawLocal = localStorage.getItem("nativaram_solicitacoes_local");
       if (rawLocal) {
         const listaLocal = JSON.parse(rawLocal);
         if (Array.isArray(listaLocal)) {
           const matchLocal = listaLocal.find(
-            (s: any) =>
+            (s: {
+              status?: string;
+              loginGerado?: string;
+              id?: string;
+              email?: string;
+              senhaGerada?: string;
+            }) =>
               s?.status === "HOMOLOGADO" &&
+              Boolean(s?.senhaGerada) &&
+              s.senhaGerada === senhaLimpa &&
               ((s?.loginGerado && s.loginGerado.toUpperCase() === loginUpper) ||
                 (s?.id && s.id.toUpperCase() === loginUpper) ||
-                (s?.email && s.email.trim().toLowerCase() === loginLower)) &&
-              (!s?.senhaGerada || s.senhaGerada === senhaLimpa)
+                (s?.email && s.email.trim().toLowerCase() === loginLower))
           );
           if (matchLocal) {
             onAuthenticated(
@@ -100,42 +117,6 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
       }
     } catch {
       // Ignora erro localStorage
-    }
-
-    // 4. Checagem na API de homologações (/api/auth/verificar-chave)
-    try {
-      const res = await fetch("/api/auth/verificar-chave", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login: loginLimpo, senha: senhaLimpa }),
-      });
-
-      if (res.ok) {
-        const json = await res.json();
-        if (json.sucesso && json.congregao) {
-          onAuthenticated(
-            "DIRIGENTE",
-            json.congregao.loginGerado || json.congregao.id
-          );
-          return true;
-        }
-      }
-    } catch (errApi) {
-      console.warn("Aviso ao validar chave com API:", errApi);
-    }
-
-    // 5. Fallback para códigos canônicos prefixados com NAT- ou REC- ou senha Luz2026-XXXX
-    if (
-      (loginUpper.startsWith("NAT-") ||
-        loginUpper.startsWith("REC-") ||
-        /^Luz202\d-\d{4}$/i.test(senhaLimpa)) &&
-      senhaLimpa.length >= 4
-    ) {
-      onAuthenticated(
-        "DIRIGENTE",
-        loginUpper.includes("@") ? "NAT-TEMPLO-842" : loginUpper
-      );
-      return true;
     }
 
     return false;

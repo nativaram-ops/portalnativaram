@@ -21,11 +21,10 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true, posts });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error.message || "Erro ao consultar publicações" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao consultar publicações";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
 
@@ -62,6 +61,8 @@ export async function POST(request: NextRequest) {
     // Auditoria de Conformidade CONAD/ANVISA em tempo real
     const textoCompleto = `${titulo} ${resumo} ${conteudoMarkdown}`;
     const alertas = verificarConformidadeTexto(textoCompleto);
+    const statusEfetivo =
+      alertas.length > 0 && status === "PUBLICADO" ? "RASCUNHO" : status;
 
     // Mapeamento do label da categoria
     const labelsMap: Record<string, string> = {
@@ -108,7 +109,7 @@ export async function POST(request: NextRequest) {
       fotosGaleria,
       anexos,
       embeds,
-      status,
+      status: statusEfetivo,
       destaque,
     });
 
@@ -117,10 +118,9 @@ export async function POST(request: NextRequest) {
       post: postSalvo,
       alertasCompliance: alertas,
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error.message || "Erro ao salvar publicação" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao salvar publicação";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

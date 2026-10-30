@@ -5,6 +5,7 @@ import {
   deletarItemAgenda,
 } from "@/lib/db/comunidade";
 import { ItemAgendaSchema } from "@/lib/validators/comunidade";
+import { verifyAdminRequest } from "@/lib/auth/session";
 
 export async function GET(request: NextRequest) {
   try {
@@ -13,11 +14,10 @@ export async function GET(request: NextRequest) {
 
     const agenda = await obterAgendaLiturgica(temploCodigo);
     return NextResponse.json({ success: true, agenda });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error.message || "Erro ao consultar agenda" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao consultar agenda";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
 
@@ -46,11 +46,10 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true, item: itemSalvo });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error.message || "Erro ao salvar rito na agenda" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao salvar rito na agenda";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }
 
@@ -58,16 +57,17 @@ export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
-    const temploCodigo = searchParams.get("temploCodigo");
+    const temploCodigo = searchParams.get("temploCodigo") || "";
+    const isAdmin = verifyAdminRequest(request);
 
-    if (!id || !temploCodigo) {
+    if (!id || (!temploCodigo && !isAdmin)) {
       return NextResponse.json(
         { success: false, error: "ID e código litúrgico são obrigatórios" },
         { status: 400 }
       );
     }
 
-    const excluido = await deletarItemAgenda(id, temploCodigo);
+    const excluido = await deletarItemAgenda(id, temploCodigo, isAdmin);
     if (!excluido) {
       return NextResponse.json(
         { success: false, error: "Permissão negada ou evento inexistente" },
@@ -75,11 +75,13 @@ export async function DELETE(request: NextRequest) {
       );
     }
 
-    return NextResponse.json({ success: true, message: "Rito removido da agenda" });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, error: error.message || "Erro ao remover rito" },
-      { status: 500 }
-    );
+    return NextResponse.json({
+      success: true,
+      message: "Rito removido da agenda",
+    });
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : "Erro ao remover rito";
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

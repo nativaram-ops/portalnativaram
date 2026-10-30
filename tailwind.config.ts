@@ -79,6 +79,7 @@ const config: Config = {
         "radial-floresta": "radial-gradient(ellipse 80% 60% at 50% 20%, rgba(30, 56, 42, 0.6) 0%, transparent 70%)",
         "radial-ambar": "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(212, 163, 89, 0.08) 0%, transparent 70%)",
         "radial-hero": "radial-gradient(ellipse 100% 80% at 50% 0%, rgba(30, 56, 42, 0.5) 0%, rgba(11, 20, 15, 0) 60%)",
+        "radial-vignette": "radial-gradient(circle at center, transparent 0%, rgba(11, 20, 15, 0.75) 100%)",
         "gradient-editorial": "linear-gradient(180deg, rgba(11, 20, 15, 0) 0%, rgba(11, 20, 15, 1) 100%)",
       },
       keyframes: {
@@ -119,6 +120,7 @@ const config: Config = {
         "fade-up": "fade-up 0.7s ease-out forwards",
         "fade-in": "fade-in 0.5s ease-out forwards",
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "pulse-subtle": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
         "float": "float 4s ease-in-out infinite",
         "slide-in-right": "slide-in-right 0.6s ease-out forwards",
         "slide-down": "slide-down 0.4s ease-out forwards",

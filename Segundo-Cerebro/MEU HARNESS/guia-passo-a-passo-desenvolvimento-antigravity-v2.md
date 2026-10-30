@@ -1,3 +1,12 @@
+---
+tipo: guia
+status: pronto
+prioridade: alta
+ferramenta_principal: Antigravity IDE
+para_quem_e: Agentes de IA e Desenvolvedores
+categoria: Engenharia Agêntica
+---
+
 # 🚀 Guia Passo a Passo Definitivo: Desenvolvimento Agêntico no Antigravity IDE (SE 3.0)
 
 Este documento é o seu **manual de operações e caixa de ferramentas pronta** para desenvolver projetos de software do zero ao deploy utilizando a metodologia de **Engenharia Agêntica (SE 3.0)** no **Antigravity IDE**. 

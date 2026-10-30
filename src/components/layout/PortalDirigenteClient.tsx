@@ -19,27 +19,99 @@ import {
   FileSpreadsheet,
   Printer,
 } from "lucide-react";
-import {
-  exportarMedicamentosExcel,
-  exportarMedicamentosPDF,
-} from "@/lib/export-medicamentos";
+import dynamic from "next/dynamic";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
-import { FormSolicitacaoPedido } from "@/components/portal-dirigente/FormSolicitacaoPedido";
 import { AcompanhamentoPedidos } from "@/components/portal-dirigente/AcompanhamentoPedidos";
 import { PortalLoginGate } from "@/components/portal-dirigente/PortalLoginGate";
-import { PortalAdminDashboard } from "@/components/portal-dirigente/PortalAdminDashboard";
-import { PortalLaudosCustodia } from "@/components/portal-dirigente/PortalLaudosCustodia";
-import { PortalCooperativismo } from "@/components/portal-dirigente/PortalCooperativismo";
-import { PortalCentralDocumentos } from "@/components/portal-dirigente/PortalCentralDocumentos";
-import { PortalInteracoesMedicamentosas } from "@/components/portal-dirigente/PortalInteracoesMedicamentosas";
-import { PortalCatalogoGraduacoes } from "@/components/portal-dirigente/PortalCatalogoGraduacoes";
-import { PortalAssessoriaFAQ } from "@/components/portal-dirigente/PortalAssessoriaFAQ";
-import { PortalCalculadoraLiturgica } from "@/components/portal-dirigente/PortalCalculadoraLiturgica";
-import { PortalRespaldoJuridico } from "@/components/portal-dirigente/PortalRespaldoJuridico";
-import { PortalComunidadeGestao } from "@/components/portal-dirigente/PortalComunidadeGestao";
 import { ItemPedido } from "@/types/pedido";
 import { templosIniciais, TemploMock } from "@/data/portal-mock";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+
+const TabLoadingSkeleton = () => (
+  <div className="rounded-2xl border border-ambar-500/20 bg-floresta-950/70 p-8 text-center animate-pulse">
+    <p className="text-xs font-mono text-ambar-400 uppercase tracking-widest">
+      Carregando módulo litúrgico...
+    </p>
+  </div>
+);
+
+const FormSolicitacaoPedido = dynamic(
+  () =>
+    import("@/components/portal-dirigente/FormSolicitacaoPedido").then(
+      (m) => m.FormSolicitacaoPedido
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalAdminDashboard = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalAdminDashboard").then(
+      (m) => m.PortalAdminDashboard
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalLaudosCustodia = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalLaudosCustodia").then(
+      (m) => m.PortalLaudosCustodia
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalCooperativismo = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalCooperativismo").then(
+      (m) => m.PortalCooperativismo
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalCentralDocumentos = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalCentralDocumentos").then(
+      (m) => m.PortalCentralDocumentos
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalInteracoesMedicamentosas = dynamic(
+  () =>
+    import(
+      "@/components/portal-dirigente/PortalInteracoesMedicamentosas"
+    ).then((m) => m.PortalInteracoesMedicamentosas),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalCatalogoGraduacoes = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalCatalogoGraduacoes").then(
+      (m) => m.PortalCatalogoGraduacoes
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalAssessoriaFAQ = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalAssessoriaFAQ").then(
+      (m) => m.PortalAssessoriaFAQ
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalCalculadoraLiturgica = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalCalculadoraLiturgica").then(
+      (m) => m.PortalCalculadoraLiturgica
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalRespaldoJuridico = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalRespaldoJuridico").then(
+      (m) => m.PortalRespaldoJuridico
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
+const PortalComunidadeGestao = dynamic(
+  () =>
+    import("@/components/portal-dirigente/PortalComunidadeGestao").then(
+      (m) => m.PortalComunidadeGestao
+    ),
+  { loading: () => <TabLoadingSkeleton /> }
+);
 
 type DirigenteTab =
   | "SOLICITACOES"
@@ -462,7 +534,12 @@ export const PortalDirigenteClient: React.FC = () => {
 
             <button
               type="button"
-              onClick={exportarMedicamentosPDF}
+              onClick={async () => {
+                const { exportarMedicamentosPDF } = await import(
+                  "@/lib/export-medicamentos"
+                );
+                exportarMedicamentosPDF();
+              }}
               className="px-3.5 py-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 bg-ambar-500 hover:bg-ambar-400 text-floresta-950 shadow-md transition-all"
               title="Gerar e baixar PDF A4 da Tabela de Medicamentos Controlados"
             >
@@ -472,7 +549,12 @@ export const PortalDirigenteClient: React.FC = () => {
 
             <button
               type="button"
-              onClick={exportarMedicamentosExcel}
+              onClick={async () => {
+                const { exportarMedicamentosExcel } = await import(
+                  "@/lib/export-medicamentos"
+                );
+                exportarMedicamentosExcel();
+              }}
               className="px-3.5 py-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition-all"
               title="Baixar planilha Excel (.xls) com todas as marcas comerciais e tempos de washout"
             >

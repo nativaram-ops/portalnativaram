@@ -1,11 +1,11 @@
 /**
- * Suíte de Testes Automatizados da Cooperativa Nativaram Brasil
+ * Suíte de Testes Automatizados da Cooperativa Nativaram
  *
  * Valida:
- * 1. Schemas de validação Zod (pedidos e credenciamento)
- * 2. Operações de persistência e auditoria de pedidos
+ * 1. Schemas de validação Zod (pedidos, credenciamento e solicitações)
+ * 2. Operações de persistência híbrida atômica e auditoria de pedidos
  * 3. Formatadores e sanitizadores de WhatsApp institucional
- * 4. Integridade fitoquímica dos catálogos (graduações e rapés)
+ * 4. Integridade fitoquímica dos catálogos (graduações e 15 rapés)
  * 5. Scanner semântico de termos proibidos pelo AGENTS.md
  */
 
@@ -35,7 +35,7 @@ async function test(name, fn) {
 
 async function runAllTests() {
   console.log("\n=======================================================");
-  console.log("   TESTES AUTOMATIZADOS — NATIVARAM BRASIL");
+  console.log("   TESTES AUTOMATIZADOS — COOPERATIVA NATIVARAM");
   console.log("   Conformidade Litúrgica, Integridade de Dados & Regras");
   console.log("=======================================================\n");
 
@@ -228,6 +228,11 @@ async function runAllTests() {
 
     await scanDir(path.join(ROOT_DIR, "src", "app"));
     await scanDir(path.join(ROOT_DIR, "src", "components", "portal-dirigente"));
+    await scanDir(path.join(ROOT_DIR, "src", "components", "home"));
+    await scanDir(path.join(ROOT_DIR, "src", "components", "feitio"));
+    await scanDir(path.join(ROOT_DIR, "src", "components", "projetos-de-luz"));
+    await scanDir(path.join(ROOT_DIR, "src", "components", "manifesto"));
+    await scanDir(path.join(ROOT_DIR, "src", "components", "forms"));
   });
 
   // 5. SEGURANÇA DE APIS & CONTRATOS HTTP (PLANO 002)
@@ -535,17 +540,26 @@ async function runAllTests() {
     const loginInexistente = await validarCredenciaisDirigente("NAT-INEXISTENTE-999", "qualquer123");
     assert.strictEqual(loginInexistente, null, "Deve rejeitar login inexistente");
 
-    // Limpeza de registros de teste
-    const fs = await import("fs/promises");
-    const path = await import("path");
-    const dbPath = path.join(process.cwd(), "data", "solicitacoes_homologacao.json");
-    try {
-      const raw = await fs.readFile(dbPath, "utf-8");
-      const list = JSON.parse(raw);
-      const cleaned = list.filter((item) => !item.id.startsWith("TEST-"));
-      await fs.writeFile(dbPath, JSON.stringify(cleaned, null, 2), "utf-8");
-    } catch {
-      // Ignora erro de limpeza
+    // Limpeza garantida de registros de teste (data/ e os.tmpdir())
+    const os = await import("node:os");
+    const dbPaths = [
+      path.join(process.cwd(), "data", "solicitacoes_homologacao.json"),
+      path.join(os.tmpdir(), "nativaram_solicitacoes_homologacao.json"),
+    ];
+    for (const dbPath of dbPaths) {
+      try {
+        const raw = await fs.readFile(dbPath, "utf-8");
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.filter((item) => !item.id.startsWith("TEST-"));
+          await fs.writeFile(dbPath, JSON.stringify(cleaned, null, 2), "utf-8");
+        } else if (parsed && Array.isArray(parsed.items)) {
+          parsed.items = parsed.items.filter((item) => !item.id.startsWith("TEST-"));
+          await fs.writeFile(dbPath, JSON.stringify(parsed, null, 2), "utf-8");
+        }
+      } catch {
+        // Ignora erro de limpeza se arquivo não existir
+      }
     }
   });
 
@@ -615,6 +629,129 @@ async function runAllTests() {
     assert.ok(perfil, "Perfil por slug deve existir");
     assert.strictEqual(perfil.codigoLiturgico, "NAT-TEMPLO-842");
     assert.strictEqual(perfil.nomeInstituicao, "Templo Céu do Cruzeiro");
+  });
+
+  // 10. OTIMIZAÇÕES PLANOS 004 A 009 (CORE HYBRID STORE, AUTH HMAC, CATÁLOGO 15 RAPÉS & SITEMAP)
+  console.log("\n10. Verificações dos Planos 004 a 009 (Hybrid Store, Auth, Catálogo & SEO):");
+
+  await test("Lista Nominal de Medicamentos (4 Cores) possui >= 150 itens distribuídos nas 4 categorias", async () => {
+    const { obterListaNominalMedicamentos } = await import("../src/lib/export-medicamentos.ts");
+    const lista = obterListaNominalMedicamentos();
+    assert.ok(lista.length >= 150, `Esperado >= 150 medicamentos, obtido ${lista.length}`);
+    const cores = new Set(lista.map((m) => m.diretriz));
+    assert.strictEqual(cores.size, 4, "Deve possuir todas as 4 diretrizes/cores da tabela oficial");
+  });
+
+  await test("CRUD de Agenda Litúrgica salva, lista e remove evento com limpeza atômica", async () => {
+    const { salvarItemAgenda, obterAgendaLiturgica, deletarItemAgenda } = await import(
+      "../src/lib/db/comunidade.ts"
+    );
+    const item = await salvarItemAgenda({
+      temploCodigo: "NAT-TEMPLO-842",
+      temploNome: "Templo Céu do Cruzeiro",
+      temploSlug: "ceu-do-cruzeiro",
+      titulo: "Sessão de Teste Automatizado",
+      dataHora: "2026-12-21T20:00:00",
+      local: "Sede Litúrgica",
+      graduacaoPrevista: "5.1 Pituã",
+      vagas: "20 lugares",
+      observacoes: "Trazer agasalho branco",
+    });
+    assert.ok(item.id, "Evento deve receber ID");
+    const lista = await obterAgendaLiturgica("NAT-TEMPLO-842");
+    assert.ok(lista.some((e) => e.id === item.id), "Evento criado deve constar na agenda");
+    const deletado = await deletarItemAgenda(item.id, "NAT-TEMPLO-842");
+    assert.strictEqual(deletado, true, "Deve deletar o evento do próprio templo");
+  });
+
+  await test("Core Hybrid Store persiste atomicamente, lê fallback de tmpdir e withTimeout rejeita promessa lenta", async () => {
+    const { createHybridJsonStore, withTimeout } = await import("../src/lib/db/core-hybrid-store.ts");
+    const os = await import("node:os");
+    const testFilename = `test_hybrid_${Date.now()}.json`;
+    const store = createHybridJsonStore({
+      filename: testFilename,
+      seedData: [{ id: "SEED-1", nome: "Item Inicial" }],
+      getKey: (item) => item.id,
+    });
+
+    await store.upsert({ id: "ITEM-2", nome: "Novo Item" });
+    const allAfterUpsert = await store.readAll();
+    assert.strictEqual(allAfterUpsert.length, 2, "Deve conter seed + item inserido");
+
+    await store.remove("SEED-1");
+    const allAfterRemove = await store.readAll();
+    assert.strictEqual(allAfterRemove.length, 1, "Item deletado não deve ressuscitar do seedData");
+    assert.strictEqual(allAfterRemove[0].id, "ITEM-2");
+
+    // Verifica timeout
+    let timedOut = false;
+    try {
+      await withTimeout(new Promise((resolve) => setTimeout(resolve, 200)), 30);
+    } catch {
+      timedOut = true;
+    }
+    assert.strictEqual(timedOut, true, "withTimeout deve rejeitar promessas que excedem o limite");
+
+    // Limpeza dos arquivos de teste
+    await fs.unlink(path.join(process.cwd(), "data", testFilename)).catch(() => {});
+    await fs.unlink(path.join(os.tmpdir(), `nativaram_${testFilename}`)).catch(() => {});
+  });
+
+  await test("Sessão HMAC-SHA256 valida token legítimo, rejeita adulteração e RegistrarSolicitacaoSchema filtra overrides", async () => {
+    const { createSessionToken, verifySessionToken } = await import("../src/lib/auth/session.ts");
+    const { RegistrarSolicitacaoSchema } = await import("../src/lib/validators/solicitacao.ts");
+
+    const token = createSessionToken({ role: "ADMIN", codigo: "ADM-NATIVARAM" });
+    const payload = verifySessionToken(token);
+    assert.ok(payload, "Token recém-criado deve ser válido");
+    assert.strictEqual(payload.role, "ADMIN");
+
+    const tampered = `${token}adulterado`;
+    assert.strictEqual(verifySessionToken(tampered), null, "Token adulterado deve ser rejeitado");
+
+    const parsed = RegistrarSolicitacaoSchema.safeParse({
+      tipo: "INSTITUICAO_FORMAL",
+      nomeEntidade: "Templo Teste",
+      nomeResponsavel: "Dirigente Teste",
+      telefone: "68999990000",
+      email: "teste@templo.org",
+      cidade: "Rio Branco",
+      estado: "AC",
+      status: "HOMOLOGADO",
+      senhaGerada: "Hack123",
+    });
+    assert.strictEqual(parsed.success, true, "Payload válido deve passar no schema");
+    assert.strictEqual("senhaGerada" in parsed.data, false, "Schema não deve permitir injeção de senhaGerada");
+  });
+
+  await test("Catálogo unificado possui exatamente 15 variedades de Rapé Sagrado e zero IDs duplicados", async () => {
+    const { medicinas } = await import("../src/data/medicinas.ts");
+    const { RAPES_TRADICIONAIS } = await import("../src/data/sacramentos.ts");
+    const { GRADUACOES_SACRAMENTAIS } = await import("../src/data/graduacoes.ts");
+
+    const rapesMedicinas = medicinas.filter((m) => m.tipo === "rape");
+    assert.strictEqual(rapesMedicinas.length, 15, `Esperado 15 rapés em medicinas.ts, encontrado ${rapesMedicinas.length}`);
+    assert.strictEqual(RAPES_TRADICIONAIS.length, 15, `Esperado 15 rapés em sacramentos.ts, encontrado ${RAPES_TRADICIONAIS.length}`);
+
+    const gradIds = GRADUACOES_SACRAMENTAIS.map((g) => g.id);
+    assert.strictEqual(new Set(gradIds).size, gradIds.length, "Não deve haver IDs duplicados em GRADUACOES_SACRAMENTAIS");
+  });
+
+  await test("Sitemap público emite /sacramentos e perfis comunitários e omite /portal-dirigente", async () => {
+    const sitemapFn = (await import("../src/app/sitemap.ts")).default;
+    const entries = sitemapFn();
+    const urls = entries.map((e) => e.url);
+
+    assert.ok(urls.some((u) => u.endsWith("/sacramentos")), "Deve incluir /sacramentos canônico");
+    assert.ok(
+      urls.some((u) => u.includes("/estudos/comunidade/ceu-do-cruzeiro")),
+      "Deve incluir perfis comunitários (/estudos/comunidade/ceu-do-cruzeiro)"
+    );
+    assert.strictEqual(
+      urls.some((u) => u.includes("/portal-dirigente")),
+      false,
+      "Não deve indexar área restrita /portal-dirigente no sitemap público"
+    );
   });
 
   console.log("\n=======================================================");

@@ -1,3 +1,12 @@
+---
+tipo: guia
+status: pronto
+prioridade: alta
+ferramenta_principal: Antigravity IDE
+para_quem_e: Agentes de IA e Desenvolvedores
+categoria: Engenharia Agêntica
+---
+
 # 🚀 Guia de Harness Agêntico & Ciclo de Vida de Projetos
 
 Este documento estabelece o **Harness Agêntico Definitivo** para desenvolvimento de software na **Antigravity IDE** (Engenharia Agêntica - SE 3.0). Ele unifica todas as habilidades instaladas no seu ambiente — divididas nas 3 camadas operacionais (Projeto Nativo, Global Stack Web e Novo Harness de Alta Performance) — e mapeia a utilização de cada uma delas ao longo do caminho de criação de um projeto do zero ao deploy.

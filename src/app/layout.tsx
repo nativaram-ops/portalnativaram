@@ -60,13 +60,13 @@ export const metadata: Metadata = {
         url: "/assets/banners/frasco-rape-apresentacao.jpeg",
         width: 1200,
         height: 630,
-        alt: "Nativaram Brasil — Cooperativa Etnobotânica",
+        alt: "Cooperativa Nativaram — Cooperativa Etnobotânica",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nativaram Brasil | Cooperativa Etnobotânica",
+    title: "Cooperativa Nativaram | Cooperativa Etnobotânica",
     description:
       "Preservação cultural e ciência do feitio purista da Amazônia Ocidental.",
     images: ["/assets/banners/frasco-rape-apresentacao.jpeg"],
@@ -86,12 +86,12 @@ export default function RootLayout({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Nativaram Brasil",
+    name: "Cooperativa Nativaram",
     alternateName: "Nascidos do Raio de Sol - Cooperativa Etnobotânica",
     url: "https://nativaramcoop.eco.br",
     logo: "https://nativaramcoop.eco.br/assets/logo.png",
     description:
-      "Cooperativa etnobotânica dedicada à salvaguarda cultural, à ciência do feitio purista da Ayahuasca e das medicinas tradicionais amazônicas sob amparo da Resolução CONAD nº 01/2010.",
+      "Cooperativa etnobotânica dedicada à salvaguarda cultural, à ciência do feitio purista da Ayahuasca e dos sacramentos tradicionais amazônicos sob amparo da Resolução CONAD nº 01/2010.",
     address: [
       {
         "@type": "PostalAddress",

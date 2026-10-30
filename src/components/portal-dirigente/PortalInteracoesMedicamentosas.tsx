@@ -231,7 +231,7 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                   setModoVisao("CARDS_DETALHADOS");
                 }
               }}
-              placeholder="Digite o nome do remédio ou princípio ativo (ex: Rivotril, Prozac, Carbolitium, Zolpidem, Venvanse, Ozempic, Tramadol)..."
+              placeholder="Digite o nome comercial do fármaco ou princípio ativo (ex: Rivotril, Prozac, Carbolitium, Zolpidem, Venvanse, Ozempic, Tramadol)..."
               className="w-full pl-11 pr-10 py-3 rounded-xl bg-floresta-900/90 border border-ambar-500/35 text-xs sm:text-sm text-areia-100 placeholder-areia-400/70 focus:outline-none focus:border-ambar-400 focus:ring-2 focus:ring-ambar-400/20"
             />
             {busca && (

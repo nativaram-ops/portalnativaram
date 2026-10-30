@@ -1,6 +1,4 @@
-"use client";
-
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -24,16 +22,11 @@ import {
   MapPin,
   Calendar,
   FileText,
-  ChevronDown,
   Info,
 } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
-
-interface FaqItem {
-  pergunta: string;
-  resposta: string;
-}
+import { FaqAccordion, FaqItem } from "@/components/ui/FaqAccordion";
 
 const faqsInstitucionais: FaqItem[] = [
   {
@@ -69,12 +62,6 @@ const faqsInstitucionais: FaqItem[] = [
 ];
 
 export function ManifestoLanding() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
-  const toggleFaq = (idx: number) => {
-    setOpenFaq(openFaq === idx ? null : idx);
-  };
-
   return (
     <div className="space-y-0">
       {/* ═══════════════════════════════════════════
@@ -1077,34 +1064,7 @@ export function ManifestoLanding() {
             </p>
           </AnimateOnScroll>
 
-          <div className="space-y-4">
-            {faqsInstitucionais.map((faq, idx) => {
-              const isOpen = openFaq === idx;
-              return (
-                <div
-                  key={idx}
-                  className="rounded-2xl border border-ambar-500/20 bg-floresta-900/60 overflow-hidden transition-all duration-300"
-                >
-                  <button
-                    onClick={() => toggleFaq(idx)}
-                    className="w-full flex items-center justify-between p-5 text-left text-sm sm:text-base font-serif font-bold text-areia-100 hover:text-ambar-400 transition-colors"
-                  >
-                    <span>{faq.pergunta}</span>
-                    <ChevronDown
-                      className={`h-4 w-4 text-ambar-400 shrink-0 transition-transform duration-300 ${
-                        isOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-                  {isOpen && (
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-areia-300 font-light leading-relaxed border-t border-ambar-500/10">
-                      {faq.resposta}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+          <FaqAccordion items={faqsInstitucionais} />
         </div>
       </section>
 

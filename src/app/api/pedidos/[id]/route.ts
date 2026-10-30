@@ -6,6 +6,7 @@ import {
   formatarMensagemAtualizacaoWhatsApp,
 } from "@/lib/db/pedidos";
 import { AtualizarPedidoSchema } from "@/lib/validators/pedido";
+import { verifyAdminRequest } from "@/lib/auth/session";
 
 export async function GET(
   _request: NextRequest,
@@ -37,9 +38,7 @@ export async function PATCH(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const authHeader = request.headers.get("x-nativaram-auth");
-    const adminSecret = process.env.ADMIN_SECRET_KEY || "adm-nativaram-2026";
-    if (!authHeader || authHeader !== adminSecret) {
+    if (!verifyAdminRequest(request)) {
       return NextResponse.json(
         { sucesso: false, erro: "Acesso litúrgico não autorizado para atualização." },
         { status: 401 }
@@ -73,7 +72,9 @@ export async function PATCH(
     let whatsappNotificacaoUrl = "";
     if (parseResult.data.status || parseResult.data.codigoRastreio) {
       const telefoneLimpo = pedidoAtualizado.dirigenteTelefone.replace(/\D/g, "");
-      const numeroDestino = telefoneLimpo.startsWith("55") ? telefoneLimpo : `55${telefoneLimpo}`;
+      const numeroDestino = telefoneLimpo.startsWith("55")
+        ? telefoneLimpo
+        : `55${telefoneLimpo}`;
       const textoMsg = formatarMensagemAtualizacaoWhatsApp(
         pedidoAtualizado,
         pedidoAtualizado.status,
@@ -102,9 +103,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const authHeader = request.headers.get("x-nativaram-auth");
-    const adminSecret = process.env.ADMIN_SECRET_KEY || "adm-nativaram-2026";
-    if (!authHeader || authHeader !== adminSecret) {
+    if (!verifyAdminRequest(request)) {
       return NextResponse.json(
         { sucesso: false, erro: "Acesso litúrgico não autorizado para exclusão." },
         { status: 401 }

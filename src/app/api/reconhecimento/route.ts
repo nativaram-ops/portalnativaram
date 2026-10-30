@@ -1,6 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import fs from "fs/promises";
-import path from "path";
 import { ReconhecimentoSchema } from "@/lib/validators/reconhecimento";
 import {
   generateProtocoloReconhecimento,
@@ -9,31 +7,37 @@ import {
 } from "@/lib/reconhecimento/engine";
 import { getGraduacaoPorId } from "@/data/graduacoes";
 import { registrarSolicitacao } from "@/lib/db/homologacoes";
+import { createHybridJsonStore } from "@/lib/db/core-hybrid-store";
+import { verifyAdminRequest } from "@/lib/auth/session";
 
-const DATA_DIR = path.join(process.cwd(), "data");
-const RECONHECIMENTOS_FILE = path.join(DATA_DIR, "reconhecimentos.json");
+interface RegistroReconhecimento extends ReconhecimentoDossier {
+  id: string;
+  criadoEm: string;
+  status: string;
+}
+
+const reconhecimentosStore = createHybridJsonStore<RegistroReconhecimento>({
+  filename: "reconhecimentos.json",
+  seedData: [],
+  getKey: (item) => item.id.trim().toUpperCase(),
+});
 
 // Número oficial de atendimento fraterno da Cooperativa Nativaram
 const WHATSAPP_COOPERATIVA = "556899779104";
 
-async function garantirArquivoReconhecimentos() {
+export async function GET(request: NextRequest) {
   try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
-    try {
-      await fs.access(RECONHECIMENTOS_FILE);
-    } catch {
-      await fs.writeFile(RECONHECIMENTOS_FILE, JSON.stringify([], null, 2), "utf-8");
+    if (!verifyAdminRequest(request)) {
+      return NextResponse.json(
+        {
+          sucesso: false,
+          erro: "Acesso restrito ao Conselho Gestor para consulta de fichas de reconhecimento.",
+        },
+        { status: 401 }
+      );
     }
-  } catch (err) {
-    console.warn("Aviso ao inicializar arquivo de reconhecimentos:", err);
-  }
-}
 
-export async function GET() {
-  try {
-    await garantirArquivoReconhecimentos();
-    const raw = await fs.readFile(RECONHECIMENTOS_FILE, "utf-8");
-    const registros = JSON.parse(raw);
+    const registros = await reconhecimentosStore.readAll();
     return NextResponse.json({
       sucesso: true,
       total: registros.length,
@@ -106,18 +110,16 @@ export async function POST(request: NextRequest) {
       console.warn("Aviso ao registrar na fila de homologação:", homologErr);
     }
 
-    // Persistência local atômica
-    await garantirArquivoReconhecimentos();
+    // Persistência híbrida atômica (data/ + os.tmpdir() para resiliência EROFS)
     try {
-      const raw = await fs.readFile(RECONHECIMENTOS_FILE, "utf-8");
-      const lista = JSON.parse(raw);
+      const lista = await reconhecimentosStore.readAll();
       lista.unshift({
         id: protocolo,
         ...dossier,
         criadoEm: new Date().toISOString(),
         status: "RECEBIDO_EM_ANALISE",
       });
-      await fs.writeFile(RECONHECIMENTOS_FILE, JSON.stringify(lista, null, 2), "utf-8");
+      await reconhecimentosStore.writeAll(lista);
     } catch (fsErr) {
       console.warn("Aviso na persistência em disco de reconhecimento:", fsErr);
     }

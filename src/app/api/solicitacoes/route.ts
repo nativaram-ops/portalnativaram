@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   obterTodasSolicitacoes,
   registrarSolicitacao,
-  SolicitacaoAcesso,
 } from "@/lib/db/homologacoes";
+import { verifyAdminRequest } from "@/lib/auth/session";
+import { RegistrarSolicitacaoSchema } from "@/lib/validators/solicitacao";
 
 export async function GET(request: NextRequest) {
   try {
@@ -34,18 +35,35 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const pendentes = solicitacoes.filter((s) => s.status === "PENDENTE_LIBERACAO").length;
-    const homologados = solicitacoes.filter((s) => s.status === "HOMOLOGADO").length;
+    const pendentes = solicitacoes.filter(
+      (s) => s.status === "PENDENTE_LIBERACAO"
+    ).length;
+    const homologados = solicitacoes.filter(
+      (s) => s.status === "HOMOLOGADO"
+    ).length;
+
+    const isAdmin = verifyAdminRequest(request);
+    const solicitacoesSeguras = isAdmin
+      ? solicitacoes
+      : solicitacoes.map(
+          ({
+            senhaGerada: _senha,
+            telefone: _telefone,
+            email: _email,
+            cnpj: _cnpj,
+            ...dadosPublicos
+          }) => dadosPublicos
+        );
 
     return NextResponse.json({
       sucesso: true,
-      total: solicitacoes.length,
+      total: solicitacoesSeguras.length,
       metricas: {
-        total: solicitacoes.length,
+        total: solicitacoesSeguras.length,
         pendentes,
         homologados,
       },
-      solicitacoes,
+      solicitacoes: solicitacoesSeguras,
     });
   } catch (error) {
     console.error("Erro ao listar solicitações de homologação:", error);
@@ -59,28 +77,39 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    const parseResult = RegistrarSolicitacaoSchema.safeParse(body);
 
-    if (!body.nomeEntidade || !body.nomeResponsavel || !body.telefone) {
+    if (!parseResult.success) {
       return NextResponse.json(
-        { sucesso: false, erro: "Dados obrigatórios não informados." },
+        {
+          sucesso: false,
+          erro: "Dados obrigatórios não informados ou inválidos.",
+          detalhes: parseResult.error.flatten().fieldErrors,
+        },
         { status: 400 }
       );
     }
 
+    const dados = parseResult.data;
+    const idProtocolo =
+      dados.id ||
+      `NAT-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+
     const registro = await registrarSolicitacao({
-      id: body.id,
-      tipo: body.tipo || "INSTITUICAO_FORMAL",
-      nomeEntidade: body.nomeEntidade,
-      nomeResponsavel: body.nomeResponsavel,
-      telefone: body.telefone,
-      email: body.email || "",
-      cidade: body.cidade || "",
-      estado: body.estado || "",
-      cnpj: body.cnpj,
-      linhagem: body.linhagem || "Tradição Ancestral",
-      graduacao: body.graduacao || "5.1 Pituã",
-      volumeEstimado: body.volumeEstimado || "5 Litros",
-      intencao: body.intencao || "Ritos de oração e reconexão espiritual.",
+      id: idProtocolo,
+      tipo: dados.tipo,
+      nomeEntidade: dados.nomeEntidade,
+      nomeResponsavel: dados.nomeResponsavel,
+      telefone: dados.telefone,
+      email: dados.email,
+      cidade: dados.cidade,
+      estado: dados.estado,
+      cnpj: dados.cnpj,
+      linhagem: dados.linhagem,
+      graduacao: dados.graduacao,
+      volumeEstimado: dados.volumeEstimado,
+      intencao: dados.intencao,
+      status: "PENDENTE_LIBERACAO",
     });
 
     return NextResponse.json(

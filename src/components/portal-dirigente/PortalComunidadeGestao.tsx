@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useDeferredValue } from "react";
 import Link from "next/link";
 import {
   FileText,
@@ -96,26 +96,32 @@ export const PortalComunidadeGestao: React.FC<Props> = ({
     carregarDados();
   }, [temploCodigo]);
 
-  // Executar linter léxico sempre que o título, resumo ou conteúdo mudar
+  // Executar linter léxico com useDeferredValue sempre que o título, resumo ou conteúdo mudar
+  const textoCombinado = useDeferredValue(`${postTitulo} ${postResumo} ${postConteudo}`);
   useEffect(() => {
-    const texto = `${postTitulo} ${postResumo} ${postConteudo}`;
-    const alertas = verificarConformidadeTexto(texto);
+    const alertas = verificarConformidadeTexto(textoCombinado);
     setAlertasCompliance(alertas);
-  }, [postTitulo, postResumo, postConteudo]);
+  }, [textoCombinado]);
 
   const carregarDados = async () => {
     setLoading(true);
     try {
-      // 1. Posts do templo
-      const resPosts = await fetch(`/api/comunidade/posts?temploCodigo=${encodeURIComponent(temploCodigo)}&todosStatus=true`);
-      const dataPosts = await resPosts.json();
+      const [resPosts, resPerfil, resAgenda] = await Promise.all([
+        fetch(`/api/comunidade/posts?temploCodigo=${encodeURIComponent(temploCodigo)}&todosStatus=true`),
+        fetch(`/api/comunidade/perfis?codigo=${encodeURIComponent(temploCodigo)}`),
+        fetch(`/api/comunidade/agenda?temploCodigo=${encodeURIComponent(temploCodigo)}`),
+      ]);
+
+      const [dataPosts, dataPerfil, dataAgenda] = await Promise.all([
+        resPosts.json(),
+        resPerfil.json(),
+        resAgenda.json(),
+      ]);
+
       if (dataPosts.success) {
         setMinhasPublicacoes(dataPosts.posts);
       }
 
-      // 2. Perfil do templo
-      const resPerfil = await fetch(`/api/comunidade/perfis?codigo=${encodeURIComponent(temploCodigo)}`);
-      const dataPerfil = await resPerfil.json();
       if (dataPerfil.success && dataPerfil.perfil) {
         const p = dataPerfil.perfil;
         setMeuPerfil(p);
@@ -128,9 +134,6 @@ export const PortalComunidadeGestao: React.FC<Props> = ({
         setPerfilWhatsapp(p.whatsappContato || "");
       }
 
-      // 3. Agenda do templo
-      const resAgenda = await fetch(`/api/comunidade/agenda?temploCodigo=${encodeURIComponent(temploCodigo)}`);
-      const dataAgenda = await resAgenda.json();
       if (dataAgenda.success) {
         setMinhaAgenda(dataAgenda.agenda);
       }

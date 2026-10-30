@@ -66,11 +66,17 @@ Este mapa mental organiza toda a inteligência da Nativaram Brasil, conectando a
 - [[Projetos-de-Luz-e-Editais]]: Suporte a casas de acolhimento e dependência química, agrofloresta e editais comunitários (Edital Rio Doce / BNDES / FBB).
 
 ### 6. Arquitetura de Software & Dados
-- [[Roadmap-e-Componentes-do-Site]]: Arquitetura Next.js 15 App Router, TypeScript, Tailwind CSS e mapa detalhado de arquivos `src/`.
+- [[Roadmap-e-Componentes-do-Site]]: Arquitetura Next.js 15 App Router, TypeScript, Tailwind CSS, Code-Splitting (`next/dynamic`) e mapa detalhado de arquivos `src/` (Planos 001 a 009).
 - [[Portal-do-Dirigente-e-Gestao-Liturgica]]: Sistema de autenticação por perfis (Templo vs ADM), formulário ágil com mensagem livre e acompanhamento em 5 fases.
 - [[Banco-de-Dados-e-Persistencia-Local]]: Persistência atômica segura em `data/pedidos.json` via `.tmp` e rename, endpoints REST `/api/pedidos` e modelos Zod.
 - [[ADR-001-Persistencia-Atomica-e-WhatsApp-First]]: Decisão de arquitetura formal explicando o motivo da eliminação de gateways de pagamento mercantil e adoção do fluxo WhatsApp-First.
-- [[Guia-de-Skills-e-Comandos]]: Catálogo das 39 skills do agente no projeto divididas por setores.
+- [[ADR-002-Composicao-Modular-e-Design-System]]: Composição modular da interface e governança de design tokens institucionais.
+- [[ADR-003-Funil-de-Conversao-e-Jornada-Didatica]]: Arquitetura das 5 estações didáticas do portal e eliminação de redundâncias.
+- [[ADR-004-Assessoria-Liturgica-e-Documentos-A4]]: Central de documentos canônicos A4, farmacologia de washout e calculadora litúrgica.
+- [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]: Persistência híbrida com Supabase PostgreSQL (`withTimeout`) e fallback local atômico.
+- [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]: Orquestração multiagente por grafos e validação contínua por Gauntlet Loops.
+- [[ADR-007-Hub-Comunitario-e-Blog-Etnobotanico]]: Mural colaborativo de templos, compressão WebP client-side e linter léxico CONAD em tempo real.
+- [[Guia-de-Skills-e-Comandos]]: Catálogo das skills do agente no projeto divididas por setores e Novo Harness da IDE.
 - [[Indice-de-Recuperacao-Rapida]]: Guia de consulta ultra-rápida para IAs absorverem o contexto do projeto em segundos e evitarem alucinações.
 
 ---
@@ -93,5 +99,11 @@ Este mapa mental organiza toda a inteligência da Nativaram Brasil, conectando a
 - [[Portal-do-Dirigente-e-Gestao-Liturgica]]
 - [[Banco-de-Dados-e-Persistencia-Local]]
 - [[ADR-001-Persistencia-Atomica-e-WhatsApp-First]]
+- [[ADR-002-Composicao-Modular-e-Design-System]]
+- [[ADR-003-Funil-de-Conversao-e-Jornada-Didatica]]
+- [[ADR-004-Assessoria-Liturgica-e-Documentos-A4]]
+- [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]
+- [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]
+- [[ADR-007-Hub-Comunitario-e-Blog-Etnobotanico]]
 - [[Guia-de-Skills-e-Comandos]]
 - [[Indice-de-Recuperacao-Rapida]]

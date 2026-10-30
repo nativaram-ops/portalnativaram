@@ -304,6 +304,8 @@ function Lightbox({
 
   return (
     <div
+      role="dialog"
+      aria-modal="true"
       className="fixed inset-0 z-[9999] bg-black/95 backdrop-blur-md flex items-center justify-center"
       onClick={onClose}
     >
@@ -529,7 +531,7 @@ export function ProjetoDeLuzLanding() {
                     garantir que o sacramento da Ayahuasca purista — feito
                     exclusivamente com Cipó Tucunacá (<em>Banisteriopsis caapi</em>) e
                     Folha Rainha (<em>Psychotria viridis</em>) — chegue aos
-                    templos de todo o Brasil com procedência, pureza e preço
+                    templos de todo o Brasil com procedência, pureza e rateio
                     justo, sem intermediários e sem lucro privado.
                   </p>
                   <p>

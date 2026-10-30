@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/portal-dirigente/painel", "/api/"],
+        disallow: ["/portal-dirigente", "/api/"],
       },
     ],
     sitemap: "https://nativaramcoop.eco.br/sitemap.xml",

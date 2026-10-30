@@ -35,7 +35,7 @@ export const medicinas: Medicina[] = [
     familiaBotanica:
       "Solanaceae, Fabaceae, Myrtaceae, Asteraceae, Lamiaceae e Rubiaceae.",
     feitioRastreabilidade:
-      "Confeccionado artesanalmente por nosso feitor caboclo com mais de 20 anos de estudos. Matérias-primas adquiridas de forma renovável e sustentável em parcerias com casas de plantas locais e coletores regionais.",
+      "Confeccionado artesanalmente por nosso feitor caboclo com mais de 20 anos de estudos. Matérias-primas obtidas de forma renovável e sustentável em parcerias com casas de plantas locais e coletores regionais.",
     alquimiaFitoquimica:
       "Ao unir o tabaco forte com as cinzas alcalinas do Tsunu e os óleos naturais do Eucalipto e do Alecrim, esta mistura cria uma resposta imediata de desobstrução e foco, preservando os sais minerais e nutrientes essenciais das folhas mesmo após o fogo da queima.",
     beneficios: {
@@ -77,7 +77,7 @@ export const medicinas: Medicina[] = [
       mental:
         "Estimula os hormônios do bem-estar e da felicidade no cérebro, diminuindo sentimentos de tristeza profunda e desânimo.",
       sutil:
-        "Atua diretamente no Chakra Cardíaco (no coração), acolhendo dores emocionais e abrindo os canais da empatia e da união.",
+        "Atua diretamente no Chakra Cardíaco (no coração), acolhendo pesos emocionais e abrindo os canais da empatia e da união.",
     },
     diretrizes:
       "Consagre quando buscar um momento de reconexão consigo mesmo. Sente-se confortavelmente, use um kuripe ou tepi, respirando de forma pausada pela boca, integrando os sentimentos na frequência harmônica de 432Hz.",
@@ -133,7 +133,7 @@ export const medicinas: Medicina[] = [
       "Nicotiana rustica e Mimosa tenuiflora (Jurema Preta / hostilis).",
     familiaBotanica: "Solanaceae e Fabaceae (Mimosoideae).",
     feitioRastreabilidade:
-      "Confeccionado de forma artesanal e sob rezas de enraizamento pelo nosso feitor caboclo. Toda a matéria-prima é de origem renovável, adquirida eticamente em parcerias sustentáveis.",
+      "Confeccionado de forma artesanal e sob rezas de enraizamento pelo nosso feitor caboclo. Toda a matéria-prima é de origem renovável, obtida eticamente em parcerias sustentáveis.",
     alquimiaFitoquimica:
       "O fitoativo visionário DMT presente na casca da raiz viva sofre degradação térmica completa acima de 250°C. Assim, o rapé é 100% livre de efeitos psicoativos, retendo taninos cicatrizantes e minerais termoestáveis.",
     beneficios: {
@@ -158,35 +158,35 @@ export const medicinas: Medicina[] = [
     foto15g: "/assets/sacramentos/15g/jurema-preta-15g.jpg",
   },
   {
-    slug: "mentolado",
-    nome: "Rapé Mentolado",
+    slug: "passiflora",
+    nome: "Rapé de Passiflora",
     subtitulo:
-      "O Sopro Gelado do Foco e Clareza Imediata",
+      "Acalento Noturno, Serenidade dos Sentidos e Harmonização do Ritmo",
     tipo: "rape",
     composicaoBotanica:
-      "Nicotiana rustica, Mentha arvensis / Mentha sp. (Menta) e cinzas vegetais nobres.",
-    familiaBotanica: "Solanaceae e Lamiaceae.",
+      "Nicotiana rustica, Passiflora incarnata (Flor de Maracujá Silvestre) e cinzas alcalinas de Tsunú (Platycyamus regnellii).",
+    familiaBotanica: "Solanaceae, Passifloraceae e Fabaceae.",
     feitioRastreabilidade:
-      "Confeccionado de forma artesanal pelo nosso feitor caboclo com base em mais de 20 anos de caminhada prática. Menta e fumo de casas de plantas locais credenciadas.",
+      "Confeccionado de forma artesanal pelo nosso feitor caboclo com mais de 20 anos de caminhada prática na floresta. Folhas e flores colhidas sob manejo sustentável.",
     alquimiaFitoquimica:
-      "O mentol natural é um composto terpênico altamente volátil. O feitio exclusivo garante que a menta seja homogeneizada em etapas estritamente frias pós-calcinação, preservando 100% de sua potência.",
+      "Rico em flavonoides naturais estáveis (como crisina e apigenina) combinados ao tamponamento alcalino das cinzas de Tsunú (pH 9,30 a 9,60), favorecendo a desaceleração suave e a quietude mental.",
     beneficios: {
       fisico:
-        "Rápida sensação de frescor e desobstrução das vias respiratórias superiores, acolhendo a tensão na fronte e o cansaço visual.",
+        "Proporciona sensação de relaxamento corporal brando e acolhimento da respiração ao final do dia.",
       mental:
-        "Promove uma rápida agilidade mental e foco ativo através do estímulo térmico, nutrindo a vitalidade diurna.",
+        "Suaviza o ritmo de pensamentos intensos, convidando à calmaria interior e ao repouso consciente.",
       sutil:
-        "Atua 'esfriando' e equilibrando o excesso de energia acumulada no Chakra Frontal (Terceiro Olho) e do Plexo Solar.",
+        "Harmoniza os Chakras Cardíaco (Anahata) e Frontal (Ajna), preparando o campo sutil para vigílias mansas e recolhimento.",
     },
     diretrizes:
-      "Consagre durante o dia, em momentos de cansaço extremo. Ao receber o sopro firme, mantenha a respiração pela boca e sinta a onda de gelo subindo e limpando sua cabeça. Sintonize com sons naturais de 432Hz.",
+      "Consagre preferencialmente ao entardecer ou antes do repouso noturno. Receba o sopro suave e mantenha a respiração tranquila. Sintonize com sons serenos da natureza em 432Hz.",
     cuidados:
-      "Contém nicotina. Evitar se houver extrema sensibilidade ao frio periférico.",
+      "Contém nicotina. Destinado exclusivamente a adultos (+18) em contexto litúrgico e contemplativo.",
     referencias:
-      "Souza (2022); Cephalalgia (2023); Dreamkeepers (2026); Nhanderu Xamanismo (2026).",
-    forca: "intermediaria",
-    chakras: ["Chakra Frontal (Ajna)", "Plexo Solar (Manipura)"],
-    emoji: "❄️",
+      "Mendes dos Santos & Soares (2015); Tradições Botânicas Brasileiras (2025); Cooperativa Nativaram (2026).",
+    forca: "suave",
+    chakras: ["Chakra Cardíaco (Anahata)", "Chakra Frontal (Ajna)"],
+    emoji: "🌸",
     foto: "/assets/sacramentos/25g/pixuri.jpg",
     disponivel15g: true,
   },
@@ -233,7 +233,7 @@ export const medicinas: Medicina[] = [
       "Nicotiana rustica e Byrsonima crassifolia (Murici).",
     familiaBotanica: "Solanaceae e Malpighiaceae.",
     feitioRastreabilidade:
-      "Confeccionado artesanalmente por nosso feitor caboclo sob a egrégora de estudos de mais de duas décadas. Matéria-prima botânica adquirida de fontes renováveis.",
+      "Confeccionado artesanalmente por nosso feitor caboclo sob a egrégora de estudos de mais de duas décadas. Matéria-prima botânica obtida de fontes renováveis.",
     alquimiaFitoquimica:
       "A casca do Murici é uma fonte abundante de ferro, potássio, vitamina C e taninos. A calcinação controlada resulta em uma cinza rica em potássio e ferro bioativos que aumentam a condutividade e a resposta corporal de vigor.",
     beneficios: {
@@ -304,7 +304,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado artesanalmente por nosso feitor caboclo sob a egrégora de estudos de mais de duas décadas em diversas etnias da Amazônia. Matéria-prima de origem renovável.",
     alquimiaFitoquimica:
-      "Diferente de pós inalados alucinógenos como o Yopo, o rapé feito com a casca de Schizolobium amazonicum é livre de efeitos visionários. A queima acima de 250°C degrada totalmente qualquer composto triptamínico, resultando em uma cinza altamente alcalina de rápida ação.",
+      "Diferente de pós inalados visionários como o Yopo, o rapé feito com a casca de Schizolobium amazonicum é livre de efeitos visionários. A queima acima de 250°C degrada totalmente qualquer composto triptamínico, resultando em uma cinza altamente alcalina de rápida ação.",
     beneficios: {
       fisico:
         "Desobstrução profunda das vias respiratórias superiores, promovendo sensação de alívio da pressão frontal e serenidade ocular.",
@@ -426,36 +426,36 @@ export const medicinas: Medicina[] = [
     disponivel15g: true,
   },
   {
-    slug: "sansara",
-    nome: "Rapé de Sansara",
+    slug: "canela-de-velho",
+    nome: "Rapé de Canela de Velho",
     subtitulo:
-      "O Sopro do Desapego, Quebra de Padrões e Harmonização de Ciclos",
+      "Sabedoria dos Anciãos, Firmeza Estrutural e Enraizamento",
     tipo: "rape",
     composicaoBotanica:
-      "Nicotiana rustica, cinzas de Tsunu e folhas secas moídas de Sansara (Justicia sp. - sigilo xamânico).",
-    familiaBotanica: "Solanaceae, Fabaceae e Acanthaceae.",
+      "Nicotiana rustica, cinzas alcalinas de Tsunú (Platycyamus regnellii) e folhas de Canela de Velho (Miconia albicans).",
+    familiaBotanica: "Solanaceae, Fabaceae e Melastomataceae.",
     feitioRastreabilidade:
-      "Confeccionado de forma 100% artesanal sob rezas de libertação por nosso feitor caboclo, com mais de 20 anos de estudos nas matas. Matéria-prima adquirida de forma renovável e sustentável.",
+      "Confeccionado de forma 100% artesanal sob rezas de firmeza por nosso feitor caboclo, com mais de 20 anos de estudos nas matas. Matéria-prima obtida de forma renovável e sustentável.",
     alquimiaFitoquimica:
-      "As cinzas alcalinas de Tsunu (pH ≈ 9,5) misturadas às folhas ricas em flavonoides e alcaloides sedativos de Sansara despolarizam suavemente os receptores nasais, reduzindo a liberação de noradrenalina e promovendo o relaxamento dos lobos cerebrais.",
+      "As folhas de Miconia albicans concentram flavonoides e compostos triterpênicos nobres (ácido oleanólico e ácido ursólico) que, integrados às cinzas alcalinas de Tsunú (pH 9,65 a 9,95), promovem estabilidade e presença corporal.",
     beneficios: {
       fisico:
-        "Suaviza tensões na região dos ombros e pescoço acumuladas pelo ritmo acelerado do dia a dia.",
+        "Apoia a sensação de firmeza postural e conforto corporal durante longas vigílias e práticas meditativas sentadas.",
       mental:
-        "Favorece a quebra de hábitos repetitivos e silencia as tensões acumuladas na cabeça, promovendo clareza de foco.",
+        "Ancora a atenção no momento presente, dissipando dispersões e favorecendo a paciência e a escuta madura.",
       sutil:
-        "Forte atuação nos Chakras Frontal e Cardíaco, facilitando a limpeza de impressões de ambientes carregados.",
+        "Atua fortemente no Chakra Básico (Muladhara) e no Plexo Solar (Manipura), conectando à resiliência dos anciãos da floresta.",
     },
     diretrizes:
-      "Consagre em momentos de transição de vida ou quando sentir que precisa de um 'recomeço' mental. Use o kuripe ou tepi de forma focada e respeitosa. Sintonize com bacias de cristal e sons acústicos em 432Hz.",
+      "Consagre em ritos de ancoramento, estudos prolongados ou antes de vigílias que peçam estabilidade física e serenidade. Use o kuripe ou tepi de forma focada e respeitosa em sintonia de 432Hz.",
     cuidados:
       "Contém nicotina. Voltado exclusivamente a adultos (+18) sob propósito claro de introspecção.",
     referencias:
-      "Nukini & Shawadawa Interviews (ISA, 2023); RAPÉS SAGRADOS (2025); Nativaram Brasil (2026).",
+      "Estudos Etnobotânicos de Miconia albicans (2022); Sabedoria Tradicional da Floresta (2025); Cooperativa Nativaram (2026).",
     forca: "intermediaria",
-    chakras: ["Chakra Frontal (Ajna)", "Chakra Cardíaco (Anahata)"],
-    emoji: "🔓",
-    foto: "/assets/sacramentos/25g/rainha.jpg",
+    chakras: ["Chakra Básico (Muladhara)", "Plexo Solar (Manipura)"],
+    emoji: "🍃",
+    foto: "/assets/sacramentos/25g/7-ervas.jpg",
     disponivel15g: true,
   },
   {
@@ -468,7 +468,7 @@ export const medicinas: Medicina[] = [
       "Nicotiana rustica e cinzas refinadas da casca da árvore de Tsunu (Platycyamus regnellii - Pau Pereira).",
     familiaBotanica: "Solanaceae e Fabaceae.",
     feitioRastreabilidade:
-      "Confeccionado de maneira artesanal pelo nosso feitor caboclo sob a egrégora de estudos de mais de 20 anos em diversas nações da Amazônia. Matéria-prima adquirida de forma ética e sustentável.",
+      "Confeccionado de maneira artesanal pelo nosso feitor caboclo sob a egrégora de estudos de mais de 20 anos em diversas nações da Amazônia. Matéria-prima obtida de forma ética e sustentável.",
     alquimiaFitoquimica:
       "As cascas de Tsunu calcinadas produzem cinzas altamente alcalinas que elevam o pH da cavidade nasal (pH entre 9,75 e 10,2). Esse processo transforma toda a nicotina ativa em base livre de absorção instantânea e altíssima eficácia cognitiva.",
     beneficios: {

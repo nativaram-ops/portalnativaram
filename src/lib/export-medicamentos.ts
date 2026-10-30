@@ -14,7 +14,7 @@ import {
   TOXICIDADE_LITIO,
   EXCECAO_DESINTOXICACAO_PDF,
   DiretrizOperacionalPdf,
-} from "@/data/portal-assessoria";
+} from "../data/portal-assessoria";
 
 interface InfoDiretriz {
   titulo: string;

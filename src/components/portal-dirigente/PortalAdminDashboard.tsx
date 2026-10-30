@@ -13,11 +13,21 @@ import {
   Clock,
   Check,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { AdminGestaoPedidos } from "@/components/portal-dirigente/AdminGestaoPedidos";
-import { AdminGestaoHomologacoes } from "@/components/portal-dirigente/AdminGestaoHomologacoes";
-import { PortalCooperativismo } from "@/components/portal-dirigente/PortalCooperativismo";
 import { TemploMock, lotesFeitio, enviosLogistica } from "@/data/portal-mock";
+
+const AdminGestaoHomologacoes = dynamic(() =>
+  import("@/components/portal-dirigente/AdminGestaoHomologacoes").then(
+    (m) => m.AdminGestaoHomologacoes
+  )
+);
+const PortalCooperativismo = dynamic(() =>
+  import("@/components/portal-dirigente/PortalCooperativismo").then(
+    (m) => m.PortalCooperativismo
+  )
+);
 
 interface PortalAdminDashboardProps {
   templos: TemploMock[];

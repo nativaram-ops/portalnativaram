@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   title: "Compêndio Etnobotânico & Tradições Sagradas | Cooperativa Nativaram",
   description:
     "Compêndio etnobotânico dos 15 rapés sagrados (25g e 15g), Sananga ancestral, resinas sagradas e artefatos cerimoniais da Cooperativa Nativaram. Alquimia purista em consonância com as etnias originárias e o regime cooperativo.",
+  alternates: {
+    canonical: "/sacramentos",
+  },
   openGraph: {
     title: "Compêndio Etnobotânico & Tradições Sagradas | Cooperativa Nativaram",
     description:
@@ -112,7 +115,7 @@ export default function MedicinasPage() {
 
               <div className="space-y-3 text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
                 <p>
-                  Todos os sacramentos botânicos e artefatos sagrados apresentados neste compêndio são integrados ao ecossistema da <strong>Cooperativa Etnobotânica Nativaram Brasil</strong>. A partilha destas medicinas é regida pelo rateio cooperativo de custos, sem margem de lucro mercantil, em estrita conformidade com a legislação cooperativista e a salvaguarda de cultos religiosos tradicionais.
+                  Todos os sacramentos botânicos e artefatos sagrados apresentados neste compêndio são integrados ao ecossistema da <strong>Cooperativa Etnobotânica Nativaram</strong>. A partilha destes sacramentos é regida pelo rateio cooperativo de custos, sem margem de lucro mercantil, em estrita conformidade com a legislação cooperativista e a salvaguarda de cultos religiosos tradicionais.
                 </p>
                 <p>
                   A produção material dos sacramentos é conduzida de forma autônoma por nosso mestre feitor caboclo e por centros tradicionais credenciados no Acre, sob o estudo fitoquímico e padronização da Nativaram. Nossa conexão com os povos originários <strong>(Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã)</strong> reside estritamente na salvaguarda intelectual e procedimental de seus saberes ancestrais, sem qualquer vínculo produtivo direto com as aldeias.
@@ -215,7 +218,7 @@ export default function MedicinasPage() {
                 Ciência Biogeoquímica dos Rapés Sagrados
               </h2>
               <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
-                Compreenda a sinergia molecular ancestral entre a biomassa de <em>Nicotiana rustica</em> e a matriz mineral de cinzas nobres calcinadas, documentada em pesquisas de etnofarmacologia e ensaios de pureza da Nativaram Brasil.
+                Compreenda a sinergia molecular ancestral entre a biomassa de <em>Nicotiana rustica</em> e a matriz mineral de cinzas nobres calcinadas, documentada em pesquisas de etnofarmacologia e ensaios de pureza da Cooperativa Nativaram.
               </p>
             </div>
 

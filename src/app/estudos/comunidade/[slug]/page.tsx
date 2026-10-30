@@ -24,6 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${perfil.nomeInstituicao} — ${perfil.linhagem} | Cooperativa Nativaram`,
     description: `Perfil institucional de ${perfil.nomeInstituicao} (${perfil.cidade}/${perfil.estado}). Agenda litúrgica, fotos do espaço sagrado e publicações amparadas no CONAD 01/2010.`,
+    alternates: {
+      canonical: `/estudos/comunidade/${slug}`,
+    },
     openGraph: {
       title: `${perfil.nomeInstituicao} | Cooperativa Nativaram`,
       description: perfil.bioApresentacao.slice(0, 160),

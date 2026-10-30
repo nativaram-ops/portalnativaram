@@ -25,7 +25,7 @@ categoria: Índice Rápido
 | Recurso | Caminho no Código | O Que Faz |
 | :--- | :--- | :--- |
 | **Portal do Dirigente** | `src/app/portal-dirigente/page.tsx` | Página restrita para dirigentes de templos e conselho gestor |
-| **Orquestrador de Tela** | `src/components/layout/PortalDirigenteClient.tsx` | Autenticação por perfis (Templo vs ADM) e 10 abas de governança |
+| **Orquestrador de Tela** | `src/components/layout/PortalDirigenteClient.tsx` | Autenticação por perfis (Templo vs ADM) e 11 abas com code-splitting (`next/dynamic`) |
 | **Central de Documentos A4** | `src/components/portal-dirigente/PortalCentralDocumentos.tsx` | 5 modelos canônicos abertos (Anamnese com Tabela de 4 Cores de Medicamentos, Termo CONAD, Termo de Menores, POP/Ata e Declaração), tripla exportação (A4/Word/Markdown) |
 | **Farmacologia & Washout** | `src/components/portal-dirigente/PortalInteracoesMedicamentosas.tsx` | 20 classes farmacológicas (+180 marcas), filtro pelas 4 cores da Tabela de Medicamentos Controlados, GLP-1, Limbitrol, Exceção de Desintoxicação, Critérios de Hunter e alerta de Lítio |
 | **Catálogo de Graduações** | `src/components/portal-dirigente/PortalCatalogoGraduacoes.tsx` | Fitoquímica Tucunacá (8,03 mg/g), Chacrona circadiana, 65–72 °Brix e Tabela de Diluição 10:1 Wirapuru |
@@ -36,24 +36,25 @@ categoria: Índice Rápido
 | **Acompanhamento (Dirigente)** | `src/components/portal-dirigente/AcompanhamentoPedidos.tsx` | Timeline de 5 fases, visualização de laudos, rastreio e repetição de pedido |
 | **Gestão Central (ADM)** | `src/components/portal-dirigente/AdminGestaoPedidos.tsx` | Métricas em tempo real, atualização de status, rastreio e aviso WhatsApp |
 | **Base Fitoquímica & Canônica** | `src/data/portal-assessoria.ts` | Matriz de fármacos, regras de washout e FAQ estruturado |
-| **Banco de Dados Híbrido** | `src/lib/supabase/` e `src/lib/db/pedidos.ts` | Supabase PostgreSQL em nuvem (`qpgtngknrrawpaatiofe`) com fallback local atômico `data/pedidos.json` |
-| **API de Pedidos** | `src/app/api/pedidos/route.ts` e `[id]/route.ts` | Endpoints REST para listar, criar, atualizar e notificar com Supabase + local |
+| **Banco de Dados Híbrido** | `src/lib/supabase/` e `src/lib/db/pedidos.ts` | Supabase PostgreSQL em nuvem (`qpgtngknrrawpaatiofe`) com `withTimeout` e fallback local atômico `data/pedidos.json` |
+| **API de Pedidos** | `src/app/api/pedidos/route.ts` e `[id]/route.ts` | Endpoints REST protegidos para listar, criar, atualizar e notificar com Supabase + local |
 | **Tipos TypeScript** | `src/types/pedido.ts` | Modelagem estrita de solicitações, itens e métricas |
 | **Validação Zod** | `src/lib/validators/pedido.ts` | Schemas de validação de dados de entrada |
 | **Catálogo de Graduações** | `src/data/graduacoes.ts` | Perfil fitoquímico Tucunacá (Harmina, Harmalina, THH) e porções |
-| **Catálogo de Rapés/Artefatos** | `src/data/sacramentos.ts` e `medicinas.ts` | 10 rapés tradicionais (pH alcalino), Kuripes, Tepis e Sananga |
+| **Catálogo de Rapés/Artefatos** | `src/data/sacramentos.ts` e `medicinas.ts` | 15 rapés tradicionais (pH alcalino), Kuripes, Tepis e Sananga com canonicals `/sacramentos` |
 | **Casa de Feitio & Etnobotânica** | `src/app/feitio/page.tsx` e `FeitioLanding.tsx` | Alquimia do feitio em menores micras, etnovariedades de cipó, Chacrona, recusa de Anayahuascas e HPLC |
 | **Credenciamento Aberto** | `src/app/credenciamento/page.tsx` | Formulário público para novas congregações institucionais solicitarem homologação (CNPJ/Ata) |
 | **Acolhimento de Grupos** | `src/app/reconhecimento/page.tsx` | Ficha de Reconhecimento e amparo fraterno para grupos informais e rezadores em desenvolvimento |
 | **Gestão de Homologações (ADM)** | `src/components/portal-dirigente/AdminGestaoHomologacoes.tsx` | Painel de homologação de congregações, filtros por tipo/status e emissão de login/senha |
 | **Motor de Homologações & Acesso** | `src/lib/db/homologacoes.ts` | Base de dados de solicitações, geração de credenciais (NAT-TEMPLO/NAT-GRP) e mensagens WhatsApp |
-| **APIs de Homologação & Auth** | `src/app/api/solicitacoes/` e `/api/auth/verificar-chave` | Endpoints REST para recepção de fichas, homologação pelo conselho e autenticação dinâmica |
+| **APIs de Homologação & Auth** | `src/app/api/solicitacoes/` e `/api/auth/verificar-chave` | Endpoints REST para recepção de fichas, homologação pelo conselho e autenticação dinâmica com sessão HttpOnly |
 | **Hub Comunitário & Blog** | `src/app/estudos/page.tsx` e `ComunidadeBlogMural.tsx` | Mural aberto de publicações, perfis de templos e agenda sob o CONAD 01/2010 |
-| **Perfis Públicos de Templos** | `src/app/estudos/comunidade/[slug]/page.tsx` | Página dedicada de cada congregação credenciada (galeria, bio, agenda e WhatsApp) |
-| **Gestão de Conteúdo (Templo)** | `src/components/portal-dirigente/PortalComunidadeGestao.tsx` | Editor de posts com WebP, agenda, galeria do espaço e linter CONAD em tempo real |
+| **Perfis Públicos de Templos** | `src/app/estudos/comunidade/[slug]/page.tsx` | Página dedicada de cada congregação credenciada (galeria, bio, agenda, canonical SEO e WhatsApp) |
+| **Gestão de Conteúdo (Templo)** | `src/components/portal-dirigente/PortalComunidadeGestao.tsx` | Editor de posts com WebP, `Promise.all` paralelo, agenda, galeria do espaço e linter CONAD com `useDeferredValue` |
+| **SEO & Indexação Canônica** | `src/app/sitemap.ts` e `src/app/robots.ts` | Sitemap unificado em `/sacramentos`, `/estudos/comunidade/[slug]` e `/estudos/dossies/[slug]`; bloqueio de `/portal-dirigente` |
 | **Funil Didático (5 Estações)** | `Segundo-Cerebro/06-Arquitetura-do-Portal/Funil-de-Conversao-e-Navegacao-Didatica.md` | Arquitetura das 5 estações (Origem -> Feitio -> Sacramentos -> Marco Legal -> Credenciamento) e política anti-inchaço |
-| **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0` e regras `@media print` |
-| **Harness & Skills Globais** | `Segundo-Cerebro/.../Guia-de-Skills-e-Comandos.md` e `AGENTS.md` | Catálogo das 40 skills locais, 8 da IDE e 31 do Novo Harness (OpenDesign, ECC, Graphify, Improve, Ponytail, Last30days, SkillSpector) |
+| **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0`, `bg-radial-vignette`, `animate-pulse-subtle`, WCAG 2.1 AA e regras `@media print` |
+| **Harness & Planos Executados** | `plans/README.md` e `AGENTS.md` | Planos 001 a 009 concluídos (Conformidade, Auth Server-Side, Concorrência DB, Zod/Print, Bundle Splitting/RSC e WCAG/SEO/Obsidian) |
 
 ---
 

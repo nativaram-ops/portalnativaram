@@ -35,8 +35,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const med = medicinas.find((m) => m.slug === slug);
   if (!med) return { title: "Sacramento não encontrado" };
   return {
-    title: `${med.nome} | Nativaram Brasil`,
+    title: `${med.nome} | Cooperativa Nativaram`,
     description: `${med.subtitulo}. Composição botânica: ${med.composicaoBotanica}. Confeccionado artesanalmente com mais de 20 anos de tradição.`,
+    alternates: {
+      canonical: `/sacramentos/${med.slug}`,
+    },
+    openGraph: {
+      title: `${med.nome} | Cooperativa Nativaram`,
+      description: med.subtitulo,
+      images: med.foto ? [{ url: med.foto, alt: med.nome }] : undefined,
+    },
   };
 }
 
@@ -66,11 +74,11 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
           {/* Breadcrumb */}
           <AnimateOnScroll>
             <Link
-              href="/medicinas"
+              href="/sacramentos"
               className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-ambar-400 hover:text-ambar-300 transition-colors"
             >
               <ArrowLeft className="h-3.5 w-3.5" />
-              <span>Voltar ao Compêndio das Medicinas</span>
+              <span>Voltar ao Compêndio de Sacramentos</span>
             </Link>
           </AnimateOnScroll>
 
@@ -340,7 +348,7 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
               </div>
               <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                 <a
-                  href={`https://wa.me/5568999979104?text=${encodeURIComponent(`Olá, gostaria de consultar a disponibilidade e rateio cooperativo do sacramento ${med.nome}.`)}`}
+                  href={`https://wa.me/556899779104?text=${encodeURIComponent(`Olá, gostaria de consultar a disponibilidade e rateio cooperativo do sacramento ${med.nome}.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-secondary flex-shrink-0 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider w-full sm:w-auto justify-center"

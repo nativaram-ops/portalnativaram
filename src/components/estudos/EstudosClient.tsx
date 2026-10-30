@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import {
   FileText,
@@ -24,8 +24,12 @@ import {
   FileCheck,
   Share2,
 } from "lucide-react";
+import dynamic from "next/dynamic";
 import { estudosData, EstudoItem } from "@/data/estudos";
-import { ComunidadeBlogMural } from "./ComunidadeBlogMural";
+
+const ComunidadeBlogMural = dynamic(() =>
+  import("./ComunidadeBlogMural").then((m) => m.ComunidadeBlogMural)
+);
 
 interface TodosDocumentosItem {
   nome: string;
@@ -71,6 +75,18 @@ export function EstudosClient() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activePdfModal, setActivePdfModal] = useState<string | null>(null);
   const [readingStudy, setReadingStudy] = useState<EstudoItem | null>(null);
+
+  useEffect(() => {
+    if (!activePdfModal && !readingStudy) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setActivePdfModal(null);
+        setReadingStudy(null);
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [activePdfModal, readingStudy]);
   const [customNotebookUrl, setCustomNotebookUrl] = useState<string>("");
   const [savedNotebooks, setSavedNotebooks] = useState<string[]>(() => {
     if (typeof window !== "undefined") {

@@ -45,6 +45,15 @@ export const ComunidadeBlogMural: React.FC = () => {
   const [readingPost, setReadingPost] = useState<PublicacaoComunidade | null>(null);
 
   useEffect(() => {
+    if (!readingPost) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setReadingPost(null);
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [readingPost]);
+
+  useEffect(() => {
     carregarDados();
   }, []);
 

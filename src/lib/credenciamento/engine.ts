@@ -29,7 +29,7 @@ export function formatDossierForWhatsApp(
   const nomeGraduacao = graduacao ? `${graduacao.codigo} ${graduacao.nomeSagrado}` : data.graduacaoPretendida;
 
   const msg = [
-    `*NATIVARAM BRASIL — PROTOCOLO DE CREDENCIAMENTO LITÚRGICO*`,
+    `*COOPERATIVA NATIVARAM — PROTOCOLO DE CREDENCIAMENTO LITÚRGICO*`,
     `📜 *Protocolo Oficial:* \`${protocolo}\``,
     `📅 *Data de Submissão:* ${dossier.dataSubmissao}`,
     ``,

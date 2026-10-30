@@ -1,5 +1,5 @@
 /**
- * Catálogo Oficial de Graduações Sagradas — Nativaram Brasil
+ * Catálogo Oficial de Graduações Sagradas — Cooperativa Nativaram
  *
  * Em estrita observância à Resolução CONAD nº 01/2010 e ao purismo botânico,
  * o feitio tradicional da Ayahuasca em Cruzeiro do Sul/AC utiliza exclusivamente
