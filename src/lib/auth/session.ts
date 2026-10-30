@@ -14,8 +14,25 @@ export interface SessionPayload {
   [key: string]: unknown;
 }
 
+/**
+ * Segredo de sessão/administração. Em produção NÃO existe valor padrão:
+ * sem `ADMIN_SECRET_KEY` o acesso administrativo fica fechado (fail-closed).
+ * O padrão de desenvolvimento só vale fora de produção.
+ */
+const DEV_SECRET_PADRAO = "nativaram-dev-only-session-key";
+
+export function getAdminSecret(): string | null {
+  const configurado = process.env.ADMIN_SECRET_KEY;
+  if (configurado) return configurado;
+  return process.env.NODE_ENV === "production" ? null : DEV_SECRET_PADRAO;
+}
+
 function getSessionSecret(): string {
-  return process.env.ADMIN_SECRET_KEY || "nativaram-liturgico-session-key";
+  const segredo = getAdminSecret();
+  if (!segredo) {
+    throw new Error("ADMIN_SECRET_KEY não configurada: sessões desabilitadas em produção.");
+  }
+  return segredo;
 }
 
 function signBase64Url(encodedPayload: string): string {
@@ -70,6 +87,10 @@ export function verifySessionToken(
 
   const [encodedPayload, signature] = parts;
   if (!encodedPayload || !signature) {
+    return null;
+  }
+
+  if (!getAdminSecret()) {
     return null;
   }
 
@@ -129,14 +150,12 @@ function extractCookieToken(request: NextRequest | Request): string | null {
  */
 export function verifyAdminRequest(request: NextRequest | Request): boolean {
   const authHeader = request.headers.get("x-nativaram-auth");
-  const expectedAdminHeader =
-    process.env.ADMIN_SECRET_KEY || "adm-nativaram-2026";
+  const expectedAdminHeader = getAdminSecret();
 
-  if (authHeader) {
-    if (
-      authHeader === expectedAdminHeader ||
-      authHeader === "adm-nativaram-2026"
-    ) {
+  if (authHeader && expectedAdminHeader) {
+    const a = Buffer.from(authHeader, "utf-8");
+    const b = Buffer.from(expectedAdminHeader, "utf-8");
+    if (a.length === b.length && crypto.timingSafeEqual(a, b)) {
       return true;
     }
     const headerSession = verifySessionToken(authHeader);

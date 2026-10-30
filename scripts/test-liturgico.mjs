@@ -724,6 +724,31 @@ async function runAllTests() {
     assert.strictEqual("senhaGerada" in parsed.data, false, "Schema não deve permitir injeção de senhaGerada");
   });
 
+  await test("Acesso administrativo falha fechado em produção sem ADMIN_SECRET_KEY e não aceita segredo literal", async () => {
+    const { verifyAdminRequest, getAdminSecret } = await import("../src/lib/auth/session.ts");
+    const envAnterior = { key: process.env.ADMIN_SECRET_KEY, node: process.env.NODE_ENV };
+    try {
+      delete process.env.ADMIN_SECRET_KEY;
+      process.env.NODE_ENV = "production";
+      assert.strictEqual(getAdminSecret(), null, "Sem env em produção não pode haver segredo padrão");
+      const req = new Request("http://localhost/api/x", {
+        headers: { "x-nativaram-auth": "adm-nativaram-2026" },
+      });
+      assert.strictEqual(verifyAdminRequest(req), false, "Segredo literal antigo não pode autenticar");
+
+      process.env.ADMIN_SECRET_KEY = "segredo-de-teste-configurado";
+      const ok = new Request("http://localhost/api/x", {
+        headers: { "x-nativaram-auth": "segredo-de-teste-configurado" },
+      });
+      assert.strictEqual(verifyAdminRequest(ok), true, "Segredo configurado deve autenticar");
+    } finally {
+      if (envAnterior.key === undefined) delete process.env.ADMIN_SECRET_KEY;
+      else process.env.ADMIN_SECRET_KEY = envAnterior.key;
+      if (envAnterior.node === undefined) delete process.env.NODE_ENV;
+      else process.env.NODE_ENV = envAnterior.node;
+    }
+  });
+
   await test("Catálogo unificado possui exatamente 15 variedades de Rapé Sagrado e zero IDs duplicados", async () => {
     const { medicinas } = await import("../src/data/medicinas.ts");
     const { RAPES_TRADICIONAIS } = await import("../src/data/sacramentos.ts");
@@ -735,6 +760,42 @@ async function runAllTests() {
 
     const gradIds = GRADUACOES_SACRAMENTAIS.map((g) => g.id);
     assert.strictEqual(new Set(gradIds).size, gradIds.length, "Não deve haver IDs duplicados em GRADUACOES_SACRAMENTAIS");
+  });
+
+  await test("Documentos de homologação escapam HTML, omitem a senha e usam a marca institucional", async () => {
+    const { gerarTermoHomologacaoHtml, gerarGuiaTransitoHtml } = await import(
+      "../src/lib/documentos-homologacao.ts"
+    );
+    const sol = {
+      id: "TEST-DOC-1",
+      tipo: "INSTITUICAO_FORMAL",
+      nomeEntidade: "Templo <script>alert(1)</script>",
+      nomeResponsavel: "Dirigente Teste",
+      telefone: "",
+      email: "",
+      cidade: "Rio Branco",
+      estado: "AC",
+      linhagem: "Santo Daime",
+      graduacao: "5.1 Pituã",
+      volumeEstimado: "5 Litros",
+      intencao: "Trabalhos litúrgicos",
+      status: "HOMOLOGADO",
+      loginGerado: "NAT-TEMPLO-000",
+      senhaGerada: "SenhaSecreta-XYZ",
+      dataEnvio: "01/01/2026",
+    };
+    for (const html of [gerarTermoHomologacaoHtml(sol), gerarGuiaTransitoHtml(sol)]) {
+      assert.ok(!html.includes("<script>alert(1)"), "Deve escapar HTML injetado");
+      assert.ok(!html.includes("SenhaSecreta-XYZ"), "Nunca deve imprimir a senha");
+      assert.ok(html.includes("Cooperativa Nativaram"), "Deve usar a marca institucional");
+      assert.ok(!html.includes("Nativaram Brasil"), "Não deve usar a marca do canal de varejo");
+    }
+  });
+
+  await test("Service Worker offline nunca intercepta /api/ nem métodos não-GET", async () => {
+    const sw = await fs.readFile(path.join(ROOT_DIR, "public", "sw.js"), "utf-8");
+    assert.ok(sw.includes('startsWith("/api/")'), "Deve ignorar rotas /api/");
+    assert.ok(sw.includes('req.method !== "GET"'), "Deve ignorar métodos diferentes de GET");
   });
 
   await test("Sitemap público emite /sacramentos e perfis comunitários e omite /portal-dirigente", async () => {

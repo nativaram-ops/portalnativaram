@@ -227,3 +227,12 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 - [[ADR-007-Hub-Comunitario-e-Blog-Etnobotanico]]
 
 
+
+
+## Entregas pós-Planos 004–009 (2026-10-30)
+
+- **Termo de Homologação Litúrgica e Guia de Trânsito Cooperativo** imprimíveis (A4, `window.print`) a partir de `AdminGestaoHomologacoes.tsx`; gerador em `src/lib/documentos-homologacao.ts` (escapa HTML, nunca imprime senha).
+- **Modo offline leve** do Portal do Dirigente: `public/sw.js` + `ServiceWorkerRegister` (somente produção; nunca intercepta `/api/` nem métodos não-GET).
+- **Segurança (correção):** `src/lib/auth/session.ts` não aceita mais segredo literal; em produção sem `ADMIN_SECRET_KEY` o acesso administrativo fica fechado. Definir `ADMIN_SECRET_KEY` e `ADMIN_MASTER_PASSWORD` no ambiente de deploy.
+- Marca institucional residual corrigida (`portal-dirigente/page.tsx`, `manifest.json`).
+- Pendência: remover credenciais em texto claro do `Indice-de-Recuperacao-Rapida.md` e de `data/solicitacoes_homologacao.json` (seed) após definir segredos reais.

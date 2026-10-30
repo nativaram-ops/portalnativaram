@@ -6,11 +6,11 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 import { PortalDirigenteClient } from "@/components/layout/PortalDirigenteClient";
 
 export const metadata: Metadata = {
-  title: "Portal do Dirigente Homologado | Nativaram Brasil",
+  title: "Portal do Dirigente Homologado | Cooperativa Nativaram",
   description:
-    "Área restrita para templos homologados. Acompanhe o status das cotas litúrgicas, laudos de conformidade e cadeia de custódia dos sacramentos da Cooperativa Nativaram Brasil.",
+    "Área restrita para templos homologados. Acompanhe o status das cotas litúrgicas, laudos de conformidade e cadeia de custódia dos sacramentos da Cooperativa Nativaram.",
   openGraph: {
-    title: "Portal do Dirigente | Nativaram Brasil",
+    title: "Portal do Dirigente | Cooperativa Nativaram",
     description:
       "Ambiente seguro de gestão litúrgica para dirigentes de templos credenciados.",
     url: "https://nativaramcoop.eco.br/portal-dirigente",
@@ -37,7 +37,7 @@ export default function PortalDirigentePage() {
           <span className="text-gradient-solar">Homologado</span>
         </PageHero.Title>
         <PageHero.Description>
-          Área restrita aos templos, igrejas e centros ayahuasqueiros previamente cadastrados e aprovados pela Cooperativa Nativaram Brasil.
+          Área restrita aos templos, igrejas e centros ayahuasqueiros previamente cadastrados e aprovados pela Cooperativa Nativaram.
         </PageHero.Description>
       </PageHero>
 

@@ -21,8 +21,15 @@ import {
   PlusCircle,
   Edit3,
   X,
+  FileText,
+  Truck,
 } from "lucide-react";
 import { SolicitacaoAcesso } from "@/lib/db/homologacoes";
+import {
+  gerarTermoHomologacaoHtml,
+  gerarGuiaTransitoHtml,
+  imprimirDocumentoHtml,
+} from "@/lib/documentos-homologacao";
 
 const LOCAL_STORAGE_KEY = "nativaram_solicitacoes_local";
 
@@ -1047,6 +1054,27 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                           </>
                         )}
                       </button>
+                    )}
+
+                    {isHomologado && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => imprimirDocumentoHtml(gerarTermoHomologacaoHtml(sol))}
+                          className="py-2.5 px-4 rounded-xl border border-ambar-500/40 bg-floresta-900 hover:bg-floresta-800 text-ambar-300 text-xs font-bold inline-flex items-center gap-2 transition-colors"
+                        >
+                          <FileText className="h-4 w-4" />
+                          <span>Termo de Homologação</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => imprimirDocumentoHtml(gerarGuiaTransitoHtml(sol))}
+                          className="py-2.5 px-4 rounded-xl border border-ambar-500/40 bg-floresta-900 hover:bg-floresta-800 text-ambar-300 text-xs font-bold inline-flex items-center gap-2 transition-colors"
+                        >
+                          <Truck className="h-4 w-4" />
+                          <span>Guia de Trânsito</span>
+                        </button>
+                      </>
                     )}
 
                     {whatsappUrl && (

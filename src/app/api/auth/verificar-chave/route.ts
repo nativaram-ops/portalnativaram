@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validarCredenciaisDirigente } from "@/lib/db/homologacoes";
-import { checkRateLimit, setSessionCookie } from "@/lib/auth/session";
+import {
+  checkRateLimit,
+  getAdminSecret,
+  setSessionCookie,
+} from "@/lib/auth/session";
 import { VerificarChaveSchema } from "@/lib/validators/solicitacao";
 
 const ADMIN_LOGINS = [
@@ -44,9 +48,17 @@ export async function POST(request: NextRequest) {
 
     const { login, senha } = parseResult.data;
     const loginLower = login.toLowerCase();
-    const adminPassword = process.env.ADMIN_MASTER_PASSWORD || "adm2026";
+    // Sem ADMIN_MASTER_PASSWORD (ou ADMIN_SECRET_KEY) em produção, o login ADMIN fica desabilitado.
+    const adminPassword =
+      process.env.ADMIN_MASTER_PASSWORD ||
+      (process.env.NODE_ENV === "production" ? null : "adm2026");
 
-    if (ADMIN_LOGINS.includes(loginLower) && senha === adminPassword) {
+    if (
+      adminPassword &&
+      getAdminSecret() &&
+      ADMIN_LOGINS.includes(loginLower) &&
+      senha === adminPassword
+    ) {
       const response = NextResponse.json({
         sucesso: true,
         role: "ADMIN",

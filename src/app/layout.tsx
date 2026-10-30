@@ -7,6 +7,7 @@ import { ComplianceBanner } from "@/components/layout/ComplianceBanner";
 import { WelcomeConsentModal } from "@/components/ui/WelcomeConsentModal";
 import { WhatsAppFAB } from "@/components/ui/WhatsAppFAB";
 import { ScrollToTop } from "@/components/ui/ScrollToTop";
+import { ServiceWorkerRegister } from "@/components/ui/ServiceWorkerRegister";
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -142,6 +143,7 @@ export default function RootLayout({
         {/* Floating Action Buttons */}
         <WhatsAppFAB />
         <ScrollToTop />
+        <ServiceWorkerRegister />
       </body>
     </html>
   );
