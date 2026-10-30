@@ -1,4 +1,5 @@
 import fs from "fs/promises";
+import os from "os";
 import path from "path";
 import {
   PedidoLiturgico,
@@ -7,11 +8,16 @@ import {
   MetricasPedidos,
   StatusPedido,
 } from "../../types/pedido";
-import { isSupabaseConfigured } from "../supabase/client";
+import {
+  isSupabaseConfigured,
+  SUPABASE_PUBLIC_URL,
+  SUPABASE_PUBLIC_ANON_KEY,
+} from "../supabase/client";
 import { createClient } from "@supabase/supabase-js";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const DB_FILE = path.join(DATA_DIR, "pedidos.json");
+const TMP_DB_FILE = path.join(os.tmpdir(), "nativaram_pedidos.json");
 
 let cachedDirectClient: any = null;
 
@@ -19,15 +25,17 @@ function getDirectSupabaseClient(): any {
   if (!isSupabaseConfigured()) return null;
   if (cachedDirectClient) return cachedDirectClient;
 
-  const key =
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!;
-
-  cachedDirectClient = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    key
-  );
-  return cachedDirectClient;
+  try {
+    if (!SUPABASE_PUBLIC_URL || !SUPABASE_PUBLIC_ANON_KEY) return null;
+    cachedDirectClient = createClient(
+      SUPABASE_PUBLIC_URL,
+      SUPABASE_PUBLIC_ANON_KEY,
+      { auth: { persistSession: false } }
+    );
+    return cachedDirectClient;
+  } catch {
+    return null;
+  }
 }
 
 function withTimeout<T = any>(promise: PromiseLike<T>, ms = 2000): Promise<T> {
@@ -302,26 +310,98 @@ const SEED_PEDIDOS: PedidoLiturgico[] = [
 ];
 
 /**
- * Garante a existência do arquivo de banco de dados
+ * Garante a existência do arquivo de banco de dados (resiliente a EROFS em serverless)
  */
 async function garantirBanco(): Promise<void> {
   try {
-    await fs.mkdir(DATA_DIR, { recursive: true });
     await fs.access(DB_FILE);
+    return;
   } catch {
-    // Se o arquivo não existir, semeia com os pedidos padrão
+    // Tenta criar no diretório local (funciona em dev)
+  }
+
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
     await fs.writeFile(DB_FILE, JSON.stringify(SEED_PEDIDOS, null, 2), "utf-8");
+  } catch {
+    // Em ambiente serverless read-only (EROFS), garante no tmpdir
+    try {
+      await fs.access(TMP_DB_FILE);
+    } catch {
+      try {
+        await fs.writeFile(
+          TMP_DB_FILE,
+          JSON.stringify(SEED_PEDIDOS, null, 2),
+          "utf-8"
+        );
+      } catch {
+        // Fallback em memória com SEED_PEDIDOS
+      }
+    }
   }
 }
 
 /**
- * Gravação atômica segura no disco (evita corrupção com .tmp e rename)
+ * Leitura resiliente mesclando SEED_PEDIDOS + data/pedidos.json + os.tmpdir()
+ */
+async function lerBancoSeguro(): Promise<PedidoLiturgico[]> {
+  const mapa = new Map<string, PedidoLiturgico>();
+
+  for (const item of SEED_PEDIDOS) {
+    mapa.set(item.id.toUpperCase(), item);
+  }
+
+  try {
+    const rawMain = await fs.readFile(DB_FILE, "utf-8");
+    const parsedMain = JSON.parse(rawMain);
+    if (Array.isArray(parsedMain)) {
+      for (const item of parsedMain) {
+        if (item && item.id) {
+          mapa.set(String(item.id).toUpperCase(), item);
+        }
+      }
+    }
+  } catch {
+    // Continua com SEED_PEDIDOS
+  }
+
+  try {
+    const rawTmp = await fs.readFile(TMP_DB_FILE, "utf-8");
+    const parsedTmp = JSON.parse(rawTmp);
+    if (Array.isArray(parsedTmp)) {
+      for (const item of parsedTmp) {
+        if (item && item.id) {
+          mapa.set(String(item.id).toUpperCase(), item);
+        }
+      }
+    }
+  } catch {
+    // Sem arquivo em tmpdir ainda
+  }
+
+  return Array.from(mapa.values());
+}
+
+/**
+ * Gravação atômica segura no disco (resiliente a EROFS na Vercel via os.tmpdir)
  */
 async function salvarBancoAtomico(pedidos: PedidoLiturgico[]): Promise<void> {
-  await fs.mkdir(DATA_DIR, { recursive: true });
-  const tmpFile = `${DB_FILE}.tmp.${Date.now()}.${Math.random().toString(36).slice(2, 6)}`;
-  await fs.writeFile(tmpFile, JSON.stringify(pedidos, null, 2), "utf-8");
-  await fs.rename(tmpFile, DB_FILE);
+  const payload = JSON.stringify(pedidos, null, 2);
+
+  try {
+    await fs.mkdir(DATA_DIR, { recursive: true });
+    const tmpFile = `${DB_FILE}.tmp.${Date.now()}.${Math.random().toString(36).slice(2, 6)}`;
+    await fs.writeFile(tmpFile, payload, "utf-8");
+    await fs.rename(tmpFile, DB_FILE);
+  } catch {
+    // Ignora EROFS em produção serverless
+  }
+
+  try {
+    await fs.writeFile(TMP_DB_FILE, payload, "utf-8");
+  } catch {
+    // Ignora erro secundário de tmpdir
+  }
 }
 
 /**
@@ -465,10 +545,9 @@ export async function obterTodosPedidos(filtros?: {
     }
   }
 
-  // Fallback seguro em data/pedidos.json
+  // Fallback seguro mesclando SEED_PEDIDOS + data/pedidos.json + os.tmpdir()
   await garantirBanco();
-  const raw = await fs.readFile(DB_FILE, "utf-8");
-  let pedidos: PedidoLiturgico[] = JSON.parse(raw);
+  let pedidos: PedidoLiturgico[] = await lerBancoSeguro();
 
   if (filtros?.temploId) {
     pedidos = pedidos.filter((p) => p.temploId.toUpperCase() === filtros.temploId?.toUpperCase());

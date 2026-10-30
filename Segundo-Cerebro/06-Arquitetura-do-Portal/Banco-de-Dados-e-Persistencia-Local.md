@@ -16,7 +16,8 @@ Este documento detalha o sistema de armazenamento e persistência de dados das s
 ## 🏗️ Estrutura de Armazenamento
 
 - **Arquivo Principal:** `data/pedidos.json` (localizado na raiz do projeto).
-- **Mecanismo de Gravação Atômica:** Utiliza `fs/promises` gravando primeiro em um arquivo temporário (`pedidos.json.tmp.{timestamp}.{random}`) e executando um `fs.rename` atômico sobre o arquivo principal. Esse padrão previne corrupção de dados por escritas concorrentes ou falhas de energia no sistema operacional.
+- **Resiliência Serverless (Vercel / `EROFS`):** Em ambientes serverless onde o diretório `/var/task/data` é somente leitura (`EROFS`) e variáveis `.env.local` não estão no container, [`src/lib/db/pedidos.ts`](file:///c:/Users/victo/.gemini/antigravity-ide/scratch/nativaram-portal/src/lib/db/pedidos.ts) e [`src/lib/db/comunidade.ts`](file:///c:/Users/victo/.gemini/antigravity-ide/scratch/nativaram-portal/src/lib/db/comunidade.ts) utilizam as constantes públicas `SUPABASE_PUBLIC_URL` e `SUPABASE_PUBLIC_ANON_KEY` com `try/catch` seguro e fazem fallback de leitura/gravação mesclando `SEED_PEDIDOS`, `data/pedidos.json` e `os.tmpdir()` (`nativaram_pedidos.json`).
+- **Mecanismo de Gravação Atômica:** Utiliza `fs/promises` gravando primeiro em um arquivo temporário (`pedidos.json.tmp.{timestamp}.{random}`) e executando um `fs.rename` atômico sobre o arquivo principal (com fallback imediato em `os.tmpdir()`).
 - **Semeador Automático (Auto-Seed):** Se o arquivo não existir na primeira inicialização, a camada inicializa com dados canônicos em conformidade para os templos de referência (`NAT-TEMPLO-842`, `NAT-TEMPLO-913`, `NAT-TEMPLO-982`).
 
 ---

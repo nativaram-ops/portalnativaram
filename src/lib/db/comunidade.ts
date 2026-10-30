@@ -1,11 +1,16 @@
 import fs from "fs/promises";
+import os from "os";
 import path from "path";
 import {
   PublicacaoComunidade,
   PerfilTemploComunidade,
   ItemAgendaLiturgica,
 } from "../../types/comunidade";
-import { isSupabaseConfigured } from "../supabase/client";
+import {
+  isSupabaseConfigured,
+  SUPABASE_PUBLIC_URL,
+  SUPABASE_PUBLIC_ANON_KEY,
+} from "../supabase/client";
 import { createClient } from "@supabase/supabase-js";
 
 let cachedDirectClient: any = null;
@@ -14,17 +19,16 @@ function getDirectSupabaseClient(): any {
   if (!isSupabaseConfigured()) return null;
   if (cachedDirectClient) return cachedDirectClient;
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key =
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
-
-  if (!url || !key) return null;
+  if (!SUPABASE_PUBLIC_URL || !SUPABASE_PUBLIC_ANON_KEY) return null;
 
   try {
-    cachedDirectClient = createClient(url, key, {
-      auth: { persistSession: false },
-    });
+    cachedDirectClient = createClient(
+      SUPABASE_PUBLIC_URL,
+      SUPABASE_PUBLIC_ANON_KEY,
+      {
+        auth: { persistSession: false },
+      }
+    );
     return cachedDirectClient;
   } catch {
     return null;
@@ -249,9 +253,21 @@ async function garantirArquivosLocais(): Promise<void> {
 }
 
 async function salvarArquivoAtomico(caminho: string, dados: any): Promise<void> {
-  const tmp = `${caminho}.tmp.${Date.now()}.${Math.random().toString(36).substring(2, 6)}`;
-  await fs.writeFile(tmp, JSON.stringify(dados, null, 2), "utf-8");
-  await fs.rename(tmp, caminho);
+  const payload = JSON.stringify(dados, null, 2);
+  try {
+    const tmp = `${caminho}.tmp.${Date.now()}.${Math.random().toString(36).substring(2, 6)}`;
+    await fs.writeFile(tmp, payload, "utf-8");
+    await fs.rename(tmp, caminho);
+  } catch {
+    // Em ambiente serverless read-only (EROFS), persiste em os.tmpdir()
+  }
+
+  try {
+    const tmpFallback = path.join(os.tmpdir(), `nativaram_${path.basename(caminho)}`);
+    await fs.writeFile(tmpFallback, payload, "utf-8");
+  } catch {
+    // Ignora erro secundário de tmpdir
+  }
 }
 
 // ══════════════════════════════════════════════════════════
