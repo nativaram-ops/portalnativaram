@@ -2,13 +2,16 @@
  * Base de Conhecimento e Dados da Assessoria Litúrgica — Portal do Dirigente
  * Cooperativa Nativaram
  *
- * Fontes Oficiais do Caderno de Segurança (Google NotebookLM - 222 fontes + Protocolo Clínico de Medicamentos Controlados):
+ * Referências do Caderno de Segurança:
  * - Resolução CONAD nº 01/2010 (Diretrizes para o Uso Religioso da Ayahuasca)
  * - Constituição Federal de 1988 (Art. 5º, VI e VIII; Art. 215 e 216)
  * - Lei Federal nº 11.343/2006 (Art. 2º, parágrafo único)
  * - Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018)
- * - Lei nº 13.787/2018 e CFM 1.821/2007 (Guarda de prontuários por 20 anos)
- * - Compêndio Etnofarmacológico, Tabela Oficial de Medicamentos Controlados, Hunter Toxicity Criteria e Zendo Project
+ * - Compêndio Etnofarmacológico, Tabela de Medicamentos Controlados, Hunter Toxicity Criteria e Zendo Project
+ *
+ * Matriz de interações (plano 010, parte A): cada entrada declara o motivo da restrição,
+ * o nível de evidência, as fontes com URL e o status de revisão clínica. Nenhuma entrada
+ * foi revisada por médico ou farmacêutico até agora (revisao.status = "PENDENTE").
  */
 
 export type DiretrizOperacionalPdf =
@@ -16,6 +19,24 @@ export type DiretrizOperacionalPdf =
   | "CASO_CLINICO_NAO_RECOMENDADO"
   | "INTERROMPER_DIAS_ANTES"
   | "NAO_TOMAR_NO_DIA";
+
+/** Por que a entrada restringe a participação: interação farmacológica, condição de saúde de base, ou ambos. */
+export type MotivoRestricao = "INTERACAO" | "CONDICAO_DE_BASE" | "AMBOS";
+
+/** A ensaio clínico · B série/relato de caso · C farmacologia/bula · D extrapolação */
+export type NivelEvidencia = "A" | "B" | "C" | "D";
+
+export interface FonteReferencia {
+  titulo: string;
+  url: string;
+  ano: number;
+}
+
+export interface RevisaoClinica {
+  status: "PENDENTE" | "REVISADO";
+  data?: string;
+  responsavel?: string;
+}
 
 export interface InteracaoMedicamentosa {
   id: string;
@@ -30,7 +51,94 @@ export interface InteracaoMedicamentosa {
   meiaVida: string;
   washoutMinimo: string;
   recomendacaoLiturgica: string;
+  motivo: MotivoRestricao;
+  evidencia: NivelEvidencia;
+  fontes: FonteReferencia[];
+  revisao: RevisaoClinica;
+  /** Grafias alternativas e nomes populares usados pela busca. */
+  termosBusca?: string[];
 }
+
+export const ROTULOS_EVIDENCIA: Record<NivelEvidencia, string> = {
+  A: "A · Ensaio clínico",
+  B: "B · Série ou relato de caso",
+  C: "C · Farmacologia ou bula",
+  D: "D · Extrapolação",
+};
+
+export const ROTULOS_MOTIVO: Record<MotivoRestricao, string> = {
+  INTERACAO: "Interação com a Ayahuasca",
+  CONDICAO_DE_BASE: "Condição de saúde de base",
+  AMBOS: "Interação e condição de base",
+};
+
+const REVISAO_PENDENTE: RevisaoClinica = Object.freeze({ status: "PENDENTE" }) as RevisaoClinica;
+
+const FONTE_NAYAK_2021: FonteReferencia = {
+  titulo:
+    "Nayak SM et al. Classic Psychedelic Coadministration with Lithium, but Not Lamotrigine, is Associated with Seizures. Pharmacopsychiatry",
+  url: "https://pubmed.ncbi.nlm.nih.gov/34348413/",
+  ano: 2021,
+};
+
+const FONTE_HALMAN_2024: FonteReferencia = {
+  titulo:
+    "Halman A et al. Drug–drug interactions involving classic psychedelics: A systematic review. J Psychopharmacol",
+  url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10851641/",
+  ano: 2024,
+};
+
+const FONTE_SKLEROV_2005: FonteReferencia = {
+  titulo:
+    "Sklerov J et al. A fatal intoxication following the ingestion of 5-MeO-DMT in an ayahuasca preparation. J Anal Toxicol",
+  url: "https://pubmed.ncbi.nlm.nih.gov/16356341/",
+  ano: 2005,
+};
+
+const FONTE_BULA_CICLOBENZAPRINA: FonteReferencia = {
+  titulo: "Bula de ciclobenzaprina (DailyMed, consultada em 2026)",
+  url: "https://dailymed.nlm.nih.gov/dailymed/drugInfo.cfm?setid=ca74d27a-f7c6-462d-a913-1cfa061bd8f3",
+  ano: 2026,
+};
+
+const FONTE_ASA_GLP1_2024: FonteReferencia = {
+  titulo:
+    "Guia multissociedades sobre agonistas de GLP-1 antes de procedimentos (American Society of Anesthesiologists e outras)",
+  url: "https://asahq.org/about-asa/newsroom/news-releases/2024/10/new-multi-society-glp-1-guidance",
+  ano: 2024,
+};
+
+const FONTE_BULA_SEPURIN: FonteReferencia = {
+  titulo: "Bula do Sepurin — contraindicações e interações do azul de metileno (consultada em 2026)",
+  url: "https://bula.com.br/sepurin/contraindicacao",
+  ano: 2026,
+};
+
+const JANELA_A_DEFINIR = "Janela a definir pelo revisor clínico (não usar até a definição)";
+
+/**
+ * Pendências clínicas da auditoria (plano 010, seções A1 e A2/A3).
+ * Contradições entre a matriz, o compêndio e a ficha de anamnese, e decisões que só
+ * um médico ou farmacêutico pode tomar. Nenhuma foi resolvida por agente.
+ */
+export const PENDENCIAS_CLINICAS: string[] = [
+  "Benzodiazepínicos (Rivotril, Frontal, Valium): a matriz diz NÃO TOMAR NO DIA (24 h); o compêndio diz 21 a 28 dias de washout; a ficha de anamnese só lista, sem janela.",
+  "ISRS exceto fluoxetina: a matriz diz 14 a 21 dias; o compêndio e a ficha de anamnese dizem 21 a 28 dias.",
+  "ISRSN (venlafaxina, duloxetina): a matriz diz 14 a 21 dias; o compêndio e a ficha de anamnese dizem 21 a 28 dias.",
+  "Antipsicóticos: a matriz diz exclusão definitiva; o compêndio diz ao mesmo tempo '21 a 28 dias' e 'contraindicação absoluta'.",
+  "Anticonvulsivantes: a matriz diz veto (vermelho); o compêndio diz 14 a 21 dias.",
+  "Gabapentinoides (Lyrica): a matriz diz não tomar no dia; o compêndio diz 7 a 10 dias.",
+  "Transtorno bipolar: o compêndio contraindica o Tipo I; a ficha de anamnese contraindica Tipo I ou II.",
+  "Pressão arterial: o compêndio impede a participação com ≥ 160/100; a ficha marca hipertensão com ≥ 140/90. Falta uma tabela única com triagem (140/90), impedimento no dia (160/100) e emergência (180/110 → SAMU), com os números finais definidos pelo revisor clínico.",
+  "Lamotrigina, topiramato e levetiracetam: veto vermelho mantido; a auditoria propõe que a decisão dependa do motivo do uso, pois a interação não foi demonstrada (Nayak 2021).",
+  "Ciprofloxacino, claritromicina, fluconazol e ritonavir: vermelho mantido; a auditoria propõe laranja ou azul com decisão médica, porque não são IMAOs.",
+  "Anti-histamínicos (clorfeniramina, dexclorfeniramina, prometazina): azul e nível 'letal' mantidos; a auditoria propõe laranja (sedação).",
+  "Isoniazida: mantida com os IMAOs ocultos (vermelho) pela ação inibidora fraca da MAO; confirmar a classificação.",
+  "Entradas novas da seção A3 sem janela numérica: ciclobenzaprina, isometepteno, atomoxetina, cetamina/escetamina, domperidona e eixo QT, pré-treinos, substâncias cerimoniais e recreativas.",
+  "Furazolidona: nenhuma marca comercial verificada no Brasil (a marca 'Girotto' foi removida por não ter sido localizada).",
+  "Todas as marcas comerciais precisam de conferência na base da ANVISA; 'Nardil' e 'Marplan' foram removidas por não serem comercializadas no Brasil.",
+  "O nível de evidência (A a D) de cada entrada foi atribuído por agente a partir do tipo de dado disponível; confirmar entrada por entrada.",
+];
 
 export interface FaqDirigenteItem {
   id: string;
@@ -58,8 +166,9 @@ export const EXCECAO_DESINTOXICACAO_PDF = {
 };
 
 /**
- * Matriz Exaustiva das 20 Classes Farmacológicas e 52 Grupos de Princípios Ativos em Interação com Ayahuasca
- * Consolidando integralmente a Tabela Oficial de Medicamentos Controlados + Farmacocinética CYP450 / MAO-A / 5-HT2A
+ * Matriz de Classes Farmacológicas e Princípios Ativos em Interação com Ayahuasca.
+ * Contagens (classes, entradas, marcas) são calculadas a partir destes dados; não fixar números no código.
+ * Lista NÃO exaustiva: não estar aqui não significa ser seguro.
  */
 export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
   // ============================================================================
@@ -80,6 +189,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Uso contínuo vital / Vetado)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Paciente não deve suspender medicação antiparkinsoniana e está formalmente vetado de comungar Ayahuasca.",
+    motivo: "AMBOS",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["parkinson"],
   },
   {
     id: "antiparkinson-selegilina",
@@ -96,6 +210,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Vetado / Mínimo 28 dias se suspenso por neurologista)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Risco cardiovascular e neurológico crítico.",
+    motivo: "AMBOS",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["parkinson", "imao-b"],
   },
   {
     id: "antiparkinson-pramipexol-biperideno",
@@ -111,6 +230,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     meiaVida: "8 a 24 horas.",
     washoutMinimo: "NÃO PODE PARTICIPAR",
     recomendacaoLiturgica: "NÃO PODE PARTICIPAR (Classificação Vermelha).",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["parkinson"],
   },
 
   // ============================================================================
@@ -131,6 +255,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Exclusão definitiva por perfil psiquiátrico)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Contraindicação absoluta pelo uso do fármaco e pelo diagnóstico de base (CONAD 01/2010).",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antipsicotico"],
   },
   {
     id: "antipsicoticos-fenotiazinicos",
@@ -147,6 +276,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Exclusão definitiva)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto absoluto para Amplictil, Neozine, Anatensol e Stelazine.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antipsicotico"],
   },
   {
     id: "antipsicoticos-pimozida-sulpirida",
@@ -163,6 +297,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Exclusão definitiva)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto estrito para Orap e Dogmatil.",
+    motivo: "AMBOS",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antipsicotico"],
   },
 
   // ============================================================================
@@ -195,6 +334,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Exclusão definitiva)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto absoluto para Risperdal, Zargus, Seroquel e Zyprexa (salvo avaliação médica em protocolo de desintoxicação assistida).",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antipsicotico"],
   },
   {
     id: "antipsicoticos-clozapina-amissulprida-aripiprazol",
@@ -211,6 +355,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Exclusão definitiva)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto absoluto para Leponex, Socian e Abilify/Aristab.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antipsicotico"],
   },
 
   // ============================================================================
@@ -225,12 +374,17 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     nivelRisco: "LETAL_ABSOLUTO",
     diretrizPdf: "NAO_PODE_PARTICIPAR",
     mecanismo:
-      "MECANISMO LETAL: O Lítio inibe a enzima inositol monofosfatase (IMPase), depletando o inositol livre neuronal e gerando hipersensibilização extrema dos receptores 5-HT2A. A entrada de DMT e beta-carbolinas deflagra descargas epilépticas corticais maciças ( ~47% de incidência de convulsões tônico-clônicas e Status Epilepticus refratário), além de toxicidade renal aguda agravada pela purga/desidratação.",
+      "Em 62 relatos online de uso de psicodélicos clássicos com lítio, 47% descreveram convulsão e 39% descreveram atendimento médico (Nayak et al., 2021). São relatos autodeclarados (Erowid e Reddit), quase todos com LSD ou psilocibina, não com Ayahuasca: a evidência é fraca, mas o sinal é grave e consistente, por isso o veto é mantido. Hipótese de mecanismo, não demonstrada: o lítio inibe a enzima inositol monofosfatase (IMPase) e poderia alterar a sinalização ligada ao receptor 5-HT2A. Soma-se o risco de toxicidade do próprio lítio, de janela terapêutica estreita, agravado pelo vômito e pela desidratação da purga.",
     viasMetabolicas: "Exclusivamente Renal (95% inalterado; janela terapêutica estreitíssima).",
     meiaVida: "18 a 36 horas.",
     washoutMinimo: "NÃO PODE PARTICIPAR (Veto absoluto e permanente / mínimo 30 dias se suspenso no passado por psiquiatra)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Portadores de Transtorno Afetivo Bipolar em uso de Carbolitium ou Priadel estão terminantemente proibidos de consagrar Ayahuasca.",
+    motivo: "AMBOS",
+    evidencia: "B",
+    fontes: [FONTE_NAYAK_2021, FONTE_HALMAN_2024],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["litio", "carbonato de litio", "sal de litio"],
   },
 
   // ============================================================================
@@ -251,6 +405,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Vetado)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto expresso para Depakene, Depakote e Valpakene.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["valproato", "divalproato"],
   },
   {
     id: "anticonvulsivante-carbamazepina-fenitoina",
@@ -267,22 +426,50 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO PODE PARTICIPAR (Vetado)",
     recomendacaoLiturgica:
       "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto expresso para Tegretol e Hidantal.",
+    motivo: "AMBOS",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
   },
   {
-    id: "anticonvulsivante-fenobarbital-lamotrigina",
+    id: "anticonvulsivante-fenobarbital",
     classeNumero: 5,
-    classeFarmacologica: "Anticonvulsivantes Barbitúricos e Feniltriazinas",
-    principioAtivo: "Fenobarbital / Lamotrigina / Topiramato / Levetiracetam",
-    nomesComerciais: ["Gardenal", "Edhanol", "Barbitron", "Lamictal", "Neural", "Lamitor", "Topamax", "Keppra"],
+    classeFarmacologica: "Anticonvulsivantes Barbitúricos",
+    principioAtivo: "Fenobarbital",
+    nomesComerciais: ["Gardenal", "Edhanol", "Barbitron"],
     nivelRisco: "LETAL_ABSOLUTO",
     diretrizPdf: "NAO_PODE_PARTICIPAR",
     mecanismo:
-      "O Fenobarbital (Gardenal/Edhanol) é um barbitúrico depressor profundo do SNC com alto risco de depressão respiratória e colapso em sinergia com alcaloides harmala. A Lamotrigina (Lamictal) e o Topiramato indicam epilepsia ou transtorno bipolar em estabilização.",
-    viasMetabolicas: "Hepática: CYP2C9, CYP2C19 e UGT1A4.",
-    meiaVida: "Fenobarbital: 53 a 118 horas | Lamotrigina: 25 a 33 horas.",
+      "O Fenobarbital (Gardenal/Edhanol) é um barbitúrico depressor profundo do SNC, com risco de depressão respiratória somada à sedação dos alcaloides harmala. O uso também indica epilepsia, condição que por si só exige avaliação médica.",
+    viasMetabolicas: "Hepática: CYP2C9 e CYP2C19.",
+    meiaVida: "53 a 118 horas.",
     washoutMinimo: "NÃO PODE PARTICIPAR (Vetado)",
     recomendacaoLiturgica:
-      "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto expresso para Gardenal, Edhanol e Lamictal.",
+      "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto expresso para Gardenal e Edhanol.",
+    motivo: "AMBOS",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+  },
+  {
+    id: "anticonvulsivante-lamotrigina-topiramato-levetiracetam",
+    classeNumero: 5,
+    classeFarmacologica: "Anticonvulsivantes (Veto pela Condição de Base)",
+    principioAtivo: "Lamotrigina / Topiramato / Levetiracetam",
+    nomesComerciais: ["Lamictal", "Neural", "Lamitor", "Topamax", "Keppra"],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "NAO_PODE_PARTICIPAR",
+    mecanismo:
+      "O veto desta entrada decorre da CONDIÇÃO DE BASE (epilepsia ou transtorno bipolar em estabilização), não de uma interação letal demonstrada. Nayak et al. (2021) não encontraram convulsões em 34 relatos online de uso de psicodélicos clássicos com lamotrigina. Para topiramato e levetiracetam não há dado de interação localizado. A decisão depende do motivo do uso e do parecer do médico assistente; a classificação vermelha foi mantida até a revisão clínica.",
+    viasMetabolicas: "Hepática: glicuronidação UGT1A4 (Lamotrigina) | Renal, em grande parte inalterado (Topiramato, Levetiracetam).",
+    meiaVida: "Lamotrigina: 25 a 33 horas | Topiramato e Levetiracetam: variável (consultar bula).",
+    washoutMinimo: "NÃO PODE PARTICIPAR (Veto pela condição de base; decisão individual com o médico assistente)",
+    recomendacaoLiturgica:
+      "NÃO PODE PARTICIPAR (Classificação Vermelha mantida até revisão clínica). Perguntar o motivo do uso: epilepsia mantém o veto; outros usos dependem de parecer médico. Nunca orientar a suspensão por conta própria.",
+    motivo: "CONDICAO_DE_BASE",
+    evidencia: "B",
+    fontes: [FONTE_NAYAK_2021, FONTE_HALMAN_2024],
+    revisao: REVISAO_PENDENTE,
   },
 
   // ============================================================================
@@ -303,6 +490,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "Caso clínico NÃO recomendado (Mínimo absoluto de 48h a 72h sem uso se liberado por médico)",
     recomendacaoLiturgica:
       "CASO CLÍNICO NÃO RECOMENDADO (Classificação Laranja Escuro). Jamais permitir que o participante tome Stilnox/Zolpidem na véspera, no dia ou ao término da sessão.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["remedio para dormir", "indutor de sono"],
   },
 
   // ============================================================================
@@ -323,6 +515,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO TOMAR NO DIA (Intervalo de 24h antes e 24h após a cerimônia)",
     recomendacaoLiturgica:
       "NÃO TOMAR NO DIA (Classificação Laranja). Orientar o participante a não ingerir Frontal, Apraz, Altrox, Lexotan ou Somalium nas 24h do rito.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["calmante", "tarja preta", "benzodiazepinico"],
   },
   {
     id: "ansioliticos-clonazepam-diazepam",
@@ -349,6 +546,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO TOMAR NO DIA (Se uso ansiolítico leve/moderado: suspender nas 24h do dia do rito)",
     recomendacaoLiturgica:
       "NÃO TOMAR NO DIA (Classificação Laranja) para quadros de ansiedade/sono. Se o uso for anticonvulsivante, aplica-se veto absoluto.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["calmante", "tarja preta", "benzodiazepinico"],
   },
   {
     id: "ansioliticos-lorazepam-clobazam-cloxazolam-flunitrazepam",
@@ -382,6 +584,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO TOMAR NO DIA (Intervalo mínimo de 24h a 48h)",
     recomendacaoLiturgica:
       "NÃO TOMAR NO DIA (Classificação Laranja). Atenção redobrada a idosos pelo risco de tontura e queda.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["calmante", "benzodiazepinico"],
   },
   {
     id: "ansioliticos-clordiazepoxido-limbitrol",
@@ -398,6 +605,10 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "Clordiazepóxido isolado: NÃO TOMAR NO DIA | Limbitrol (com Amitriptilina): 21 dias de washout!",
     recomendacaoLiturgica:
       "Conferir a caixa do medicamento: se for Limbitrol, tratar como Antidepressivo Tricíclico (suspensão médica de 21 dias). Se for Clordiazepóxido isolado, não tomar no dia.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
   },
   {
     id: "ansioliticos-buspirona",
@@ -414,6 +625,10 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO TOMAR NO DIA (Recomendado suspender 48h a 72h antes da sessão)",
     recomendacaoLiturgica:
       "NÃO TOMAR NO DIA (Classificação Laranja). Idealmente manter pausa de 48h a 72h antes do trabalho.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
   },
 
   // ============================================================================
@@ -446,6 +661,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "35 a 45 dias (5 a 6 semanas completas sob supervisão médica)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul / Risco Letal se em uso). Exige o maior tempo de washout da farmacologia (mínimo de 5 a 6 semanas).",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["isrs", "antidepressivo"],
   },
   {
     id: "isrs-sertralina",
@@ -462,6 +682,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "14 a 21 dias (2 a 3 semanas completas sob desmame médico)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul). Participação vetada durante o uso ativo.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["isrs", "antidepressivo"],
   },
   {
     id: "isrs-escitalopram-citalopram",
@@ -489,6 +714,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "14 a 21 dias (2 a 3 semanas completas sob desmame médico)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul). Contraindicação absoluta durante o uso ativo.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["isrs", "antidepressivo"],
   },
   {
     id: "isrs-paroxetina-fluvoxamina",
@@ -505,6 +735,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "14 a 21 dias (2 a 3 semanas completas sob supervisão médica)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul). Atenção à síndrome de descontinuação da Paroxetina (desmame deve ser lento e médico).",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["isrs", "antidepressivo"],
   },
 
   // ============================================================================
@@ -539,6 +774,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "14 a 21 dias (2 a 3 semanas completas sob supervisão médica)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul). Jamais suspender Venlafaxina/Pristiq abruptamente sem acompanhamento médico devido ao forte rebote.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["isrsn", "antidepressivo"],
   },
 
   // ============================================================================
@@ -569,6 +809,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "21 dias (3 semanas completas sob supervisão médica)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul). Mesmo doses baixas de Amitriptilina (10mg/25mg para dor ou sono) exigem suspensão prévia!",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["triciclico", "antidepressivo"],
   },
 
   // ============================================================================
@@ -604,6 +849,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "14 a 21 dias (Vortioxetina exige 21 a 28 dias devido à meia-vida longa de 66h)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul). Atenção a pacientes que usam Zyban/Bup para parar de fumar ou Donaren para insônia!",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antidepressivo"],
   },
 
   // ============================================================================
@@ -614,7 +864,7 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     classeNumero: 12,
     classeFarmacologica: "Antidepressivos IMAO Irreversíveis e RIMA Sintéticos",
     principioAtivo: "Tranilcipromina / Tranilcipromina + Trifluoperazina / Moclobemida",
-    nomesComerciais: ["Parnate", "Stelapar (Tranilcipromina + Trifluoperazina)", "Aurorix", "Nardil", "Marplan"],
+    nomesComerciais: ["Parnate", "Stelapar (Tranilcipromina + Trifluoperazina)", "Aurorix"],
     nivelRisco: "LETAL_ABSOLUTO",
     diretrizPdf: "INTERROMPER_DIAS_ANTES",
     mecanismo:
@@ -624,6 +874,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "Parnate / Stelapar: 28 a 35 dias (ou veto absoluto) | Moclobemida (Aurorix): 14 dias",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul / Risco Letal Absoluto). Stelapar possui dupla contraindicação (IMAO + Antipsicótico).",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["imao", "antidepressivo"],
   },
 
   // ============================================================================
@@ -644,6 +899,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "7 a 14 dias antes da cerimônia (mínimo de 7 dias para Ritalina e 10 a 14 dias para Venvanse)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES (Classificação Azul). Confirmar com o participante se faz uso de Ritalina, Concerta ou Venvanse para estudo/TDAH.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["tdah"],
   },
 
   // ============================================================================
@@ -677,6 +937,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "14 a 21 dias (2 a 3 semanas completas antes do ritual)",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES (Classificação Azul / Risco Letal). Perguntar ativamente na triagem sobre fármacos ou fórmulas manipuladas para emagrecimento!",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["emagrecer", "inibidor de apetite", "formula para emagrecer"],
   },
 
   // ============================================================================
@@ -709,6 +974,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "Tramadol/Codeína: 10 a 14 dias | Metadona: 21 a 28 dias",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul / Risco Letal). Atenção a analgésicos prescritos para hérnia de disco, pós-operatório ou fibromialgia (Tramal/Ultracet).",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["opioide", "petidina"],
   },
 
   // ============================================================================
@@ -718,27 +988,33 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     id: "enxaqueca-triptanos-ergotaminicos",
     classeNumero: 16,
     classeFarmacologica: "Antimigranosos (Triptanos Agonistas 5-HT1B/1D e Ergotamínicos)",
-    principioAtivo: "Sumatriptano / Naratriptano / Zolmitriptano / Rizatriptano / Ergotamina / Dihidroergotamina",
+    principioAtivo: "Sumatriptano / Naratriptano / Zolmitriptano / Rizatriptano / Eletriptano / Ergotamina / Dihidroergotamina",
     nomesComerciais: ["Sumax", "Imigran", "Naramig", "Zomig", "Maxalt", "Cefaliv", "Cefalium", "Ormigrein", "Tonopan"],
     nivelRisco: "LETAL_ABSOLUTO",
     diretrizPdf: "INTERROMPER_DIAS_ANTES",
     mecanismo:
-      "Os Triptanos (Sumax, Naramig) são agonistas diretos de receptores de serotonina (5-HT1B/1D) e dependem da enzima MAO-A para serem degradados! Em combinação com a Ayahuasca, sofrem acúmulo tóxico, causando Síndrome Serotoninérgica e vasoespasmo coronariano ou cerebral severo (isquemia/infarto). Ergotamínicos (Cefaliv/Ormigrein) causam vasoconstrição periférica grave.",
-    viasMetabolicas: "Degradação direta via MAO-A (Sumatriptano/Rizatriptano) e CYP1A2 (Zolmitriptano).",
+      "Os triptanos são agonistas de receptores de serotonina 5-HT1B/1D. Sumatriptano e rizatriptano são degradados principalmente pela MAO-A, assim como o metabólito ativo do zolmitriptano; com a MAO-A inibida pela Ayahuasca, os níveis podem subir, com risco de toxicidade serotoninérgica e vasoespasmo coronariano ou cerebral. Naratriptano e eletriptano não dependem da MAO-A (eliminação renal e via CYP3A4, respectivamente), mas mantêm o efeito serotoninérgico e vasoconstritor, por isso a orientação conservadora é a mesma para todo o grupo. Ergotamínicos (Cefaliv/Ormigrein) causam vasoconstrição periférica grave.",
+    viasMetabolicas:
+      "MAO-A (Sumatriptano, Rizatriptano e o metabólito ativo do Zolmitriptano, formado via CYP1A2) | Renal e CYP (Naratriptano) | CYP3A4 (Eletriptano e Ergotamínicos).",
     meiaVida: "2 a 6 horas (Ergotamina: efeito vasoconstritor dura até 24-48h).",
     washoutMinimo: "5 a 7 dias antes e pelo menos 48h após a sessão",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES (Classificação Azul). Se o participante tiver dor de cabeça antes ou durante o rito, JAMAIS permitir o uso de Sumax, Naramig, Cefaliv ou Ormigrein.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["triptano", "enxaqueca"],
   },
 
   // ============================================================================
   // CLASSE 17: ANTIGRIPAIS, XAROPES (DXM) E ANTI-HISTAMÍNICOS (AZUL: INTERROMPER DIAS ANTES)
   // ============================================================================
   {
-    id: "antigripais-dextrometorfano-pseudoefedrina-clorfeniramina",
+    id: "antigripais-dextrometorfano-simpatomimeticos",
     classeNumero: 17,
-    classeFarmacologica: "Antitussígenos (DXM), Descongestionantes Simpatomiméticos e Anti-histamínicos",
-    principioAtivo: "Dextrometorfano (DXM) / Pseudoefedrina / Fenilefrina / Clorfeniramina / Dexclorfeniramina / Prometazina",
+    classeFarmacologica: "Antitussígenos (DXM), Descongestionantes Simpatomiméticos e Antigripais de Associação",
+    principioAtivo: "Dextrometorfano (DXM) / Pseudoefedrina / Fenilefrina",
     nomesComerciais: [
       "Vick 44E",
       "Benalet TSC",
@@ -750,38 +1026,91 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
       "Coristina D",
       "Benegrip",
       "Multigrip",
-      "Polaramine",
-      "Fenergan",
     ],
     nivelRisco: "LETAL_ABSOLUTO",
     diretrizPdf: "INTERROMPER_DIAS_ANTES",
     mecanismo:
-      "O Dextrometorfano (presente em xaropes para tosse seca como Vick 44E) e a Clorfeniramina (presente em antigripais como Resfenol, Coristina D e Benegrip) são potentes inibidores da recaptação de serotonina (SERT), podendo precipitar Síndrome Serotoninérgica clássica com IMAO! Além disso, a Pseudoefedrina e a Fenilefrina (Claritin-D, Allegra D, Decongex) causam descarga adrenérgica e crise hipertensiva.",
-    viasMetabolicas: "Hepática: CYP2D6 (fortemente inibido pela Harmina/Harmalina).",
+      "O Dextrometorfano (xaropes para tosse seca como o Vick 44E) inibe a recaptação de serotonina e, com IMAO, pode precipitar Síndrome Serotoninérgica; é metabolizado pelo CYP2D6. A Pseudoefedrina e a Fenilefrina (Claritin-D, Allegra D, Decongex Plus) são simpatomiméticos: com a MAO inibida, podem causar descarga adrenérgica e crise hipertensiva. Antigripais de associação (Resfenol, Coristina D, Benegrip, Multigrip) combinam vários ativos, como analgésico, anti-histamínico, descongestionante e cafeína; foram classificados aqui pelo componente mais restritivo, e a composição de cada um deve ser conferida na bula.",
+    viasMetabolicas: "Hepática: CYP2D6 (DXM) | MAO e sulfatação (Fenilefrina) | Renal, em grande parte inalterada (Pseudoefedrina).",
     meiaVida: "4 a 24 horas.",
     washoutMinimo: "5 a 7 dias antes da cerimônia",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES (Classificação Azul). Alertar todos os participantes a não tomarem xaropes para tosse, antigripais ou descongestionantes nasais na semana do trabalho.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["xarope para tosse", "antigripal", "descongestionante", "dxm"],
+  },
+  {
+    id: "antigripais-anti-histaminicos-clorfeniramina-prometazina",
+    classeNumero: 17,
+    classeFarmacologica: "Anti-histamínicos de Primeira Geração (Sedativos)",
+    principioAtivo: "Clorfeniramina / Dexclorfeniramina / Prometazina",
+    nomesComerciais: ["Polaramine", "Fenergan"],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A Clorfeniramina tem ação fraca no transportador de serotonina (SERT). O risco principal deste grupo é a sedação e o efeito anticolinérgico (boca seca, confusão, retenção urinária), somados aos efeitos da Ayahuasca. A Prometazina (Fenergan) é uma fenotiazina com efeito sedativo e anticolinérgico. A auditoria propõe classificar este grupo como laranja (sedação); a classificação atual foi mantida até a revisão clínica.",
+    viasMetabolicas: "Hepática: CYP2D6 (Clorfeniramina e Prometazina).",
+    meiaVida: "Variável (consultar bula).",
+    washoutMinimo: "5 a 7 dias antes da cerimônia",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul mantida até revisão clínica). Perguntar sobre antialérgicos e antigripais usados na semana do trabalho.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antialergico", "anti-histaminico"],
   },
 
   // ============================================================================
   // CLASSE 18: ANTIBIÓTICOS COM AÇÃO IMAO E INIBIDORES POTENTES DE CYP (VERMELHO/AZUL)
   // ============================================================================
   {
-    id: "antibioticos-linezolida-inibidores-cyp",
+    id: "imao-ocultos-linezolida-azul-metileno-furazolidona",
     classeNumero: 18,
-    classeFarmacologica: "Antibióticos com Ação IMAO, Antifúngicos Azólicos e Antirretrovirais",
-    principioAtivo: "Linezolida / Azul de Metileno / Furazolidona / Isoniazida / Ciprofloxacino / Claritromicina / Fluconazol / Ritonavir",
-    nomesComerciais: ["Zyvox", "Girotto", "Cipro", "Klaricid", "Zoltec", "Norvir", "Kaletra"],
+    classeFarmacologica: "Anti-infecciosos e Antissépticos com Ação IMAO",
+    principioAtivo: "Linezolida / Azul de Metileno / Furazolidona / Isoniazida",
+    nomesComerciais: ["Zyvox", "Sepurin (Metenamina + Azul de Metileno)"],
     nivelRisco: "LETAL_ABSOLUTO",
     diretrizPdf: "NAO_PODE_PARTICIPAR",
     mecanismo:
-      "A Linezolida (Zyvox), o Azul de Metileno e a Furazolidona são antibióticos/antissépticos com potente ação inibidora da monoamina oxidase (IMAO) — sua associação com Ayahuasca gera Síndrome Serotoninérgica e Crise Hipertensiva fatal. Já o Ciprofloxacino inibe fortemente o CYP1A2, e a Claritromicina, Fluconazol e Ritonavir inibem potentemente o CYP3A4/CYP2D6, bloqueando a depuração hepática da Harmina e Harmalina.",
-    viasMetabolicas: "Inibição de MAO-A/B e inibição das isoenzimas hepáticas CYP1A2, CYP2D6 e CYP3A4.",
-    meiaVida: "Variável (5 a 30 horas).",
-    washoutMinimo: "Linezolida: 14 dias após fim do tratamento | Ciprofloxacino/Claritromicina/Fluconazol: 5 a 7 dias após término",
+      "A Linezolida (Zyvox), o Azul de Metileno e a Furazolidona inibem a monoamina oxidase. Somados aos IMAO-A da Ayahuasca, há risco de Síndrome Serotoninérgica e crise hipertensiva. O Sepurin, antisséptico urinário de venda comum, associa metenamina e azul de metileno, e a sua bula descreve a inibição da MAO com risco serotoninérgico. A Isoniazida tem ação inibidora da MAO descrita como fraca e foi mantida neste grupo até a revisão clínica.",
+    viasMetabolicas: "Inibição da MAO (Linezolida, Azul de Metileno, Furazolidona) | Hepática: acetilação via NAT2 (Isoniazida).",
+    meiaVida: "Variável (consultar bula).",
+    washoutMinimo:
+      "NÃO PODE PARTICIPAR durante o uso | Linezolida: 14 dias após fim do tratamento | Demais: janela a definir pelo revisor clínico",
     recomendacaoLiturgica:
-      "NÃO PODE PARTICIPAR durante o ciclo de antibiótico (especialmente Linezolida, Ciprofloxacino ou Claritromicina). Aguardar recuperação infecciosa e washout.",
+      "NÃO PODE PARTICIPAR (Classificação Vermelha) durante o uso. Perguntar ativamente sobre antissépticos urinários (Sepurin) e antibióticos recentes.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [FONTE_BULA_SEPURIN],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["azul de metileno", "antisseptico urinario", "metenamina", "infeccao urinaria"],
+  },
+  {
+    id: "inibidores-cyp-ciprofloxacino-claritromicina-fluconazol-ritonavir",
+    classeNumero: 18,
+    classeFarmacologica: "Antibióticos, Antifúngicos Azólicos e Antirretrovirais Inibidores de CYP",
+    principioAtivo: "Ciprofloxacino / Claritromicina / Fluconazol / Ritonavir",
+    nomesComerciais: ["Cipro", "Klaricid", "Zoltec", "Norvir", "Kaletra"],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "NAO_PODE_PARTICIPAR",
+    mecanismo:
+      "Estes fármacos não são IMAOs. O Ciprofloxacino inibe o CYP1A2; a Claritromicina e o Ritonavir inibem o CYP3A4 (o Ritonavir também o CYP2D6); o Fluconazol inibe CYP2C9, CYP2C19 e CYP3A4. Isso pode reduzir a depuração hepática da Harmina e da Harmalina e prolongar o efeito. A gravidade depende do fármaco, da dose e da infecção em curso. A auditoria propõe tratar este grupo como decisão médica (laranja ou azul); a classificação vermelha foi mantida até a revisão clínica.",
+    viasMetabolicas:
+      "Inibição de CYP1A2 (Ciprofloxacino), CYP3A4 (Claritromicina, Fluconazol, Ritonavir), CYP2C9/CYP2C19 (Fluconazol) e CYP2D6 (Ritonavir).",
+    meiaVida: "Variável (consultar bula).",
+    washoutMinimo:
+      "Ciprofloxacino/Claritromicina/Fluconazol: 5 a 7 dias após término | Ritonavir (uso contínuo): não suspender; decisão do infectologista",
+    recomendacaoLiturgica:
+      "NÃO PODE PARTICIPAR durante o ciclo de antibiótico ou antifúngico (classificação mantida até revisão clínica). Aguardar recuperação infecciosa e washout. Antirretrovirais nunca devem ser suspensos para participar.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["antibiotico", "antifungico", "antirretroviral"],
   },
 
   // ============================================================================
@@ -809,9 +1138,15 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
       "ALERTA CLÍNICO CONTEMPORÂNEO: Os análogos de GLP-1 (Ozempic, Wegovy, Mounjaro, Saxenda) provocam retardo acentuado do esvaziamento gástrico (gastroparesia farmacológica). Isso retém alimentos e a própria Ayahuasca no estômago por muitas horas, alterando a curva de absorção e aumentando o risco de vômitos incoercíveis, refluxo severo, broncoaspiração durante a purga e hipoglicemia aguda se associado a jejum prolongado.",
     viasMetabolicas: "Degradação proteolítica endógena (sem interação direta com SERT, porém forte interação fisiológica gástrica e glicêmica).",
     meiaVida: "Liraglutida (Saxenda): 13h | Semaglutida (Ozempic/Wegovy): 7 dias | Tirzepatida (Mounjaro): 5 dias.",
-    washoutMinimo: "NÃO APLICAR NO DIA nem nas 48h anteriores à cerimônia; dieta líquida/leve nas 24h prévias",
+    washoutMinimo:
+      "Agentes diários (Liraglutida, Semaglutida oral): não aplicar/tomar no dia | Agentes semanais (Semaglutida, Tirzepatida, Dulaglutida): suspender a aplicação da semana só por decisão do prescritor | Dieta líquida nas 24h anteriores",
     recomendacaoLiturgica:
-      "NÃO APLICAR NO DIA (Classificação Laranja). Exigir alimentação leve de fácil digestão nas 24h anteriores, monitorar glicemia (ter mel/glicose no salão) e manter o participante sentado ou em decúbito lateral durante a limpeza (purga).",
+      "NÃO TOMAR NO DIA os agentes diários (Classificação Laranja). Para os agentes semanais, quem decide suspender a aplicação da semana é o prescritor, sobretudo em fase de escalonamento ou com sintomas gástricos. Dieta líquida nas 24h anteriores, monitorar glicemia (ter mel/glicose no salão) e manter o participante sentado ou em decúbito lateral durante a limpeza (purga). Regra adaptada do guia multissociedades de 2024 para procedimentos com sedação; não há estudo com Ayahuasca.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [FONTE_ASA_GLP1_2024],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["caneta emagrecedora", "canetinha", "emagrecer", "diabetes"],
   },
 
   // ============================================================================
@@ -833,6 +1168,11 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "Erva-de-São-João: 14 dias | 5-HTP, Triptofano, Mucuna, Ioimbina e Kava-Kava: 7 dias",
     recomendacaoLiturgica:
       "INTERROMPER DIAS ANTES (Classificação Azul). Questionar sempre sobre suplementos manipulados, cápsulas naturais para humor, libido ou pré-treinos.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["erva de sao joao", "suplemento"],
   },
   {
     id: "antiemeticos-vasoativos-gabapentinoides",
@@ -849,8 +1189,474 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     washoutMinimo: "NÃO TOMAR NO DIA (Suspender nas 24h a 48h anteriores à sessão)",
     recomendacaoLiturgica:
       "NÃO TOMAR NO DIA (Classificação Laranja). Nunca administrar Plasil ou Vonau preventivamente antes do rito, pois a purga é um mecanismo fisiológico e ritual de segurança.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["enjoo", "gabapentinoide"],
+  },
+
+  // ============================================================================
+  // ENTRADAS NOVAS DA AUDITORIA (PLANO 010, SEÇÃO A3) — TODAS COM REVISÃO CLÍNICA PENDENTE
+  // ============================================================================
+  {
+    id: "tdah-atomoxetina",
+    classeNumero: 13,
+    classeFarmacologica: "Não Estimulantes para TDAH (Inibidor da Recaptação de Noradrenalina)",
+    principioAtivo: "Cloridrato de Atomoxetina",
+    nomesComerciais: ["Atentah"],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A Atomoxetina inibe a recaptação de noradrenalina. A bula contraindica o uso junto com IMAO pelo risco de reações graves, como crise hipertensiva. É metabolizada pelo CYP2D6, enzima que as beta-carbolinas podem inibir.",
+    viasMetabolicas: "Hepática: CYP2D6.",
+    meiaVida: "Variável (consultar bula); mais longa em metabolizadores lentos do CYP2D6.",
+    washoutMinimo: JANELA_A_DEFINIR,
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul, revisão clínica pendente). Perguntar sobre tratamento de TDAH mesmo quando a pessoa diz que não usa estimulante.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["tdah"],
+  },
+  {
+    id: "relaxante-muscular-ciclobenzaprina",
+    classeNumero: 21,
+    classeFarmacologica: "Relaxantes Musculares de Ação Central (Estrutura Tricíclica)",
+    principioAtivo: "Cloridrato de Ciclobenzaprina",
+    nomesComerciais: [
+      "Miosan",
+      "Mirtax",
+      "Benziflex",
+    ],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A Ciclobenzaprina tem estrutura tricíclica, próxima à da Amitriptilina. A bula americana (DailyMed) contraindica o uso junto com IMAO ou nos 14 dias após a suspensão de um IMAO, pelo risco de Síndrome Serotoninérgica, crise hiperpirética e convulsões. É um dos relaxantes musculares mais vendidos no Brasil, e quem usa costuma não lembrar dele como medicamento controlado.",
+    viasMetabolicas: "Hepática: CYP3A4, CYP1A2 e, em menor grau, CYP2D6.",
+    meiaVida: "Cerca de 18 horas (faixa de 8 a 37 horas, segundo a bula americana).",
+    washoutMinimo: JANELA_A_DEFINIR,
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul, revisão clínica pendente). Perguntar ativamente sobre relaxantes musculares usados para dor nas costas, torcicolo ou contratura.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [FONTE_BULA_CICLOBENZAPRINA],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["relaxante muscular", "miorrelaxante"],
+  },
+  {
+    id: "analgesico-isometepteno",
+    classeNumero: 22,
+    classeFarmacologica: "Analgésicos Associados a Simpatomimético (Cefaleia)",
+    principioAtivo: "Mucato de Isometepteno (associado a Dipirona e Cafeína)",
+    nomesComerciais: ["Neosaldina", "Dipirona + Isometepteno + Cafeína (genéricos)"],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "O Isometepteno é um simpatomimético vasoconstritor. O uso junto com inibidores da MAO é contraindicado em bula pelo risco de crise hipertensiva. É um dos analgésicos mais vendidos no país, usado para dor de cabeça, e costuma ser omitido na triagem.",
+    viasMetabolicas: "Não detalhada (consultar bula).",
+    meiaVida: "Variável (consultar bula).",
+    washoutMinimo: JANELA_A_DEFINIR,
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Se houver dor de cabeça antes ou durante o rito, não oferecer Neosaldina nem genéricos com Isometepteno.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["dor de cabeca", "cefaleia"],
+  },
+  {
+    id: "nmda-cetamina-escetamina",
+    classeNumero: 23,
+    classeFarmacologica: "Antagonistas NMDA (Anestésico Dissociativo e Depressão Resistente)",
+    principioAtivo: "Cetamina / Escetamina",
+    nomesComerciais: ["Spravato"],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "Antagonistas do receptor NMDA, com efeito dissociativo. A Escetamina (Spravato, spray nasal) é usada em depressão resistente, sob supervisão em serviço de saúde, e eleva a pressão arterial nas horas seguintes à aplicação. Não há dado de interação com Ayahuasca; somam-se a elevação da pressão, o efeito dissociativo e o quadro psiquiátrico de base.",
+    viasMetabolicas: "Hepática: CYP3A4 e CYP2B6.",
+    meiaVida: "Variável (consultar bula).",
+    washoutMinimo: JANELA_A_DEFINIR,
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul, revisão clínica pendente). Quem está em tratamento de depressão resistente precisa de parecer do psiquiatra antes de participar.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["ketamina", "esketamina", "ketamine"],
+  },
+  {
+    id: "eixo-qt-domperidona",
+    classeNumero: 24,
+    classeFarmacologica: "Fármacos que Prolongam o Intervalo QT",
+    principioAtivo: "Domperidona / Azitromicina / Hidroxicloroquina",
+    nomesComerciais: ["Motilium", "Peridal"],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A Domperidona, usada para náusea e má digestão, prolonga o intervalo QT e é metabolizada pelo CYP3A4. Também prolongam o QT a Azitromicina, a Hidroxicloroquina, a Ondansetrona em dose alta (classe 20) e a Metadona (classe 15). O risco de arritmia cresce quando esses fármacos se somam entre si, a vômitos com perda de potássio ou a outras substâncias que alteram o ritmo cardíaco, como a ibogaína (classe 27). Não há dado sobre o efeito da Ayahuasca no QT; esta entrada serve de triagem do eixo QT.",
+    viasMetabolicas: "Hepática: CYP3A4 (Domperidona) | Variável nos demais (consultar bula).",
+    meiaVida: "Variável (consultar bula).",
+    washoutMinimo: JANELA_A_DEFINIR,
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES COM AVAL MÉDICO (Classificação Azul, revisão clínica pendente). Perguntar sobre medicamentos para enjoo, antibióticos recentes e histórico de arritmia ou desmaio.",
+    motivo: "AMBOS",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["intervalo qt", "arritmia", "enjoo"],
+  },
+  {
+    id: "suplementos-pre-treino-termogenicos",
+    classeNumero: 25,
+    classeFarmacologica: "Suplementos Pré-Treino e Termogênicos (Estimulantes Adrenérgicos)",
+    principioAtivo: "Sinefrina / Cafeína Anidra em Dose Alta / DMAA (Dimetilamilamina)",
+    nomesComerciais: [],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "Pré-treinos e termogênicos combinam estimulantes adrenérgicos: Sinefrina (laranja-amarga), Cafeína anidra em dose alta e DMAA. Muitos também contêm Ioimbina (ver classe 20). Com a MAO inibida pela Ayahuasca, há risco de sobrecarga adrenérgica: taquicardia, crise hipertensiva e arritmia. Os rótulos costumam ser incompletos, e a pessoa raramente lembra desses produtos na triagem.",
+    viasMetabolicas: "Variável (consultar rótulo e bula).",
+    meiaVida: "Variável (consultar bula).",
+    washoutMinimo: JANELA_A_DEFINIR,
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar ativamente sobre suplementos de academia, pré-treinos, termogênicos e 'queimadores de gordura'.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["pre-treino", "pre treino", "termogenico", "queimador de gordura", "suplemento de academia", "laranja amarga"],
+  },
+  {
+    id: "cardiovasculares-clonidina-betabloqueadores-nitratos-amiodarona",
+    classeNumero: 26,
+    classeFarmacologica: "Cardiovasculares e Anti-hipertensivos (Triagem de Cardiopatia)",
+    principioAtivo:
+      "Clonidina / Betabloqueadores (Atenolol, Metoprolol, Carvedilol) / Nitratos (Isossorbida, Nitroglicerina) / Amiodarona",
+    nomesComerciais: [],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "CASO_CLINICO_NAO_RECOMENDADO",
+    mecanismo:
+      "O uso destes fármacos indica doença cardiovascular (hipertensão, angina, arritmia ou insuficiência cardíaca), que é o principal motivo de cautela: a Ayahuasca eleva a frequência cardíaca e a pressão arterial nas primeiras horas, e o vômito e a desidratação da purga podem causar hipotensão. Betabloqueadores e Clonidina podem somar bradicardia e hipotensão; nitratos, hipotensão; a Amiodarona prolonga o intervalo QT (ver classe 24) e tem meia-vida muito longa. Propranolol: ver classe 20. Suspender por conta própria é perigoso (rebote hipertensivo da Clonidina e dos betabloqueadores).",
+    viasMetabolicas: "Variável (consultar bula).",
+    meiaVida: "Variável (consultar bula); Amiodarona: semanas.",
+    washoutMinimo: "NÃO SUSPENDER POR CONTA PRÓPRIA — participação depende de avaliação do cardiologista",
+    recomendacaoLiturgica:
+      "CASO CLÍNICO NÃO RECOMENDADO sem parecer do cardiologista (Classificação Laranja Escuro, revisão clínica pendente). Medir pressão arterial e frequência cardíaca antes do rito. Nunca orientar a suspensão de medicação cardiovascular.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["pressao alta", "hipertensao", "cardiopatia", "angina", "betabloqueador", "nitrato"],
+  },
+  {
+    id: "cerimonial-5-meo-dmt-bufo",
+    classeNumero: 27,
+    classeFarmacologica: "Substâncias de Contexto Cerimonial e Enteógenos",
+    principioAtivo: "5-MeO-DMT (secreção do sapo Bufo alvarius ou sintético)",
+    nomesComerciais: [],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "O 5-MeO-DMT é degradado principalmente pela MAO-A. Com as beta-carbolinas da Ayahuasca, seus níveis e sua duração podem subir de forma imprevisível. Há um óbito publicado após a ingestão de 5-MeO-DMT em preparado com harmala (Sklerov et al., J Anal Toxicol, 2005), com causalidade contestada.",
+    viasMetabolicas: "MAO-A (principal) | CYP2D6 (gera bufotenina).",
+    meiaVida: "Variável.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (nunca associar no mesmo período)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Nunca associar Bufo/5-MeO-DMT à Ayahuasca no mesmo trabalho nem no mesmo período.",
+    motivo: "INTERACAO",
+    evidencia: "B",
+    fontes: [FONTE_SKLEROV_2005],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["sapo", "bufo", "bufo alvarius", "5-meo", "5 meo", "5meo"],
+  },
+  {
+    id: "cerimonial-kambo",
+    classeNumero: 27,
+    classeFarmacologica: "Substâncias de Contexto Cerimonial e Enteógenos",
+    principioAtivo: "Kambô (secreção da rã Phyllomedusa bicolor)",
+    nomesComerciais: [],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A secreção contém peptídeos bioativos que causam vômito intenso, queda de pressão e taquicardia. Há relatos de hiponatremia grave pela ingestão de grande volume de água no ritual. Não há dado de interação com Ayahuasca; somam-se vômito, desidratação e alteração de pressão.",
+    viasMetabolicas: "Não estabelecida.",
+    meiaVida: "Variável.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (não associar no mesmo período)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar a data da última aplicação de kambô.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["kambo", "kampu", "vacina do sapo", "phyllomedusa"],
+  },
+  {
+    id: "cerimonial-ibogaina",
+    classeNumero: 27,
+    classeFarmacologica: "Substâncias de Contexto Cerimonial e Enteógenos",
+    principioAtivo: "Ibogaína (Tabernanthe iboga)",
+    nomesComerciais: [],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A Ibogaína prolonga o intervalo QT, e há óbitos por arritmia publicados com o seu uso isolado. É metabolizada pelo CYP2D6 em noribogaína, de eliminação lenta. A associação com Ayahuasca não foi estudada; somam-se o risco cardíaco e o efeito serotoninérgico.",
+    viasMetabolicas: "Hepática: CYP2D6 (gera noribogaína).",
+    meiaVida: "Variável; o metabólito noribogaína permanece por dias.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (não associar no mesmo período)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar sobre tratamentos com iboga ou ibogaína e sobre histórico cardíaco.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["iboga"],
+  },
+  {
+    id: "cerimonial-arruda-siria-peganum-harmala",
+    classeNumero: 27,
+    classeFarmacologica: "Substâncias de Contexto Cerimonial e Enteógenos",
+    principioAtivo: "Arruda-síria (Peganum harmala)",
+    nomesComerciais: [],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "As sementes de arruda-síria contêm as mesmas beta-carbolinas do cipó (Harmina e Harmalina), em concentração alta. Usada junto da Ayahuasca, dobra a carga de inibidores da MAO-A e de alcaloides harmala, com mais risco de vômito, hipotensão e tremor, e reforça todas as interações desta matriz.",
+    viasMetabolicas: "Hepática: CYP1A2 e CYP2D6 (Harmina e Harmalina).",
+    meiaVida: "Variável.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (não associar no mesmo período)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Não reforçar o sacramento com arruda-síria ou extrato de harmala.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["arruda siria", "harmala", "harmal", "peganum"],
+  },
+  {
+    id: "cerimonial-jurema",
+    classeNumero: 27,
+    classeFarmacologica: "Substâncias de Contexto Cerimonial e Enteógenos",
+    principioAtivo: "Jurema-preta (Mimosa tenuiflora / Mimosa hostilis)",
+    nomesComerciais: [],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A casca da raiz da jurema-preta contém DMT. Usada junto da Ayahuasca, soma DMT a uma carga de inibidores da MAO-A já presente, com efeito mais intenso e menos previsível.",
+    viasMetabolicas: "MAO-A (DMT).",
+    meiaVida: "Variável.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (não associar no mesmo período)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar sobre uso recente de jurema ou vinho da jurema.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["jurema preta", "mimosa hostilis", "mimosa tenuiflora", "vinho da jurema"],
+  },
+  {
+    id: "cerimonial-san-pedro-mescalina",
+    classeNumero: 27,
+    classeFarmacologica: "Substâncias de Contexto Cerimonial e Enteógenos",
+    principioAtivo: "Mescalina (cacto San Pedro / Huachuma; Peiote)",
+    nomesComerciais: [],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A Mescalina é uma fenetilamina psicodélica com efeito simpatomimético (taquicardia, elevação de pressão) e duração longa. A combinação com inibidores da MAO não foi estudada; o efeito pode ficar mais intenso e prolongado.",
+    viasMetabolicas: "Renal (grande parte inalterada) e desaminação oxidativa.",
+    meiaVida: "Variável.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (não associar no mesmo período)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar sobre uso recente de San Pedro, Huachuma ou Peiote.",
+    motivo: "INTERACAO",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["san pedro", "huachuma", "wachuma", "peiote", "peyote"],
+  },
+  {
+    id: "recreativa-mdma",
+    classeNumero: 28,
+    classeFarmacologica: "Substâncias Recreativas",
+    principioAtivo: "MDMA (Ecstasy)",
+    nomesComerciais: [],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "O MDMA provoca liberação maciça de serotonina, dopamina e noradrenalina. Com inibidores da MAO, há relatos de Síndrome Serotoninérgica grave e hipertermia, inclusive fatais. É uma das associações de maior risco desta matriz.",
+    viasMetabolicas: "Hepática: CYP2D6 (principal), CYP1A2, CYP2B6 e CYP3A4.",
+    meiaVida: "Variável.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (nunca associar)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar de forma direta e sem julgamento sobre uso recente.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["ecstasy", "extase", "bala", "molly"],
+  },
+  {
+    id: "recreativa-cocaina",
+    classeNumero: 28,
+    classeFarmacologica: "Substâncias Recreativas",
+    principioAtivo: "Cocaína (pó ou crack)",
+    nomesComerciais: [],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "A Cocaína bloqueia a recaptação de dopamina, noradrenalina e serotonina e é vasoconstritora. Com inibidores da MAO, soma risco de crise hipertensiva, arritmia, infarto, AVC e toxicidade serotoninérgica.",
+    viasMetabolicas: "Hidrólise por esterases plasmáticas e hepáticas | CYP3A4 (norcocaína).",
+    meiaVida: "Curta (cerca de 1 hora).",
+    washoutMinimo: "Janela a definir pelo revisor clínico (nunca associar)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar de forma direta e sem julgamento sobre uso recente.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["crack"],
+  },
+  {
+    id: "recreativa-anfetaminas",
+    classeNumero: 28,
+    classeFarmacologica: "Substâncias Recreativas",
+    principioAtivo: "Anfetaminas e Metanfetamina sem prescrição ('rebite', 'cristal')",
+    nomesComerciais: [],
+    nivelRisco: "LETAL_ABSOLUTO",
+    diretrizPdf: "INTERROMPER_DIAS_ANTES",
+    mecanismo:
+      "Anfetaminas liberam dopamina e noradrenalina (e, em menor grau, serotonina). Com a MAO inibida, as catecolaminas não são degradadas, com risco de crise hipertensiva, hipertermia, arritmia e AVC. Para Lisdexanfetamina e Metilfenidato prescritos, ver classe 13.",
+    viasMetabolicas: "Hepática: CYP2D6 | Excreção renal dependente do pH urinário.",
+    meiaVida: "Variável.",
+    washoutMinimo: "Janela a definir pelo revisor clínico (nunca associar)",
+    recomendacaoLiturgica:
+      "INTERROMPER DIAS ANTES (Classificação Azul, revisão clínica pendente). Perguntar de forma direta e sem julgamento sobre uso recente.",
+    motivo: "INTERACAO",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["rebite", "cristal", "metanfetamina", "speed"],
+  },
+  {
+    id: "recreativa-alcool",
+    classeNumero: 28,
+    classeFarmacologica: "Substâncias Recreativas",
+    principioAtivo: "Álcool (bebidas alcoólicas)",
+    nomesComerciais: [],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "NAO_TOMAR_NO_DIA",
+    mecanismo:
+      "O álcool deprime o SNC e piora a desidratação da purga e o discernimento durante a cerimônia. Algumas bebidas fermentadas (cervejas artesanais ou não pasteurizadas, vinhos tintos) contêm tiramina, que pode elevar a pressão quando a MAO-A está inibida. Em quem tem dependência, a interrupção abrupta pode causar abstinência grave (ver a nota de exceção de desintoxicação).",
+    viasMetabolicas: "Hepática: álcool desidrogenase e CYP2E1.",
+    meiaVida: "Eliminação de ordem zero (depende da quantidade ingerida).",
+    washoutMinimo: "NÃO TOMAR NO DIA (janela de abstinência anterior a definir pelo revisor clínico)",
+    recomendacaoLiturgica:
+      "NÃO TOMAR NO DIA (Classificação Amarela, revisão clínica pendente). Em caso de dependência, não exigir abstinência abrupta sem acompanhamento médico.",
+    motivo: "AMBOS",
+    evidencia: "C",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["alcool", "bebida alcoolica", "cerveja", "vinho", "cachaca", "etanol"],
+  },
+  {
+    id: "recreativa-cannabis",
+    classeNumero: 28,
+    classeFarmacologica: "Substâncias Recreativas",
+    principioAtivo: "Cannabis (maconha, haxixe e derivados com THC)",
+    nomesComerciais: [],
+    nivelRisco: "SEVERO_MODERADO",
+    diretrizPdf: "NAO_TOMAR_NO_DIA",
+    mecanismo:
+      "A Cannabis eleva a frequência cardíaca e pode intensificar ansiedade e desorientação e, em pessoas predispostas, desencadear episódios psicóticos. Não há dado consistente de interação farmacocinética com Ayahuasca; o principal cuidado é a soma de efeitos e o histórico psiquiátrico.",
+    viasMetabolicas: "Hepática: CYP2C9 e CYP3A4 (THC).",
+    meiaVida: "Variável; o THC se acumula no tecido adiposo com uso frequente.",
+    washoutMinimo: "NÃO TOMAR NO DIA (janela anterior a definir pelo revisor clínico)",
+    recomendacaoLiturgica:
+      "NÃO TOMAR NO DIA (Classificação Amarela, revisão clínica pendente). Perguntar sobre histórico pessoal ou familiar de psicose.",
+    motivo: "AMBOS",
+    evidencia: "D",
+    fontes: [],
+    revisao: REVISAO_PENDENTE,
+    termosBusca: ["maconha", "haxixe", "thc", "skunk"],
   },
 ];
+
+/** Remove acentos, caixa e espaços das pontas, para comparar "Lítio" com "litio". */
+export function normalizarTexto(texto: string): string {
+  return texto.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
+}
+
+export interface OpcoesBuscaInteracoes {
+  /** Também procura no mecanismo, nas vias metabólicas e na conduta (pode trazer entradas que só citam o termo de passagem). */
+  incluirTextoLivre?: boolean;
+}
+
+function escaparRegex(texto: string): string {
+  return texto.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+/**
+ * Busca na matriz sem diferenciar acentos. Ordem de prioridade:
+ * 0. marca, princípio ativo ou termo de busca que começa com o termo (ou tem palavra que começa com ele)
+ * 1. marca, princípio ativo ou termo de busca que contém o termo
+ * 2. nome da classe farmacológica
+ * 3. texto livre (mecanismo, vias, conduta), só com `incluirTextoLivre`
+ * Termo vazio devolve a lista inteira, na ordem original.
+ */
+export function buscarInteracoes(
+  termo: string,
+  lista: InteracaoMedicamentosa[] = INTERACOES_MEDICAMENTOSAS,
+  opcoes: OpcoesBuscaInteracoes = {}
+): InteracaoMedicamentosa[] {
+  const alvo = normalizarTexto(termo);
+  if (!alvo) return [...lista];
+
+  const inicioDePalavra = new RegExp(`(^|[^a-z0-9])${escaparRegex(alvo)}`);
+
+  const pontuar = (item: InteracaoMedicamentosa): number | null => {
+    const camposPrimarios = [item.principioAtivo, ...item.nomesComerciais, ...(item.termosBusca ?? [])].map(
+      normalizarTexto
+    );
+    if (camposPrimarios.some((c) => inicioDePalavra.test(c))) return 0;
+    if (camposPrimarios.some((c) => c.includes(alvo))) return 1;
+    if (normalizarTexto(item.classeFarmacologica).includes(alvo)) return 2;
+    if (opcoes.incluirTextoLivre) {
+      const livre = [item.mecanismo, item.viasMetabolicas, item.recomendacaoLiturgica].map(normalizarTexto);
+      if (livre.some((c) => c.includes(alvo))) return 3;
+    }
+    return null;
+  };
+
+  return lista
+    .map((item, indice) => ({ item, indice, pontos: pontuar(item) }))
+    .filter((r): r is { item: InteracaoMedicamentosa; indice: number; pontos: number } => r.pontos !== null)
+    .sort((a, b) => a.pontos - b.pontos || a.indice - b.indice)
+    .map((r) => r.item);
+}
+
+/** Número de classes farmacológicas distintas na lista (o selo da interface é calculado daqui). */
+export function contarClasses(lista: InteracaoMedicamentosa[] = INTERACOES_MEDICAMENTOSAS): number {
+  return new Set(lista.map((i) => i.classeNumero)).size;
+}
+
+/** Exemplos de marcas (ou princípios ativos, quando não há marca) de uma cor da tabela, na ordem da matriz. */
+export function exemplosPorDiretriz(
+  diretriz: DiretrizOperacionalPdf,
+  limite = 8,
+  lista: InteracaoMedicamentosa[] = INTERACOES_MEDICAMENTOSAS
+): string[] {
+  const nomes: string[] = [];
+  for (const item of lista) {
+    if ((item.diretrizPdf || "INTERROMPER_DIAS_ANTES") !== diretriz) continue;
+    const primeiro = item.nomesComerciais[0] ?? item.principioAtivo.split(" (")[0];
+    if (!nomes.includes(primeiro)) nomes.push(primeiro);
+    if (nomes.length >= limite) break;
+  }
+  return nomes;
+}
 
 /**
  * Tabela Técnica de Diluição e Reconstituição de 10:1 Wirapuru
@@ -899,18 +1705,19 @@ export const CRITERIOS_HUNTER = [
 ];
 
 /**
- * Alerta Crítico: Fisiopatologia e Risco de Lítio + Ayahuasca
- * Fonte: Compêndio Etnofarmacológico (NotebookLM)
+ * Alerta Crítico: Lítio + psicodélicos clássicos
+ * Fonte: Nayak et al., 2021 (relatos online autodeclarados). Revisão clínica pendente.
  */
 export const TOXICIDADE_LITIO = {
   resumo:
-    "O Carbonato de Lítio (Carbolitium, Priadel, Litiocar) em combinação com os alcaloides da Ayahuasca deflagra convulsões generalizadas e Status Epilepticus refratário com risco iminente de óbito ou encefalopatia anóxica permanente.",
+    "O Carbonato de Lítio (Carbolitium, Priadel, Litiocar) associado a psicodélicos clássicos aparece em relatos com convulsões generalizadas e necessidade de atendimento médico. Não há estudo com Ayahuasca; o veto é mantido pela gravidade do sinal.",
   mecanismo:
-    "Inibição de IMPase, depleção de inositol livre, acúmulo de IP3/DAG e hipersensibilização dos receptores 5-HT2A no córtex cerebral.",
+    "Hipótese, não demonstrada: inibição da enzima inositol monofosfatase (IMPase) pelo lítio, com alteração da sinalização ligada ao receptor 5-HT2A.",
   incidenciaConvulsao:
-    "Aproximadamente 47% dos relatos clínicos documentados de coadministração de psicodélicos clássicos com Lítio resultam em convulsões graves e internação em UTI.",
+    "Em 62 relatos online autodeclarados de uso de psicodélicos clássicos com lítio, 47% descreveram convulsão e 39% atendimento médico (Nayak et al., 2021). Evidência fraca, mas o sinal é grave e consistente.",
   diretriz:
     "CONTRAINDICAÇÃO ABSOLUTA E DEFINITIVA. Portadores de transtorno afetivo bipolar medicados com Lítio estão terminantemente vetados de comungar Ayahuasca.",
+  fontes: [FONTE_NAYAK_2021, FONTE_HALMAN_2024],
 };
 
 /**
@@ -977,9 +1784,9 @@ export const FAQ_DIRIGENTE: FaqDirigenteItem[] = [
     categoria: "JURIDICO_CONAD",
     pergunta: "Menores de 18 anos podem participar das cerimônias do templo?",
     resposta:
-      "De acordo com a Resolução CONAD nº 01/2010 (Item 4.1), a participação de crianças e adolescentes é permitida desde que ocorra sob a estrita responsabilidade e mediante autorização formal e expressa de ambos os pais ou responsáveis legais presentes na cerimônia. O dirigente deve avaliar com prudência a maturidade do jovem, orientar a família e administrar porções mínimas simbólicas.",
+      "O que diz a norma: a Resolução CONAD nº 01/2010 deixa a participação de crianças e adolescentes à decisão dos pais ou responsáveis legais, no exercício do poder familiar. O que é política interna da casa: exigir a presença de ambos os pais ou responsáveis na cerimônia e a autorização assinada são cautelas recomendadas pela Cooperativa, não exigências da resolução. Em qualquer caso, o dirigente deve avaliar com prudência a maturidade do jovem, orientar a família e servir apenas porções mínimas simbólicas.",
     destaqueConselho:
-      "Exigência: O templo deve arquivar a autorização assinada pelos pais junto à cópia dos documentos de identidade.",
+      "Política interna recomendada (não exigência da CONAD): arquivar a autorização assinada pelos pais ou responsáveis junto à cópia dos documentos de identidade.",
   },
   {
     id: "faq-9",
@@ -993,7 +1800,7 @@ export const FAQ_DIRIGENTE: FaqDirigenteItem[] = [
     categoria: "JURIDICO_CONAD",
     pergunta: "Como transportar garrafas de Ayahuasca em viagens aéreas ou rodoviárias?",
     resposta:
-      "O transporte interestadual para a realização de cerimônias do templo é perfeitamente legal. O dirigente deve transportar as garrafas lacradas, devidamente rotuladas com identificação institucional da congregação, acompanhadas da Declaração de Trânsito Litúrgico de Sacramento (disponível para download neste portal), cópia da Ata do Templo e da Resolução CONAD nº 01/2010. Na bagagem despachada, as garrafas devem ser envoltas em plástico bolha e caixa isotérmica protegida.",
+      "O transporte para as cerimônias do templo é amparado pela Resolução CONAD nº 01/2010 para fins religiosos em território nacional. Em viagem aérea, verifique antes as regras da companhia aérea para transporte de líquidos, na bagagem de mão e na despachada. O transporte internacional não está coberto pela resolução e depende da legislação de cada país. O dirigente deve transportar as garrafas lacradas, devidamente rotuladas com identificação institucional da congregação, acompanhadas da Declaração de Trânsito Litúrgico de Sacramento (disponível para download neste portal), cópia da Ata do Templo e da Resolução CONAD nº 01/2010. Na bagagem despachada, as garrafas devem ser envoltas em plástico bolha e caixa isotérmica protegida.",
   },
   {
     id: "faq-11",

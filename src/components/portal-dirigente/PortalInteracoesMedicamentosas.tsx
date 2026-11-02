@@ -15,26 +15,33 @@ import {
   ChevronDown,
   ChevronUp,
   Info,
-  FileSpreadsheet,
   Download,
   X,
   LayoutGrid,
   Columns,
   Siren,
-  Pill,
+  ExternalLink,
 } from "lucide-react";
 import {
   INTERACOES_MEDICAMENTOSAS,
   CRITERIOS_HUNTER,
   TOXICIDADE_LITIO,
   EXCECAO_DESINTOXICACAO_PDF,
+  ROTULOS_EVIDENCIA,
+  ROTULOS_MOTIVO,
+  buscarInteracoes,
+  contarClasses,
+  exemplosPorDiretriz,
+  normalizarTexto,
   DiretrizOperacionalPdf,
 } from "@/data/portal-assessoria";
 import {
-  exportarMedicamentosExcel,
   exportarMedicamentosCSV,
   exportarMedicamentosPDF,
 } from "@/lib/export-medicamentos";
+
+const TOTAL_CLASSES = contarClasses(INTERACOES_MEDICAMENTOSAS);
+const TOTAL_ENTRADAS = INTERACOES_MEDICAMENTOSAS.length;
 
 const BADGES_DIRETRIZ_PDF: Record<
   DiretrizOperacionalPdf,
@@ -54,7 +61,7 @@ const BADGES_DIRETRIZ_PDF: Record<
     cardBorderClass: "border-red-500/40 bg-red-950/15 hover:border-red-500/60",
     headerBgClass: "bg-red-950/40 border-b border-red-500/30",
     descricaoCurta:
-      "Lítio (Carbolitium), Antipsicóticos (Haldol, Risperdal, Seroquel, Zyprexa), Anticonvulsivantes (Depakene, Tegretol, Gardenal, Lamictal), Antiparkinsonianos (Prolopa) e Antidepressivos em uso ativo.",
+      "Veto por risco grave de interação ou pela condição de saúde de base (veja o motivo em cada cartão).",
   },
   CASO_CLINICO_NAO_RECOMENDADO: {
     label: "🟠 CASO CLÍNICO NÃO RECOMENDADO",
@@ -64,7 +71,7 @@ const BADGES_DIRETRIZ_PDF: Record<
       "border-orange-500/40 bg-orange-950/15 hover:border-orange-500/60",
     headerBgClass: "bg-orange-950/40 border-b border-orange-500/30",
     descricaoCurta:
-      "Hipnóticos Não-Benzodiazepínicos 'Z' (Zolpidem / Stilnox, Patz, Turno, Zopiclona, Eszopiclona). Risco de sonambulismo dissociativo e amnésia.",
+      "Hipnóticos 'Z' (risco de sonambulismo e amnésia) e casos que dependem de avaliação médica individual, como cardiopatias.",
   },
   INTERROMPER_DIAS_ANTES: {
     label: "🔵 INTERROMPER DIAS ANTES (WASHOUT)",
@@ -73,7 +80,7 @@ const BADGES_DIRETRIZ_PDF: Record<
     cardBorderClass: "border-sky-500/35 bg-sky-950/15 hover:border-sky-500/55",
     headerBgClass: "bg-sky-950/40 border-b border-sky-500/30",
     descricaoCurta:
-      "Estimulantes (Ritalina, Venvanse), Opioides (Tramadol), Triptanos (Sumax, Naramig), Linezolida, Antieméticos (Vonau, Plasil), GLP-1 (Ozempic, Mounjaro) e Desmame Médico de Antidepressivos.",
+      "Suspensão prévia só com autorização e supervisão do médico assistente, respeitando o washout de cada entrada.",
   },
   NAO_TOMAR_NO_DIA: {
     label: "🟡 NÃO TOMAR NO DIA",
@@ -83,8 +90,15 @@ const BADGES_DIRETRIZ_PDF: Record<
       "border-amber-500/35 bg-amber-950/15 hover:border-amber-500/55",
     headerBgClass: "bg-amber-950/40 border-b border-amber-500/30",
     descricaoCurta:
-      "Ansiolíticos Benzodiazepínicos (Rivotril, Frontal, Lexotan, Diazepam/Valium, Lorax, Olcadil, Rohypnol, Dormonid), Relaxantes Musculares (Miosan, Dorflex) e Descongestionantes (Neosoro).",
+      "Pausa no dia do trabalho, sem suspensão prolongada; nunca suspender por conta própria quando houver dependência física.",
   },
+};
+
+const EXEMPLOS_POR_DIRETRIZ: Record<DiretrizOperacionalPdf, string[]> = {
+  NAO_PODE_PARTICIPAR: exemplosPorDiretriz("NAO_PODE_PARTICIPAR", 6),
+  CASO_CLINICO_NAO_RECOMENDADO: exemplosPorDiretriz("CASO_CLINICO_NAO_RECOMENDADO", 6),
+  INTERROMPER_DIAS_ANTES: exemplosPorDiretriz("INTERROMPER_DIAS_ANTES", 6),
+  NAO_TOMAR_NO_DIA: exemplosPorDiretriz("NAO_TOMAR_NO_DIA", 6),
 };
 
 const ATALHOS_BUSCA_RAPIDA = [
@@ -97,15 +111,16 @@ const ATALHOS_BUSCA_RAPIDA = [
   "Seroquel",
   "Limbitrol",
   "Tramadol",
-  "Prolopa",
+  "Neosaldina",
+  "Miosan",
   "Depakote",
-  "Ritalina",
 ];
 
 type ModoVisualizacao = "CARDS_DETALHADOS" | "QUADRO_4_CORES" | "EMERGENCIA";
 
 export const PortalInteracoesMedicamentosas: React.FC = () => {
   const [busca, setBusca] = useState("");
+  const [buscaTextoLivre, setBuscaTextoLivre] = useState(false);
   const [filtroRisco, setFiltroRisco] = useState<string>("TODOS");
   const [expandidoId, setExpandidoId] = useState<string | null>(null);
   const [modoVisao, setModoVisao] =
@@ -134,25 +149,20 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
   }, []);
 
   const farmacosFiltrados = useMemo(() => {
-    return INTERACOES_MEDICAMENTOSAS.filter((f) => {
-      const termo = busca.trim().toLowerCase();
-      const matchBusca =
-        !termo ||
-        f.principioAtivo.toLowerCase().includes(termo) ||
-        f.nomesComerciais.some((nc) => nc.toLowerCase().includes(termo)) ||
-        f.classeFarmacologica.toLowerCase().includes(termo) ||
-        f.viasMetabolicas.toLowerCase().includes(termo) ||
-        f.mecanismo.toLowerCase().includes(termo) ||
-        f.recomendacaoLiturgica.toLowerCase().includes(termo);
-
-      const matchFiltro =
+    return buscarInteracoes(busca, INTERACOES_MEDICAMENTOSAS, {
+      incluirTextoLivre: buscaTextoLivre,
+    }).filter(
+      (f) =>
         filtroRisco === "TODOS" ||
         f.nivelRisco === filtroRisco ||
-        f.diretrizPdf === filtroRisco;
+        f.diretrizPdf === filtroRisco
+    );
+  }, [busca, buscaTextoLivre, filtroRisco]);
 
-      return matchBusca && matchFiltro;
-    });
-  }, [busca, filtroRisco]);
+  const classesExibidas = useMemo(
+    () => contarClasses(farmacosFiltrados),
+    [farmacosFiltrados]
+  );
 
   const toggleExpandir = (id: string) => {
     setExpandidoId(expandidoId === id ? null : id);
@@ -170,22 +180,29 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                 Protocolo Clínico CONAD 01/2010
               </span>
               <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-ambar-500/15 text-ambar-300 border border-ambar-500/30">
-                20 Classes • {totalMarcasCadastradas} Medicamentos Listados
+                {TOTAL_CLASSES} Classes • {TOTAL_ENTRADAS} Entradas • {totalMarcasCadastradas} Marcas
+              </span>
+              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-amber-500/15 text-amber-200 border border-amber-500/40">
+                <AlertTriangle className="h-3.5 w-3.5 text-amber-300" />
+                Revisão clínica pendente
               </span>
             </div>
 
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-areia-100">
-              Tabela Oficial de Medicamentos Controlados &amp; Conflitos com Ayahuasca
+              Tabela de Medicamentos Controlados &amp; Conflitos com Ayahuasca
             </h3>
             <p className="text-xs sm:text-sm text-areia-300 font-light max-w-3xl leading-relaxed">
-              Consulte instantaneamente pelo celular ou computador qualquer medicamento, marca comercial ou princípio ativo, ou baixe a tabela completa em{" "}
+              Consulte pelo celular ou computador qualquer medicamento, marca comercial ou princípio ativo, ou baixe a tabela completa em{" "}
               <strong className="text-areia-100">PDF A4</strong> e{" "}
-              <strong className="text-areia-100">Planilha Excel (.xls / .csv)</strong> para manter impressa na recepção do templo.
+              <strong className="text-areia-100">planilha CSV</strong> (abre no Excel e no Google Planilhas) para manter impressa na recepção do templo.
+            </p>
+            <p className="text-[11px] text-amber-200/90 font-light max-w-3xl leading-relaxed">
+              O conteúdo ainda não foi revisado por médico ou farmacêutico. A lista não é exaustiva: o que não aparece aqui não é, por isso, seguro.
             </p>
           </div>
 
           {/* Botões de Download em Destaque */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 xl:flex xl:flex-wrap items-center gap-2.5 shrink-0">
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:flex xl:flex-wrap items-center gap-2.5 shrink-0">
             <button
               type="button"
               onClick={exportarMedicamentosPDF}
@@ -198,22 +215,12 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
 
             <button
               type="button"
-              onClick={exportarMedicamentosExcel}
-              className="px-4 py-3 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition-all active:scale-95"
-              title="Baixar planilha Excel (.xls) colorida com todas as marcas comerciais e tempos de washout"
-            >
-              <FileSpreadsheet className="h-4 w-4 shrink-0" />
-              <span>Baixar em Excel (.xls)</span>
-            </button>
-
-            <button
-              type="button"
               onClick={exportarMedicamentosCSV}
-              className="px-3.5 py-3 rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-2 bg-floresta-900 hover:bg-floresta-800 text-areia-200 border border-ambar-500/30 transition-all"
-              title="Baixar arquivo CSV universal para Excel ou Google Planilhas"
+              className="px-4 py-3 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition-all active:scale-95"
+              title="Baixar planilha CSV (abre no Excel e no Google Planilhas) com marcas, washout, motivo, evidência e status de revisão"
             >
-              <Download className="h-4 w-4 text-ambar-400 shrink-0" />
-              <span>Baixar CSV</span>
+              <Download className="h-4 w-4 shrink-0" />
+              <span>Baixar Planilha (CSV)</span>
             </button>
           </div>
         </div>
@@ -245,6 +252,18 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
               </button>
             )}
           </div>
+
+          <label className="flex items-start gap-2 text-[11px] text-areia-300 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={buscaTextoLivre}
+              onChange={(e) => setBuscaTextoLivre(e.target.checked)}
+              className="mt-0.5 accent-ambar-500"
+            />
+            <span>
+              Buscar também no texto do mecanismo e da conduta (traz entradas que só citam o termo de passagem). Por padrão a busca olha princípio ativo, marca, nomes populares e classe.
+            </span>
+          </label>
 
           {/* Pílulas de Consulta em 1 Toque */}
           <div className="flex flex-wrap items-center gap-1.5">
@@ -289,7 +308,7 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                 className="text-xs font-semibold text-ambar-400 hover:underline inline-flex items-center gap-1"
               >
                 <X className="h-3.5 w-3.5" />
-                Mostrar todas as 20 classes
+                Mostrar todas as {TOTAL_CLASSES} classes
               </button>
             )}
           </div>
@@ -328,11 +347,16 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                         {info.label}
                       </span>
                       <span className="text-[11px] font-mono font-bold text-areia-200 bg-floresta-950/80 px-2 py-0.5 rounded-full border border-white/10 shrink-0">
-                        {contagensPorCor[dir]} classes
+                        {contagensPorCor[dir]} entradas
                       </span>
                     </div>
                     <p className="text-[11px] text-areia-300 font-light leading-snug pt-1">
                       {info.descricaoCurta}
+                      {EXEMPLOS_POR_DIRETRIZ[dir].length > 0 && (
+                        <span className="block text-areia-400 pt-1">
+                          Ex.: {EXEMPLOS_POR_DIRETRIZ[dir].join(", ")}.
+                        </span>
+                      )}
                     </p>
                   </div>
                   <div className="pt-2 mt-2 border-t border-white/10 flex items-center justify-between text-[10px] font-mono text-ambar-300">
@@ -359,7 +383,7 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
               }`}
             >
               <LayoutGrid className="h-4 w-4 shrink-0" />
-              <span>Cartões Detalhados (20 Classes)</span>
+              <span>Cartões Detalhados ({TOTAL_CLASSES} Classes)</span>
             </button>
 
             <button
@@ -392,7 +416,7 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
           <div className="text-xs font-mono text-areia-300 text-right">
             Exibindo{" "}
             <strong className="text-ambar-400">{farmacosFiltrados.length}</strong>{" "}
-            de 20 classes farmacológicas
+            de {TOTAL_ENTRADAS} entradas ({classesExibidas} de {TOTAL_CLASSES} classes)
           </div>
         </div>
       </div>
@@ -430,13 +454,19 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
       {modoVisao === "CARDS_DETALHADOS" && (
         <div className="space-y-4">
           {farmacosFiltrados.length === 0 ? (
-            <div className="rounded-2xl bg-floresta-950/90 border border-ambar-500/20 p-10 text-center space-y-3">
-              <Pill className="h-8 w-8 text-ambar-400 mx-auto opacity-80" />
+            <div
+              role="status"
+              className="rounded-2xl bg-floresta-950/90 border border-amber-500/40 p-8 sm:p-10 text-center space-y-3"
+            >
+              <AlertTriangle className="h-8 w-8 text-amber-400 mx-auto" />
               <p className="text-sm font-semibold text-areia-100">
-                Nenhum medicamento encontrado para &ldquo;{busca}&rdquo;
+                Nenhuma entrada encontrada para &ldquo;{busca}&rdquo;
               </p>
-              <p className="text-xs text-areia-400 max-w-md mx-auto">
-                Verifique a grafia ou limpe os filtros. Em caso de dúvida sobre um fármaco novo, consulte a diretriz de meia-vida (5 a 7 meias-vidas — t½) junto ao médico assistente.
+              <p className="text-sm font-bold text-amber-200 max-w-lg mx-auto leading-relaxed">
+                Não estar nesta lista NÃO significa que o medicamento ou a substância seja seguro com Ayahuasca.
+              </p>
+              <p className="text-xs text-areia-300 max-w-lg mx-auto leading-relaxed">
+                A matriz não é exaustiva. Antes de liberar a participação, a pessoa deve consultar o médico assistente ou um farmacêutico levando a bula do medicamento. Confira também a grafia, tente o princípio ativo em vez da marca ou marque a busca no texto do mecanismo.
               </p>
               <button
                 type="button"
@@ -458,7 +488,8 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                 const diretriz: DiretrizOperacionalPdf =
                   item.diretrizPdf || "INTERROMPER_DIAS_ANTES";
                 const badgePdf = BADGES_DIRETRIZ_PDF[diretriz];
-                const termoBusca = busca.trim().toLowerCase();
+                const termoBusca = normalizarTexto(busca);
+                const revisaoPendente = item.revisao.status === "PENDENTE";
 
                 return (
                   <div
@@ -485,6 +516,12 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                           >
                             {badgePdf.label}
                           </span>
+                          {revisaoPendente && (
+                            <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border text-amber-100 bg-amber-900/70 border-amber-400/60">
+                              <AlertTriangle className="h-3 w-3" />
+                              Revisão clínica pendente
+                            </span>
+                          )}
                         </div>
 
                         <span className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-ambar-300 bg-floresta-950/90 px-2.5 py-1 rounded-md border border-ambar-500/30">
@@ -504,16 +541,34 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                           </h4>
                         </div>
 
+                        {/* Motivo do veto e nível de evidência */}
+                        <div className="flex flex-wrap gap-1.5 text-[10px] font-mono">
+                          <span className="px-2 py-0.5 rounded-md border border-white/15 bg-floresta-950/85 text-areia-200">
+                            Motivo: <strong className="text-areia-100">{ROTULOS_MOTIVO[item.motivo]}</strong>
+                          </span>
+                          <span
+                            className="px-2 py-0.5 rounded-md border border-white/15 bg-floresta-950/85 text-areia-200"
+                            title="A ensaio clínico · B série ou relato de caso · C farmacologia ou bula · D extrapolação"
+                          >
+                            Evidência: <strong className="text-areia-100">{ROTULOS_EVIDENCIA[item.evidencia]}</strong>
+                          </span>
+                        </div>
+
                         {/* Pílulas de Marcas Comerciais (Fácil leitura no celular e PC) */}
                         <div className="space-y-1.5">
                           <span className="text-[10px] font-mono uppercase tracking-wider text-areia-400 block">
                             Principais Marcas Comerciais &amp; Nomes de Referência:
                           </span>
                           <div className="flex flex-wrap gap-1.5">
+                            {item.nomesComerciais.length === 0 && (
+                              <span className="px-2 py-0.5 rounded-md text-xs font-light border bg-floresta-950/85 text-areia-300 border-white/10">
+                                Sem marca comercial (substância ou preparado)
+                              </span>
+                            )}
                             {item.nomesComerciais.map((marca) => {
                               const matchMarca =
                                 termoBusca.length > 1 &&
-                                marca.toLowerCase().includes(termoBusca);
+                                normalizarTexto(marca).includes(termoBusca);
                               return (
                                 <span
                                   key={marca}
@@ -554,6 +609,32 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                             {item.recomendacaoLiturgica}
                           </p>
                         </div>
+
+                        {/* Fontes com link (quando houver) */}
+                        {item.fontes.length > 0 && (
+                          <div className="space-y-1">
+                            <span className="text-[10px] font-mono uppercase tracking-wider text-areia-400 block">
+                              Fontes:
+                            </span>
+                            <ul className="space-y-1">
+                              {item.fontes.map((fonte) => (
+                                <li key={fonte.url}>
+                                  <a
+                                    href={fonte.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-start gap-1 text-[11px] text-ambar-300 hover:text-ambar-200 underline underline-offset-2"
+                                  >
+                                    <ExternalLink className="h-3 w-3 shrink-0 mt-0.5" />
+                                    <span>
+                                      {fonte.titulo} ({fonte.ano})
+                                    </span>
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
 
                         {/* Gaveta Expansível: Farmacocinética, Meia-vida e CYP450 */}
                         {isExpandido && (
@@ -672,7 +753,15 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
                       </p>
                       <p className="text-xs text-ambar-200/90 font-medium">
                         <strong className="text-ambar-400">Marcas:</strong>{" "}
-                        {item.nomesComerciais.join(", ")}
+                        {item.nomesComerciais.length > 0
+                          ? item.nomesComerciais.join(", ")
+                          : "Sem marca comercial"}
+                      </p>
+                      <p className="text-[11px] text-areia-400 font-mono">
+                        {ROTULOS_MOTIVO[item.motivo]} • Evidência {item.evidencia}
+                        {item.revisao.status === "PENDENTE" && (
+                          <span className="text-amber-300"> • Revisão clínica pendente</span>
+                        )}
                       </p>
                     </div>
                   ))}
@@ -693,7 +782,7 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
             <div className="flex items-center gap-2 text-red-400 font-bold uppercase tracking-wider font-mono text-xs sm:text-sm">
               <Zap className="h-4 w-4 text-red-400 animate-pulse shrink-0" />
               <span>
-                ALERTA MÁXIMO DE SEGURANÇA: CARBONATO DE LÍTIO (STATUS EPILEPTICUS &amp; MORTE CEREBRAL)
+                ALERTA DE SEGURANÇA: CARBONATO DE LÍTIO (RISCO DE CONVULSÃO)
               </span>
             </div>
             <p className="leading-relaxed font-light text-areia-200 text-xs sm:text-sm">
@@ -702,7 +791,7 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1 font-mono text-xs">
               <div className="bg-red-950/60 p-3.5 rounded-xl border border-red-500/20 space-y-1">
                 <span className="text-red-300 font-bold block">
-                  Fisiopatologia Neuroquímica
+                  Mecanismo (hipótese)
                 </span>
                 <span className="text-areia-300 text-[11px] font-sans font-light block leading-relaxed">
                   {TOXICIDADE_LITIO.mecanismo}
@@ -710,14 +799,25 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
               </div>
               <div className="bg-red-950/60 p-3.5 rounded-xl border border-red-500/20 space-y-1">
                 <span className="text-red-300 font-bold block">
-                  Incidência em Casos Clínicos
+                  Sinal em relatos (evidência fraca)
                 </span>
-                <span className="text-red-200 font-bold text-sm block">
+                <span className="text-red-200 font-bold text-[12px] font-sans block leading-relaxed">
                   {TOXICIDADE_LITIO.incidenciaConvulsao}
                 </span>
-                <span className="text-areia-400 text-[11px] font-sans block">
-                  Disparos paroxísticos corticais generalizados refratários.
-                </span>
+                {TOXICIDADE_LITIO.fontes.map((fonte) => (
+                  <a
+                    key={fonte.url}
+                    href={fonte.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-start gap-1 text-[11px] font-sans text-ambar-300 hover:text-ambar-200 underline underline-offset-2"
+                  >
+                    <ExternalLink className="h-3 w-3 shrink-0 mt-0.5" />
+                    <span>
+                      {fonte.titulo} ({fonte.ano})
+                    </span>
+                  </a>
+                ))}
               </div>
               <div className="bg-red-950/60 p-3.5 rounded-xl border border-red-500/20 space-y-1">
                 <span className="text-red-300 font-bold block">

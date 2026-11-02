@@ -66,7 +66,7 @@ São fármacos comuns no Brasil que não aparecem hoje. Todos precisam de confer
 
 | Nova entrada | Marcas BR (conferir) | Por quê |
 |---|---|---|
-| **Ciclobenzaprina** | Miosan, Mirtax, Benziflex, **Torsilax** (associação) | Estrutura tricíclica. A bula americana contraindica o uso com IMAO (janela de 14 dias) por risco de síndrome serotoninérgica. É um dos relaxantes musculares mais vendidos no Brasil, e quem usa costuma não lembrar dele como "remédio controlado". |
+| **Ciclobenzaprina** | Miosan, Mirtax, Benziflex (o Torsilax contém **carisoprodol**, não ciclobenzaprina — corrigido) | Estrutura tricíclica. A bula americana contraindica o uso com IMAO (janela de 14 dias) por risco de síndrome serotoninérgica. É um dos relaxantes musculares mais vendidos no Brasil, e quem usa costuma não lembrar dele como "remédio controlado". |
 | **Isometepteno** | **Neosaldina** e genéricos dipirona + isometepteno + cafeína | Simpatomimético, contraindicado com IMAO. É um dos analgésicos mais vendidos no país. |
 | **Atomoxetina** | Atentah | Inibidor de recaptação de noradrenalina, contraindicado com IMAO em bula. |
 | **Cetamina / Escetamina** | Spravato | Uso crescente em depressão resistente; eleva a pressão arterial. |
