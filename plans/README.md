@@ -17,6 +17,8 @@ Cada executor deve ler o plano integralmente antes de iniciar, respeitar as cond
 | [007](007-catalog-unification-and-ponytail-cleanup.md) | Unificar Catálogos (15 Rapés / Mel), Corrigir Duplicação no Pedido & Limpeza Ponytail (-1.032 linhas) | P2 | M | LOW | 004 | DONE |
 | [008](008-nextjs15-bundle-splitting-and-rsc-islands.md) | Code-Splitting Next.js 15 (`next/dynamic`), Ilhas RSC & Paralelização de Fetches (`Promise.all`) | P2 | M | LOW | — | DONE |
 | [009](009-wcag-a11y-seo-canonicals-and-obsidian-sync.md) | Acessibilidade WCAG 2.1 AA, SEO Canonical (`/sacramentos` + Sitemap) & Higienização do Segundo Cérebro | P2 | S | LOW | 004 | DONE |
+| [010](010-auditoria-interacoes-medicamentosas-e-documentos.md) | Senha admin exposta (P0), Fonte Única da Matriz de Interações, Lacunas de Fármacos & Documentos Novos | P0/P1 | M–L | MED | — | TODO |
+| [011](011-documentos-publicos-e-saude-geral-do-projeto.md) | RLS Aberto (P0), Documentos Internos Expostos em `/estudos`, Biblioteca Pública Enxuta, Lint/CI/Dependências & Peso do Repositório | P0/P1/P2 | M | MED | — | IN PROGRESS |
 
 Valores de Status: `TODO` | `IN PROGRESS` | `DONE` | `BLOCKED` | `REJECTED`
 
