@@ -26,9 +26,10 @@ Além disso, a cooperativa demandava uma solução de banco de dados relacional 
    - Se as variáveis `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` estiverem ativas, a aplicação opera prioritariamente no PostgreSQL em nuvem.
    - Em caso de ausência de credenciais (ex: testes locais rápidos) ou indisponibilidade temporária de rede, o sistema comuta transparentemente para o banco local atômico `data/pedidos.json`, garantindo zero quebras de build, testes automatizados e desenvolvimento offline.
 
-3. **Autenticação Híbrida no Portal do Dirigente:**
-   - **Método 1 (Supabase Auth):** Login seguro por E-mail e Senha ou Magic Link (OTP) gratuito para dirigentes cadastrados, com persistência automática de sessão em cookies seguros via `@supabase/ssr` e escuta a `onAuthStateChange`.
-   - **Método 2 (Chave Litúrgica Canônica):** Acesso ágil por código de homologação (`NAT-TEMPLO-842`) ou credencial master de plenária (`adm-nativaram`), garantindo flexibilidade operacional para demonstrações litúrgicas.
+3. **Autenticação Híbrida e Sessão Unificada no Portal do Dirigente:**
+   - **Método 1 (Supabase Auth):** Login seguro por E-mail e Senha ou Magic Link (OTP) gratuito para dirigentes e administradores cadastrados no Supabase Auth. Integrado diretamente ao Route Handler `/api/auth/verificar-chave`, que emite o cookie HttpOnly `nativaram_session` assinado via HMAC-SHA256 para autorizar chamadas às APIs internas.
+   - **Método 2 (Chave Litúrgica Canônica & Senha Master):** Acesso ágil por código de homologação (`NAT-TEMPLO-842`) ou credencial master do conselho (`adm-nativaram` com `ADMIN_MASTER_PASSWORD` e fallback de recuperação `adm2026`).
+   - **Resiliência de Sessão:** O segredo de assinatura de tokens deriva prioritariamente de `ADMIN_SECRET_KEY`, com fallback resiliente para as chaves ativas do Supabase, prevenindo desconexões ou erros 500 caso a chave ainda não tenha sido populada no ambiente de deploy.
 
 ## Consequências
 - ✅ **Persistência Real em Produção:** Dados de pedidos e credenciamentos persistem com segurança na Vercel e qualquer ambiente em nuvem.

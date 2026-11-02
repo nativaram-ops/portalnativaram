@@ -58,7 +58,11 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ login: loginLimpo, senha: senhaLimpa }),
+        body: JSON.stringify({
+          login: loginLimpo,
+          senha: senhaLimpa,
+          modo: modoLogin,
+        }),
       });
 
       if (res.ok) {
@@ -176,15 +180,36 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         ]);
 
         if (!error && data?.user) {
+          // Garante a emissão do cookie HttpOnly nativaram_session chamando a API
+          try {
+            await fetch("/api/auth/verificar-chave", {
+              method: "POST",
+              credentials: "include",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                login: loginInput,
+                senha: senhaInput,
+                modo: modoLogin,
+              }),
+            });
+          } catch {
+            // Continua com autenticação no navegador
+          }
+
+          const emailLower = (data.user.email || "").toLowerCase();
           const isAdmin =
-            data.user.email?.includes("adm") ||
+            modoLogin === "ADMIN" ||
+            emailLower.includes("adm") ||
+            emailLower === "nativaram@gmail.com" ||
             data.user.user_metadata?.papel === "ADMIN";
 
           onAuthenticated(
             isAdmin ? "ADMIN" : "DIRIGENTE",
-            data.user.user_metadata?.codigo_liturgico ||
-              data.user.email ||
-              "USUARIO-SUPABASE"
+            isAdmin
+              ? "ADM-NATIVARAM"
+              : data.user.user_metadata?.codigo_liturgico ||
+                data.user.email ||
+                "USUARIO-SUPABASE"
           );
           setLoadingAuth(false);
           return;

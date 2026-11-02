@@ -86,6 +86,7 @@ export const VerificarChaveSchema = z.object({
     .trim()
     .min(4, "Chave de segurança inválida.")
     .max(120),
+  modo: z.enum(["DIRIGENTE", "ADMIN"]).optional(),
 });
 
 export type VerificarChaveInput = z.infer<typeof VerificarChaveSchema>;
