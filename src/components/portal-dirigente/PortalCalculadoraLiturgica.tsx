@@ -15,10 +15,20 @@ import {
   Thermometer,
   Clock,
   Printer,
+  Coins,
+  TrendingDown,
+  Info,
+  Layers,
+  HeartHandshake,
 } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
-import { GRADUACOES_SACRAMENTAIS } from "@/data/graduacoes";
+import {
+  GRADUACOES_SACRAMENTAIS,
+  TABELA_EVOLUTIVA_RATEIO,
+  CONDICOES_RATEIO_COOPERATIVO,
+  obterCotaRateio,
+} from "@/data/graduacoes";
 
 interface PortalCalculadoraLiturgicaProps {
   onIrParaSolicitacao: () => void;
@@ -27,7 +37,7 @@ interface PortalCalculadoraLiturgicaProps {
 export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProps> = ({
   onIrParaSolicitacao,
 }) => {
-  const [modoAba, setModoAba] = useState<"CERIMONIA" | "RECONSTITUICAO">("CERIMONIA");
+  const [modoAba, setModoAba] = useState<"CERIMONIA" | "RECONSTITUICAO" | "TABELA_EVOLUTIVA">("CERIMONIA");
 
   // Estados do Modo Cerimônia
   const [numParticipantes, setNumParticipantes] = useState<number>(25);
@@ -71,6 +81,13 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
   const gotasSananga = numParticipantes * 4;
   const frascosSanangaSugeridos = Math.max(1, Math.ceil(gotasSananga / 200));
 
+  // Rateio Cooperativo do Modo Cerimônia
+  const cotaAyahuasca = obterCotaRateio(graduacao.codigo, litrosRecomendados);
+  const rateioRape = incluirRape ? frascosRapeSugeridos * 65 : 0;
+  const rateioSananga = incluirSananga ? frascosSanangaSugeridos * 80 : 0;
+  const rateioTotalCerimonia = cotaAyahuasca.valorTotal + rateioRape + rateioSananga;
+  const rateioPorParticipante = numParticipantes > 0 ? rateioTotalCerimonia / numParticipantes : 0;
+
   // Cálculos do Modo Reconstituição 10:1
   const dadosReconst = (() => {
     switch (alvoReconst) {
@@ -81,6 +98,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           fatorMultiplicador: 1.43,
           calicesPorLitro10: 24,
           brixEsperado: "16 a 20 °Brix",
+          cotaLoteProntoRef: litros10Base >= 10 ? 300 : 320,
         };
       case "5.1":
         return {
@@ -89,6 +107,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           fatorMultiplicador: 2.0,
           calicesPorLitro10: 33,
           brixEsperado: "11 a 14 °Brix",
+          cotaLoteProntoRef: litros10Base >= 10 ? 240 : 260,
         };
       case "3.1":
         return {
@@ -97,13 +116,21 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           fatorMultiplicador: 3.33,
           calicesPorLitro10: 55,
           brixEsperado: "7 a 9 °Brix",
+          cotaLoteProntoRef: litros10Base >= 10 ? 200 : 220,
         };
     }
   })();
 
   const aguaTotalMl = litros10Base * dadosReconst.aguaPorLitroMl;
-  const volumeFinalLitros = (litros10Base * dadosReconst.fatorMultiplicador).toFixed(2);
+  const volumeFinalLitrosNum = Number((litros10Base * dadosReconst.fatorMultiplicador).toFixed(2));
   const calicesTotais = Math.floor(litros10Base * dadosReconst.calicesPorLitro10);
+
+  // Rateio da Reconstituição
+  const cotaWirapuru10 = obterCotaRateio("10.1", litros10Base);
+  const custoBase10 = cotaWirapuru10.valorTotal;
+  const custoEfetivoPorLitroReconst = volumeFinalLitrosNum > 0 ? custoBase10 / volumeFinalLitrosNum : 0;
+  const economiaPorLitroReconst = Math.max(0, dadosReconst.cotaLoteProntoRef - custoEfetivoPorLitroReconst);
+  const custoPorCalice = calicesTotais > 0 ? custoBase10 / calicesTotais : 0;
 
   return (
     <div className="space-y-6">
@@ -117,12 +144,12 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
             </span>
           </div>
           <p className="text-xs text-areia-300 font-light max-w-2xl leading-relaxed">
-            Planeje o dimensionamento da sua cerimônia por número de participantes ou calcule a diluição matemática do concentrado 10:1 Wirapuru.
+            Planeje o dimensionamento e rateio da cerimônia por comungantes, calcule a diluição matemática do 10:1 Wirapuru ou consulte a tabela evolutiva de cotas por volume.
           </p>
         </div>
 
-        {/* Alternador de Abas */}
-        <div className="flex items-center p-1 rounded-xl bg-floresta-900 border border-ambar-500/20">
+        {/* Alternador de 3 Abas */}
+        <div className="flex items-center p-1 rounded-xl bg-floresta-900 border border-ambar-500/20 flex-wrap gap-1">
           <button
             onClick={() => setModoAba("CERIMONIA")}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
@@ -142,6 +169,16 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
             }`}
           >
             Reconstituição 10:1
+          </button>
+          <button
+            onClick={() => setModoAba("TABELA_EVOLUTIVA")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+              modoAba === "TABELA_EVOLUTIVA"
+                ? "bg-ambar-500 text-floresta-950 font-bold shadow"
+                : "text-areia-300 hover:text-areia-100"
+            }`}
+          >
+            Tabela de Cotas
           </button>
         </div>
       </div>
@@ -163,7 +200,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 </span>
               </div>
 
-              {/* Botoes rápidos de pessoas */}
+              {/* Botões rápidos de pessoas */}
               <div className="grid grid-cols-5 gap-1 sm:gap-2">
                 {[15, 25, 35, 50, 80].map((qtd) => (
                   <button
@@ -200,27 +237,32 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 <span>Graduação Litúrgica Adotada</span>
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {GRADUACOES_SACRAMENTAIS.slice(0, 4).map((g) => (
-                  <button
-                    key={g.id}
-                    type="button"
-                    onClick={() => setGraduacaoId(g.id)}
-                    className={`p-3 rounded-xl text-left transition-all border ${
-                      graduacaoId === g.id
-                        ? "bg-floresta-900 border-ambar-500 text-areia-100 shadow-solar"
-                        : "bg-floresta-900/40 border-ambar-500/15 text-areia-300 hover:bg-floresta-900/60"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono font-bold text-ambar-400">
-                        Graduação {g.codigo}
-                      </span>
-                      <span className="text-[9px] text-areia-400">{g.proporcaoBiomassa.split(" ")[0]} kg/L</span>
-                    </div>
-                    <div className="font-serif text-xs font-bold mt-0.5">{g.nomeSagrado}</div>
-                    <div className="text-[10px] text-areia-400 font-light mt-0.5">Dose: {g.porcaoSugerida}</div>
-                  </button>
-                ))}
+                {GRADUACOES_SACRAMENTAIS.slice(0, 4).map((g) => {
+                  const cotaRef = obterCotaRateio(g.codigo, litrosRecomendados);
+                  return (
+                    <button
+                      key={g.id}
+                      type="button"
+                      onClick={() => setGraduacaoId(g.id)}
+                      className={`p-3 rounded-xl text-left transition-all border ${
+                        graduacaoId === g.id
+                          ? "bg-floresta-900 border-ambar-500 text-areia-100 shadow-solar"
+                          : "bg-floresta-900/40 border-ambar-500/15 text-areia-300 hover:bg-floresta-900/60"
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="text-[10px] font-mono font-bold text-ambar-400">
+                          Graduação {g.codigo}
+                        </span>
+                        <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                          R$ {cotaRef.valorUnitario}/L
+                        </span>
+                      </div>
+                      <div className="font-serif text-xs font-bold mt-0.5">{g.nomeSagrado}</div>
+                      <div className="text-[10px] text-areia-400 font-light mt-0.5">Dose: {g.porcaoSugerida}</div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
@@ -246,7 +288,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                   className="rounded accent-ambar-500 h-4 w-4"
                 />
                 <span>
-                  <strong>Dimensionar Rapé Sagrado:</strong> estimativa média de 1,5g por participante.
+                  <strong>Dimensionar Rapé Sagrado:</strong> estimativa média de 1,5g por participante (R$ 65/frasco 25g).
                 </span>
               </label>
 
@@ -258,7 +300,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                   className="rounded accent-ambar-500 h-4 w-4"
                 />
                 <span>
-                  <strong>Dimensionar Sananga Ancestral:</strong> estimativa para abertura ou limpeza sensorial.
+                  <strong>Dimensionar Sananga Ancestral:</strong> abertura sensorial refrigerada a 4°C (R$ 80/frasco 10ml).
                 </span>
               </label>
             </div>
@@ -289,6 +331,53 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 </p>
               </div>
 
+              {/* CARD DE RATEIO COOPERATIVO INTEGRADO */}
+              <div className="p-3.5 rounded-xl bg-floresta-950/90 border border-ambar-500/25 space-y-2.5">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono text-ambar-400 uppercase font-bold flex items-center gap-1.5">
+                    <Coins className="h-3.5 w-3.5" /> Rateio Cooperativo Estimado
+                  </span>
+                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-500/20">
+                    {cotaAyahuasca.faixaLabel}
+                  </span>
+                </div>
+
+                <div className="flex items-baseline justify-between pt-1">
+                  <div>
+                    <span className="text-2xl font-black font-serif text-areia-100">
+                      R$ {rateioTotalCerimonia.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                    </span>
+                    <span className="text-[10px] text-areia-400 block mt-0.5">
+                      Ayahuasca: R$ {cotaAyahuasca.valorUnitario}/L
+                      {incluirRape || incluirSananga ? " + apoios litúrgicos" : ""}
+                    </span>
+                  </div>
+
+                  <div className="text-right">
+                    <span className="text-base font-bold text-amber-300 font-mono">
+                      ~R$ {rateioPorParticipante.toFixed(2)}
+                    </span>
+                    <span className="text-[10px] text-areia-400 block">por participante</span>
+                  </div>
+                </div>
+
+                {cotaAyahuasca.economiaTotal > 0 && (
+                  <div className="text-[10px] text-emerald-400 flex items-center gap-1 pt-1.5 border-t border-ambar-500/10">
+                    <TrendingDown className="h-3 w-3" />
+                    <span>
+                      Economia por escala solidária: <strong>R$ {cotaAyahuasca.economiaTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</strong> no lote de Ayahuasca.
+                    </span>
+                  </div>
+                )}
+
+                {litrosRecomendados < 5 && (
+                  <div className="text-[10px] text-amber-300/90 pt-1 border-t border-ambar-500/10 flex items-start gap-1">
+                    <Info className="h-3 w-3 shrink-0 mt-0.5" />
+                    <span>Lote mínimo operacional é de 5 Litros. Cota unitária calculada com a faixa base de 5 a 10L.</span>
+                  </div>
+                )}
+              </div>
+
               {/* Sacramentos de Apoio */}
               <div className="grid grid-cols-2 gap-2.5 text-xs">
                 {incluirRape && (
@@ -297,7 +386,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     <div className="font-bold text-areia-100 mt-0.5">
                       {frascosRapeSugeridos} frasco(s) de 25g
                     </div>
-                    <span className="text-[9px] text-areia-400">~{rapeRecomendadoGramas.toFixed(0)}g total</span>
+                    <span className="text-[9px] text-areia-400">R$ {rateioRape.toFixed(2)} (~{rapeRecomendadoGramas.toFixed(0)}g total)</span>
                   </div>
                 )}
 
@@ -307,7 +396,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     <div className="font-bold text-areia-100 mt-0.5">
                       {frascosSanangaSugeridos} frasco de 10ml
                     </div>
-                    <span className="text-[9px] text-areia-400">Refrigerada a 4°C</span>
+                    <span className="text-[9px] text-areia-400">R$ {rateioSananga.toFixed(2)} (Refrig. 4°C)</span>
                   </div>
                 )}
               </div>
@@ -341,7 +430,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                   <span>Volume de 10:1 Wirapuru Disponível</span>
                 </label>
                 <span className="text-xs font-mono font-bold text-ambar-400 bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/20">
-                  {litros10Base} Litro{litros10Base > 1 ? "s" : ""}
+                  {litros10Base} Litro{litros10Base > 1 ? "s" : ""} (Cota: R$ {cotaWirapuru10.valorUnitario}/L)
                 </span>
               </div>
 
@@ -478,7 +567,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     Volume Final Obtido
                   </span>
                   <div className="font-bold text-areia-100 mt-0.5 text-base">
-                    {volumeFinalLitros} L
+                    {volumeFinalLitrosNum} L
                   </div>
                   <span className="text-[9px] text-areia-400">{dadosReconst.nome}</span>
                 </div>
@@ -494,12 +583,32 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-floresta-950/60 border border-ambar-500/15 text-[11px] text-areia-300 space-y-1">
-                <span className="text-amber-400 font-bold block">
-                  Economia Cooperativa de Frete:
-                </span>
-                <p className="font-light leading-relaxed">
-                  Ao transportar concentrado 10:1 da Amazônia e reconstituir no templo, a sua congregação poupa até 70% em frete aéreo interestadual.
+              {/* CARD DE ECONOMIA EFETIVA POR RECONSTITUIÇÃO */}
+              <div className="p-3.5 rounded-xl bg-floresta-950/80 border border-emerald-500/30 space-y-2 text-xs">
+                <div className="flex items-center justify-between text-emerald-400 font-bold font-mono text-[10px] uppercase">
+                  <span className="flex items-center gap-1">
+                    <TrendingDown className="h-3.5 w-3.5" /> Economia Efetiva por Reconstituição
+                  </span>
+                  <span>R$ {custoPorCalice.toFixed(2)}/cálice</span>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2 text-areia-200">
+                  <div className="p-2 rounded-lg bg-floresta-900/60 border border-ambar-500/10">
+                    <span className="text-[9px] text-areia-400 block">Custo Efetivo Final</span>
+                    <span className="font-bold text-emerald-300 text-sm">
+                      R$ {custoEfetivoPorLitroReconst.toFixed(2)} / L
+                    </span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-floresta-900/60 border border-ambar-500/10">
+                    <span className="text-[9px] text-areia-400 block">Poupança por Litro</span>
+                    <span className="font-bold text-amber-300 text-sm">
+                      + R$ {economiaPorLitroReconst.toFixed(2)} / L
+                    </span>
+                  </div>
+                </div>
+
+                <p className="text-[10px] text-areia-400 font-light leading-relaxed">
+                  Ao transportar 10:1 hiperosmótico e reconstituir no templo com água estéril morna, sua congregação economiza até 70% em frete aéreo e barateia a cota final de forma substancial.
                 </p>
               </div>
             </div>
@@ -508,9 +617,120 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
               onClick={onIrParaSolicitacao}
               className="btn-primary w-full justify-center text-xs py-3 shadow-solar flex items-center gap-2"
             >
-              <span>Solicitar Mais Sacramento 10:1</span>
+              <span>Solicitar Sacramento 10:1</span>
               <ArrowRight className="h-4 w-4" />
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* ABA 3: TABELA EVOLUTIVA COMPLETA INTEGRADA */}
+      {modoAba === "TABELA_EVOLUTIVA" && (
+        <div className="space-y-5 animate-fade-in">
+          <div className="p-6 rounded-2xl bg-floresta-950/90 border border-ambar-500/30 space-y-4 shadow-elevated-md">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-ambar-500/20 pb-3">
+              <div>
+                <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-widest block">
+                  Cotas Oficiais de Rateio Operacional
+                </span>
+                <h4 className="font-serif text-lg font-bold text-areia-100">
+                  Tabela Evolutiva Completa de Graduações &amp; Volumes
+                </h4>
+              </div>
+              <span className="text-xs font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full">
+                À Vista • Cartão c/ Repasse de Taxa
+              </span>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs text-areia-200 border-collapse">
+                <thead>
+                  <tr className="border-b border-ambar-500/20 text-[11px] font-mono uppercase text-ambar-400 tracking-wider">
+                    <th className="pb-3 pr-3 font-bold">Graduação</th>
+                    <th className="pb-3 pr-3 font-bold">Biomassa</th>
+                    <th className="pb-3 pr-3 font-bold">Lotes 5 a 10L</th>
+                    <th className="pb-3 pr-3 font-bold text-emerald-400">Escala 10 a 20L</th>
+                    <th className="pb-3 pr-3 font-bold text-right">Acima de 20L</th>
+                    <th className="pb-3 text-right font-bold">Ação</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-ambar-500/10 font-mono text-xs">
+                  {TABELA_EVOLUTIVA_RATEIO.map((item) => (
+                    <tr key={item.graduacaoId} className="hover:bg-floresta-900/40 transition-colors">
+                      <td className="py-3.5 pr-3">
+                        <div className="flex items-center gap-2">
+                          <span className="bg-floresta-900 border border-ambar-500/30 text-ambar-400 px-2 py-0.5 rounded text-[11px] font-bold">
+                            {item.codigo}
+                          </span>
+                          <span className="font-serif font-bold text-areia-100">
+                            {item.nome}
+                          </span>
+                        </div>
+                        <span className="text-[10px] text-areia-400 font-sans block mt-0.5">
+                          {item.observacao}
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 pr-3 text-areia-300 font-sans">
+                        {item.proporcaoBiomassa}
+                      </td>
+
+                      <td className="py-3.5 pr-3 font-bold text-areia-100">
+                        R$ {item.valor5a10L.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                        <span className="text-[10px] text-areia-400 font-normal block font-sans">
+                          /{item.unidade.split(" ")[0].toLowerCase()}
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 pr-3 font-bold text-emerald-400">
+                        R$ {item.valor10a20L.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                        <span className="text-[10px] text-emerald-400/90 font-normal block font-sans">
+                          Economia: R$ {item.economiaPorUnidade},00
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 pr-3 text-right">
+                        <span className="text-amber-300 text-[11px] font-sans bg-amber-950/40 border border-amber-500/20 px-2 py-0.5 rounded">
+                          A combinar
+                        </span>
+                      </td>
+
+                      <td className="py-3.5 text-right font-sans">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const correspondente = GRADUACOES_SACRAMENTAIS.find(
+                              (g) => g.id === item.graduacaoId || g.codigo === item.codigo
+                            );
+                            if (correspondente) {
+                              setGraduacaoId(correspondente.id);
+                            }
+                            setModoAba("CERIMONIA");
+                          }}
+                          className="btn-secondary text-[11px] px-2.5 py-1 rounded-lg inline-flex items-center gap-1"
+                        >
+                          <span>Dimensionar</span>
+                          <ArrowRight className="h-3 w-3" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="pt-3 border-t border-ambar-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-areia-300">
+              <span className="font-light">
+                * Pedido sob encomenda com antecedência mínima de 30 dias. Mínimo: 5 Litros.
+              </span>
+              <button
+                onClick={onIrParaSolicitacao}
+                className="btn-primary text-xs px-4 py-2 rounded-xl shadow-solar inline-flex items-center gap-1.5"
+              >
+                <span>Ir para Solicitação de Partilha</span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </button>
+            </div>
           </div>
         </div>
       )}

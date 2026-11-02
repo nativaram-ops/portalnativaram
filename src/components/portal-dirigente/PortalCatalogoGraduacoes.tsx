@@ -169,6 +169,18 @@ export const PortalCatalogoGraduacoes: React.FC = () => {
                   </div>
                 </div>
 
+                {/* Cotas de Rateio Cooperativo */}
+                <div className="p-2.5 rounded-xl bg-floresta-900/70 border border-ambar-500/15 flex items-center justify-between text-xs">
+                  <div>
+                    <span className="text-[9px] font-mono uppercase text-ambar-400 block font-bold">Lote 5 a 10L</span>
+                    <span className="font-bold text-areia-100 text-[11px] sm:text-xs">{grad.rateioAtacado5a10L}</span>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-[9px] font-mono uppercase text-emerald-400 block font-bold">Escala 10 a 20L</span>
+                    <span className="font-bold text-emerald-400 text-[11px] sm:text-xs">{grad.rateioAtacado10a20L}</span>
+                  </div>
+                </div>
+
                 {/* Perfil Litúrgico e Sensorial */}
                 <div className="space-y-1.5 text-xs text-areia-300 font-light leading-relaxed">
                   <p>

@@ -730,7 +730,12 @@ export const PortalDirigenteClient: React.FC = () => {
       {dirigenteTab === "LAUDOS" && <PortalLaudosCustodia />}
 
       {/* 10. MATRIZ DE COOPERATIVISMO & COTAS */}
-      {dirigenteTab === "COOPERATIVISMO" && <PortalCooperativismo />}
+      {dirigenteTab === "COOPERATIVISMO" && (
+        <PortalCooperativismo
+          onIrParaCalculadora={() => setDirigenteTab("CALCULADORA")}
+          onIrParaSolicitacao={() => setDirigenteTab("NOVA_SOLICITACAO")}
+        />
+      )}
     </div>
   );
 };

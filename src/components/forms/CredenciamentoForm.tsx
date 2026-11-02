@@ -575,7 +575,7 @@ export const CredenciamentoForm = () => {
                         <span className="text-ambar-400/90 font-medium">Porção sugerida:</span> {selectedGraduacao.porcaoSugerida} ({selectedGraduacao.duracaoEstimada})
                       </div>
                       <div>
-                        <span className="text-ambar-400/90 font-medium">Rateio institucional:</span> {selectedGraduacao.rateioAtacado5a10L}
+                        <span className="text-ambar-400/90 font-medium">Cota de rateio:</span> {selectedGraduacao.rateioAtacado5a10L} (5-10L) • {selectedGraduacao.rateioAtacado10a20L} (10-20L)
                       </div>
                     </div>
                     <div className="pt-1 text-[11px] text-ambar-400/90 italic font-serif">

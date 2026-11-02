@@ -20,7 +20,7 @@ import {
   Award,
   Layers,
 } from "lucide-react";
-import { GRADUACOES_SACRAMENTAIS } from "@/data/graduacoes";
+import { GRADUACOES_SACRAMENTAIS, obterCotaRateio } from "@/data/graduacoes";
 import { RAPES_TRADICIONAIS } from "@/data/sacramentos";
 import { ItemPedido } from "@/types/pedido";
 
@@ -43,10 +43,12 @@ interface FormSolicitacaoPedidoProps {
   } | null;
 }
 
-// Opções de sacramentos rápidos para catálogo interativo
+// Opções de sacramentos rápidos para catálogo interativo com valores da Tabela Evolutiva
 const ITENS_CATALOGO = [
   ...GRADUACOES_SACRAMENTAIS.map((g) => {
     const isReducao = g.id === "SACRAMENTO_MEL" || g.id === "SACRAMENTO_GEL";
+    const qtdPadrao = isReducao ? (g.id === "SACRAMENTO_GEL" ? 1 : 2) : 10;
+    const cotaPadrao = obterCotaRateio(g.id, qtdPadrao).valorUnitario;
     return {
       id: g.id,
       tipo: isReducao
@@ -54,15 +56,9 @@ const ITENS_CATALOGO = [
         : ("GRADUACAO_AYAHUASCA" as const),
       nome: isReducao ? g.nomeSagrado : `${g.codigo} ${g.nomeSagrado}`,
       codigoOuSubtitulo: g.arquetipo,
-      unidade: isReducao ? ("kg" as const) : ("Litros" as const),
-      rateioUnitario: isReducao
-        ? 480
-        : g.codigo === "10.1"
-          ? 260
-          : g.codigo === "7.1"
-            ? 230
-            : 200,
-      quantidadePadrao: isReducao ? 1 : 10,
+      unidade: g.id === "SACRAMENTO_GEL" ? ("kg" as const) : ("Litros" as const),
+      rateioUnitario: cotaPadrao,
+      quantidadePadrao: qtdPadrao,
       minimo: isReducao ? 1 : 5,
       passo: isReducao ? 1 : 5,
     };
@@ -112,7 +108,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
         rateioUnitarioEstimado: it.rateioUnitarioEstimado,
       }));
     }
-    // Item padrão inicial compatível com o templo
+    // Item padrão inicial compatível com o templo (Tabela Evolutiva de 10L Wirapuru = R$ 360/L)
     return [
       {
         id: "10.1_WIRAPURU",
@@ -121,7 +117,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
         codigoOuSubtitulo: "Pureza Tucunacá & Chacrona Rainha",
         quantidade: 10,
         unidade: "Litros",
-        rateioUnitarioEstimado: 260,
+        rateioUnitarioEstimado: obterCotaRateio("10.1_WIRAPURU", 10).valorUnitario,
       },
     ];
   });
@@ -156,17 +152,25 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
     0
   );
 
-  // Adicionar ou incrementar item do catálogo
+  // Adicionar ou incrementar item do catálogo com recálculo pela Tabela Evolutiva
   const handleAdicionarItem = (itemCat: (typeof ITENS_CATALOGO)[0]) => {
     setItensSelecionados((prev) => {
       const index = prev.findIndex((i) => i.id === itemCat.id);
       if (index >= 0) {
-        return prev.map((item, idx) =>
-          idx === index
-            ? { ...item, quantidade: item.quantidade + itemCat.passo }
-            : item
-        );
+        return prev.map((item, idx) => {
+          if (idx === index) {
+            const novaQtd = item.quantidade + itemCat.passo;
+            const isAyahuasca = item.tipo === "GRADUACAO_AYAHUASCA" || item.tipo === "SACRAMENTO_REDUZIDO";
+            const novoRateio = isAyahuasca ? obterCotaRateio(item.id, novaQtd).valorUnitario : item.rateioUnitarioEstimado;
+            return { ...item, quantidade: novaQtd, rateioUnitarioEstimado: novoRateio };
+          }
+          return item;
+        });
       }
+      const isAyahuasca = itemCat.tipo === "GRADUACAO_AYAHUASCA" || itemCat.tipo === "SACRAMENTO_REDUZIDO";
+      const rateioCalculado = isAyahuasca
+        ? obterCotaRateio(itemCat.id, itemCat.quantidadePadrao).valorUnitario
+        : itemCat.rateioUnitario;
       return [
         ...prev,
         {
@@ -176,7 +180,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
           codigoOuSubtitulo: itemCat.codigoOuSubtitulo,
           quantidade: itemCat.quantidadePadrao,
           unidade: itemCat.unidade,
-          rateioUnitarioEstimado: itemCat.rateioUnitario,
+          rateioUnitarioEstimado: rateioCalculado,
         },
       ];
     });
@@ -188,7 +192,10 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
         .map((item) => {
           if (item.id === id) {
             const novaQtd = item.quantidade + delta;
-            return novaQtd > 0 ? { ...item, quantidade: novaQtd } : null;
+            if (novaQtd <= 0) return null;
+            const isAyahuasca = item.tipo === "GRADUACAO_AYAHUASCA" || item.tipo === "SACRAMENTO_REDUZIDO";
+            const novoRateio = isAyahuasca ? obterCotaRateio(item.id, novaQtd).valorUnitario : item.rateioUnitarioEstimado;
+            return { ...item, quantidade: novaQtd, rateioUnitarioEstimado: novoRateio };
           }
           return item;
         })
@@ -392,6 +399,11 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
                       minimumFractionDigits: 2,
                     })}{" "}
                     / {item.unidade}
+                    {item.quantidade >= 10 && (item.tipo === "GRADUACAO_AYAHUASCA" || item.tipo === "SACRAMENTO_REDUZIDO") && (
+                      <span className="ml-1.5 text-emerald-400 font-medium">
+                        (Faixa 10 a 20L aplicada)
+                      </span>
+                    )}
                   </p>
                 </div>
 

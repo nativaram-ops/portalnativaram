@@ -269,3 +269,23 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 - **Gestão de Homologações de Instituições:**
   - Rota `DELETE /api/solicitacoes/[id]` com exclusão segura e autenticada no Supabase e no arquivo JSON de fallback.
   - Script de migração `src/lib/supabase/migrations/005-permitir-remocao-homologacoes.sql` para permissão da política de remoção de templos e atualização de cache do PostgREST.
+
+## Entregas da Tabela Evolutiva por Quantidade & Calculadora (2026-11-02)
+
+- **Tabela Evolutiva de Cotas por Volume (`src/data/graduacoes.ts`):**
+  - Implementação da matriz de cotas oficiais de rateio cooperativo:
+    - Faixa 5 a 10L: 3.1 Mainumbi (R$ 220/L), 5.1 Pituã (R$ 260/L), 7.1 Anhangatã (R$ 320/L), 10.1 Wirapuru (R$ 380/L), Mel 12-15x1 (R$ 460/L), Gel 20.1 (R$ 1.250/kg).
+    - Faixa 10 a 20L (Escala Solidária): 3.1 (R$ 200/L), 5.1 (R$ 240/L), 7.1 (R$ 300/L), 10.1 (R$ 360/L), Mel (R$ 420/L), Gel (R$ 1.100/kg).
+    - Acima de 20L: Valores sob consulta fraterna condicionados à sazonalidade de matéria-prima e encargos operacionais de feitio.
+  - Exportação de constantes tipadas `TABELA_EVOLUTIVA_RATEIO`, `CONDICOES_RATEIO_COOPERATIVO` e da função pura `obterCotaRateio(graduacaoId, quantidade)`.
+- **Aba "Tabela Evolutiva & Cotas" (`src/components/portal-dirigente/PortalCooperativismo.tsx`):**
+  - Componente enriquecido com tabela comparativa A4 imprimível, destaques do feitio de 28 anos no Acre (100% Tucunacá e Chacrona Rainha), diretrizes de pagamento e destinação social solidária.
+  - Simulador interativo em tempo real de cota, total do lote e economia gerada por volume.
+- **Calculadora Litúrgica Integrada (`src/components/portal-dirigente/PortalCalculadoraLiturgica.tsx`):**
+  - Adição de seletor de 3 abas: "Dimensionar Cerimônia", "Reconstituição 10:1" e "Tabela de Cotas".
+  - Modo Cerimônia: cálculo dinâmico da cota de Ayahuasca por volume, cota per capita por participante, total com sacramentos de apoio (rapé e sananga) e economia por escala.
+  - Modo Reconstituição 10:1: demonstração de economia com custo efetivo por litro reconstituído (ex: R$ 190/L para 5:1 contra R$ 260/L do lote pronto) e custo por cálice de 60ml.
+- **Formulário de Solicitação de Pedidos (`FormSolicitacaoPedido.tsx`):**
+  - Recálculo dinâmico das cotas unitárias de acordo com a quantidade total solicitada e exibição da faixa de escala aplicada nos itens do pedido.
+- **Catálogo de Graduações (`PortalCatalogoGraduacoes.tsx`) & Ficha de Credenciamento (`CredenciamentoForm.tsx`):**
+  - Exibição das faixas de 5 a 10L e 10 a 20L nos cards de cada graduação.
