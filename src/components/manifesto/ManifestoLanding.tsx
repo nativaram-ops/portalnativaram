@@ -512,7 +512,7 @@ export function ManifestoLanding() {
                     Cadastro Regulamentado no SisGen & Indexação Internacional
                   </h4>
                   <p className="text-xs sm:text-sm text-areia-300 font-light max-w-2xl leading-relaxed">
-                    A Nativaram possui registro regular no <strong className="text-areia-100 font-medium">Sistema Nacional de Gestão do Patrimônio Genético e do Conhecimento Tradicional Associado (SisGen)</strong>, cumprindo rigorosamente a Lei nº 13.123/2015 e indexando pesquisas no <em>Journal of Ethnopharmacology</em> e <em>Dr. Duke's Database</em>.
+                    A Nativaram possui registro regular no <strong className="text-areia-100 font-medium">Sistema Nacional de Gestão do Patrimônio Genético e do Conhecimento Tradicional Associado (SisGen)</strong>, cumprindo rigorosamente a Lei nº 13.123/2015 e indexando pesquisas no <em>Journal of Ethnopharmacology</em> e <em>Dr. Duke&apos;s Database</em>.
                   </p>
                 </div>
                 <Link

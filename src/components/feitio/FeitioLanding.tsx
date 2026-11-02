@@ -771,10 +771,10 @@ export function FeitioLanding() {
             <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
               Ayahuasca Tradicional Amazônica
               <br />
-              <span className="text-gradient-solar">vs. "Anayahuascas" e Análogos</span>
+              <span className="text-gradient-solar">vs. &ldquo;Anayahuascas&rdquo; e Análogos</span>
             </h2>
             <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-              O termo <strong className="text-areia-100 font-medium">"Anahuasca"</strong> (popularizado pelo etnobotânico Jonathan Ott na década de 1990) designa formulações artificiais ou misturas de plantas não amazônicas que buscam mimetizar quimicamente a fórmula [IMAO + DMT]. Entenda os motivos técnicos, biológicos e legais que tornam a Ayahuasca tradicional insubstituível.
+              O termo <strong className="text-areia-100 font-medium">&ldquo;Anahuasca&rdquo;</strong> (popularizado pelo etnobotânico Jonathan Ott na década de 1990) designa formulações artificiais ou misturas de plantas não amazônicas que buscam mimetizar quimicamente a fórmula [IMAO + DMT]. Entenda os motivos técnicos, biológicos e legais que tornam a Ayahuasca tradicional insubstituível.
             </p>
           </AnimateOnScroll>
 
