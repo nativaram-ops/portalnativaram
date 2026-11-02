@@ -30,7 +30,7 @@ Adotar a transformação do `/portal-dirigente` em um **Centro Integrado de Asse
    - Card de diagnóstico rápido pelos Critérios de Hunter (sensibilidade 84%, especificidade 97%) e acionamento do SAMU 192 com Posição Lateral de Segurança (PLS).
    - Alerta sanitário máximo sobre a toxicidade do Carbonato de Lítio (depleção de inositol, IP3/DAG, hipersensibilização 5-HT2A e 47% de convulsões/Status Epilepticus refratário).
 3. **Catálogo Tucunacá / Chacrona & Calculadora de Reconstituição 10:1 Wirapuru:**
-   - Incorporação dos parâmetros da linhagem Tucunacá (8,03 mg/g beta-carbolinas totais) e colheita circadiana da Chacrona (06h00 às 08h30 com orvalho intacto).
+   - Incorporação dos parâmetros da linhagem Tucunacá (9,21 mg/g de harmina — laudo pendente) e colheita circadiana da Chacrona (06h00 às 08h30 com orvalho intacto).
    - Calculadora litúrgica com dois modos: "Dimensionar Cerimônia" (por participantes, repasse, rapé e sananga) e "Reconstituição 10:1" (cálculo de água a 45-50°C, volume final e cálices de 60ml para 7:1, 5:1 ou 3:1).
 4. **Respaldo Jurídico e Checklist de Fiscalização:**
    - Compilação dos fundamentos da CF/88, CONAD 01/2010, Lei 5.764/71 e checklist da pasta física do templo.

@@ -74,7 +74,7 @@ export const PortalCatalogoGraduacoes: React.FC = () => {
             <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-widest block">Linhagem do Cipó</span>
             <span className="font-semibold text-areia-100 block">Banisteriopsis caapi (Tucunacá)</span>
             <p className="text-[11px] text-areia-300 font-light leading-snug">
-              Casca lisa avermelhada, teor médio de <strong>8,03 mg/g de β-carbolinas totais</strong>. Rico em Tetrahidroharmina (THH) e Harmina, com baixa concentração de taninos adstringentes.
+              Casca lisa avermelhada, rica em <strong>β-carbolinas</strong> (Harmina e Tetrahidroharmina/THH), com baixa concentração de taninos adstringentes. Teores por graduação na ficha técnica abaixo.
             </p>
           </div>
 
