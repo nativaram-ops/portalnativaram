@@ -170,6 +170,10 @@ CREATE TRIGGER trigger_templos_atualizado_em
 -- 6. Habilitar Row Level Security (RLS)
 ALTER TABLE public.templos_credenciados ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.pedidos_liturgicos ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.solicitacoes_homologacao ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.publicacoes_comunidade ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.perfis_comunidade ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.agenda_liturgica ENABLE ROW LEVEL SECURITY;
 
 -- Políticas de RLS permissivas para o acesso da aplicação (usando Anon Key)
 CREATE POLICY "Permitir leitura pública de templos homologados"
@@ -186,6 +190,62 @@ CREATE POLICY "Permitir inserção de novos pedidos"
 
 CREATE POLICY "Permitir atualização de pedidos"
     ON public.pedidos_liturgicos FOR UPDATE
+    USING (true);
+
+CREATE POLICY "Permitir leitura de solicitacoes"
+    ON public.solicitacoes_homologacao FOR SELECT
+    USING (true);
+
+CREATE POLICY "Permitir insercao de solicitacoes"
+    ON public.solicitacoes_homologacao FOR INSERT
+    WITH CHECK (true);
+
+CREATE POLICY "Permitir atualizacao de solicitacoes"
+    ON public.solicitacoes_homologacao FOR UPDATE
+    USING (true);
+
+CREATE POLICY "Permitir leitura de publicacoes"
+    ON public.publicacoes_comunidade FOR SELECT
+    USING (true);
+
+CREATE POLICY "Permitir insercao de publicacoes"
+    ON public.publicacoes_comunidade FOR INSERT
+    WITH CHECK (true);
+
+CREATE POLICY "Permitir atualizacao de publicacoes"
+    ON public.publicacoes_comunidade FOR UPDATE
+    USING (true);
+
+CREATE POLICY "Permitir remocao de publicacoes"
+    ON public.publicacoes_comunidade FOR DELETE
+    USING (true);
+
+CREATE POLICY "Permitir leitura de perfis"
+    ON public.perfis_comunidade FOR SELECT
+    USING (true);
+
+CREATE POLICY "Permitir insercao de perfis"
+    ON public.perfis_comunidade FOR INSERT
+    WITH CHECK (true);
+
+CREATE POLICY "Permitir atualizacao de perfis"
+    ON public.perfis_comunidade FOR UPDATE
+    USING (true);
+
+CREATE POLICY "Permitir leitura de agenda"
+    ON public.agenda_liturgica FOR SELECT
+    USING (true);
+
+CREATE POLICY "Permitir insercao de agenda"
+    ON public.agenda_liturgica FOR INSERT
+    WITH CHECK (true);
+
+CREATE POLICY "Permitir atualizacao de agenda"
+    ON public.agenda_liturgica FOR UPDATE
+    USING (true);
+
+CREATE POLICY "Permitir remocao de agenda"
+    ON public.agenda_liturgica FOR DELETE
     USING (true);
 
 -- 7. Carga Inicial de Templos (Seeds Canônicos)

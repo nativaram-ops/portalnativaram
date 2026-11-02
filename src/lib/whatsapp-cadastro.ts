@@ -64,3 +64,4 @@ export function abrirWhatsAppReservado(janela: Window | null, url: string): void
     // Mantém o botão manual como alternativa.
   }
 }
+
