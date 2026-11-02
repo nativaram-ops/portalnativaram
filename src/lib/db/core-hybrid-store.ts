@@ -24,7 +24,13 @@ export function getDirectSupabaseClient(): SupabaseClient | null {
   try {
     // Dados sensíveis (solicitações, credenciais geradas) ficam atrás de RLS sem
     // políticas públicas: o servidor usa a service role key (apenas variável de
-    // servidor, nunca NEXT_PUBLIC_*). Sem ela, cai na chave pública (anon).
+    // servidor, nunca NEXT_PUBLIC_*). Sem ela, cai na chave pública (anon), que
+    // pela migração 004 só lê conteúdo publicado da comunidade.
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY && process.env.NODE_ENV === "production") {
+      console.error(
+        "[supabase] SUPABASE_SERVICE_ROLE_KEY ausente em produção: gravações em solicitações, pedidos e comunidade serão recusadas pelo RLS (migração 004)."
+      );
+    }
     const chave = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_PUBLIC_ANON_KEY;
     cachedDirectClient = createClient(SUPABASE_PUBLIC_URL, chave, {
       auth: { persistSession: false, autoRefreshToken: false },

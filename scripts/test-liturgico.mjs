@@ -815,6 +815,34 @@ async function runAllTests() {
     );
   });
 
+  await test("Scripts SQL não concedem gravação pública nem leitura pública das tabelas sensíveis (migração 004)", async () => {
+    const supabaseDir = path.join(ROOT_DIR, "src", "lib", "supabase");
+    const migracao004 = await fs.readFile(
+      path.join(supabaseDir, "migrations", "004-fechar-rls-tabelas-sensiveis.sql"),
+      "utf-8"
+    );
+    assert.ok(migracao004.includes("FROM pg_policies"), "004 deve remover todas as políticas existentes via pg_policies");
+    for (const tabela of ["solicitacoes_homologacao", "pedidos_liturgicos", "templos_credenciados"]) {
+      assert.ok(
+        migracao004.includes(`REVOKE ALL ON public.${tabela} FROM anon, authenticated`),
+        `004 deve revogar acesso público a ${tabela}`
+      );
+    }
+
+    // Scripts que alguém pode reexecutar não podem reabrir o acesso.
+    for (const arquivo of ["schema.sql", "schema_comunidade.sql", "migrations/004-fechar-rls-tabelas-sensiveis.sql"]) {
+      const sql = await fs.readFile(path.join(supabaseDir, arquivo), "utf-8");
+      const politicas = sql.match(/CREATE POLICY[\s\S]*?;/g) || [];
+      for (const politica of politicas) {
+        assert.ok(/FOR SELECT/.test(politica), `${arquivo}: política não-SELECT encontrada: ${politica.split("\n")[0]}`);
+        assert.ok(
+          !/solicitacoes_homologacao|pedidos_liturgicos|templos_credenciados/.test(politica),
+          `${arquivo}: política pública em tabela sensível: ${politica.split("\n")[0]}`
+        );
+      }
+    }
+  });
+
   console.log("\n=======================================================");
   console.log(`   RESULTADOS: ${passed} passaram | ${failed} falharam`);
   console.log("=======================================================\n");

@@ -175,77 +175,29 @@ ALTER TABLE public.publicacoes_comunidade ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.perfis_comunidade ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.agenda_liturgica ENABLE ROW LEVEL SECURITY;
 
--- Políticas de RLS permissivas para o acesso da aplicação (usando Anon Key)
-CREATE POLICY "Permitir leitura pública de templos homologados"
-    ON public.templos_credenciados FOR SELECT
-    USING (true);
+-- Políticas de RLS: templos, pedidos e solicitações não têm política pública —
+-- só o servidor (SUPABASE_SERVICE_ROLE_KEY) lê e grava. A comunidade tem apenas
+-- leitura pública do que está publicado. Mesmas regras da migração 004.
+REVOKE ALL ON public.solicitacoes_homologacao FROM anon, authenticated;
+REVOKE ALL ON public.pedidos_liturgicos FROM anon, authenticated;
+REVOKE ALL ON public.templos_credenciados FROM anon, authenticated;
+REVOKE INSERT, UPDATE, DELETE ON public.publicacoes_comunidade FROM anon, authenticated;
+REVOKE INSERT, UPDATE, DELETE ON public.perfis_comunidade FROM anon, authenticated;
+REVOKE INSERT, UPDATE, DELETE ON public.agenda_liturgica FROM anon, authenticated;
 
-CREATE POLICY "Permitir leitura de pedidos"
-    ON public.pedidos_liturgicos FOR SELECT
-    USING (true);
-
-CREATE POLICY "Permitir inserção de novos pedidos"
-    ON public.pedidos_liturgicos FOR INSERT
-    WITH CHECK (true);
-
-CREATE POLICY "Permitir atualização de pedidos"
-    ON public.pedidos_liturgicos FOR UPDATE
-    USING (true);
-
-CREATE POLICY "Permitir leitura de solicitacoes"
-    ON public.solicitacoes_homologacao FOR SELECT
-    USING (true);
-
-CREATE POLICY "Permitir insercao de solicitacoes"
-    ON public.solicitacoes_homologacao FOR INSERT
-    WITH CHECK (true);
-
-CREATE POLICY "Permitir atualizacao de solicitacoes"
-    ON public.solicitacoes_homologacao FOR UPDATE
-    USING (true);
-
-CREATE POLICY "Permitir leitura de publicacoes"
+CREATE POLICY "Leitura pública de publicações publicadas"
     ON public.publicacoes_comunidade FOR SELECT
-    USING (true);
+    TO anon, authenticated
+    USING (status = 'PUBLICADO');
 
-CREATE POLICY "Permitir insercao de publicacoes"
-    ON public.publicacoes_comunidade FOR INSERT
-    WITH CHECK (true);
-
-CREATE POLICY "Permitir atualizacao de publicacoes"
-    ON public.publicacoes_comunidade FOR UPDATE
-    USING (true);
-
-CREATE POLICY "Permitir remocao de publicacoes"
-    ON public.publicacoes_comunidade FOR DELETE
-    USING (true);
-
-CREATE POLICY "Permitir leitura de perfis"
+CREATE POLICY "Leitura pública de perfis publicados"
     ON public.perfis_comunidade FOR SELECT
-    USING (true);
+    TO anon, authenticated
+    USING (publicado = true);
 
-CREATE POLICY "Permitir insercao de perfis"
-    ON public.perfis_comunidade FOR INSERT
-    WITH CHECK (true);
-
-CREATE POLICY "Permitir atualizacao de perfis"
-    ON public.perfis_comunidade FOR UPDATE
-    USING (true);
-
-CREATE POLICY "Permitir leitura de agenda"
+CREATE POLICY "Leitura pública da agenda"
     ON public.agenda_liturgica FOR SELECT
-    USING (true);
-
-CREATE POLICY "Permitir insercao de agenda"
-    ON public.agenda_liturgica FOR INSERT
-    WITH CHECK (true);
-
-CREATE POLICY "Permitir atualizacao de agenda"
-    ON public.agenda_liturgica FOR UPDATE
-    USING (true);
-
-CREATE POLICY "Permitir remocao de agenda"
-    ON public.agenda_liturgica FOR DELETE
+    TO anon, authenticated
     USING (true);
 
 -- 7. Carga Inicial de Templos (Seeds Canônicos)

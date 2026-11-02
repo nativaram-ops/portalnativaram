@@ -1,4 +1,9 @@
 -- ============================================================
+-- ⚠️ OBSOLETA — NÃO EXECUTAR. Substituída pela migração 004
+-- (004-fechar-rls-tabelas-sensiveis.sql). As políticas abaixo deixam
+-- qualquer pessoa com a chave pública ler e alterar dados sensíveis.
+-- Mantida apenas como histórico.
+-- ============================================================
 -- Cooperativa Nativaram — Migração 003
 -- Habilita Políticas RLS para Operações da Aplicação
 -- Permite que o servidor Next.js grave e leia solicitações de

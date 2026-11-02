@@ -82,35 +82,28 @@ ALTER TABLE public.perfis_comunidade ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.publicacoes_comunidade ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.agenda_liturgica ENABLE ROW LEVEL SECURITY;
 
--- Políticas de RLS: Leitura pública e gravação autenticada/anônima com anon key
-DROP POLICY IF EXISTS "Leitura pública de perfis" ON public.perfis_comunidade;
-CREATE POLICY "Leitura pública de perfis"
+-- Políticas de RLS: leitura pública só do que está publicado; gravação apenas
+-- pelo servidor (SUPABASE_SERVICE_ROLE_KEY). Mesmas regras da migração 004.
+REVOKE INSERT, UPDATE, DELETE ON public.perfis_comunidade FROM anon, authenticated;
+REVOKE INSERT, UPDATE, DELETE ON public.publicacoes_comunidade FROM anon, authenticated;
+REVOKE INSERT, UPDATE, DELETE ON public.agenda_liturgica FROM anon, authenticated;
+
+DROP POLICY IF EXISTS "Leitura pública de perfis publicados" ON public.perfis_comunidade;
+CREATE POLICY "Leitura pública de perfis publicados"
     ON public.perfis_comunidade FOR SELECT
+    TO anon, authenticated
     USING (publicado = true);
 
-DROP POLICY IF EXISTS "Upsert de perfis" ON public.perfis_comunidade;
-CREATE POLICY "Upsert de perfis"
-    ON public.perfis_comunidade FOR ALL
-    USING (true);
-
-DROP POLICY IF EXISTS "Leitura pública de publicações" ON public.publicacoes_comunidade;
-CREATE POLICY "Leitura pública de publicações"
+DROP POLICY IF EXISTS "Leitura pública de publicações publicadas" ON public.publicacoes_comunidade;
+CREATE POLICY "Leitura pública de publicações publicadas"
     ON public.publicacoes_comunidade FOR SELECT
+    TO anon, authenticated
     USING (status = 'PUBLICADO');
 
-DROP POLICY IF EXISTS "Mutação de publicações" ON public.publicacoes_comunidade;
-CREATE POLICY "Mutação de publicações"
-    ON public.publicacoes_comunidade FOR ALL
-    USING (true);
-
-DROP POLICY IF EXISTS "Leitura pública de agenda" ON public.agenda_liturgica;
-CREATE POLICY "Leitura pública de agenda"
+DROP POLICY IF EXISTS "Leitura pública da agenda" ON public.agenda_liturgica;
+CREATE POLICY "Leitura pública da agenda"
     ON public.agenda_liturgica FOR SELECT
-    USING (true);
-
-DROP POLICY IF EXISTS "Mutação de agenda" ON public.agenda_liturgica;
-CREATE POLICY "Mutação de agenda"
-    ON public.agenda_liturgica FOR ALL
+    TO anon, authenticated
     USING (true);
 
 -- 7. Carga Semente de Templos de Referência
