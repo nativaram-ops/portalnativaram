@@ -20,6 +20,9 @@ Além disso, a cooperativa demandava uma solução de banco de dados relacional 
    - Banco de Dados relacional PostgreSQL com extensão `uuid-ossp`, gatilhos automatizados de timestamp e Row Level Security (RLS).
    - Tabela `pedidos_liturgicos` para registro atômico de solicitações, cotas de rateio, histórico de auditoria e sincronização WhatsApp.
    - Tabela `templos_credenciados` para cadastro institucional, dirigente responsável, CNPJ, status CONAD e papel (`DIRIGENTE` ou `ADMIN`).
+   - Tabela `solicitacoes_homologacao` para acolhimento de credenciamentos formais e grupos informais sob análise do Conselho Gestor.
+   - Tabelas comunitárias `publicacoes_comunidade`, `perfis_comunidade` e `agenda_liturgica` para o hub de estudos e ritos.
+   - Políticas de RLS (`002` e `003-politicas-rls-aplicacao.sql`) liberando leitura/gravação resiliente das rotas de API da aplicação mesmo operando com Anon Key.
 
 2. **Arquitetura Híbrida com Fallback Local Resiliente:**
    - Detecção dinâmica de ambiente em `src/lib/supabase/client.ts` e `src/lib/supabase/server.ts`.

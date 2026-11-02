@@ -237,5 +237,9 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
   - Rota `/api/auth/verificar-chave` integrada diretamente ao Supabase Auth (`supabase.auth.signInWithPassword`), autenticando contas autorizadas e emitindo o cookie seguro `nativaram_session` (HMAC-SHA256).
   - Suporte a administradores cadastrados no Supabase Auth e logins canônicos do Conselho Gestor (`adm-nativaram`, `nativaram@gmail.com`).
   - Fallback de recuperação resiliente para `ADMIN_MASTER_PASSWORD` (`adm2026`) e segredo de sessão derivado de chaves ativas do ambiente para prevenir bloqueio acidental (lockout) antes de configurar variáveis customizadas no painel da Vercel.
+- **Disparo Automático de WhatsApp & Resiliência de Cadastros (2026-11-02):**
+  - Criação do módulo `src/lib/whatsapp-cadastro.ts` que abre automaticamente o WhatsApp institucional (`556899779104`) ao finalizar o envio do Credenciamento ou Ficha de Reconhecimento, carregando os dados do protocolo e solicitando liberação ao Conselho Gestor.
+  - Alerta visual na tela de sucesso caso a sincronização de rede com o servidor oscile.
+  - Migrações `002` e `003-politicas-rls-aplicacao.sql` no Supabase garantindo tabelas e políticas RLS permissivas para `solicitacoes_homologacao`, `publicacoes_comunidade`, `perfis_comunidade` e `agenda_liturgica`.
 - Marca institucional residual corrigida (`portal-dirigente/page.tsx`, `manifest.json`).
 - Pendência: remover credenciais em texto claro do `Indice-de-Recuperacao-Rapida.md` e de `data/solicitacoes_homologacao.json` (seed) após definir segredos reais.
