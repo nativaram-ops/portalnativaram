@@ -22,14 +22,30 @@ export function getDirectSupabaseClient(): SupabaseClient | null {
   if (!SUPABASE_PUBLIC_URL || !SUPABASE_PUBLIC_ANON_KEY) return null;
 
   try {
-    cachedDirectClient = createClient(
-      SUPABASE_PUBLIC_URL,
-      SUPABASE_PUBLIC_ANON_KEY,
-      {
-        auth: { persistSession: false },
-      }
-    );
+    // Dados sensíveis (solicitações, credenciais geradas) ficam atrás de RLS sem
+    // políticas públicas: o servidor usa a service role key (apenas variável de
+    // servidor, nunca NEXT_PUBLIC_*). Sem ela, cai na chave pública (anon).
+    const chave = process.env.SUPABASE_SERVICE_ROLE_KEY || SUPABASE_PUBLIC_ANON_KEY;
+    cachedDirectClient = createClient(SUPABASE_PUBLIC_URL, chave, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
     return cachedDirectClient;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Cliente descartável com a chave pública, exclusivo para validar login de usuários
+ * (Supabase Auth). Não reutiliza o singleton de dados para que a sessão do usuário
+ * não substitua as credenciais de servidor nas consultas seguintes.
+ */
+export function createAuthSupabaseClient(): SupabaseClient | null {
+  if (!isSupabaseConfigured()) return null;
+  try {
+    return createClient(SUPABASE_PUBLIC_URL, SUPABASE_PUBLIC_ANON_KEY, {
+      auth: { persistSession: false, autoRefreshToken: false },
+    });
   } catch {
     return null;
   }

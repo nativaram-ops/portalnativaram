@@ -7,7 +7,7 @@ import {
 import { VerificarChaveSchema } from "@/lib/validators/solicitacao";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
 import {
-  getDirectSupabaseClient,
+  createAuthSupabaseClient,
   withTimeout,
 } from "@/lib/db/core-hybrid-store";
 
@@ -54,14 +54,12 @@ export async function POST(request: NextRequest) {
     const { login, senha, modo } = parseResult.data;
     const loginLower = login.toLowerCase().trim();
 
-    // 1. Senha Master de Administração (com fallback seguro para adm2026 e senhas institucionais autorizadas)
-    const adminPasswords = [
-      process.env.ADMIN_MASTER_PASSWORD,
-      "adm2026",
-      "Vv@200497",
-    ].filter(Boolean) as string[];
+    // 1. Senha master do Conselho Gestor. Quando ADMIN_MASTER_PASSWORD está definida
+    // (Vercel → Settings → Environment Variables) ela é a única aceita; o valor de
+    // recuperação só vale enquanto a variável ainda não foi configurada.
+    const adminPassword = process.env.ADMIN_MASTER_PASSWORD || "adm2026";
 
-    if (ADMIN_LOGINS.includes(loginLower) && adminPasswords.includes(senha)) {
+    if (ADMIN_LOGINS.includes(loginLower) && senha === adminPassword) {
       const response = NextResponse.json({
         sucesso: true,
         role: "ADMIN",
@@ -81,7 +79,7 @@ export async function POST(request: NextRequest) {
 
     // 2. Autenticação integrada via Supabase Auth para contas de e-mail autorizadas
     if (login.includes("@") && isSupabaseConfigured()) {
-      const supabase = getDirectSupabaseClient();
+      const supabase = createAuthSupabaseClient();
       if (supabase) {
         try {
           const { data, error } = await withTimeout(
