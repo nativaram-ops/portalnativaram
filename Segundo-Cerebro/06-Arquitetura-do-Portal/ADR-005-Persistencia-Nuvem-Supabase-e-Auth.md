@@ -22,7 +22,7 @@ Além disso, a cooperativa demandava uma solução de banco de dados relacional 
    - Tabela `templos_credenciados` para cadastro institucional, dirigente responsável, CNPJ, status CONAD e papel (`DIRIGENTE` ou `ADMIN`).
    - Tabela `solicitacoes_homologacao` para acolhimento de credenciamentos formais e grupos informais sob análise do Conselho Gestor.
    - Tabelas comunitárias `publicacoes_comunidade`, `perfis_comunidade` e `agenda_liturgica` para o hub de estudos e ritos.
-   - Políticas de RLS (`002` e `003-politicas-rls-aplicacao.sql`) liberando leitura/gravação resiliente das rotas de API da aplicação mesmo operando com Anon Key.
+   - ~~Políticas de RLS (`002` e `003-politicas-rls-aplicacao.sql`) liberando leitura/gravação resiliente das rotas de API da aplicação mesmo operando com Anon Key.~~ **Substituído em 2026-11-02 por [[ADR-008-RLS-Fechado-e-Service-Role-Obrigatoria]]:** a `003` expunha dados sensíveis à chave pública; a migração `004` fecha o acesso e o servidor passa a exigir `SUPABASE_SERVICE_ROLE_KEY`.
 
 2. **Arquitetura Híbrida com Fallback Local Resiliente:**
    - Detecção dinâmica de ambiente em `src/lib/supabase/client.ts` e `src/lib/supabase/server.ts`.

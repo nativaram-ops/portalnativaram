@@ -110,4 +110,5 @@ categoria: Índice Rápido
 - [[ADR-005-Persistencia-Nuvem-Supabase-e-Auth]]
 - [[ADR-006-Orquestracao-por-Grafos-e-Gauntlet-Loops]]
 - [[ADR-007-Hub-Comunitario-e-Blog-Etnobotanico]]
+- [[ADR-008-RLS-Fechado-e-Service-Role-Obrigatoria]]
 - [[Manual-de-Comunicacao-e-Blindagem-Algoritmica]]
