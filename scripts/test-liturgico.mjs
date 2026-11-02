@@ -512,59 +512,111 @@ async function runAllTests() {
     );
 
     const testId = `TEST-AUTH-${Date.now()}`;
+    try {
+      await registrarSolicitacao({
+        id: testId,
+        tipo: "GRUPO_INFORMAL",
+        nomeEntidade: "Espaço Luz da Serra",
+        nomeResponsavel: "Guardião Carlos",
+        telefone: "11977778888",
+        email: "carlos@luzdaserra.org",
+        cidade: "Campos do Jordão",
+        estado: "SP",
+        linhagem: "Xamanismo",
+        graduacao: "3.1 Mainumbi",
+        volumeEstimado: "3 Litros",
+        intencao: "Jornadas de meditação sensorial",
+      });
+
+      const resHom = await homologarSolicitacao(testId);
+      assert.ok(resHom, "Resultado de homologação não pode ser nulo");
+      const { loginGerado, senhaGerada } = resHom;
+
+      // 1. Acesso correto com login gerado e senha gerada
+      const congregaoValida = await validarCredenciaisDirigente(loginGerado, senhaGerada);
+      assert.ok(congregaoValida, "Deve permitir acesso com credenciais válidas recém-homologadas");
+      assert.strictEqual(congregaoValida.nomeEntidade, "Espaço Luz da Serra");
+
+      // 2. Bloqueio com senha errada
+      const congregaoInvalida = await validarCredenciaisDirigente(loginGerado, "senha-totalmente-errada");
+      assert.strictEqual(congregaoInvalida, null, "Deve rejeitar senha incorreta");
+
+      // 3. Bloqueio com login inexistente
+      const loginInexistente = await validarCredenciaisDirigente("NAT-INEXISTENTE-999", "qualquer123");
+      assert.strictEqual(loginInexistente, null, "Deve rejeitar login inexistente");
+    } finally {
+      // Limpeza garantida de registros de teste (Supabase, data/ e os.tmpdir())
+      try {
+        const { getDirectSupabaseClient } = await import("../src/lib/db/core-hybrid-store.ts");
+        const supabase = getDirectSupabaseClient();
+        if (supabase) {
+          await supabase.from("solicitacoes_homologacao").delete().like("id", "TEST-%");
+          await supabase
+            .from("solicitacoes_homologacao")
+            .update({
+              status: "RECUSADO",
+              observacoes_conselho: "EXCLUIDO_PELO_ADMIN",
+            })
+            .like("id", "TEST-%");
+        }
+      } catch {
+        // Ignora falha de limpeza remota
+      }
+
+      const os = await import("node:os");
+      const dbPaths = [
+        path.join(process.cwd(), "data", "solicitacoes_homologacao.json"),
+        path.join(os.tmpdir(), "nativaram_solicitacoes_homologacao.json"),
+      ];
+      for (const dbPath of dbPaths) {
+        try {
+          const raw = await fs.readFile(dbPath, "utf-8");
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            const cleaned = parsed.filter((item) => !item.id.startsWith("TEST-"));
+            await fs.writeFile(dbPath, JSON.stringify(cleaned, null, 2), "utf-8");
+          } else if (parsed && Array.isArray(parsed.items)) {
+            parsed.items = parsed.items.filter((item) => !item.id.startsWith("TEST-"));
+            await fs.writeFile(dbPath, JSON.stringify(parsed, null, 2), "utf-8");
+          }
+        } catch {
+          // Ignora erro de limpeza se arquivo não existir
+        }
+      }
+    }
+  });
+
+  await test("Exclusão de instituição remove registro do banco híbrido e revoga acesso", async () => {
+    const { registrarSolicitacao, homologarSolicitacao, excluirSolicitacao, obterTodasSolicitacoes } = await import(
+      "../src/lib/db/homologacoes.ts"
+    );
+
+    const testId = `TEST-DEL-${Date.now()}`;
     await registrarSolicitacao({
       id: testId,
-      tipo: "GRUPO_INFORMAL",
-      nomeEntidade: "Espaço Luz da Serra",
-      nomeResponsavel: "Guardião Carlos",
-      telefone: "11977778888",
-      email: "carlos@luzdaserra.org",
-      cidade: "Campos do Jordão",
+      tipo: "INSTITUICAO_FORMAL",
+      nomeEntidade: "Templo Teste para Exclusão",
+      nomeResponsavel: "Dirigente Teste",
+      telefone: "11911112222",
+      cidade: "São Paulo",
       estado: "SP",
       linhagem: "Xamanismo",
-      graduacao: "3.1 Mainumbi",
-      volumeEstimado: "3 Litros",
-      intencao: "Jornadas de meditação sensorial",
+      graduacao: "5.1 Pituã",
+      volumeEstimado: "5 Litros",
+      intencao: "Teste de exclusão",
     });
 
     const resHom = await homologarSolicitacao(testId);
-    assert.ok(resHom, "Resultado de homologação não pode ser nulo");
-    const { loginGerado, senhaGerada } = resHom;
+    assert.ok(resHom, "Homologação para teste de exclusão deve ser criada");
 
-    // 1. Acesso correto com login gerado e senha gerada
-    const congregaoValida = await validarCredenciaisDirigente(loginGerado, senhaGerada);
-    assert.ok(congregaoValida, "Deve permitir acesso com credenciais válidas recém-homologadas");
-    assert.strictEqual(congregaoValida.nomeEntidade, "Espaço Luz da Serra");
+    // Executa exclusão
+    const excluido = await excluirSolicitacao(testId);
+    assert.strictEqual(excluido, true, "Exclusão deve retornar sucesso");
 
-    // 2. Bloqueio com senha errada
-    const congregaoInvalida = await validarCredenciaisDirigente(loginGerado, "senha-totalmente-errada");
-    assert.strictEqual(congregaoInvalida, null, "Deve rejeitar senha incorreta");
-
-    // 3. Bloqueio com login inexistente
-    const loginInexistente = await validarCredenciaisDirigente("NAT-INEXISTENTE-999", "qualquer123");
-    assert.strictEqual(loginInexistente, null, "Deve rejeitar login inexistente");
-
-    // Limpeza garantida de registros de teste (data/ e os.tmpdir())
-    const os = await import("node:os");
-    const dbPaths = [
-      path.join(process.cwd(), "data", "solicitacoes_homologacao.json"),
-      path.join(os.tmpdir(), "nativaram_solicitacoes_homologacao.json"),
-    ];
-    for (const dbPath of dbPaths) {
-      try {
-        const raw = await fs.readFile(dbPath, "utf-8");
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          const cleaned = parsed.filter((item) => !item.id.startsWith("TEST-"));
-          await fs.writeFile(dbPath, JSON.stringify(cleaned, null, 2), "utf-8");
-        } else if (parsed && Array.isArray(parsed.items)) {
-          parsed.items = parsed.items.filter((item) => !item.id.startsWith("TEST-"));
-          await fs.writeFile(dbPath, JSON.stringify(parsed, null, 2), "utf-8");
-        }
-      } catch {
-        // Ignora erro de limpeza se arquivo não existir
-      }
-    }
+    // Confirma que não consta mais em obterTodasSolicitacoes
+    const todas = await obterTodasSolicitacoes();
+    const aindaExiste = todas.find((s) => s.id === testId);
+    assert.strictEqual(aindaExiste, undefined, "Instituição excluída não pode aparecer nas solicitações ativas");
   });
 
   // 6. TESTES DO HUB COMUNITÁRIO, LINTER CONAD & BLOG DOS TEMPLOS

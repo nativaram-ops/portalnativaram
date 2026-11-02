@@ -23,6 +23,7 @@ import {
   X,
   FileText,
   Truck,
+  Trash2,
 } from "lucide-react";
 import { SolicitacaoAcesso } from "@/lib/db/homologacoes";
 import {
@@ -33,36 +34,19 @@ import {
 
 const LOCAL_STORAGE_KEY = "nativaram_solicitacoes_local";
 
-const SOLICITACAO_REC_OLYY_FALLBACK: SolicitacaoAcesso = {
-  id: "REC-2026-OLYY",
-  tipo: "GRUPO_INFORMAL",
-  nomeEntidade: "Grupo em Desenvolvimento (Protocolo REC-2026-OLYY)",
-  nomeResponsavel: "Guardião / Dirigente Solicitante",
-  telefone: "",
-  email: "",
-  cidade: "Em Homologação",
-  estado: "BR",
-  linhagem: "Tradição Ayahuasqueira / Estudo Livre",
-  graduacao: "3.1 Mainumbi",
-  volumeEstimado: "3 a 5 Litros",
-  intencao:
-    "Solicitação de Reconhecimento e Acolhimento de Grupo Informal recebida via protocolo REC-2026-OLYY sob amparo da Resolução CONAD 01/2010.",
-  status: "PENDENTE_LIBERACAO",
-  dataEnvio: "29/10/2026, 15:40",
-};
-
 function mesclarSolicitacoesCliente(
   remotas: SolicitacaoAcesso[],
   locais: SolicitacaoAcesso[]
 ): SolicitacaoAcesso[] {
   const mapa = new Map<string, SolicitacaoAcesso>();
 
-  // Garante presença do protocolo REC-2026-OLYY caso servidor estivesse em cache antigo
-  mapa.set(SOLICITACAO_REC_OLYY_FALLBACK.id, SOLICITACAO_REC_OLYY_FALLBACK);
-
   for (const item of [...remotas, ...locais]) {
     if (!item || !item.id) continue;
     const chave = item.id.trim().toUpperCase();
+    // Ignorar placeholders removidos ou recusados/excluídos
+    if (chave === "REC-2026-OLYY" || item.status === "RECUSADO" || item.observacoesConselho === "EXCLUIDO_PELO_ADMIN") {
+      continue;
+    }
     const existente = mapa.get(chave);
     if (!existente) {
       mapa.set(chave, { ...item, id: chave });
@@ -93,6 +77,9 @@ function mesclarSolicitacoesCliente(
 export const AdminGestaoHomologacoes: React.FC = () => {
   const [solicitacoes, setSolicitacoes] = useState<SolicitacaoAcesso[]>([]);
   const [loading, setLoading] = useState(true);
+  const [confirmarExclusaoModal, setConfirmarExclusaoModal] = useState<SolicitacaoAcesso | null>(null);
+  const [excluindoId, setExcluindoId] = useState<string | null>(null);
+  const [exclusaoFeedback, setExclusaoFeedback] = useState<string | null>(null);
   const [homologandoId, setHomologandoId] = useState<string | null>(null);
   const [filtroStatus, setFiltroStatus] = useState<
     "TODOS" | "PENDENTE_LIBERACAO" | "HOMOLOGADO"
@@ -166,7 +153,13 @@ export const AdminGestaoHomologacoes: React.FC = () => {
 
   const carregarSolicitacoes = async () => {
     setLoading(true);
-    const locais = lerCacheLocal();
+    const locais = lerCacheLocal().filter(
+      (s) =>
+        s &&
+        s.id !== "REC-2026-OLYY" &&
+        s.status !== "RECUSADO" &&
+        s.observacoesConselho !== "EXCLUIDO_PELO_ADMIN"
+    );
     try {
       const res = await fetch("/api/solicitacoes", {
         cache: "no-store",
@@ -188,6 +181,37 @@ export const AdminGestaoHomologacoes: React.FC = () => {
       setSolicitacoes(mesclarSolicitacoesCliente([], locais));
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleExcluirInstituicao = async (id: string) => {
+    setExcluindoId(id);
+    try {
+      const res = await fetch(`/api/solicitacoes/${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        credentials: "include",
+      });
+      if (res.ok) {
+        const idUpper = id.trim().toUpperCase();
+        const novaLista = solicitacoes.filter(
+          (s) =>
+            s.id.toUpperCase() !== idUpper &&
+            (!s.loginGerado || s.loginGerado.toUpperCase() !== idUpper)
+        );
+        setSolicitacoes(novaLista);
+        salvarCacheLocal(novaLista);
+        setConfirmarExclusaoModal(null);
+        setExclusaoFeedback("Instituição e cadastro excluídos com sucesso do sistema.");
+        setTimeout(() => setExclusaoFeedback(null), 4000);
+      } else {
+        const json = await res.json().catch(() => ({}));
+        alert(json.erro || "Falha ao excluir a instituição.");
+      }
+    } catch (err) {
+      console.error("Erro ao excluir instituição:", err);
+      alert("Erro de conexão ao tentar excluir a instituição.");
+    } finally {
+      setExcluindoId(null);
     }
   };
 
@@ -808,7 +832,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Status Badge + Botão Editar Dados */}
+                  {/* Status Badge + Botão Editar Dados + Botão Apagar */}
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       type="button"
@@ -820,6 +844,16 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                     >
                       <Edit3 className="h-3 w-3 text-ambar-400" />
                       <span>{isEditando ? "Fechar Edição" : "Editar / Completar Dados"}</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => setConfirmarExclusaoModal(sol)}
+                      className="px-3 py-1 rounded-full border border-red-500/40 bg-red-950/40 hover:bg-red-900/60 text-red-300 text-[11px] font-medium inline-flex items-center gap-1.5 transition-colors"
+                      title="Apagar cadastro e perfil litúrgico desta instituição"
+                    >
+                      <Trash2 className="h-3 w-3 text-red-400" />
+                      <span>Apagar Instituição</span>
                     </button>
 
                     {isPendente ? (
@@ -1094,6 +1128,92 @@ export const AdminGestaoHomologacoes: React.FC = () => {
               </div>
             );
           })}
+        </div>
+      )}
+
+      {/* Toast Feedback de Exclusão */}
+      {exclusaoFeedback && (
+        <div className="fixed bottom-6 right-6 z-50 rounded-2xl border border-emerald-500/40 bg-floresta-950 p-4 shadow-2xl text-xs text-emerald-300 flex items-center gap-3 animate-fade-in">
+          <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
+          <span>{exclusaoFeedback}</span>
+        </div>
+      )}
+
+      {/* Modal de Confirmação de Exclusão de Instituição */}
+      {confirmarExclusaoModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in">
+          <div className="card-elevated rounded-2xl p-6 sm:p-8 max-w-lg w-full border-2 border-red-500/40 bg-floresta-950 space-y-5 shadow-2xl">
+            <div className="flex items-center justify-between border-b border-red-500/20 pb-3">
+              <div className="flex items-center gap-2.5 text-red-400">
+                <Trash2 className="h-5 w-5" />
+                <h4 className="font-serif text-lg font-bold text-areia-100">
+                  Apagar Instituição / Homologação
+                </h4>
+              </div>
+              <button
+                type="button"
+                onClick={() => setConfirmarExclusaoModal(null)}
+                className="p-1 rounded-lg text-areia-400 hover:text-areia-100 bg-floresta-900"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="space-y-3 text-xs text-areia-300 font-light">
+              <p>
+                Você tem certeza que deseja remover permanentemente o registro e o perfil litúrgico da instituição abaixo?
+              </p>
+
+              <div className="rounded-xl bg-floresta-900/80 p-4 border border-red-500/20 space-y-1.5">
+                <div className="text-sm font-bold text-areia-100">
+                  {confirmarExclusaoModal.nomeEntidade}
+                </div>
+                <div className="text-areia-300">
+                  <strong>Responsável:</strong> {confirmarExclusaoModal.nomeResponsavel}
+                </div>
+                <div className="font-mono text-[11px] text-ambar-300">
+                  Protocolo: {confirmarExclusaoModal.id}
+                  {confirmarExclusaoModal.loginGerado && ` • Login: ${confirmarExclusaoModal.loginGerado}`}
+                </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-red-950/40 border border-red-500/30 text-red-300 flex items-start gap-2">
+                <AlertCircle className="h-4 w-4 shrink-0 mt-0.5 text-red-400" />
+                <span>
+                  <strong>Atenção:</strong> Esta ação é irreversível. O cadastro será excluído do banco de dados, o perfil será removido do mural e todas as credenciais de acesso concedidas serão invalidadas.
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-3 border-t border-ambar-500/15">
+              <button
+                type="button"
+                onClick={() => setConfirmarExclusaoModal(null)}
+                disabled={Boolean(excluindoId)}
+                className="btn-secondary text-xs px-5 py-2.5 w-full sm:w-auto"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => handleExcluirInstituicao(confirmarExclusaoModal.id)}
+                disabled={Boolean(excluindoId)}
+                className="px-5 py-2.5 rounded-xl border border-red-500 bg-red-600 hover:bg-red-700 text-white text-xs font-bold w-full sm:w-auto inline-flex items-center justify-center gap-2 shadow-lg disabled:opacity-50 transition-colors"
+              >
+                {excluindoId ? (
+                  <>
+                    <RefreshCw className="h-4 w-4 animate-spin" />
+                    <span>Apagando...</span>
+                  </>
+                ) : (
+                  <>
+                    <Trash2 className="h-4 w-4" />
+                    <span>Sim, Apagar Definitivamente</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

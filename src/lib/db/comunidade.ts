@@ -654,6 +654,46 @@ export async function salvarPerfilTemplo(
   return atualizado;
 }
 
+/**
+ * Exclui o perfil comunitário de uma instituição por código litúrgico ou slug
+ */
+export async function deletarPerfilTemplo(
+  codigoOuSlug: string
+): Promise<boolean> {
+  const busca = codigoOuSlug.trim().toUpperCase();
+  let perfis = await perfisStore.readAll();
+
+  const perfil = perfis.find(
+    (p) =>
+      p.codigoLiturgico.toUpperCase() === busca ||
+      p.slug.toUpperCase() === busca
+  );
+
+  if (!perfil) return false;
+
+  perfis = perfis.filter((p) => p.codigoLiturgico.toUpperCase() !== perfil.codigoLiturgico.toUpperCase());
+  await perfisStore.writeAll(perfis);
+
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      await withTimeout(
+        supabase
+          .from("perfis_comunidade")
+          .delete()
+          .eq("codigo_liturgico", perfil.codigoLiturgico),
+        2000
+      );
+    } catch {
+      // Falha remota não impede exclusão local
+    }
+  }
+
+  return true;
+}
+
+export const excluirPerfilTemplo = deletarPerfilTemplo;
+
 // ══════════════════════════════════════════════════════════
 // AGENDA LITÚRGICA
 // ══════════════════════════════════════════════════════════

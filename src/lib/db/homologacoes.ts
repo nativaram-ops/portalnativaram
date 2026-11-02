@@ -99,23 +99,6 @@ function mapSolicitacaoToRow(sol: SolicitacaoAcesso): SolicitacaoRow {
 // Congregações e solicitações canônicas garantidas no sistema
 const DADOS_INICIAIS: SolicitacaoAcesso[] = [
   {
-    id: "REC-2026-OLYY",
-    tipo: "GRUPO_INFORMAL",
-    nomeEntidade: "Grupo em Desenvolvimento (Protocolo REC-2026-OLYY)",
-    nomeResponsavel: "Guardião / Dirigente Solicitante",
-    telefone: "",
-    email: "",
-    cidade: "Em Homologação",
-    estado: "BR",
-    linhagem: "Tradição Ayahuasqueira / Estudo Livre",
-    graduacao: "3.1 Mainumbi",
-    volumeEstimado: "3 a 5 Litros",
-    intencao:
-      "Solicitação de Reconhecimento e Acolhimento de Grupo Informal recebida via protocolo REC-2026-OLYY sob amparo da Resolução CONAD 01/2010.",
-    status: "PENDENTE_LIBERACAO",
-    dataEnvio: "29/10/2026, 15:40",
-  },
-  {
     id: "NAT-TEMPLO-842",
     tipo: "INSTITUICAO_FORMAL",
     nomeEntidade: "Templo Céu do Cruzeiro",
@@ -205,7 +188,10 @@ export async function obterTodasSolicitacoes(): Promise<SolicitacaoAcesso[]> {
         data: SolicitacaoRow[] | null;
         error: unknown;
       }>(
-        supabase.from("solicitacoes_homologacao").select("*"),
+        supabase
+          .from("solicitacoes_homologacao")
+          .select("*")
+          .neq("status", "RECUSADO"),
         2000
       );
       if (!error && data && data.length > 0) {
@@ -218,8 +204,16 @@ export async function obterTodasSolicitacoes(): Promise<SolicitacaoAcesso[]> {
 
   const mescladas = mesclarSolicitacoes(DADOS_INICIAIS, remotas, locais);
 
+  // Filtrar registros marcados como excluídos ou placeholders obsoletos
+  const ativas = mescladas.filter(
+    (s) =>
+      s.id !== "REC-2026-OLYY" &&
+      s.status !== "RECUSADO" &&
+      s.observacoesConselho !== "EXCLUIDO_PELO_ADMIN"
+  );
+
   // Ordenar: PENDENTE_LIBERACAO primeiro, depois HOMOLOGADO
-  return mescladas.sort((a, b) => {
+  return ativas.sort((a, b) => {
     if (a.status === "PENDENTE_LIBERACAO" && b.status !== "PENDENTE_LIBERACAO") return -1;
     if (a.status !== "PENDENTE_LIBERACAO" && b.status === "PENDENTE_LIBERACAO") return 1;
     return 0;
@@ -513,4 +507,81 @@ export async function validarCredenciaisDirigente(
   }
 
   return match || null;
+}
+
+/**
+ * Exclui permanentemente o cadastro de uma instituição / congregação
+ * no repositório híbrido local e na nuvem Supabase.
+ */
+export async function excluirSolicitacao(id: string): Promise<boolean> {
+  const idUpper = id.trim().toUpperCase();
+  let solicitacoes = await solicitacoesStore.readAll();
+  
+  const index = solicitacoes.findIndex(
+    (s) =>
+      s.id.toUpperCase() === idUpper ||
+      (s.loginGerado && s.loginGerado.toUpperCase() === idUpper)
+  );
+
+  const itemRemovido = index >= 0 ? solicitacoes[index] : null;
+  const loginGerado = itemRemovido?.loginGerado?.toUpperCase();
+
+  if (index >= 0) {
+    solicitacoes = solicitacoes.filter((_, i) => i !== index);
+    await solicitacoesStore.writeAll(solicitacoes);
+  }
+
+  const supabase = getDirectSupabaseClient();
+  if (supabase) {
+    try {
+      // 1. Tentar exclusão direta (hard delete)
+      await withTimeout(
+        supabase.from("solicitacoes_homologacao").delete().eq("id", idUpper),
+        2000
+      );
+
+      // 2. Marcar como RECUSADO com flag EXCLUIDO_PELO_ADMIN caso RLS bloqueie DELETE
+      await withTimeout(
+        supabase
+          .from("solicitacoes_homologacao")
+          .update({
+            status: "RECUSADO",
+            observacoes_conselho: "EXCLUIDO_PELO_ADMIN",
+          })
+          .eq("id", idUpper),
+        2000
+      );
+
+      if (loginGerado) {
+        await withTimeout(
+          supabase.from("solicitacoes_homologacao").delete().eq("login_gerado", loginGerado),
+          2000
+        );
+        await withTimeout(
+          supabase
+            .from("solicitacoes_homologacao")
+            .update({
+              status: "RECUSADO",
+              observacoes_conselho: "EXCLUIDO_PELO_ADMIN",
+            })
+            .eq("login_gerado", loginGerado),
+          2000
+        );
+
+        // Remover também de templos_credenciados e perfis_comunidade se existirem
+        await withTimeout(
+          supabase.from("templos_credenciados").delete().eq("codigo_liturgico", loginGerado),
+          2000
+        );
+        await withTimeout(
+          supabase.from("perfis_comunidade").delete().eq("codigo_liturgico", loginGerado),
+          2000
+        );
+      }
+    } catch {
+      // Falha remota não impede exclusão local bem-sucedida
+    }
+  }
+
+  return true;
 }

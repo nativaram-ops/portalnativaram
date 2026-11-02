@@ -3,7 +3,9 @@ import {
   obterPerfisTemplos,
   obterPerfilPorSlugOuCodigo,
   salvarPerfilTemplo,
+  deletarPerfilTemplo,
 } from "@/lib/db/comunidade";
+import { verifyAdminRequest } from "@/lib/auth/session";
 import { PerfilTemploSchema } from "@/lib/validators/comunidade";
 
 export async function GET(request: NextRequest) {
@@ -72,6 +74,45 @@ export async function POST(request: NextRequest) {
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message || "Erro ao atualizar perfil" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const { searchParams } = new URL(request.url);
+    const slug = searchParams.get("slug");
+    const codigo = searchParams.get("codigo");
+    const identificador = slug || codigo;
+
+    if (!identificador) {
+      return NextResponse.json(
+        { success: false, error: "Identificador (slug ou código) obrigatório" },
+        { status: 400 }
+      );
+    }
+
+    const isAdmin = verifyAdminRequest(request);
+    if (!isAdmin) {
+      return NextResponse.json(
+        { success: false, error: "Acesso restrito para exclusão de perfis" },
+        { status: 401 }
+      );
+    }
+
+    const sucesso = await deletarPerfilTemplo(identificador);
+    if (!sucesso) {
+      return NextResponse.json(
+        { success: false, error: "Perfil não encontrado para exclusão" },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ success: true, mensagem: "Perfil excluído com sucesso" });
+  } catch (error: any) {
+    return NextResponse.json(
+      { success: false, error: error.message || "Erro ao excluir perfil" },
       { status: 500 }
     );
   }
