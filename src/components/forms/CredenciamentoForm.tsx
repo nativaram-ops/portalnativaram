@@ -36,6 +36,26 @@ import {
   FileCheck,
 } from "lucide-react";
 import { Input, Textarea, Select } from "@/components/ui/Input";
+import {
+  abrirWhatsAppReservado,
+  montarMensagemCadastro,
+  reservarJanelaWhatsApp,
+  urlWhatsAppConselho,
+} from "@/lib/whatsapp-cadastro";
+
+function urlWhatsAppCredenciamento(d: CredenciamentoDossier): string {
+  return urlWhatsAppConselho(
+    montarMensagemCadastro({
+      tipo: "CREDENCIAMENTO",
+      protocolo: d.protocolo,
+      entidade: d.data.nomeInstituicao,
+      responsavel: d.data.nomeDirigente,
+      telefone: d.data.telefoneContato,
+      localidade: `${d.data.cidade}/${d.data.estado}`,
+      graduacao: d.graduacaoInfo?.nomeSagrado || d.data.graduacaoPretendida,
+    })
+  );
+}
 
 const STEPS = [
   { id: 1, title: "Entidade Religiosa", icon: Building2 },
@@ -48,6 +68,7 @@ export const CredenciamentoForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [dossier, setDossier] = useState<CredenciamentoDossier | null>(null);
   const [copied, setCopied] = useState(false);
+  const [registroPainelOk, setRegistroPainelOk] = useState(true);
 
   const {
     register,
@@ -82,6 +103,9 @@ export const CredenciamentoForm = () => {
   };
 
   const onSubmit = async (data: CredenciamentoInput) => {
+    // Reserva a aba do WhatsApp dentro do gesto do usuário (evita bloqueio de pop-up)
+    const janelaWhatsApp = reservarJanelaWhatsApp();
+    setRegistroPainelOk(true);
     const protocolo = generateProtocoloLiturgico();
     const dataSubmissao = new Date().toLocaleDateString("pt-BR", {
       day: "2-digit",
@@ -129,7 +153,7 @@ export const CredenciamentoForm = () => {
 
     // Registrar no banco de homologações do ADM
     try {
-      await fetch("/api/solicitacoes", {
+      const res = await fetch("/api/solicitacoes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -148,9 +172,14 @@ export const CredenciamentoForm = () => {
           intencao: data.intencaoTrabalho,
         }),
       });
+      if (!res.ok) setRegistroPainelOk(false);
     } catch (err) {
+      setRegistroPainelOk(false);
       console.warn("Aviso ao persistir solicitação no ADM:", err);
     }
+
+    // Abre o WhatsApp do Conselho já com a mensagem de cadastro realizado
+    abrirWhatsAppReservado(janelaWhatsApp, urlWhatsAppCredenciamento(newDossier));
 
     setDossier(newDossier);
     window.scrollTo({ top: 150, behavior: "smooth" });
@@ -165,24 +194,7 @@ export const CredenciamentoForm = () => {
 
   // TELA DE SUCESSO: COMPROVANTE LITÚRGICO OFICIAL
   if (dossier) {
-    const msgLiberacao = [
-      `🏛️ *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
-      ``,
-      `Olá, Conselho Gestor da Cooperativa Nativaram!`,
-      `Acabamos de preencher nossa Ficha de Credenciamento no portal e gostaríamos de solicitar a liberação de acesso ao Portal do Dirigente.`,
-      ``,
-      `📜 *Protocolo:* \`${dossier.protocolo}\``,
-      `🏛️ *Instituição:* ${dossier.data.nomeInstituicao}`,
-      `👤 *Dirigente:* ${dossier.data.nomeDirigente}`,
-      `📱 *Contato:* ${dossier.data.telefoneContato}`,
-      `📍 *Sede:* ${dossier.data.cidade}/${dossier.data.estado}`,
-      `🌿 *Graduação Pretendida:* ${dossier.data.graduacaoPretendida}`,
-      ``,
-      `_Aguardamos a análise no sistema para recebermos nosso código de login e chave de segurança litúrgica._`,
-    ].join("\n");
-
-    const whatsappUrl = `https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`;
-
+    const whatsappUrl = urlWhatsAppCredenciamento(dossier);
     return (
       <div className="card-elevated rounded-3xl p-6 sm:p-12 space-y-8 border-ambar-500/40 shadow-elevated relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-ambar-500/10 rounded-bl-full pointer-events-none" />
@@ -247,6 +259,16 @@ export const CredenciamentoForm = () => {
 
         {/* Ações Seguintes */}
         <div className="max-w-xl mx-auto space-y-4 pt-2">
+          {!registroPainelOk && (
+            <div
+              role="alert"
+              className="rounded-xl border border-ambar-500/40 bg-ambar-500/10 p-4 text-xs text-areia-200 leading-relaxed"
+            >
+              Não conseguimos confirmar o registro no painel agora. Para garantir o seu
+              cadastro, envie a mensagem pelo WhatsApp abaixo: o Conselho receberá todos
+              os dados por lá.
+            </div>
+          )}
           <a
             href={whatsappUrl}
             target="_blank"

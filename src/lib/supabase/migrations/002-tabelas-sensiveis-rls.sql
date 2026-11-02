@@ -92,3 +92,4 @@ ALTER TABLE public.perfis_comunidade ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.agenda_liturgica ENABLE ROW LEVEL SECURITY;
 
 NOTIFY pgrst, 'reload schema';
+

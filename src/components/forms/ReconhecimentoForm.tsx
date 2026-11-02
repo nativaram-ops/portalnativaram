@@ -40,6 +40,12 @@ import {
   Clock,
 } from "lucide-react";
 import { Input, Textarea, Select } from "@/components/ui/Input";
+import {
+  abrirWhatsAppReservado,
+  montarMensagemCadastro,
+  reservarJanelaWhatsApp,
+  urlWhatsAppConselho,
+} from "@/lib/whatsapp-cadastro";
 
 const STEPS = [
   { id: 1, title: "Identidade & Caminhada", icon: Feather },
@@ -83,6 +89,7 @@ export const ReconhecimentoForm = () => {
   const [dossier, setDossier] = useState<ReconhecimentoDossier | null>(null);
   const [copied, setCopied] = useState(false);
   const [whatsappDirectUrl, setWhatsappDirectUrl] = useState<string>("");
+  const [registroPainelOk, setRegistroPainelOk] = useState(true);
 
   const {
     register,
@@ -122,6 +129,24 @@ export const ReconhecimentoForm = () => {
   };
 
   const onSubmit = async (data: ReconhecimentoInput) => {
+    // Reserva a aba do WhatsApp dentro do gesto do usuário (evita bloqueio de pop-up)
+    const janelaWhatsApp = reservarJanelaWhatsApp();
+    setRegistroPainelOk(true);
+
+    const montarUrlWhatsApp = (protocoloGerado: string) =>
+      urlWhatsAppConselho(
+        montarMensagemCadastro({
+          tipo: "RECONHECIMENTO",
+          protocolo: protocoloGerado,
+          entidade: data.nomeIdentificacao,
+          responsavel: data.nomeResponsavel,
+          telefone: data.telefoneContato,
+          localidade: `${data.cidade}/${data.estado}`,
+          graduacao: data.graduacaoPretendida,
+          detalhe: `~${data.litragemEstimadaMensal}L/mês`,
+        })
+      );
+
     const salvarCacheLocal = (protocoloGerado: string, dataEnvioStr: string) => {
       try {
         const key = "nativaram_solicitacoes_local";
@@ -153,7 +178,7 @@ export const ReconhecimentoForm = () => {
 
     const sincronizarApiSolicitacoes = async (protocoloGerado: string) => {
       try {
-        await fetch("/api/solicitacoes", {
+        const resSync = await fetch("/api/solicitacoes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -171,7 +196,9 @@ export const ReconhecimentoForm = () => {
             intencao: data.intencaoTrabalho,
           }),
         });
+        if (!resSync.ok) setRegistroPainelOk(false);
       } catch (errSync) {
+        setRegistroPainelOk(false);
         console.warn("Aviso ao sincronizar com ADM:", errSync);
       }
     };
@@ -188,25 +215,10 @@ export const ReconhecimentoForm = () => {
         setDossier(json.dossier);
         salvarCacheLocal(json.protocolo, json.dataSubmissao || new Date().toLocaleDateString("pt-BR"));
 
-        // Mensagem formatada pedindo liberação direta do acesso
-        const msgLiberacao = [
-          `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
-          ``,
-          `Olá, Conselho Gestor da Cooperativa Nativaram!`,
-          `Acabei de preencher a Ficha de Reconhecimento no portal e gostaria de solicitar a liberação de acesso ao Portal do Dirigente.`,
-          ``,
-          `📜 *Protocolo:* \`${json.protocolo}\``,
-          `🪶 *Grupo / Rezo:* ${data.nomeIdentificacao}`,
-          `👤 *Guardião Responsável:* ${data.nomeResponsavel}`,
-          `📱 *WhatsApp:* ${data.telefoneContato}`,
-          `📍 *Localidade:* ${data.cidade}/${data.estado}`,
-          `✨ *Graduação Desejada:* ${data.graduacaoPretendida} (~${data.litragemEstimadaMensal}L/mês)`,
-          ``,
-          `_Aguardamos a apreciação no sistema para recebermos nosso código de login e senha de acesso._`,
-        ].join("\n");
-
-        setWhatsappDirectUrl(`https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`);
+        const urlWhats = montarUrlWhatsApp(json.protocolo);
+        setWhatsappDirectUrl(urlWhats);
         await sincronizarApiSolicitacoes(json.protocolo);
+        abrirWhatsAppReservado(janelaWhatsApp, urlWhats);
       } else {
         // Fallback local se a rota de API oscilar
         const fallbackProtocolo = generateProtocoloReconhecimento();
@@ -227,24 +239,10 @@ export const ReconhecimentoForm = () => {
         salvarCacheLocal(fallbackProtocolo, fallbackSubmissao);
         await sincronizarApiSolicitacoes(fallbackProtocolo);
 
-        const msgLiberacao = [
-          `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
-          ``,
-          `Olá, Conselho Gestor da Cooperativa Nativaram!`,
-          `Acabei de preencher a Ficha de Reconhecimento no portal e gostaria de solicitar a liberação de acesso ao Portal do Dirigente.`,
-          ``,
-          `📜 *Protocolo:* \`${fallbackProtocolo}\``,
-          `🪶 *Grupo / Rezo:* ${data.nomeIdentificacao}`,
-          `👤 *Guardião Responsável:* ${data.nomeResponsavel}`,
-          `📱 *WhatsApp:* ${data.telefoneContato}`,
-          `📍 *Localidade:* ${data.cidade}/${data.estado}`,
-          `✨ *Graduação Desejada:* ${data.graduacaoPretendida} (~${data.litragemEstimadaMensal}L/mês)`,
-          ``,
-          `_Aguardamos a apreciação no sistema para recebermos nosso código de login e senha de acesso._`,
-        ].join("\n");
-
+        const urlWhats = montarUrlWhatsApp(fallbackProtocolo);
         setDossier(fallbackDossier);
-        setWhatsappDirectUrl(`https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`);
+        setWhatsappDirectUrl(urlWhats);
+        abrirWhatsAppReservado(janelaWhatsApp, urlWhats);
       }
     } catch {
       // Fallback gracioso offline
@@ -266,24 +264,10 @@ export const ReconhecimentoForm = () => {
       salvarCacheLocal(fallbackProtocolo, fallbackSubmissao);
       await sincronizarApiSolicitacoes(fallbackProtocolo);
 
-      const msgLiberacao = [
-        `🌿 *COOPERATIVA NATIVARAM — PEDIDO DE LIBERAÇÃO DE ACESSO*`,
-        ``,
-        `Olá, Conselho Gestor da Cooperativa Nativaram!`,
-        `Acabei de preencher a Ficha de Reconhecimento no portal e gostaria de solicitar a liberação de acesso ao Portal do Dirigente.`,
-        ``,
-        `📜 *Protocolo:* \`${fallbackProtocolo}\``,
-        `🪶 *Grupo / Rezo:* ${data.nomeIdentificacao}`,
-        `👤 *Guardião Responsável:* ${data.nomeResponsavel}`,
-        `📱 *WhatsApp:* ${data.telefoneContato}`,
-        `📍 *Localidade:* ${data.cidade}/${data.estado}`,
-        `✨ *Graduação Desejada:* ${data.graduacaoPretendida} (~${data.litragemEstimadaMensal}L/mês)`,
-        ``,
-        `_Aguardamos a apreciação no sistema para recebermos nosso código de login e senha de acesso._`,
-      ].join("\n");
-
+      const urlWhats = montarUrlWhatsApp(fallbackProtocolo);
       setDossier(fallbackDossier);
-      setWhatsappDirectUrl(`https://wa.me/556899779104?text=${encodeURIComponent(msgLiberacao)}`);
+      setWhatsappDirectUrl(urlWhats);
+      abrirWhatsAppReservado(janelaWhatsApp, urlWhats);
     }
 
     window.scrollTo({ top: 200, behavior: "smooth" });
@@ -403,6 +387,16 @@ export const ReconhecimentoForm = () => {
 
         {/* CTA Principal: WhatsApp do Conselho */}
         <div className="max-w-xl mx-auto space-y-3 pt-2">
+          {!registroPainelOk && (
+            <div
+              role="alert"
+              className="rounded-xl border border-ambar-500/40 bg-ambar-500/10 p-4 text-xs text-areia-200 leading-relaxed"
+            >
+              Não conseguimos confirmar o registro no painel agora. Para garantir o seu
+              cadastro, envie a mensagem pelo WhatsApp abaixo: o Conselho receberá todos
+              os dados por lá.
+            </div>
+          )}
           <a
             href={finalWhatsappUrl}
             target="_blank"
