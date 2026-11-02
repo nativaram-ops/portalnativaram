@@ -9,6 +9,8 @@
 
 Todo texto gerado DEVE obedecer ao **Dicionário de Engenharia de Linguagem** abaixo.
 
+> **Exceção (ADR-009):** o conteúdo de segurança da área restrita do Portal do Dirigente (matriz de interações, ficha de anamnese, documentos de triagem e emergência) usa termos clínicos precisos (medicamento, dose, washout). Continua proibido ali prometer cura ou usar linguagem comercial. Ver `Segundo-Cerebro/06-Arquitetura-do-Portal/ADR-009-Vocabulario-Clinico-no-Conteudo-de-Seguranca.md`.
+
 ### Termos Proibidos → Substitutos Permitidos
 
 | NUNCA USAR | USAR SEMPRE |
