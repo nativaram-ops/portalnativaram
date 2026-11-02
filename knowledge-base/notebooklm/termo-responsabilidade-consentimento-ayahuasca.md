@@ -1,7 +1,4 @@
-Aqui está a transcrição na íntegra e exata, linha por linha, do arquivo **`termo-responsabilidade-consentimento-ayahuasca.md`**:
-
-```markdown
-# COOPERATIVA ETNOBOTÂNICA NATIVARAM BRASIL
+# COOPERATIVA NATIVARAM
 ## SISTEMA DE SALVAGUARDA LITÚRGICA E REDUÇÃO DE DANOS
 ### DOCUMENTO 02: TERMO DE RESPONSABILIDADE, CIÊNCIA DE SACRAMENTO E CONSENTIMENTO LIVRE E ESCLARECIDO (TCLE)
 
@@ -10,7 +7,7 @@ Aqui está a transcrição na íntegra e exata, linha por linha, do arquivo **`t
 ### MÓDULO I: IDENTIFICAÇÃO DAS PARTES
 
 #### 1. INSTITUIÇÃO ESPIRITUAL E LITÚRGICA
-* **Razão Social / Denominação:** Cooperativa Etnobotânica Nativaram Brasil / Templo de Culto Enteógeno Nativaram
+* **Razão Social / Denominação:** Cooperativa Nativaram / Templo de Culto Enteógeno Nativaram
 * **CNPJ/MF:** `[Inserir CNPJ da Instituição]`
 * **Endereço da Sede Litúrgica:** `[Rua/Avenida, Nº, Bairro, Cidade/UF, CEP]`
 * **Dirigente Espiritual Responsável:** `[Nome do Dirigente / Padrinho / Madrinha]`
@@ -82,16 +79,17 @@ Durante todo o período de permanência na sede da instituição, o(a) COMUNGANT
 
 ---
 
-### CLÁUSULA SEXTA: DA ANAMNESE CLÍNICA, VERACIDADE DECLARATÓRIA E ALOCAÇÃO DE RESPONSABILIDADE CIVIL
+### CLÁUSULA SEXTA: DA ANAMNESE CLÍNICA, VERACIDADE DECLARATÓRIA, CIÊNCIA E DEVER DE CUIDADO DA CASA
 
 1. **Reiteração de Veracidade:** O(A) COMUNGANTE ratifica integralmente as declarações prestadas na sua **Ficha de Anamnese e Triagem Médico-Espiritual**, assegurando sob as penas da lei que não omitiu diagnóstico prévio de:
-   * Transtorno Bipolar Tipo I, Esquizofrenia, Transtorno Esquizoafetivo, Psicose ou Surto Delirante;
+   * Transtorno Bipolar (tipo informado na ficha), Esquizofrenia, Transtorno Esquizoafetivo, Psicose ou Surto Delirante;
    * Hipertensão Arterial Sistêmica não controlada, Aneurismas, Arritmias Graves, Infarto Prévio ou Valvopatias;
    * Crises Convulsivas não controladas ou Epilepsia;
-   * Uso atual ou recente (últimas 6 semanas) de Antidepressivos Inibidores Selectivos da Recaptação de Serotonina (ISRS: Fluoxetina, Sertralina, Escitalopram, Paroxetina), ISRSN (Venlafaxina, Duloxetina) ou Tricíclicos;
+   * Uso atual ou recente (últimos 60 dias) de Antidepressivos Inibidores Selectivos da Recaptação de Serotonina (ISRS: Fluoxetina, Sertralina, Escitalopram, Paroxetina), ISRSN (Venlafaxina, Duloxetina) ou Tricíclicos;
    * Uso de Estabilizadores de Humor à base de **LÍTIO (Carbonato de Lítio)** ou Estimulantes (Anfetaminas/Ritalina/Venvanse).
-2. **Assunção de Riscos por Ocultação (Culpa Exclusiva da Vítima):** O(A) COMUNGANTE reconhece que o consumo concomitante de Ayahuasca com fármacos proscritos (especialmente Lítio e Antidepressivos) ou em estados de patologia psiquiátrica psicótica prévia acarreta risco iminente de **Síndrome Serotoninérgica grave, crise hipertensiva, convulsão, colapso circulatório ou surto psicótico**.
-3. **Exclusão de Causalidade:** Caso o(a) COMUNGANTE tenha prestado declarações falsas, omitido intencionalmente patologias ou feito uso velado de substâncias contraindicadas, fica configurada a sua **CULPA EXCLUSIVA (FATO DA VÍTIMA)**, eximindo integralmente a instituição e seus dirigentes de qualquer responsabilidade civil (Arts. 186 e 927 do Código Civil) ou criminal por eventuais intercorrências à sua saúde, ante a ruptura direta do nexo de causalidade por ato autolesivo e violação do dever anexo de boa-fé objetiva (Art. 422 do Código Civil).
+2. **Ciência dos riscos:** O(A) COMUNGANTE declara-se ciente de que o consumo de ayahuasca com medicamentos incompatíveis (especialmente lítio e antidepressivos) ou na presença de quadro psicótico prévio pode causar **síndrome serotoninérgica, crise hipertensiva, convulsão, colapso circulatório ou surto psicótico**, e de que informações omitidas ou incorretas impedem a casa de avaliar o seu risco. Compromete-se a comunicar qualquer mudança até o momento da cerimônia.
+3. **Dever de cuidado da casa:** o templo se compromete a conferir a ficha de anamnese antes de cada participação, aferir sinais vitais na recepção, aplicar a reconfirmação no dia (Documento 07), manter pessoa treinada em primeiros socorros, kit de aferição e plano de emergência do local (Documento 08), e acionar o SAMU 192 diante de sinal de alarme, entregando à equipe de saúde o Cartão de Informação (Documento 10).
+   * *Revisão jurídica pendente.*
 
 ---
 
@@ -102,7 +100,12 @@ Durante todo o período de permanência na sede da instituição, o(a) COMUNGANT
    * Triagem de elegibilidade física e psíquica para a comunhão sacramental;
    * Acolhimento e salvaguarda em situações de emergência de saúde durante a cerimônia;
    * Cumprimento de obrigações legais, regulatórias e de prestação de contas perante autoridades sanitárias, ambientais e judiciais.
-3. **Prazo de Guarda e Sigilo:** Os documentos de anamnese e consentimento serão armazenados sob sigilo absoluto em arquivo físico e/ou digital com criptografia, mantidos pelo prazo mínimo de **20 (vinte) anos**, em analogia ao suporte normativo de prontuários de saúde (Lei nº 13.787/2018), sendo vedado qualquer compartilhamento comercial ou cessão a terceiros sem prévia autorização.
+3. **Prazo de Guarda, Sigilo e Direitos do Titular:**
+   * **Base legal:** consentimento específico e destacado do titular (LGPD, art. 11, I) e, em emergência, proteção da vida (LGPD, art. 11, II, "e").
+   * **Prazo de retenção:** ____________________ (prazo finito definido pelo templo na Política de Privacidade, Documento 11). Ao fim do prazo, os dados serão eliminados ou anonimizados. É vedado qualquer compartilhamento comercial ou cessão a terceiros.
+   * O titular pode pedir acesso, correção e eliminação dos dados e revogar o consentimento (LGPD, art. 18); pedidos de eliminação serão atendidos, salvo as hipóteses do art. 16 da LGPD confirmadas pela assessoria jurídica.
+   * **Encarregado pelo tratamento de dados (nome e contato):** ______________________________
+   * *Revisão jurídica pendente.*
 
 ---
 
@@ -145,9 +148,3 @@ CPF: __________________________________ Assinatura: __________________
 **Testemunha 02 (Fiscal de Salão / Triagem):**
 Nome: ______________________________________________________________
 CPF: __________________________________ Assinatura: __________________
-```
-
----
-
-💡 **Sugestão de Próximo Passo:**
-Se desejar a transcrição na íntegra de qualquer outro arquivo gerado do seu acervo (como a **Etnofarmacologia e Interações**, o **Catálogo de Graduações** ou o **POP e Ata de Condução de Ritual**), basta solicitar!

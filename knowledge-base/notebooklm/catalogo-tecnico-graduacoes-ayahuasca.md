@@ -1,7 +1,4 @@
-Aqui está a transcrição na íntegra e exata, linha por linha, do arquivo **`catalogo-tecnico-graduacoes-ayahuasca.md`**:
-
-```markdown
-# COOPERATIVA ETNOBOTÂNICA NATIVARAM BRASIL
+# COOPERATIVA NATIVARAM
 ## SISTEMA DE SALVAGUARDA LITÚRGICA E REDUÇÃO DE DANOS
 ### DOCUMENTO 04: CATÁLOGO TÉCNICO E DOUTRINÁRIO DAS GRADUAÇÕES E MANEJO DE AYAHUASCA
 
@@ -9,7 +6,7 @@ Aqui está a transcrição na íntegra e exata, linha por linha, do arquivo **`c
 
 ### APRESENTAÇÃO INSTITUCIONAL
 
-Este **Catálogo Técnico e Doutrinário** constitui o guia oficial de padronização, manejo fitoquímico e conservação da Sagrada Medicina Ayahuasca produzida e distribuída pela **Cooperativa Etnobotânica Nativaram Brasil** para seus templos e núcleos afiliados. 
+Este **Catálogo Técnico e Doutrinário** constitui o guia oficial de padronização, manejo fitoquímico e conservação da Sagrada Medicina Ayahuasca produzida e distribuída pela **Cooperativa Nativaram** para seus templos e núcleos afiliados. 
 
 Elaborado sob a convergência entre os saberes tradicionais amazônicos, os princípios da **Resolução CONAD nº 01/2010** e os parâmetros rigorosos da **Engenharia de Alimentos e Fitoquímica**, este documento visa instrumentalizar dirigentes, mestres e zeladores quanto às especificações botânicas, gradações de concentração, protocolos de diluição e custódia sanitária do sacramento.
 
@@ -21,9 +18,9 @@ A qualidade, a estabilidade e a firmeza da bebida produzida pela Nativaram decor
 
 * **Origem do Feitio:** Vale do Juruá, Cruzeiro do Sul — Acre (Amazônia Ocidental). O feitio é realizado na mata nativa por mestre feitor caboclo com mais de duas décadas de dietas, estudos e vivências junto às etnias tradicionais da região (*Yawanawá*, *Huni Kuin* e *Katukina*).
 * **Ponto de Partilha e Distribuição Institucional:** Serra, Espírito Santo.
-* **Matriz da Liana (Cipó):** Utilização exclusiva de ***Banisteriopsis caapi***, etnovariedade **Tucunacá**. O Tucunacá caracteriza-se por caules lisos, cilíndricos e homogêneos, sem as intumescências nodulares proeminentes da variedade Caupuri. Sob o aspecto fitoquímico, o Tucunacá apresenta teores elevados de \\(\beta\\)-carbolinas totais (média de \\(8,03\text{ mg/g}\\) de matéria seca, contendo Harmina, Harmalina e Tetrahidroharmina - THH), proporcionando uma experiência de firmeza corpórea lúcida, serenidade mental e reduzido impacto de tremores motores. A liana é lavada manualmente com cerdas naturais e machucada exclusivamente em malhos de madeira nobre, sem contato com metais oxidáveis.
+* **Matriz da Liana (Cipó):** Utilização exclusiva de ***Banisteriopsis caapi***, etnovariedade **Tucunacá**. O Tucunacá caracteriza-se por caules lisos, cilíndricos e homogêneos, sem as intumescências nodulares proeminentes da variedade Caupuri. Sob o aspecto fitoquímico, o Tucunacá apresenta teores elevados de β-carbolinas totais (média de 8,03 mg/g de matéria seca, contendo Harmina, Harmalina e Tetrahidroharmina - THH), proporcionando uma experiência de firmeza corpórea lúcida, serenidade mental e reduzido impacto de tremores motores. A liana é lavada manualmente com cerdas naturais e machucada exclusivamente em malhos de madeira nobre, sem contato com metais oxidáveis.
 * **Matriz Foliar (Folha):** Utilização exclusiva de ***Psychotria viridis*** (**Chacrona Rainha**). As folhas são colhidas manualmente no período matinal (entre 06:00 e 08:30), janela circadiana de máxima pressão de turgor celular e pico de concentração do alcaloide triptamínico \$N,N\$-Dimetiltriptamina (DMT), evitando a exposição do material colhido à radiação UV solar direta e à degradação fotolítica. As folhas passam por triagem individualizada, descartando-se tecidos foliares amarelados, necrosados ou fermentados.
-* **Água do Feitio:** Água pura captada diretamente de nascente preservada na floresta amazônica, totalmente isenta de cloro, flúor ou contaminantes urbanos.
+* **Água do Feitio:** Água pura captada diretamente de nascente preservada na floresta amazônica, totalmente livre de cloro, flúor ou contaminantes urbanos.
 
 ---
 
@@ -115,9 +112,3 @@ O dirigente do templo parceiro que recebe a remessa na graduação **Wirapuru 10
 4. **Inspeção Prévia e Agitação de Salão:** Antes de servir a medicina em ritual, o dirigente ou encarregado da garrafa deve agitar vigorosamente o recipiente para ressuspender os complexos polifenólicos e sedimentos naturais do cipó Tucunacá. Deve-se realizar inspeção organoléptica (verificando ausência de odor azedo acético desagradável ou bolores superficiais). Na graduação 10:1 da Nativaram, a ocorrência de contaminação é virtualmente nula devido ao padrão de pureza e alta concentração.
 
 ---
-```
-
----
-
-💡 **Sugestão de Próximo Passo:**
-Resta apenas a transcrição do arquivo `etnofarmacologia-interacoes-contraindicacoes-ayahuasca.md` caso queira visualizar seu conteúdo completo em chat. Deseja que eu faça a transcrição dele a seguir?

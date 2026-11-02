@@ -1,9 +1,6 @@
-Aqui está a transcrição na íntegra e exata, linha por linha, do arquivo **`pop-ata-conducao-ritual-ayahuasca.md`**:
-
-```markdown
 # MANUAL DE PROCEDIMENTO OPERACIONAL PADRÃO (POP) E ATA DE CONDUÇÃO DE RITUAL
 ## SISTEMA DE SALVAGUARDA LITÚRGICA, GESTÃO DE RISCOS E REDUÇÃO DE DANOS
-**INSTITUIÇÃO LITÚRGICA / COOPERATIVA NATIVARAM BRASIL**
+**INSTITUIÇÃO LITÚRGICA / COOPERATIVA NATIVARAM**
 
 ---
 
@@ -45,7 +42,7 @@ Antes do ingresso dos comungantes no salão, o Dirigente ou Responsável do Espa
 #### 1.3. Recepção, Conferência Documental e Triagem Ativa de Entrada
 - [ ] **Conferência de Fichas:** Checagem individual e obrigatória da **Ficha de Anamnese (Doc. 01)** e do **Termo de Responsabilidade e TCLE (Doc. 02)** devidamente preenchidos e assinados.
 - [ ] **Entrevista Verbal Rápida na Portaria:**
-  - Confirmar se o participante cumpriu a abstinência de álcool (mínimo 3 a 5 dias) e drogas psicoativas.
+  - Confirmar se o participante cumpriu o intervalo mínimo de álcool e drogas psicoativas definido pela casa (revisão clínica pendente), conferindo a reconfirmação no dia (Documento 07).
   - Confirmar tempo de jejum alimentar (4 a 6 horas de jejum leve recomendados).
   - Reconfirmar se a pessoa **não tomou nenhum medicamento contraindicado** (antidepressivos ISRS/ISRSN nas últimas semanas, Lítio, estimulantes, triptanos).
 - [ ] **Mapeamento e Acomodação Estratégica de Iniciantes:**
@@ -126,7 +123,7 @@ Caso o participante apresente alterações fisiológicas objetivas, a equipe de 
  3. REBAIXAMENTO SEVERO DE CONSCIÊNCIA (Escala de Coma de Glasgow <= 8) ou
     Ausência de Respiração Espontânea / Cianose Perilabial (lábios roxos).
 
- 4. CRISE HIPERTENSIVA AGUDA (PA >= 180/120 mmHg) com dor de cabeça
+ 4. CRISE HIPERTENSIVA AGUDA (PA >= ___/___ mmHg*) com dor de cabeça
     subitânea e excruciante, desvio de rima labial ou perda de força unilateral.
     --> RISCO: Acidente Vascular Cerebral (AVC) ou evento coronariano.
 ================================================================================
@@ -198,7 +195,9 @@ Caso o participante apresente alterações fisiológicas objetivas, a equipe de 
 
 ## PARTE II: MODELO OFICIAL DE ATA DE SESSÃO RITUALÍSTICA
 
-*(Este documento deve ser impresso, preenchido a caneta ou datilografado e assinado ao final de cada ritual, sendo arquivado no Livro de Atas do Templo por 20 anos).*
+*(Este documento deve ser impresso, preenchido a caneta ou datilografado e assinado ao final de cada ritual, sendo arquivado no Livro de Atas do Templo pelo prazo definido na Política de Privacidade do templo, Documento 11).*
+
+*\* Limiar de emergência da tabela única de pressão arterial da casa — revisão clínica pendente (fontes antigas divergiam entre 180/110 e 180/120 mmHg).*
 
 ```text
 ====================================================================================================
@@ -241,7 +240,7 @@ de álcool/drogas teve permissão para consagrar o sacramento.
 ----------------------------------------------------------------------------------------------------
 4. ESPECIFICAÇÕES DO SACRAMENTO AYAHUASCA CONSAGRADO
 ----------------------------------------------------------------------------------------------------
-- Origem do Feitio: Cooperativa Etnobotânica Nativaram Brasil / Feitio Próprio
+- Origem do Feitio: Cooperativa Nativaram / Feitio Próprio
 - Matrizes Botânicas: Banisteriopsis caapi (var. Tucunacá) e Psychotria viridis (Chacrona Rainha).
 - Lote do Chá: ____________________ | Graduação: ( ) 3:1  ( ) 5:1  ( ) 7:1  ( ) 10:1 (Wirapuru)
 - Volume Total Consagrado: _________ Litros.
@@ -315,12 +314,6 @@ Assinatura do Responsável pelos Primeiros Socorros / Brigadista
 | **Durante (T + 1h a 4h)**| 7. Acolhimento de crises emocionais no Espaço Seguro ("Zendo"). | Aplicação dos 4 Princípios do Zendo/Fireside. | [ ] OK |
 | **Durante (T + 1h a 4h)**| 8. Monitoramento de Alerta Vermelho (Febre, Convulsão, PA alta, Glasgow <= 8). | Acionamento imediato do SAMU 192 se necessário. | [ ] OK |
 | **Pós-Ritual (T + 5h)** | 9. Alimentação leve de aterramento e checagem de alta motora/visual. | Restabelecimento metabólico de comungantes. | [ ] OK |
-| **Pós-Ritual (T + 6h)** | 10. Preenchimento e assinatura da Ata Oficial de Sessão Ritualística. | Guarda documental por 20 anos (LGPD/Governança). | [ ] OK |
+| **Pós-Ritual (T + 6h)** | 10. Preenchimento e assinatura da Ata Oficial de Sessão Ritualística. | Guarda pelo prazo da Política de Privacidade (Doc 11). | [ ] OK |
 
 ---
-```
-
----
-
-💡 **Sugestão de Próximo Passo:**
-Se precisar que eu transcreva algum dos outros dois arquivos restantes (`etnofarmacologia-interacoes-contraindicacoes-ayahuasca.md` ou `catalogo-tecnico-graduacoes-ayahuasca.md`), basta me avisar!

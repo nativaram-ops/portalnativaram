@@ -323,16 +323,20 @@ async function runAllTests() {
     assert.ok(navContent.includes("Etapa 5 de 5"), "Deve conter marcador da 5ª etapa");
   });
 
-  await test("Central de Documentos disponibiliza os 5 modelos canônicos para impressão A4 e download", async () => {
+  await test("Central de Documentos disponibiliza os modelos canônicos para impressão A4 e download", async () => {
     const centralContent = await fs.readFile(
       path.join(ROOT_DIR, "src", "components", "portal-dirigente", "PortalCentralDocumentos.tsx"),
       "utf-8"
     );
-    assert.ok(centralContent.includes("DOCUMENTO 01: FICHA DE ANAMNESE"), "Deve conter Doc 01: Anamnese");
-    assert.ok(centralContent.includes("DOCUMENTO 02: TERMO DE RESPONSABILIDADE"), "Deve conter Doc 02: TCLE");
-    assert.ok(centralContent.includes("DOCUMENTO 03: MANUAL DE PROCEDIMENTO OPERACIONAL"), "Deve conter Doc 03: ATA/POP");
-    assert.ok(centralContent.includes("DOCUMENTO 04: DECLARAÇÃO DE TRANSPORTE"), "Deve conter Doc 04: Trânsito");
-    assert.ok(centralContent.includes("DOCUMENTO 05: TERMO DE AUTORIZAÇÃO"), "Deve conter Doc 05: Menores de Idade");
+    // O texto dos documentos vive em src/data/documentos/ (fonte única); o componente só renderiza.
+    const { DOCUMENTOS_CENTRAL, gerarMarkdown } = await import("../src/data/documentos/index.ts");
+    const ctx = { temploNome: "T", temploCidade: "C", temploDirigente: "D", temploRegistro: "R", dataEmissao: "hoje" };
+    const md = DOCUMENTOS_CENTRAL.map((d) => gerarMarkdown(d, ctx)).join("\n");
+    assert.ok(md.includes("DOCUMENTO 01: FICHA DE ANAMNESE"), "Deve conter Doc 01: Anamnese");
+    assert.ok(md.includes("DOCUMENTO 02: TERMO DE RESPONSABILIDADE"), "Deve conter Doc 02: TCLE");
+    assert.ok(md.includes("DOCUMENTO 03: MANUAL DE PROCEDIMENTO OPERACIONAL"), "Deve conter Doc 03: ATA/POP");
+    assert.ok(md.includes("DOCUMENTO 04: DECLARAÇÃO DE TRANSPORTE"), "Deve conter Doc 04: Trânsito");
+    assert.ok(md.includes("DOCUMENTO 05: TERMO DE AUTORIZAÇÃO"), "Deve conter Doc 05: Menores de Idade");
     assert.ok(centralContent.includes("window.print()"), "Deve conter gatilho de impressão A4");
   });
 

@@ -1,6 +1,3 @@
-Aqui está a transcrição na íntegra e exata, linha por linha, do arquivo **`etnofarmacologia-interacoes-contraindicacoes-ayahuasca.md`**:
-
-```markdown
 # COMPÊNDIO TÉCNICO-CIENTÍFICO DE ETNOFARMACOLOGIA, INTERAÇÕES MEDICAMENTOSAS E CONTRAINDICAÇÕES CLÍNICAS DA AYAHUASCA
 
 **DOCUMENTO DE USO RESTRITO, SIGILOSO E RESGUARDADO À DIRIGÊNCIA LITÚRGICA, CONSELHO CLÍNICO E FACILITADORES DE TRIAGEM**
@@ -21,8 +18,8 @@ Este compêndio deve ser mantido sob a custódia do Dirigente da casa e consulta
 
 ### 1. Sinergia Botânica e Composição Alcaloídica
 A infusão sacramental tradicional é obtida através da decocção prolongada de duas espécies vegetais amazônicas nativas:
-1. **cujas folhas contêm N,N-Dimetiltriptamina (DMT)**, um alcaloide triptamínico de ação psicodélica potente.
-2. **cujo caule e casca contêm alcaloides β-carbolínicos**: Harmina, Harmalina e Tetrahidroharmina (THH).
+1. ***Psychotria viridis*** (chacrona/rainha), **cujas folhas contêm N,N-Dimetiltriptamina (DMT)**, um alcaloide triptamínico de ação psicodélica potente.
+2. ***Banisteriopsis caapi*** (mariri/jagube), **cujo caule e casca contêm alcaloides β-carbolínicos**: Harmina, Harmalina e Tetrahidroharmina (THH).
 
 ```
 +-----------------------------------------------------------------------------------+
@@ -82,7 +79,7 @@ A infusão sacramental tradicional é obtida através da decocção prolongada d
                                          |
                                          v
 +-----------------------------------------------------------------------------------+
-|       HIPERATIVAÇÃO DOS RECEPTORES \\(5\text{-HT}_{1\text{A}}\\) E \\(5\text{-HT}_{2\text{A}}\\) NO SNC E PERIFERIA        |
+|          HIPERATIVAÇÃO DOS RECEPTORES 5-HT1A E 5-HT2A NO SNC E PERIFERIA          |
 +-----------------------------------------------------------------------------------+
                                          |
         +--------------------------------+--------------------------------+
@@ -118,10 +115,10 @@ O diagnóstico é estabelecido se o indivíduo ingeriu um agente serotoninérgic
 +-----------------------------------------------------------------------------------+
 |                     MECANISMO DA INTERAÇÃO LÍTIO + AYAHUASCA                      |
 +-----------------------------------------------------------------------------------+
-|  [ Carbonato de Lítio ]                       +  [ DMT / Ayahuasca ]            |
-|  - Depleção do inositol livre celular            - Agonismo potente \\(5\text{-HT}_{2\text{A}}\\)      |
-|  - Acúmulo de IP3/DAG (Segundos mensageiros)     - Inibição da degradação de 5-HT   |
-|  - Hipersensibilização dos receptores \\(5\text{-HT}_{2\text{A}}\\)                      |
+|  [ Carbonato de Lítio ]                       +  [ DMT / Ayahuasca ]              |
+|  - Depleção do inositol livre celular            - Agonismo 5-HT2A                |
+|  - Acúmulo de IP3/DAG (segundos mensageiros)     - Inibição da degradação de 5-HT |
+|  - Sensibilização de 5-HT2A (hipótese)                                            |
 +----------------------------------------+------------------------------------------+
                                          |
                                          v
@@ -132,7 +129,7 @@ O diagnóstico é estabelecido se o indivíduo ingeriu um agente serotoninérgic
                                          v
 +-----------------------------------------------------------------------------------+
 |       DEFLAGRAÇÃO DE CONVULSÕES GENERALIZADAS E STATUS EPILEPTICUS REFRATÁRIO     |
-|       (Aprox. 47% dos relatos clínicos de uso combinado resultam em convulsão)    |
+|           (Nayak et al., 2021: 47% de 62 relatos online autodeclarados)           |
 +-----------------------------------------------------------------------------------+
                                          |
                                          v
@@ -142,9 +139,9 @@ O diagnóstico é estabelecido se o indivíduo ingeriu um agente serotoninérgic
 ```
 
 #### Fisiopatologia Específica do Lítio:
-O Lítio inibe a enzima inositol monofosfatase (IMPase), alterando drasticamente a reciclagem de inositol nas células gliais e neuronais e gerando um acúmulo anormal de inositol 1,4,5-trifosfato ($IP_3$) e diacilglicerol ($DAG$). Essa alteração desregula a sinalização intracelular mediada pela proteína $G_q$ e induz uma **hipersensibilização e up-regulation funcional dos receptores $5\text{-HT}_{2\text{A}}$**. 
+**Hipótese de mecanismo (não demonstrada):** o lítio inibe a enzima inositol monofosfatase (IMPase) e altera a reciclagem de inositol e a sinalização intracelular mediada pela proteína $G_q$ ($IP_3$/$DAG$). Propõe-se que essa alteração sensibilize a resposta mediada pelos receptores $5	ext{-HT}_{2	ext{A}}$. O mecanismo é hipotético e serve apenas para orientar a cautela.
 
-Quando o DMT (agonista direto de $5\text{-HT}_{2\text{A}}$) entra em contato com um tecido cerebral previamente sensibilizado pelo Lítio, ocorre uma sincronização síncrona patológica de disparos paroxísticos corticais, culminando em **crises convulsivas tônico-clônicas e Status Epilepticus (SE)**. Estudos epidemiológicos e observacionais demonstram que quase metade (47%) dos episódios relatados de coadministração de psicodélicos clássicos com Lítio evoluíram para convulsões graves, necessitando de UTI e intubação orotraqueal.
+**O que se sabe:** em 62 relatos online autodeclarados (Erowid e Reddit) de uso de psicodélicos clássicos com lítio, quase todos com LSD ou psilocibina, 47% descreveram convulsão e 39% descreveram necessidade de atendimento médico (Nayak et al., *Pharmacopsychiatry*, 2021 — https://pubmed.ncbi.nlm.nih.gov/34348413/). Não é estudo epidemiológico nem trata de ayahuasca: a evidência é fraca, mas o sinal é grave e consistente. **O veto ao lítio é mantido.**
 
 ### 4. Antidepressivos Tricíclicos (ADTs), Atípicos e IMAOs Farmacológicos
 * **Tricíclicos (Amitriptilina, Nortriptilina, Clomipramina):** Apresentam elevado risco de toxicidade cardíaca por bloqueio de canais de sódio voltagem-dependentes no miocárdio e bloqueio de receptores $\alpha_1$-adrenérgicos, muscarínicos $M_1$ e histaminérgicos $H_1$. A sobreposição com a Ayahuasca induz colapso hemodinâmico, arritmias ventriculares fatais e crise anticolinérgica central.
@@ -163,7 +160,7 @@ Quando o DMT (agonista direto de $5\text{-HT}_{2\text{A}}$) entra em contato com
 
 ---
 
-## MÓDULO III: TABELA EXAUSTIVA DE DESCONTINUAÇÃO FARMACOLÓGICA (*WASHOUT*)
+## MÓDULO III: DESCONTINUAÇÃO FARMACOLÓGICA (*WASHOUT*)
 
 ### Modelagem Cinética de Depuração de Primeira Ordem
 A eliminação Plasmática de psicofármacos segue cinética linear de primeira ordem, descrita pela equação:
@@ -175,23 +172,26 @@ Para que a concentração de um fármaco caia a níveis clinicamente insignifica
 > **ATENÇÃO RIGOROSA E INARREDÁVEL DA DIRIGÊNCIA:**
 > A descontinuação de qualquer psicofármaco **JAMAIS DEVE SER RECOMENDADA OU CONDUZIDA POR LEIGOS, FACILITADORES OU PELO DIRIGENTE LITÚRGICO**. A suspensão abrupta pode causar Síndrome de Descontinuação de Antidepressivos (com ideação suicida rebote, acatisia e surtos) ou descompensação da patologia de base. Toda e qualquer janela de *washout* deve ser **orientada, consentida e supervisionada pelo MÉDICO PSIQUIATRA ASSISTENTE do participante**, com emissão de parecer por escrito.
 
-| Classe Farmacológica | Princípios Ativos e Nomes Comerciais | Meia-Vida de Eliminação ($t_{1/2}$) do Composto Parent e Metabólito Ativo | Vias Metabólicas e Enzimas Envolvidas | Janela Biológica Mínima de Washout ($5\text{ a }7 \times t_{1/2}$) | Diretriz e Nível de Risco para o Dirigente |
-| :--- | :--- | :--- | :--- | :---: | :--- |
-| **1. ISRS (Inibidores Seletivos da Recaptação de Serotonina)** | **Fluoxetina** (Prozac, Daforin)<br>**Sertralina** (Zoloft, Assert)<br>**Escitalopram** (Lexapro)<br>**Paroxetina** (Aropax)<br>**Citalopram** (Cipramil) | Fluoxetina: 1 a 4 dias.<br>**Norfluoxetina (Metabólito Ativo): 7 a 15 dias**.<br>Sertralina: 26 horas.<br>Escitalopram: 27-32 horas.<br>Paroxetina: 21 horas. | Hepática. CYP2D6 (inibição forte), CYP2C9, CYP3A4. Autoinibição enzimática. | **Fluoxetina: 35 a 45 dias (5 a 6 semanas)**.<br>Demais ISRS: **21 a 28 dias (3 a 4 semanas)**. | **RISCO EXTREMO.** Exigir autorização do psiquiatra. Vedada a participação sem o cumprimento integral da janela. |
-| **2. ISRSN (Inibidores Duais - Serotonina e Noradrenalina)** | **Duloxetina** (Cymbalta, Velija)<br>**Venlafaxina** (Efexor, Alenthus)<br>**Desvenlafaxina** (Pristiq, Elifore) | Duloxetina: 12 a 17 horas.<br>Venlafaxina: 5 a 11 horas.<br>Desvenlafaxina: 11 a 13 horas. | Hepática. CYP1A2, CYP2D6. | **21 a 28 dias (3 a 4 semanas)**. | **RISCO EXTREMO.** Risco de crise hipertensiva e Síndrome Serotoninérgica. |
-| **3. Sais de Lítio (Estabilizadores de Humor)** | **Carbonato de Lítio** (Carbolitium, Litiocar) | 18 a 24 horas (pode exceder 36h em idosos ou renais crônicos). | Exclusivamente Renal. Filtração glomerular direta (95% inalterado). | **Mínimo de 30 dias** (Necessário para restabelecer estoques de inositol e receptor 5-HT2A). | **CONTRAINDICAÇÃO ABSOLUTA E DEFINITIVA.** Portadores de Bipolaridade medicados com Lítio NÃO PODEM consagrar Ayahuasca em nenhuma hipótese. |
-| **4. Antidepressivos Tricíclicos (ADTs)** | **Amitriptilina** (Tryptanol)<br>**Nortriptilina** (Pamelor)<br>**Clomipramina** (Anafranil) | Amitriptilina: 10-26h.<br>**Nortriptilina: 18-44 horas**. | Hepática. CYP2D6, CYP2C19, CYP3A4. | **21 dias (3 semanas)**. | **RISCO GRAVÍSSIMO.** Risco de arritmia ventricular e crise anticolinérgica. |
-| **5. Antidepressivos Atípicos e Moduladores** | **Vortioxetina** (Brintellix)<br>**Trazodona** (Donaren)<br>**Mirtazapina** (Remeron)<br>**Bupropiona** (Wellbutrin) | Vortioxetina: 57 a 66h.<br>Hidroxibupropiona: 20-25h.<br>Trazodona: 7 a 12h. | Hepática. CYP2D6, CYP3A4, CYP2B6. | **14 a 21 dias (2 a 3 semanas)**. | **RISCO ELEVADO.** Requer descontinuação supervisionada. |
-| **6. IMAOs Farmacológicos Irreversíveis** | **Tranilcipromina** (Parnate)<br>**Selegilina** (Elepryl) | $t_{1/2}$ plasmática curta (2,5h), porém **inibição enzimática irreversível**. | Destruição covalente da enzima MAO. | **28 a 35 dias (4 a 5 semanas)** para síntese *de novo* de enzimas MAO. | **RISCO EXTREMO.** Não admitir sem tempo de regeneração enzimática comprovado. |
-| **7. Anticonvulsivantes / Estabilizadores de Humor** | **Carbamazepina** (Tegretol)<br>**Valproato de Sódio** (Depakene)<br>**Lamotrigina** (Lamicthal) | Carbamazepina: 12-17h.<br>Valproato: 9-16h.<br>Lamotrigina: 24-35h. | Hepática. Autoindução de CYP3A4, glicuronidação UGT. | **14 a 21 dias (2 a 3 semanas)**. | **RISCO ELEVADO.** Investigação da causa do uso (se epilepsia, exclusão permanente). |
-| **8. Gabapentinoides** | **Pregabalina** (Lyrica)<br>**Gabapentina** (Neurontin) | Pregabalina: 6 horas.<br>Gabapentina: 5 a 7 horas. | Exclusivamente Renal. Sem metabolização hepática. | **7 a 10 dias**. | **RISCO MODERADO/ELEVADO.** Avaliar indicação (dor neuropática vs. ansiedade grave). |
-| **9. Antipsicóticos Atípicos (Segunda Geração)** | **Aripiprazol** (Abilify)<br>**Quetiapina** (Seroquel)<br>**Olanzapina** (Zyprexa)<br>**Risperidona** (Risperdal) | Aripiprazol: **75h (Desidro-aripiprazol: 94h)**.<br>Quetiapina: 6-7h.<br>Olanzapina: 21-54h. | Hepática. CYP2D6, CYP3A4. | **21 a 28 dias (3 a 4 semanas)**. | **CONTRAINDICAÇÃO ABSOLUTA.** O uso de antipsicóticos indica histórico de psicose, esquizofrenia ou bipolaridade severa. |
-| **10. Antipsicóticos Típicos (Primeira Geração)** | **Haloperidol** (Haldol)<br>**Clorpromazina** (Amplictil) | Haloperidol: 14 a 26 horas.<br>Clorpromazina: 30 horas. | Hepática. CYP3A4, CYP2D6, glicuronidação. | **14 a 21 dias**. | **CONTRAINDICAÇÃO ABSOLUTA.** Exclusão permanente do protocolo. |
-| **11. Benzodiazepínicos (Ansiolíticos / Hipnóticos)** | **Diazepam** (Valium)<br>**Clonazepam** (Rivotril)<br>**Alprazolam** (Frontal) | Diazepam: 20-50h (**Nordiazepam: 30-100h**).<br>Clonazepam: 30-40h. | Hepática. CYP2C19, CYP3A4. Lipofílico (acúmulo tecidual). | **21 a 28 dias (3 a 4 semanas)** (descontinuação gradual supervisionada). | **RISCO ELEVADO.** O uso agudo bloqueia/atenua a experiência litúrgica e oculta sintomas graves. |
-| **12. Estimulantes do SNC (TDAH e Anorexígenos)** | **Metilfenidato** (Ritalina, Concerta)<br>**Lisdexanfetamina** (Venvanse)<br>**Sibutramina** | Metilfenidato: 2-3h.<br>Lisdexanfetamina: 1h (D-anfetamina: 10-12h). | Hepática (carboxilesterase CES1A1) e renal. | **7 a 14 dias**. | **RISCO ELEVADO.** Risco de colapso cardiovascular e pico pressórico. |
-| **13. Analgésicos Opioides** | **Tramadol** (Sylador)<br>**Codeína**<br>**Morfina** / **Fentanil** | Tramadol: 6-7 horas.<br>Codeína: 2,5-3 horas. | Hepática. CYP2D6, CYP3A4. | **10 a 14 dias**. | **RISCO EXTREMO** (especialmente Tramadol pelo risco serotoninérgico e convulsivo). |
-| **14. Fitoterápicos e Suplementos Serotoninérgicos** | **Erva-de-São-João** (*Hypericum perforatum*)<br>**5-HTP** / **L-Triptofano** | Variável. A Erva-de-São-João inibe SERT/MAO e induz CYP3A4. | Hepática. | **14 dias (2 semanas)**. | **RISCO ELEVADO.** Venda livre não significa isenção de risco. |
-| **15. Descongestionantes e Antigripais** | **Pseudoefedrina**<br>**Dextrometorfano** (Vick, Benalet) | Pseudoefedrina: 4-8h.<br>Dextrometorfano: 2-4h (Metabolizadores lentos: 24h). | Hepática. CYP2D6. | **72 horas a 7 dias**. | **RISCO MODERADO/ELEVADO.** Dextrometorfano é potente inibidor de SERT. |
+### Janelas de suspensão — fonte oficial
+
+> **A tabela de janelas de washout que existia neste compêndio foi retirada** porque contradizia a matriz do portal e a ficha de anamnese (plano 010, A1). A fonte oficial das janelas, dos vetos e das cores é a **Tabela de Medicamentos do Portal** (`INTERACOES_MEDICAMENTOSAS` em `src/data/portal-assessoria.ts`, exibida em Portal do Dirigente → Interações Medicamentosas e exportada em PDF). Este compêndio não publica números próprios de washout.
+
+### Divergências que aguardam revisão clínica
+
+Até a revisão por médico ou farmacêutico, vale a matriz do portal. As divergências encontradas entre as fontes antigas foram:
+
+| Item | Matriz do portal | Versão anterior deste compêndio | Ficha de anamnese anterior |
+| :--- | :--- | :--- | :--- |
+| Benzodiazepínicos (Rivotril, Frontal, Valium) | Não tomar no dia (24 h) | 21 a 28 dias de washout | Só listava, sem janela |
+| ISRS, exceto fluoxetina | 14 a 21 dias | 21 a 28 dias | 21 a 28 dias |
+| ISRSN (venlafaxina, duloxetina) | 14 a 21 dias | 21 a 28 dias | 21 a 28 dias |
+| Antipsicóticos | Exclusão definitiva | "21 a 28 dias" e "contraindicação absoluta" | — |
+| Anticonvulsivantes | Veto (vermelho) | 14 a 21 dias | — |
+| Gabapentinoides (Lyrica) | Não tomar no dia | 7 a 10 dias | — |
+| Transtorno bipolar | — | Contraindicação: tipo I | Contraindicação: tipo I ou II |
+| Pressão arterial | — | Impede se ≥ 160/100 mmHg; emergência ≥ 180/110 | Marca "hipertensão" se ≥ 140/90; POP usava 180/120 para emergência |
+
+**Revisão clínica pendente:** definir um único conjunto de números (inclusive a tabela única de limiares de pressão: triagem, impedimento no dia e emergência) e a conduta para bipolar tipo I e tipo II. Os números finais não são decisão de agente nem de dirigente.
 
 ---
 
@@ -233,6 +233,8 @@ Para que a concentração de um fármaco caia a níveis clinicamente insignifica
 +-----------------------------------------------------------------------------------+
 ```
 
+> **Revisão clínica pendente:** a classificação do transtorno bipolar (tipo I e/ou II) e o limiar de pressão arterial desta matriz divergem de outras fontes; ver a lista de divergências no Módulo III. Até a revisão, vale a Tabela de Medicamentos do Portal e a conduta mais conservadora.
+
 ### 1. Esfera Psiquiátrica e Saúde Mental (Contraindicações Absolutas)
 * **Esquizofrenia, Transtorno Esquizoafetivo e Psicoses Não Orgânicas:** O DMT é um potente agonista dos receptores $5\text{-HT}_{2\text{A}}$, promovendo intensa ativação cortical e reorganização da conectividade neural. Em indivíduos com vulnerabilidade genética ou estrutural na arquitetura do ego, a estimulação serotoninérgica pode **precipitar surtos psicóticos duradouros, delírios paranoides irreversíveis, alucinações persistentes e descompensação psíquica grave**.
 * **Transtorno Afetivo Bipolar (Especialmente Tipo I):** A experiência com Ayahuasca pode atuar como gatilho neuroquímico para a virada maníaca, episódios de euforia psicótica, mania com sintomas delirantes e ciclotimia rápida refratária ao tratamento farmacológico.
@@ -241,7 +243,7 @@ Para que a concentração de um fármaco caia a níveis clinicamente insignifica
 
 ### 2. Esfera Cardiovascular e Hemodinâmica
 A ingestão de Ayahuasca promove um estímulo simpático transitório, resultando em elevação mediana de **10 a 20 mmHg na Pressão Arterial Sistólica/Diastólica** e aumento de **10 a 15 batimentos por minuto na Frequência Cardíaca**, atingindo o pico entre 60 e 120 minutos após a tomada.
-* **Hipertensão Arterial Severa Descontrolada:** Indivíduos com PA em repouso $\ge 160/100\text{ mmHg}$ no dia do ritual **NÃO PODEM** tomar o chá sem estabilização prévia.
+* **Hipertensão Arterial Severa Descontrolada:** Indivíduos com PA em repouso $\ge 160/100\text{ mmHg}$ no dia do ritual **NÃO PODEM** tomar o chá sem estabilização prévia. *(Limiar em revisão clínica; ver divergências no Módulo III.)*
 * **Aneurismas (Cerebrais ou Aórticos):** O pico pressórico transiente eleva o estresse de cisalhamento endotelial (*shear stress*), havendo alto risco de **ruptura vascular, hemorragia subaracnóidea e óbito**.
 * **Cardiopatia Isquêmica, Infarto Agudo do Miocárdio Prévio e Insuficiência Cardíaca:** A sobrecarga inotrópica e cronotrópica pode desencadear isquemia miocárdica aguda e colapso circulatório.
 * **Valvulopatias e Arritmias Severas:** Corações com comprometimento estrutural não possuem reserva funcional para responder ao aumento abrupto da pós-carga.
@@ -290,7 +292,7 @@ Se durante o ritual um participante apresentar sinais de instabilidade grave (su
 2. **Avaliação dos Sinais Vitais:** Aferir Pressão Arterial, Frequência Cardíaca e Temperatura Corporal.
 3. **Sinais de Alerta Vermelho (Acionamento Imediato do SAMU 192):**
    * Temperatura corporal $> 38,5^\circ\text{C}$ acompanhada de rigidez muscular ou sudorese intensa;
-   * Pressão Arterial $\ge 180/110\text{ mmHg}$;
+   * Pressão Arterial $\ge 180/110\text{ mmHg}$ *(limiar em revisão clínica; ver Módulo III)*;
    * Crise convulsiva com duração $> 2\text{ minutos}$ ou crises repetidas;
    * Perda de consciência refratária ou confusão mental com incapacidade de responder a comandos simples por mais de 4 horas pós-dose.
 4. **Prontuário de Emergência:** Entregar à equipe médica do SAMU a Ficha de Anamnese do participante contendo a lista de substâncias que declarou ter usado e a confirmação da ingestão do chá Ayahuasca (informando a presença de inibidores da MAO e DMT).
@@ -312,9 +314,3 @@ ____________________________________________________________________
 **Assinatura do Responsável Técnico / Triagem Médica (se houver)**
 **Nome Completo:** 
 **CRM / CRP / Registro Profissional:**
-```
-
----
-
-💡 **Status do Seu Acervo:**
-Todos os 5 arquivos de salvaguarda litúrgica e governança sanitária foram transcritos integralmente e estão disponíveis no seu painel de Studio e no histórico da conversa! Se precisar de algum ajuste, compilação ou documento adicional, estou à disposição.

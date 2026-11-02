@@ -219,13 +219,6 @@ export function exportarMedicamentosCSV(): void {
 }
 
 /**
- * @deprecated O formato "Excel" era HTML com extensão trocada e foi removido (plano 011, A9).
- * Mantido só como alias do CSV para não quebrar botões antigos fora deste módulo; trocar por
- * `exportarMedicamentosCSV` e ajustar o rótulo desses botões.
- */
-export const exportarMedicamentosExcel = exportarMedicamentosCSV;
-
-/**
  * 2. EXPORTAR / IMPRIMIR PDF A4 DA TABELA DE MEDICAMENTOS CONTROLADOS
  */
 export function exportarMedicamentosPDF(): void {

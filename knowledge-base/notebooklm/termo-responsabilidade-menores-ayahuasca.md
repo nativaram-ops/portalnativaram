@@ -9,9 +9,9 @@
 
 A participação de crianças e adolescentes nos rituais religiosos com o sacramento Ayahuasca decorre do legítimo e soberano exercício do **Poder Familiar**, expressamente reconhecido pelo Conselho Nacional de Políticas sobre Drogas (CONAD) através da **Resolução nº 01, de 25 de janeiro de 2010**, em seu item 4.1:
 
-> *"A participação de crianças e adolescentes nos rituais religiosos decorre do exercício do poder familiar, cabendo aos pais ou responsáveis legais a decisão sobre a administração da Ayahuasca a seus filhos, devendo zelar pelo bem-estar físico e psíquico do menor e observar o princípio da moderação e da preservação de seu desenvolvimento integral."*
+> *"A participação de crianças e adolescentes nos rituais religiosos decorre do exercício do poder familiar, cabendo aos pais ou responsáveis legais a decisão sobre a administração da Ayahuasca a seus filhos, devendo zelar pelo bem-estar físico e psíquico do menor e observar o princípio da moderação e da preservação de seu desenvolvimento integral."* *(Transcrição a conferir com o texto oficial publicado no DOU — revisão jurídica pendente.)*
 
-Este termo formal visa resguardar a integridade bio-psicossocial do menor, documentar a anuência de ambos os genitores, garantir a presença incondicional da família durante os trabalhos espirituais e proteger o Templo e seu Dirigente Litúrgico contra qualquer alegação de constrangimento ou irregularidade.
+Este termo formal visa resguardar a integridade bio-psicossocial do menor, documentar a anuência dos responsáveis legais (exigir a assinatura de ambos os genitores é regra da casa, não exigência da Resolução CONAD nº 01/2010), garantir a presença incondicional da família durante os trabalhos espirituais e proteger o Templo e seu Dirigente Litúrgico contra qualquer alegação de constrangimento ou irregularidade.
 
 ---
 
@@ -88,9 +88,9 @@ Declaram os pais/responsáveis, sob as penas da lei:
 
 **CLÁUSULA SEXTA (DAS ORIENTAÇÕES DE CONDUTA):** O menor deverá permanecer junto aos pais ou na ala familiar designada pelo templo, sendo vedada sua permanência desacompanhada nas áreas externas ou de mata durante o período da força litúrgica.
 
-**CLÁUSULA SÉTIMA (DO RESGUARDO E ISENÇÃO INSTITUCIONAL):** Os pais declaram que prestaram informações fidedignas no questionário de saúde, isentando o Templo, a Cooperativa Nativaram e seus facilitadores de qualquer responsabilidade decorrente de omissão de diagnóstico prévio, uso oculto de substâncias ou inobservância das orientações fornecidas pela equipe da casa.
+**CLÁUSULA SÉTIMA (DA DECLARAÇÃO DE VERACIDADE E DO DEVER DE CUIDADO DA CASA):** Os pais ou responsáveis declaram que as informações prestadas no questionário de saúde são verdadeiras e completas e que estão cientes de que informações omitidas ou incorretas impedem a casa de avaliar o risco. **Dever de cuidado da casa:** o templo se compromete a conferir a ficha de anamnese antes de cada participação, aferir sinais vitais na recepção, aplicar a reconfirmação no dia (Documento 07), manter pessoa treinada em primeiros socorros, kit de aferição e plano de emergência do local (Documento 08), e acionar o SAMU 192 diante de sinal de alarme, entregando à equipe de saúde o Cartão de Informação (Documento 10). *(Revisão jurídica pendente.)*
 
-**CLÁUSULA OITAVA (DA PROTEÇÃO DE DADOS - LGPD):** Os dados pessoais e sensíveis de saúde coletados neste termo serão arquivados pela Secretaria do Templo em pasta física e/ou sistema digital seguro, em estrito cumprimento à Lei Federal nº 13.709/2018 (Art. 14 - Tratamento de dados de crianças e adolescentes) pelo período regulamentar de 20 anos, não sendo objeto de compartilhamento público ou fins comerciais.
+**CLÁUSULA OITAVA (DA PROTEÇÃO DE DADOS - LGPD):** Os dados pessoais e sensíveis de saúde coletados neste termo serão arquivados pela Secretaria do Templo em pasta física e/ou sistema digital seguro, em estrito cumprimento à Lei Federal nº 13.709/2018 (Art. 14 - Tratamento de dados de crianças e adolescentes) pelo prazo de retenção finito definido pelo templo na Política de Privacidade (Documento 11): ____________________, com consentimento específico e em destaque de pelo menos um dos pais ou responsável legal (LGPD, art. 14, § 1º) e encarregado pelo tratamento de dados (nome e contato): ____________________, não sendo objeto de compartilhamento público ou fins comerciais.
 
 ---
 

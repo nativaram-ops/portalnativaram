@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node node_modules/jiti/bin/jiti.js scripts/test-liturgico.mjs",
+    "test": "node node_modules/jiti/bin/jiti.js scripts/test-liturgico.mjs && node node_modules/jiti/bin/jiti.js scripts/test-matriz.mjs && node node_modules/jiti/bin/jiti.js scripts/test-documentos.mjs && node node_modules/jiti/bin/jiti.js scripts/test-biblioteca.mjs",
     "notebooklm": "tools\\notebooklm-py\\.venv\\Scripts\\notebooklm.exe"
   },
   "dependencies": {

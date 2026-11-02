@@ -357,15 +357,15 @@ export const PortalDirigenteClient: React.FC = () => {
     {
       idGrupo: "SALVAGUARDA",
       titulo: "1. Salvaguarda Clínica, Medicamentos & Documentos",
-      subtitulo: "Triagem farmacológica (PDF/Excel), fichas A4 e amparo CONAD",
+      subtitulo: "Triagem farmacológica (PDF/CSV), fichas A4 e amparo CONAD",
       destaqueBorda: "border-emerald-500/35 bg-floresta-950/90",
       itens: [
         {
           id: "INTERACOES_FARMACIA",
           label: "Lista de Medicamentos & Washout",
-          subLabel: "20 Classes • +185 Marcas • PDF & Excel",
+          subLabel: "Lista completa • PDF & CSV",
           icon: <Pill className="h-4 w-4 text-emerald-400" />,
-          badge: "PDF / EXCEL",
+          badge: "PDF / CSV",
           corBadge: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
         },
         {
@@ -494,7 +494,7 @@ export const PortalDirigenteClient: React.FC = () => {
         </div>
       </AnimateOnScroll>
 
-      {/* FAIXA DE ACESSO DIRETO: DOWNLOAD DA LISTA DE MEDICAMENTOS (PDF & EXCEL) */}
+      {/* FAIXA DE ACESSO DIRETO: DOWNLOAD DA LISTA DE MEDICAMENTOS (PDF & CSV) */}
       <div className="print-hidden rounded-2xl border border-emerald-500/35 bg-gradient-to-r from-emerald-950/50 via-floresta-900/90 to-floresta-950 p-4 sm:p-5 shadow-lg">
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
@@ -507,13 +507,13 @@ export const PortalDirigenteClient: React.FC = () => {
                   Tabela Oficial de Medicamentos Controlados &amp; Conflitos com Ayahuasca
                 </span>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                  4 Cores • 20 Classes • +185 Medicamentos
+                  4 Cores • Lista completa de medicamentos
                 </span>
               </div>
               <p className="text-xs text-areia-300 font-light leading-relaxed">
                 Acesso imediato para triagem no computador ou celular: baixe a lista completa em{" "}
                 <strong className="text-areia-100">PDF A4 pronto para impressão</strong> ou em{" "}
-                <strong className="text-areia-100">Planilha Excel (.xls) colorida</strong>, ou consulte o buscador interativo.
+                <strong className="text-areia-100">planilha CSV</strong> (abre no Excel e no Google Planilhas), ou consulte o buscador interativo.
               </p>
             </div>
           </div>
@@ -550,16 +550,16 @@ export const PortalDirigenteClient: React.FC = () => {
             <button
               type="button"
               onClick={async () => {
-                const { exportarMedicamentosExcel } = await import(
+                const { exportarMedicamentosCSV } = await import(
                   "@/lib/export-medicamentos"
                 );
-                exportarMedicamentosExcel();
+                exportarMedicamentosCSV();
               }}
               className="px-3.5 py-2.5 rounded-xl text-xs font-bold inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white shadow-md transition-all"
-              title="Baixar planilha Excel (.xls) com todas as marcas comerciais e tempos de washout"
+              title="Baixar planilha CSV com todas as marcas comerciais e tempos de washout"
             >
               <FileSpreadsheet className="h-4 w-4 shrink-0" />
-              <span>Baixar Planilha Excel (.xls)</span>
+              <span>Baixar Planilha CSV</span>
             </button>
           </div>
         </div>

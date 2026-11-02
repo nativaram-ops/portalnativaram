@@ -170,7 +170,7 @@ export const PortalInteracoesMedicamentosas: React.FC = () => {
 
   return (
     <div className="space-y-6">
-      {/* 1. CABEÇALHO PRINCIPAL COM BOTÕES DIRETOS DE DOWNLOAD (PDF & EXCEL) */}
+      {/* 1. CABEÇALHO PRINCIPAL COM BOTÕES DIRETOS DE DOWNLOAD (PDF & CSV) */}
       <div className="print-hidden rounded-2xl bg-floresta-950/95 border border-ambar-500/30 p-5 sm:p-6 shadow-xl space-y-5">
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-5">
           <div className="space-y-2">

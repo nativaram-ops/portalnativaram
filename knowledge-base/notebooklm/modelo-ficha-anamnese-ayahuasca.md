@@ -1,14 +1,13 @@
-Aqui está a transcrição integral e exata, linha por linha, do arquivo **`modelo-ficha-anamnese-ayahuasca.md`**:
-
-```markdown
-# COOPERATIVA ETNOBOTÂNICA NATIVARAM BRASIL
+# COOPERATIVA NATIVARAM
 ## SISTEMA DE SALVAGUARDA LITÚRGICA E REDUÇÃO DE DANOS
 ### DOCUMENTO 01: FICHA DE ANAMNESE E TRIAGEM CLÍNICO-ESPIRITUAL PARA COMUNGANTES DE AYAHUASCA
+
+> **Versão vigente:** a ficha canônica (v2.0, 02/11/2026) é o **Documento 01 da Central de Documentos do Portal do Dirigente** (`src/data/documentos/doc01-anamnese.ts`), com tabela de medicamentos (medicamento · dose · para quê · quem prescreveu · data da última tomada · suspensão supervisionada), pergunta aberta sobre tudo o que foi tomado nos últimos 60 dias, C-SSRS oficial, perguntas sobre kambô, 5-MeO-DMT/Bufo, ibogaína e arruda-síria, validade e reconfirmação no dia (Documento 07). Este arquivo é material-fonte para o NotebookLM. **Revisão clínica e jurídica pendentes.**
 
 ---
 
 **FINALIDADE INSTITUCIONAL E DEONTOLOGIA:**
-Este documento é de preenchimento individual, obrigatório e estritamente confidencial para todo buscador que deseje comungar o sacramento sagrado da **Ayahuasca** (Santo Daime / Vegetal / Hoasca) em rituais e trabalhos litúrgicos conduzidos pela Cooperativa Nativaram Brasil e seus templos filiados. 
+Este documento é de preenchimento individual, obrigatório e estritamente confidencial para todo buscador que deseje comungar o sacramento sagrado da **Ayahuasca** (Santo Daime / Vegetal / Hoasca) em rituais e trabalhos litúrgicos conduzidos pela Cooperativa Nativaram e seus templos filiados. 
 
 O escopo precípuo desta triagem é resguardar a integridade física, psíquica e espiritual do participante, em observância estrita às diretrizes deontológicas da **Resolução CONAD nº 01/2010** (Conselho Nacional de Políticas sobre Drogas), aos preceitos do **Artigo 5º, incisos VI e VIII da Constituição Federal de 1988**, ao **Artigo 2º, parágrafo único da Lei Federal nº 11.343/2006**, bem como às normas da **Lei Geral de Proteção de Dados (LGPD - Lei nº 13.709/2018)**.
 
@@ -72,7 +71,7 @@ A ingestão da Ayahuasca (que combina o agonismo serotoninérgico do **DMT** nos
 
 | Condição Fisiológica / Patologia | Sim | Não | Detalhes / Medicamentos em Uso / Tempo de Diagnóstico |
 | :--- | :---: | :---: | :--- |
-| **Hipertensão Arterial Sistêmica (PAS $\ge 140$ ou PAD $\ge 90$ mmHg)** | [ ] | [ ] | Controlada com medicação? Última aferição: |
+| **Hipertensão arterial diagnosticada ou PA acima do limiar de triagem da casa (____/____ mmHg — revisão clínica pendente)** | [ ] | [ ] | Controlada com medicação? Última aferição: |
 | **Hipotensão Arterial Severa / Labilidade Pressórica** | [ ] | [ ] | Histórico de tonturas ou desmaios (síncope)? |
 | **Arritmia Cardíaca, Taquicardia ou Palpitações** | [ ] | [ ] | Diagnóstico (ex: fibrilação, extrassístoles): |
 | **Doença Arterial Coronariana / Infarto do Miocárdio Prévio** | [ ] | [ ] | Data do evento / Stent ou angioplastia: |
@@ -97,7 +96,7 @@ A transparência neste módulo é **vital**. O agonismo potente em receptores $5
 
 1. **Você possui diagnóstico clínico atual ou prévio das seguintes condições psiquiátricas?**
    * **Esquizofrenia, Transtorno Esquizoafetivo ou Psicoses:** [ ] SIM [ ] NÃO *(Contraindicação Absoluta)*
-   * **Transtorno Afetivo Bipolar (Tipo I ou Tipo II / Fases de Mania):** [ ] SIM [ ] NÃO *(Contraindicação Absoluta)*
+   * **Transtorno Afetivo Bipolar:** [ ] SIM [ ] NÃO — tipo: [ ] I [ ] II [ ] não sabe *(conduta para cada tipo definida pelo revisor clínico — Revisão clínica pendente)*
    * **Transtorno de Personalidade Borderline / Limítrofe:** [ ] SIM [ ] NÃO *(Avaliação de Labilidade)*
    * **Transtornos Dissociativos / Despersonalização Recorrente:** [ ] SIM [ ] NÃO
    * **Transtorno Obsessivo-Compulsivo (TOC) Severo:** [ ] SIM [ ] NÃO
@@ -113,10 +112,13 @@ A transparência neste módulo é **vital**. O agonismo potente em receptores $5
    * [ ] **NÃO**
    * [ ] **SIM** -> *Motivo, período e tempo decorrido:* __________________________________________
 
-4. **Triagem de Risco Autolesivo e Suicídio (Inspirado no protocolo C-SSRS):**
-   * Já teve episódios de ideação suicida ativa, planos ou tentativas de autoagressão?
-   * [ ] **NÃO**
-   * [ ] **SIM** -> *Data da última ocorrência / Há quanto tempo ocorreu:* ___________________________
+4. **Triagem de risco de suicídio — C-SSRS (versão de triagem):**
+   * Aplicar a versão de triagem oficial do C-SSRS em português (Columbia Lighthouse Project), por pessoa treinada, lendo as perguntas exatamente como no formulário oficial.
+   * *Data da aplicação:* ____/____/________ *Aplicado por:* ______________________
+   * *Itens com resposta SIM (numeração do formulário oficial):* ______________________
+   * *Classificação segundo a regra do formulário:* [ ] sem risco identificado [ ] baixo [ ] moderado [ ] alto
+   * *Conduta:* [ ] segue a triagem [ ] participação suspensa e encaminhamento a profissional de saúde mental [ ] risco imediato: não deixar a pessoa sozinha, acionar SAMU 192 e contato de emergência
+   * *Regra de encaminhamento: Revisão clínica pendente.*
 
 5. **Realiza acompanhamento psiquiátrico, psicológico ou terapêutico atualmente?**
    * [ ] **NÃO**
@@ -126,34 +128,40 @@ A transparência neste módulo é **vital**. O agonismo potente em receptores $5
 
 ### MÓDULO V: LEVANTAMENTO FARMACOLÓGICO, TOXICOLÓGICO E JANELAS DE SEGURANÇA (*WASHOUT*)
 
+> **Janelas de suspensão (washout):** não constam desta ficha. A fonte oficial é a **Tabela de Medicamentos do Portal** (matriz oficial). Toda suspensão é decidida e acompanhada pelo médico assistente, com parecer por escrito (Documento 06). Intervalos mínimos para álcool e outras substâncias: definidos pela casa com o revisor clínico (*Revisão clínica pendente*).
+
 A combinação de Ayahuasca (Inibidor Reversível da MAO-A) com psicofármacos que aumentam os níveis de serotonina pode deflagrar **SÍNDROME SEROTONINÉRGICA FATAL** ou **CRISE HIPERTENSIVA SEVERA**.
 
-1. **Uso de Antidepressivos nas últimas 6 semanas (Marque os utilizados):**
-   * [ ] **ISRS (Inibidores Seletivos de Recaptação de Serotonina):** Fluoxetina *(Washout obrigatório: 35-42 dias)*, Sertralina, Escitalopram, Paroxetina, Citalopram *(Washout obrigatório: 21-28 dias)*.
-   * [ ] **ISRSN / Duais:** Venlafaxina, Desvenlafaxina, Duloxetina *(Washout obrigatório: 21-28 dias)*.
-   * [ ] **Tricíclicos / Atípicos / IMAO:** Amitriptilina, Nortriptilina, Clomipramina, Vortioxetina, Trazodona, Moclobemida, Tranilcipromina *(Washout obrigatório: 21-35 dias)*.
+1. **Uso de Antidepressivos nos últimos 60 dias (Marque os utilizados):**
+   * [ ] **ISRS (Inibidores Seletivos de Recaptação de Serotonina):** Fluoxetina, Sertralina, Escitalopram, Paroxetina, Citalopram.
+   * [ ] **ISRSN / Duais:** Venlafaxina, Desvenlafaxina, Duloxetina.
+   * [ ] **Tricíclicos / Atípicos / IMAO:** Amitriptilina, Nortriptilina, Clomipramina, Vortioxetina, Trazodona, Moclobemida, Tranilcipromina.
    * *Nome do Fármaco:* ________________________ *Dosagem Diária:* ________ *Data/Hora da última dose:* ____/____/________ ____h____min
 
 2. **Uso de Estabilizadores de Humor (Especialmente LÍTIO):**
-   * [ ] **SIM — CARBONATO DE LÍTIO (Carbolitium / Litiocar)** -> **[ATENÇÃO: CONTRAINDICAÇÃO ABSOLUTA E DEFINITIVA. Risco iminente de Status Epilepticus e Óbito].**
+   * [ ] **SIM — CARBONATO DE LÍTIO (Carbolitium / Litiocar)** -> **[ATENÇÃO: CONTRAINDICAÇÃO ABSOLUTA E DEFINITIVA. Em 62 relatos online de psicodélicos clássicos com lítio, 47% descreveram convulsão (Nayak et al., 2021); evidência fraca, sinal grave].**
    * [ ] **NÃO**
 
 3. **Uso de Estimulantes do Sistema Nervoso Central (TDAH / Anorexígenos):**
-   * [ ] Metilfenidato (Ritalina, Concerta) | Lisdexanfetamina (Venvanse, Juneve) | Sibutramina *(Washout: 7-14 dias)*.
+   * [ ] Metilfenidato (Ritalina, Concerta) | Lisdexanfetamina (Venvanse, Juneve) | Sibutramina.
    * *Data/Hora da última administração:* ____/____/________ ____h____min
 
 4. **Ansiolíticos, Antipsicóticos ou Anticonvulsivantes:**
    * [ ] Clonazepam (Rivotril), Alprazolam, Diazepam, Quetiapina, Risperidona, Olanzapina, Pregabalina, Lamotrigina.
    * *Especificar medicamento, dosagem e horário:* _________________________________________
 
-5. **Fitoterápicos, Suplementos e Medicamentos de Venda Livre (últimos 14 dias):**
+5. **Fitoterápicos, Suplementos e Medicamentos de Venda Livre (últimos 60 dias — liste TUDO, inclusive antigripal, relaxante muscular, Neosaldina, Torsilax, Vick 44E, remédio para emagrecer, suplementos e pré-treino):**
    * [ ] Erva-de-São-João (*Hypericum perforatum*) | 5-HTP | L-Triptofano | Tramadol | Descongestionantes com Pseudoefedrina/Efedrina | Xaropes com Dextrometorfano.
 
-6. **Consumo de Álcool e Substâncias Psicoativas (últimos 14 dias):**
-   * [ ] Bebidas Alcoólicas *(Abstinência mínima exigida: 3 dias)* -> *Último consumo:* ____/____/________
+6. **Consumo de Álcool e Substâncias Psicoativas (últimos 60 dias, com data):**
+   * [ ] Bebidas Alcoólicas -> *Último consumo:* ____/____/________
    * [ ] Cannabis / Maconha / Canabinoides -> *Último consumo:* ____/____/________
-   * [ ] Cocaína, Crack, MDMA / Ecstasy, Anfetaminas *(Abstinência mínima exigida: 14-21 dias)* -> *Último consumo:* ____/____/________
+   * [ ] Cocaína, Crack, MDMA / Ecstasy, Anfetaminas -> *Último consumo:* ____/____/________
    * [ ] Cogumelos com Psilocibina, LSD, 5-MeO-DMT ou outros enteógenos -> *Último consumo:* ____/____/________
+   * [ ] Kambô -> *Último uso:* ____/____/________
+   * [ ] Bufo / 5-MeO-DMT -> *Último uso:* ____/____/________
+   * [ ] Ibogaína / iboga -> *Último uso:* ____/____/________
+   * [ ] Arruda-síria (*Peganum harmala*) -> *Último uso:* ____/____/________
 
 ---
 
@@ -162,10 +170,15 @@ A combinação de Ayahuasca (Inibidor Reversível da MAO-A) com psicofármacos q
 Pelo presente instrumento, eu, participante devidamente identificado no Módulo I:
 
 1. **Declaração de Veracidade:** Atesto sob as penas da lei e sob minha responsabilidade moral e espiritual que li cada pergunta desta ficha de anamnese e respondi a todas com absoluta integridade e verdade, sem omitir diagnósticos, cirurgias ou medicamentos de uso contínuo.
-2. **Ciência de Riscos Gravíssimos por Omissão:** Reconheço expressamente que a omissão intencional ou negligente de uso de antidepressivos (ISRS/ISRSN), Sais de Lítio, estimulantes, bem como de diagnósticos de cardiopatias graves, epilepsia ou transtornos psicóticos/bipolares, isenta integralmente a instituição e seus dirigentes de qualquer responsabilidade civil ou penal em caso de intercorrência médica, colapso ou óbito.
-3. **Termo de Consentimento para Tratamento de Dados Pessoais Sensíveis (LGPD - Lei nº 13.709/2018):**
-   * Autorizo de forma livre, expressa, informada e inequívoca a coleta, armazenamento e processamento dos meus dados de saúde e convicção religiosa contidos nesta ficha, para fins exclusivos de **triagem de segurança, salvaguarda litúrgica e atendimento de emergência**.
-   * Fui informado(a) de que meus dados serão armazenados em ambiente seguro sob sigilo ético-profissional, respeitando o prazo legal de custódia obrigatória de **20 (vinte) anos** aplicável aos prontuários e registros de saúde (Lei Federal nº 13.787/2018, Resolução CFM nº 1.821/2007 e RDC ANVISA nº 09/2015), período no qual a eliminação solicitada pelo titular é obstada por cumprimento de obrigação legal (Art. 16, I e Art. 18 da LGPD).
+2. **Ciência:** Estou ciente de que a ayahuasca pode interagir de forma grave com medicamentos, substâncias e condições de saúde, e de que informações omitidas ou incorretas impedem a casa de avaliar o meu risco. Comprometo-me a comunicar qualquer mudança até o momento da cerimônia, inclusive na reconfirmação do Documento 07.
+3. **Dever de cuidado da casa:** O templo se compromete a conferir esta ficha antes de cada participação, aferir sinais vitais na recepção, aplicar a reconfirmação no dia (Documento 07), manter pessoa treinada em primeiros socorros, kit de aferição e plano de emergência do local (Documento 08), e acionar o SAMU 192 diante de sinal de alarme, entregando à equipe de saúde o Cartão de Informação (Documento 10).
+4. **Proteção de dados (LGPD — Lei nº 13.709/2018):**
+   * [ ] **Consentimento específico e destacado (LGPD, art. 11, I):** autorizo o tratamento dos meus dados de saúde e de convicção religiosa para a finalidade exclusiva de triagem de segurança e socorro em emergência.
+   * Em situação de risco à vida, os dados necessários poderão ser repassados à equipe de saúde, independentemente de consentimento (LGPD, art. 11, II, "e").
+   * **Prazo de retenção:** ____________________ (prazo finito definido pelo templo na Política de Privacidade, Documento 11). Ao fim do prazo, os dados serão eliminados ou anonimizados.
+   * Posso pedir acesso, correção e eliminação dos dados e revogar este consentimento (LGPD, art. 18). Pedidos de eliminação serão atendidos, salvo as hipóteses de conservação do art. 16 da LGPD confirmadas pela assessoria jurídica do templo.
+   * **Encarregado pelo tratamento de dados (nome e contato):** ______________________________
+   * *Revisão jurídica pendente.*
 
 **Local e Data:** ________________________________________, _____ de ____________________ de 202___
 
@@ -197,4 +210,3 @@ ________________________________________________________________________________
 
 ________________________________________________________________________________________
 **Assinatura do Dirigente Responsável**
-```
