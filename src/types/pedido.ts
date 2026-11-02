@@ -1,6 +1,6 @@
 /**
  * Definições de Tipos — Solicitações de Partilha Litúrgica & Cadeia de Custódia
- * Portal do Dirigente — Cooperativa Etnobotânica Nativaram Brasil
+ * Portal do Dirigente — Cooperativa Nativaram
  *
  * Em estrita observância à Resolução CONAD nº 01/2010 e ao Dicionário de Linguagem do AGENTS.md.
  */

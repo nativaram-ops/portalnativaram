@@ -94,7 +94,7 @@ export function WelcomeConsentModal() {
             <div className="relative flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 rounded-full border-2 border-amber-500/70 bg-gradient-to-b from-[#FFFDF9] via-[#FAF6ED] to-[#EFE7D5] shadow-[0_8px_24px_rgba(0,0,0,0.18),0_0_20px_rgba(212,163,89,0.3),inset_0_2px_4px_rgba(255,255,255,0.9)] p-2 transition-transform duration-700 hover:scale-105">
               <Image
                 src="/assets/emblema-solar-boas-vindas.png"
-                alt="Emblema Sagrado Raio de Sol — Cooperativa Etnobotânica Nativaram Brasil"
+                alt="Emblema Sagrado Raio de Sol — Cooperativa Nativaram"
                 width={112}
                 height={112}
                 priority

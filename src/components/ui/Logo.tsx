@@ -13,7 +13,7 @@ interface LogoProps {
 }
 
 /**
- * Componente oficial do Emblema / Logo da Nativaram Brasil.
+ * Componente oficial do Emblema / Logo da Cooperativa Nativaram.
  *
  * Garante fidelidade visual e conformidade com a identidade de marca:
  * - Aplica SEMPRE uma aura de luz radiante no tom areia (#F8F6F0) atrás do emblema transparente,

@@ -30,9 +30,9 @@ import { FaqAccordion, FaqItem } from "@/components/ui/FaqAccordion";
 
 const faqsInstitucionais: FaqItem[] = [
   {
-    pergunta: "O que é a Cooperativa Etnobotânica Nativaram Brasil?",
+    pergunta: "O que é a Cooperativa Nativaram?",
     resposta:
-      "A Nativaram Brasil é uma associação e cooperativa etnobotânica sem fins lucrativos dedicada à salvaguarda, ao estudo fitoquímico e à partilha ética de sacramentos tradicionais amazônicos (Ayahuasca, Rapés Sagrados e Sananga). Nascida sob o significado espiritual de 'Nascidos do Raio de Sol', atua como uma ponte legítima entre os povos originários da floresta e as instituições litúrgicas do Brasil e do mundo.",
+      "A Cooperativa Nativaram é uma associação e cooperativa etnobotânica sem fins lucrativos dedicada à salvaguarda, ao estudo fitoquímico e à partilha ética de sacramentos tradicionais amazônicos (Ayahuasca, Rapés Sagrados e Sananga). Nascida sob o significado espiritual de 'Nascidos do Raio de Sol', atua como uma ponte legítima entre os povos originários da floresta e as instituições litúrgicas do Brasil e do mundo.",
   },
   {
     pergunta: "Por que a Nativaram não funciona como um e-commerce convencional?",
@@ -173,7 +173,7 @@ export function ManifestoLanding() {
 
                 <div className="space-y-4 text-sm text-areia-300 leading-relaxed font-light">
                   <p>
-                    A <strong className="text-areia-100 font-semibold">Cooperativa Etnobotânica Nativaram Brasil</strong> nasce sob o significado sagrado de <strong className="text-ambar-300 font-semibold">&ldquo;Nascidos do Raio de Sol&rdquo;</strong>. Representa a jornada daqueles que escolheram a entrega de alma como única forma de caminhar pela vida.
+                    A <strong className="text-areia-100 font-semibold">Cooperativa Nativaram</strong> nasce sob o significado sagrado de <strong className="text-ambar-300 font-semibold">&ldquo;Nascidos do Raio de Sol&rdquo;</strong>. Representa a jornada daqueles que escolheram a entrega de alma como única forma de caminhar pela vida.
                   </p>
                   <p>
                     A instituição, impulsionada por uma aliança de guardiões, curadores etnobotânicos e mestres tradicionais da floresta, transcende categoricamente o conceito de um comércio eletrônico ou negócio convencional. Estruturada como uma cooperativa dedicada ao estudo profundo, à salvaguarda e à partilha ética de sacramentos botânicos amazônicos, a Nativaram atua para resgatar a sacralidade no cotidiano, proporcionando elevação espiritual, serenidade mental e harmonização interior.
@@ -267,7 +267,7 @@ export function ManifestoLanding() {
               <span className="text-gradient-solar">Valores Institucionais</span>
             </h2>
             <p className="text-sm text-areia-300 font-light leading-relaxed">
-              As diretrizes fundamentais que orientam cada consagração, cada relação humana e a sustentação ética da Cooperativa Nativaram Brasil.
+              As diretrizes fundamentais que orientam cada consagração, cada relação humana e a sustentação ética da Cooperativa Nativaram.
             </p>
           </AnimateOnScroll>
 
@@ -639,7 +639,7 @@ export function ManifestoLanding() {
             <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
               O Ecossistema Litúrgico
               <br />
-              <span className="text-gradient-solar">Nativaram Brasil</span>
+              <span className="text-gradient-solar">Cooperativa Nativaram</span>
             </h2>
             <p className="text-sm text-areia-300 font-light leading-relaxed">
               Conheça as cinco frentes de atuação que compõem a praxeologia sacramental da cooperativa.
@@ -964,7 +964,7 @@ export function ManifestoLanding() {
               <span className="text-gradient-solar">De Vivência Prática</span>
             </h2>
             <p className="text-sm text-areia-400 font-light">
-              Os marcos que moldaram a consolidação da Cooperativa Etnobotânica Nativaram Brasil.
+              Os marcos que moldaram a consolidação da Cooperativa Nativaram.
             </p>
           </AnimateOnScroll>
 
@@ -1007,7 +1007,7 @@ export function ManifestoLanding() {
                   Formalização Cooperativa & Projetos Agroflorestais
                 </h4>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Institucionalização da Cooperativa Etnobotânica Nativaram Brasil, registro no SisGen e início da estruturação da Ecovila e manejo regenerativo em Cruzeiro do Sul (Acre).
+                  Institucionalização da Cooperativa Nativaram, registro no SisGen e início da estruturação da Ecovila e manejo regenerativo em Cruzeiro do Sul (Acre).
                 </p>
               </div>
             </div>
@@ -1088,7 +1088,7 @@ export function ManifestoLanding() {
                 <span className="text-gradient-solar">Corrente de Luz</span>
               </h2>
               <p className="text-sm sm:text-base text-areia-300 font-light max-w-2xl mx-auto leading-relaxed">
-                Se você é dirigente de uma instituição espiritual constituída e busca sacramentos com pureza fitoquímica comprovada, rastreabilidade e segurança jurídica, solicite o credenciamento de seu templo junto à Nativaram Brasil.
+                Se você é dirigente de uma instituição espiritual constituída e busca sacramentos com pureza fitoquímica comprovada, rastreabilidade e segurança jurídica, solicite o credenciamento de seu templo junto à Cooperativa Nativaram.
               </p>
             </div>
           </AnimateOnScroll>

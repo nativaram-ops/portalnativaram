@@ -219,7 +219,7 @@ export default function ContatoPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-lg border border-ambar-500/10 bg-floresta-900/20 p-4 text-center">
             <p className="text-[11px] text-areia-400/60">
-              A Nativaram Brasil não realiza atendimentos para fins comerciais ou
+              A Cooperativa Nativaram não realiza atendimentos para fins comerciais ou
               recreativos. Acesso reservado ao contexto de práticas rituais
               amparadas pela Constituição Federal e Resolução CONAD nº 01/2010.
             </p>

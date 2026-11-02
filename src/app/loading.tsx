@@ -17,7 +17,7 @@ export default function Loading() {
 
         <div className="space-y-1.5">
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-ambar-400/90 font-serif">
-            Nativaram Brasil
+            Cooperativa Nativaram
           </p>
           <p className="text-[11px] text-areia-300/60 italic font-sans">
             Preparando o caminho sagrado...

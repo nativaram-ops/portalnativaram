@@ -26,7 +26,7 @@ export default function NotFound() {
           <p className="text-sm text-areia-400 leading-relaxed max-w-md mx-auto">
             A página que você procura pode ter sido movida ou não existe mais.
             Volte à trilha principal para continuar sua jornada pelo portal
-            da Cooperativa Etnobotânica Nativaram Brasil.
+            da Cooperativa Nativaram.
           </p>
         </div>
 

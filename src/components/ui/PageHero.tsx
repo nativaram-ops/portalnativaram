@@ -18,7 +18,7 @@ export interface PageHeroProps extends Omit<HTMLAttributes<HTMLDivElement>, "tit
 }
 
 /**
- * Hero reutilizável para subpáginas da Nativaram Brasil.
+ * Hero reutilizável para subpáginas da Cooperativa Nativaram.
  * Suporta tanto props tradicionais quanto o padrão Composto (Compound Components)
  * de acordo com as diretrizes da Vercel.
  */

@@ -408,16 +408,16 @@ export function FeitioLanding() {
             </AnimateOnScroll>
           </div>
 
-          {/* O Elo com a Nativaram Brasil */}
+          {/* O Elo com a Cooperativa Nativaram */}
           <div className="card-liturgico rounded-3xl p-8 sm:p-10 border border-ambar-500/30 space-y-4">
             <div className="flex items-center gap-3">
               <Sun className="h-6 w-6 text-ambar-400" />
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-areia-100">
-                Como Tudo Converge para a Nativaram Brasil
+                Como Tudo Converge para a Cooperativa Nativaram
               </h3>
             </div>
             <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-              A Cooperativa Etnobotânica Nativaram Brasil não se coloca como uma nova igreja e não disputa dogmas religiosos com nenhuma escola. Nossa vocação é atuar como uma <strong className="text-areia-100 font-medium">Casa Guardiã de Retaguarda e Apoio Botânico</strong>: servindo templos no geral que necessitam desse apoio logístico e operacional, com sacramentos de pureza absoluta, sem misturas e sem desvios comerciais. Honramos a história de cada pajé e de cada mestre que abriu os caminhos para que essa luz sagrada chegasse até nós.
+              A Cooperativa Nativaram não se coloca como uma nova igreja e não disputa dogmas religiosos com nenhuma escola. Nossa vocação é atuar como uma <strong className="text-areia-100 font-medium">Casa Guardiã de Retaguarda e Apoio Botânico</strong>: servindo templos no geral que necessitam desse apoio logístico e operacional, com sacramentos de pureza absoluta, sem misturas e sem desvios comerciais. Honramos a história de cada pajé e de cada mestre que abriu os caminhos para que essa luz sagrada chegasse até nós.
             </p>
           </div>
         </div>
@@ -646,7 +646,7 @@ export function FeitioLanding() {
 
             <div className="space-y-4 text-sm sm:text-base text-areia-200 leading-relaxed font-light">
               <p>
-                A <strong className="text-areia-100 font-semibold">Cooperativa Etnobotânica Nativaram Brasil</strong> pauta todas as suas relações na mais alta transparência, verdade e respeito litúrgico perante seus associados, dirigentes e templos credenciados.
+                A <strong className="text-areia-100 font-semibold">Cooperativa Nativaram</strong> pauta todas as suas relações na mais alta transparência, verdade e respeito litúrgico perante seus associados, dirigentes e templos credenciados.
               </p>
               <p>
                 Embora a variedade <strong className="text-ambar-300 font-semibold">Cipó Tucunacá</strong> (<em>Banisteriopsis caapi var. Tucunaca</em>) seja o nosso padrão áureo de feitio — em razão do seu perfil cromatográfico nobre, abundante em THH e com residual mínimo de harmalina —, é imperativo esclarecer que as dinâmicas naturais da floresta amazônica, os ciclos de chuvas nas cheias dos igarapés e a alta demanda litúrgica no Acre <strong className="text-areia-100 font-medium">nem sempre permitem a colheita exclusiva e ininterrupta desta única variedade botânica</strong>.

@@ -212,7 +212,7 @@ export const CredenciamentoForm = () => {
             Credenciamento Registrado com Sucesso
           </h2>
           <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-            Os dados institucionais da congregação foram devidamente formalizados no sistema da Cooperativa Nativaram Brasil sob os auspícios da Resolução CONAD nº 01/2010.
+            Os dados institucionais da congregação foram devidamente formalizados no sistema da Cooperativa Nativaram sob os auspícios da Resolução CONAD nº 01/2010.
           </p>
         </div>
 
@@ -381,7 +381,7 @@ export const CredenciamentoForm = () => {
             </div>
 
             <p className="text-xs text-areia-300 font-light leading-relaxed">
-              O provimento assistido de sacramentos da Nativaram Brasil é exclusivo a entidades religiosas legalmente constituídas ou com ata formal de ritos espirituais sob o artigo 5º, VI da CF/88.
+              O provimento assistido de sacramentos da Cooperativa Nativaram é exclusivo a entidades religiosas legalmente constituídas ou com ata formal de ritos espirituais sob o artigo 5º, VI da CF/88.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
