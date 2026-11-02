@@ -27,3 +27,4 @@ CREATE POLICY "Permitir remocao de templos"
 
 -- Notifica o PostgREST para recarregar o cache de esquemas
 NOTIFY pgrst, 'reload schema';
+

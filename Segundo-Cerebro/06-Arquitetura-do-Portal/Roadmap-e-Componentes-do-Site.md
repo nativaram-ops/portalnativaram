@@ -260,3 +260,12 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 - **Ferramentas:** Next 15.5.28, ESLint 9 funcional, CI no GitHub, 4 suítes de teste.
 - **Vocabulário:** exceção clínica para conteúdo de segurança registrada em [[ADR-009-Vocabulario-Clinico-no-Conteudo-de-Seguranca]].
 - **Pendências humanas:** revisão clínica da matriz e dos documentos; revisão jurídica dos termos; refazer na fonte e comprimir os PDFs públicos; laudo HPLC que confirme o teor de harmina (9,21 mg/g é o único valor no código; o "8,03 mg/g de β-carbolinas totais" do catálogo do dirigente foi retirado por contradizer o 9,21 de harmina isolada); rodar a migração 004.
+
+## Entregas do Visualizador de Documentos e Gestão de Homologações (2026-11-02)
+
+- **Correção da Visualização Inline de PDFs (`/estudos`):**
+  - Ajuste no `next.config.mjs`: alterado `X-Frame-Options` global de `DENY` para `SAMEORIGIN` e configurado `Content-Security-Policy: frame-ancestors 'self'` junto ao header específico para `/documentos/:path*` com `Content-Disposition: inline`. Isso permite que o próprio portal exiba seus PDFs em modais iframe/object sem bloqueio de segurança do navegador contra clickjacking.
+  - No componente `EstudosClient.tsx`: substituição de `<iframe>` simples por `<object data="..." type="application/pdf">` contendo fallback elegante (com botões de abrir em nova aba e baixar PDF), e redirecionamento de arquivos `.md` diretamente para o modal do Leitor Etnobotânico Digital.
+- **Gestão de Homologações de Instituições:**
+  - Rota `DELETE /api/solicitacoes/[id]` com exclusão segura e autenticada no Supabase e no arquivo JSON de fallback.
+  - Script de migração `src/lib/supabase/migrations/005-permitir-remocao-homologacoes.sql` para permissão da política de remoção de templos e atualização de cache do PostgREST.

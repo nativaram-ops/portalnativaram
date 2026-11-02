@@ -290,7 +290,13 @@ export function EstudosClient() {
                   </button>
 
                   <button
-                    onClick={() => setActivePdfModal(`/documentos/${estudo.pdfArquivo}`)}
+                    onClick={() => {
+                      if (estudo.pdfArquivo.endsWith(".md")) {
+                        setReadingStudy(estudo);
+                      } else {
+                        setActivePdfModal(`/documentos/${estudo.pdfArquivo}`);
+                      }
+                    }}
                     className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-ambar-500/15 hover:bg-ambar-500/25 text-ambar-300 px-4 py-2.5 text-xs font-semibold border border-ambar-500/30 transition-colors"
                   >
                     <Eye className="h-3.5 w-3.5" />
@@ -536,7 +542,16 @@ export function EstudosClient() {
                     <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button
-                          onClick={() => setActivePdfModal(`/documentos/${doc.pdfArquivo}`)}
+                          onClick={() => {
+                            if (doc.pdfArquivo.endsWith(".md")) {
+                              const correspondente = estudosData.find((e) => e.pdfArquivo === doc.pdfArquivo);
+                              if (correspondente) {
+                                setReadingStudy(correspondente);
+                                return;
+                              }
+                            }
+                            setActivePdfModal(`/documentos/${doc.pdfArquivo}`);
+                          }}
                           className="inline-flex items-center gap-1 text-[11px] text-ambar-400 hover:text-ambar-300 font-semibold px-2.5 py-1 rounded-lg border border-ambar-500/20 hover:bg-floresta-800 transition-colors"
                         >
                           <Eye className="h-3 w-3" />
@@ -613,13 +628,45 @@ export function EstudosClient() {
               </div>
             </div>
 
-            {/* Container do Iframe / PDF */}
+            {/* Container do Iframe / PDF com Fallback Robusto */}
             <div className="flex-1 bg-pedra-900 relative">
-              <iframe
-                src={activePdfModal}
+              <object
+                data={`${activePdfModal}#toolbar=1&navpanes=0`}
+                type="application/pdf"
                 className="w-full h-full border-none"
-                title="Documento da biblioteca"
-              />
+              >
+                <iframe
+                  src={`${activePdfModal}#toolbar=1&navpanes=0`}
+                  className="w-full h-full border-none"
+                  title="Documento da biblioteca"
+                >
+                  <div className="flex flex-col items-center justify-center h-full p-8 text-center space-y-4 text-areia-200">
+                    <FileText className="h-12 w-12 text-ambar-400" />
+                    <p className="text-sm font-light max-w-md">
+                      A prévia do documento PDF não pôde ser renderizada diretamente neste navegador.
+                    </p>
+                    <div className="flex flex-wrap items-center justify-center gap-3">
+                      <a
+                        href={activePdfModal}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-primary text-xs px-4 py-2.5 rounded-xl font-bold inline-flex items-center gap-2 shadow-solar"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        <span>Abrir Documento em Nova Aba</span>
+                      </a>
+                      <a
+                        href={activePdfModal}
+                        download
+                        className="btn-secondary text-xs px-4 py-2.5 rounded-xl inline-flex items-center gap-2"
+                      >
+                        <Download className="h-3.5 w-3.5" />
+                        <span>Baixar Arquivo PDF</span>
+                      </a>
+                    </div>
+                  </div>
+                </iframe>
+              </object>
             </div>
           </div>
         </div>
