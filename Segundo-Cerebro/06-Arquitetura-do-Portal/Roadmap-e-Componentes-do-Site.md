@@ -243,3 +243,14 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
   - Migrações `002` e `003-politicas-rls-aplicacao.sql` no Supabase garantindo tabelas e políticas RLS permissivas para `solicitacoes_homologacao`, `publicacoes_comunidade`, `perfis_comunidade` e `agenda_liturgica`.
 - Marca institucional residual corrigida (`portal-dirigente/page.tsx`, `manifest.json`).
 - Pendência: remover credenciais em texto claro do `Indice-de-Recuperacao-Rapida.md` e de `data/solicitacoes_homologacao.json` (seed) após definir segredos reais.
+
+## Entregas dos Planos 010 e 011 (2026-11-02)
+
+- **Supabase:** migração `004` fecha o RLS nas tabelas sensíveis; servidor exige `SUPABASE_SERVICE_ROLE_KEY`. Substitui a `003` acima. Ver [[ADR-008-RLS-Fechado-e-Service-Role-Obrigatoria]]. Execução no painel do Supabase: a definir.
+- **Matriz de interações:** 56 entradas / 28 classes com motivo, evidência, fontes e revisão (todas pendentes); 18 entradas novas (ciclobenzaprina, isometepteno, atomoxetina, escetamina, eixo QT, pré-treinos, cardiovasculares, substâncias cerimoniais e recreativas); busca sem acento; exportação CSV/PDF.
+- **Central de Documentos:** 11 documentos gerados de `src/data/documentos/`; cláusulas de isenção de responsabilidade e citação errada da RDC 9/2015 removidas; componente de 1.561 para 468 linhas.
+- **Biblioteca pública `/estudos`:** 29 → 7 arquivos; documentos internos (estratégia de anúncios, pareceres, manuais) fora do ar.
+- **Ativos:** `public/assets` de 2,0 GB para 52 MB; brutos movidos para `nativaram-acervo-bruto/` fora do repositório.
+- **Ferramentas:** Next 15.5.28, ESLint 9 funcional, CI no GitHub, 4 suítes de teste.
+- **Vocabulário:** exceção clínica para conteúdo de segurança registrada em [[ADR-009-Vocabulario-Clinico-no-Conteudo-de-Seguranca]].
+- **Pendências humanas:** revisão clínica da matriz e dos documentos; revisão jurídica dos termos; refazer na fonte e comprimir os PDFs públicos; laudo para o teor de harmina (9,21 vs 8,03 mg/g em notas diferentes); rodar a migração 004.

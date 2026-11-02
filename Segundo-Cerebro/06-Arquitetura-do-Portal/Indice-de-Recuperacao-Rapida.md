@@ -26,8 +26,9 @@ categoria: Índice Rápido
 | :--- | :--- | :--- |
 | **Portal do Dirigente** | `src/app/portal-dirigente/page.tsx` | Página restrita para dirigentes de templos e conselho gestor |
 | **Orquestrador de Tela** | `src/components/layout/PortalDirigenteClient.tsx` | Autenticação por perfis (Templo vs ADM) e 11 abas com code-splitting (`next/dynamic`) |
-| **Central de Documentos A4** | `src/components/portal-dirigente/PortalCentralDocumentos.tsx` | 5 modelos canônicos abertos (Anamnese com Tabela de 4 Cores de Medicamentos, Termo CONAD, Termo de Menores, POP/Ata e Declaração), tripla exportação (A4/Word/Markdown) |
-| **Farmacologia & Washout** | `src/components/portal-dirigente/PortalInteracoesMedicamentosas.tsx` | 20 classes farmacológicas (+180 marcas), filtro pelas 4 cores da Tabela de Medicamentos Controlados, GLP-1, Limbitrol, Exceção de Desintoxicação, Critérios de Hunter e alerta de Lítio |
+| **Central de Documentos A4** | `src/components/portal-dirigente/PortalCentralDocumentos.tsx` + textos em `src/data/documentos/` (fonte única) | 11 documentos (01 Anamnese, 02 Termo, 03 POP/Ata, 04 Trânsito, 05 Menores, 06 Parecer médico de washout, 07 Reconfirmação D-0, 08 Plano de emergência, 09 Guia do participante, 10 Cartão para a equipe de saúde, 11 Política de privacidade). Imprimir A4, baixar .md e copiar texto. Rodapé com versão e status de revisão clínica/jurídica (pendente) |
+| **Farmacologia & Washout** | `src/components/portal-dirigente/PortalInteracoesMedicamentosas.tsx` + `src/data/portal-assessoria.ts` | 56 entradas em 28 classes, cada uma com motivo (interação/condição de base), nível de evidência, fontes e status de revisão (todas pendentes). `PENDENCIAS_CLINICAS` lista o que aguarda revisor. Busca sem acento; exporta CSV e PDF (o falso .xls saiu) |
+| **Biblioteca Pública** | `src/data/estudos.ts` + `public/documentos/` (7 arquivos) | Só documentos públicos; internos em `docs/fontes/internos/`, obsoletos em `docs/fontes/arquivo-morto/`. Link oficial da CONAD 01/2010 no gov.br e aviso +18 |
 | **Catálogo de Graduações** | `src/components/portal-dirigente/PortalCatalogoGraduacoes.tsx` | Fitoquímica Tucunacá (8,03 mg/g), Chacrona circadiana, 65–72 °Brix e Tabela de Diluição 10:1 Wirapuru |
 | **FAQ do Dirigente** | `src/components/portal-dirigente/PortalAssessoriaFAQ.tsx` | 12 perguntas aprofundadas (gás CO₂, borra, dosagens, Zendo Project e fiscalizações) |
 | **Calculadora Litúrgica** | `src/components/portal-dirigente/PortalCalculadoraLiturgica.tsx` | Modo Cerimônia (participantes/sacramentos) e Modo Reconstituição 10:1 (água a 45-50°C e cálices) |
@@ -54,7 +55,7 @@ categoria: Índice Rápido
 | **SEO & Indexação Canônica** | `src/app/sitemap.ts` e `src/app/robots.ts` | Sitemap unificado em `/sacramentos`, `/estudos/comunidade/[slug]` e `/estudos/dossies/[slug]`; bloqueio de `/portal-dirigente` |
 | **Funil Didático (5 Estações)** | `Segundo-Cerebro/06-Arquitetura-do-Portal/Funil-de-Conversao-e-Navegacao-Didatica.md` | Arquitetura das 5 estações (Origem -> Feitio -> Sacramentos -> Marco Legal -> Credenciamento) e política anti-inchaço |
 | **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0`, `bg-radial-vignette`, `animate-pulse-subtle`, WCAG 2.1 AA e regras `@media print` |
-| **Harness & Planos Executados** | `plans/README.md` e `AGENTS.md` | Planos 001 a 009 concluídos (Conformidade, Auth Server-Side, Concorrência DB, Zod/Print, Bundle Splitting/RSC e WCAG/SEO/Obsidian) |
+| **Harness & Planos Executados** | `plans/README.md` e `AGENTS.md` | Planos 001 a 009 concluídos; 010 e 011 executados em 2026-11-02, com pendências de revisão clínica/jurídica e ações manuais listadas em cada plano. Verificação: `npm test` (4 suítes), `npx tsc --noEmit`, `npm run lint` (ESLint 9) e CI em `.github/workflows/verificacao.yml` |
 
 ---
 
