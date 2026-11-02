@@ -1,6 +1,5 @@
 import type { MetadataRoute } from "next";
 import { medicinas } from "../data/medicinas";
-import { estudosData } from "../data/estudos";
 
 const PERFIS_COMUNIDADE_SLUGS = [
   "ceu-do-cruzeiro",
@@ -90,17 +89,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })
   );
 
-  const dossiesRoutes: MetadataRoute.Sitemap = estudosData.map((dossie) => ({
-    url: `${baseUrl}/estudos/dossies/${dossie.id}`,
-    lastModified: new Date(),
-    changeFrequency: "monthly",
-    priority: 0.8,
-  }));
-
-  return [
-    ...staticRoutes,
-    ...sacramentosRoutes,
-    ...comunidadeRoutes,
-    ...dossiesRoutes,
-  ];
+  return [...staticRoutes, ...sacramentosRoutes, ...comunidadeRoutes];
 }

@@ -102,10 +102,10 @@ Em nossa última sessão de concentração, observamos como a decantação sem b
     ],
     anexos: [
       {
-        nome: "Laudo Fitoquímico Tucunacá (HPLC)",
-        url: "/documentos/fitoquimica-cipo-tucunaca-ayahuasca.pdf",
-        tamanho: "4.3 KB",
-        tipo: "PDF",
+        nome: "Nota técnica: o feitio da Ayahuasca e suas graduações",
+        url: "/documentos/feitio-e-graduacoes-da-ayahuasca.md",
+        tamanho: "14,7 KB",
+        tipo: "DOCUMENTO",
       },
     ],
     embeds: [
@@ -145,10 +145,10 @@ Recomendamos sempre em nossas cerimônias de acalento:
     fotosGaleria: [],
     anexos: [
       {
-        nome: "Dossiê das Cinzas Sagradas no Rapé",
-        url: "/documentos/alquimia-biogeoquimica-cinzas-rape.pdf",
-        tamanho: "4.7 KB",
-        tipo: "PDF",
+        nome: "Caderno Rapés Sagrados: Essências entre a Floresta e a Ciência",
+        url: "/documentos/nativaram-rapes-sagrados-floresta-e-ciencia.md",
+        tamanho: "45,2 KB",
+        tipo: "DOCUMENTO",
       },
     ],
     embeds: [],

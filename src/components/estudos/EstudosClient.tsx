@@ -31,43 +31,12 @@ const ComunidadeBlogMural = dynamic(() =>
   import("./ComunidadeBlogMural").then((m) => m.ComunidadeBlogMural)
 );
 
-interface TodosDocumentosItem {
-  nome: string;
-  arquivo: string;
-  tamanho: string;
-  categoria: string;
-}
+/** Texto oficial da Resolução CONAD nº 01/2010 (DOU nº 17, 26/01/2010), publicado pelo Ministério da Justiça. */
+const RESOLUCAO_CONAD_OFICIAL_URL =
+  "https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/subcapas-senad/conad/atos-do-conad-1/2010/11___resolucao_n__01_2010___conad.pdf";
 
-const todosDocumentosPdf: TodosDocumentosItem[] = [
-  // Acervo Direto do Google NotebookLM (Sincronizado via CLI)
-  { nome: "Guia Sagrado de Curadoria Etnobotânica (Slide Deck NotebookLM)", arquivo: "nativaram-sacred-guide-slide-deck.pdf", tamanho: "13.5 MB", categoria: "Rapés Sagrados / Slide Deck" },
-  { nome: "Manifesto Etnobotânico & Povos Originários (Slide Deck NotebookLM)", arquivo: "nativaram-ethnobotanical-manifesto-slide-deck.pdf", tamanho: "18.9 MB", categoria: "Manifesto / Slide Deck" },
-  { nome: "Rapés Sagrados: Essências Entre a Floresta e a Ciência (25 Páginas)", arquivo: "nativaram-rapes-sagrados-floresta-e-ciencia.pdf", tamanho: "88.0 KB", categoria: "Rapés Sagrados / Dossiê" },
-  { nome: "Ciência do Feitio Purista da Ayahuasca (Tucunacá vs Caupuri)", arquivo: "nativaram-estudo-feitio-purista-ayahuasca.pdf", tamanho: "38.0 KB", categoria: "Ayahuasca / Fitoquímica" },
-  { nome: "Dinâmicas de Feitio e Graduações Daimistas (3.1 a 10.1)", arquivo: "nativaram-estudo-graduacoes-forca.pdf", tamanho: "39.6 KB", categoria: "Ayahuasca / Feitio" },
-  { nome: "Manual Unificado de Governança e Compliance Algorítmico 2026", arquivo: "nativaram-relatorio-assessoria-governanca.pdf", tamanho: "13.3 KB", categoria: "Governança / Compliance" },
-  { nome: "Parecer Jurídico-Normativo: Uso Ritualístico e Marco CONAD", arquivo: "nativaram-parecer-juridico-comunicacao.pdf", tamanho: "29.6 KB", categoria: "Governança / CONAD" },
-
-  // Artigos e Dossiês Científicos Gerados
-  { nome: "Perfil Fitoquímico e Alcaloides do Cipó Tucunacá (HPLC)", arquivo: "fitoquimica-cipo-tucunaca-ayahuasca.pdf", tamanho: "4.3 KB", categoria: "Etnociência / Ayahuasca" },
-  { nome: "Alquimia Biogeoquímica das Cinzas Sagradas no Rapé (pH & Termólise)", arquivo: "alquimia-biogeoquimica-cinzas-rape.pdf", tamanho: "4.7 KB", categoria: "Etnociência / Rapés" },
-  { nome: "Etnobotânica e Fitoquímica da Sananga (Tabernaemontana)", arquivo: "estudo-cientifico-sananga-tabernaemontana.pdf", tamanho: "4.4 KB", categoria: "Etnociência / Sananga" },
-  { nome: "Marco Regulatório da Ayahuasca: Resolução CONAD 01/2010 Comentada", arquivo: "resolucao-conad-01-2010-marco-ayahuasca.pdf", tamanho: "4.2 KB", categoria: "Governança / CONAD" },
-
-  // Compêndios e Dossiês Institucionais
-  { nome: "Curadoria & Feitio Consciente da Ayahuasca", arquivo: "curadoria-nativaram-ayahuasca.pdf", tamanho: "957 KB", categoria: "Ayahuasca" },
-  { nome: "Compêndio Etnobotânico e Base de Conhecimento", arquivo: "nativaram-base-conhecimento-definiva.pdf", tamanho: "254 KB", categoria: "Rapés & Botânica" },
-  { nome: "Catálogo das 15 Essências de Rapé Sagrado (Edição Canônica)", arquivo: "nativaram-catalogo-v4.pdf", tamanho: "281 KB", categoria: "Rapés Sagrados" },
-  { nome: "Manual Unificado de Governança & Compliance Jurídico", arquivo: "manual-compliance-nativaram.pdf", tamanho: "1.022 KB", categoria: "Governança" },
-  { nome: "Documento Institucional Nativaram Brasil & Sananga", arquivo: "documento-institucional-nativaram.pdf", tamanho: "988 KB", categoria: "Institucional" },
-  { nome: "Diretrizes de Comunicação & Compliance Digital", arquivo: "Diretrizes de Comunicação e Compliance Nativaram Brasil.pdf", tamanho: "169 KB", categoria: "Compliance" },
-  { nome: "Diretrizes Institucionais e Base de Conhecimento", arquivo: "Diretrizes Institucionais e Base de Conhecimento - Nativaram Brasil (1).pdf", tamanho: "368 KB", categoria: "Institucional" },
-  { nome: "Sobre Nós: História, Povos Originários & Etnociência", arquivo: "sobre nós nativaram.pdf", tamanho: "2.651 KB", categoria: "História & Doutrina" },
-  { nome: "Manual de Compliance Definitivo", arquivo: "nativaram-manual-compliance-definitivo.pdf", tamanho: "153 KB", categoria: "Compliance" },
-  { nome: "Manual de Comunicação e Conformidade", arquivo: "nativaram-manual-comunicacao-compliance.pdf", tamanho: "203 KB", categoria: "Comunicação" },
-  { nome: "Catálogo de Essências Tradicionais (Edição V2)", arquivo: "nativaram-catalogo-v2 PDF.pdf", tamanho: "473 KB", categoria: "Catálogo" },
-  { nome: "Catálogo de Essências Tradicionais (Edição V3)", arquivo: "nativaram-catalogo-v3.pdf", tamanho: "280 KB", categoria: "Catálogo" },
-];
+/** Tipo de arquivo exibido no card ("PDF" ou "Texto"), a partir da extensão. */
+const formatoArquivo = (arquivo: string) => (arquivo.endsWith(".md") ? "Texto" : "PDF");
 
 export function EstudosClient() {
   const [visaoAtiva, setVisaoAtiva] = useState<"COMUNIDADE" | "DOSSIES">("COMUNIDADE");
@@ -100,7 +69,6 @@ export function EstudosClient() {
     { id: "todos", label: "Todos os Estudos", icon: Layers },
     { id: "ayahuasca", label: "Ayahuasca & Feitio", icon: FlaskConical },
     { id: "rapes", label: "Rapés Sagrados", icon: Leaf },
-    { id: "sananga", label: "Sananga Tradicional", icon: Eye },
     { id: "compliance", label: "Governança & CONAD", icon: Scale },
     { id: "etnociencia", label: "Manifesto & Etnociência", icon: Compass },
   ];
@@ -167,7 +135,7 @@ export function EstudosClient() {
             }`}
           >
             <GraduationCap className="h-4 w-4" />
-            <span>Dossiês Científicos da Floresta</span>
+            <span>Biblioteca de Documentos</span>
             <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-ambar-500/20 text-ambar-300 border border-ambar-500/30 hidden sm:inline">
               Acervo
             </span>
@@ -190,7 +158,7 @@ export function EstudosClient() {
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Buscar por composto (Harmina, THH), planta (Tucunacá, Sananga), CONAD ou tema..."
+            placeholder="Buscar por planta (Tucunacá, Chacrona, Tsunu), CONAD ou tema..."
             className="w-full rounded-2xl border border-ambar-500/25 bg-floresta-900/70 pl-12 pr-4 py-3.5 text-sm text-areia-100 placeholder-areia-400/50 focus:border-ambar-400 focus:outline-none focus:ring-1 focus:ring-ambar-400 shadow-elevated"
           />
           {searchTerm && (
@@ -267,7 +235,7 @@ export function EstudosClient() {
                     <div className="flex items-center gap-3 text-[11px] text-areia-400 font-mono">
                       <span>Ano: {estudo.ano}</span>
                       <span>•</span>
-                      <span>PDF: {estudo.pdfTamanho}</span>
+                      <span>{formatoArquivo(estudo.pdfArquivo)}: {estudo.pdfTamanho}</span>
                     </div>
                   </div>
 
@@ -288,7 +256,7 @@ export function EstudosClient() {
                   <div className="rounded-xl p-4 bg-floresta-950/80 border border-ambar-500/15 space-y-2">
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-ambar-400 flex items-center gap-1.5">
                       <Sparkles className="h-3.5 w-3.5" />
-                      Destaques Científicos & Farmacológicos:
+                      Destaques do documento:
                     </span>
                     <ul className="space-y-1.5 text-xs text-areia-300 font-light">
                       {estudo.principaisDescobertas.slice(0, 3).map((item, idx) => (
@@ -303,7 +271,7 @@ export function EstudosClient() {
                   {/* Fontes e Referências Acadêmicas */}
                   <div className="space-y-1 pt-1">
                     <span className="text-[10px] font-mono text-areia-400 uppercase tracking-wider block">
-                      Fontes & Academias Citadas:
+                      Fontes citadas:
                     </span>
                     <p className="text-[11px] text-areia-400/90 font-light leading-relaxed italic">
                       {estudo.referenciasAcademicas.slice(0, 2).join(" • ")}
@@ -318,7 +286,7 @@ export function EstudosClient() {
                     className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-floresta-800 hover:bg-floresta-700 text-areia-100 px-4 py-2.5 text-xs font-semibold border border-ambar-500/30 transition-colors"
                   >
                     <BookOpen className="h-3.5 w-3.5 text-ambar-400" />
-                    <span>Ler Estudo Online</span>
+                    <span>Ler resumo online</span>
                   </button>
 
                   <button
@@ -326,14 +294,14 @@ export function EstudosClient() {
                     className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-ambar-500/15 hover:bg-ambar-500/25 text-ambar-300 px-4 py-2.5 text-xs font-semibold border border-ambar-500/30 transition-colors"
                   >
                     <Eye className="h-3.5 w-3.5" />
-                    <span>Visualizar PDF</span>
+                    <span>Visualizar</span>
                   </button>
 
                   <a
                     href={`/documentos/${estudo.pdfArquivo}`}
                     download
                     className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-xl bg-floresta-950 hover:bg-floresta-900 text-areia-300 hover:text-areia-100 px-4 py-2.5 text-xs font-semibold border border-ambar-500/20 transition-colors"
-                    title="Baixar arquivo PDF completo"
+                    title="Baixar o arquivo completo"
                   >
                     <Download className="h-3.5 w-3.5 text-ambar-400" />
                     <span>Baixar</span>
@@ -368,36 +336,24 @@ export function EstudosClient() {
           </h3>
 
           <p className="text-sm text-areia-300 leading-relaxed font-light">
-            Todo o patrimônio etnobotânico da Nativaram Brasil está estruturado e indexado em cadernos dedicados do <strong>Google NotebookLM</strong>. Com mais de <strong>580 fontes científicas e relatos de pajés</strong> carregados, essa tecnologia permite aos pesquisadores e dirigentes fazer consultas orientadas com citação exata de artigos da UFAC, USP, resoluções do CONAD e laudos fitoquímicos.
+            Parte do acervo de pesquisa da Cooperativa Nativaram está organizada em cadernos do <strong>Google NotebookLM</strong>, com artigos, resoluções e relatos de tradição oral. Os cadernos ajudam pesquisadores e dirigentes a consultar as fontes carregadas; as respostas geradas devem ser conferidas na fonte original.
           </p>
         </div>
 
         {/* Cadernos Padrão do NotebookLM — Links Reais */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative">
           {[
             {
               titulo: "Rapés Indígenas — Conhecimentos Gerais",
-              desc: "215 fontes catalogadas. Fitoquímica da Nicotiana rustica, alcalinização por cinzas nobres e botânica tradicional.",
+              desc: "215 fontes catalogadas. Botânica da Nicotiana rustica, cinzas de cascas nobres e tradição dos povos da floresta.",
               tag: "215 Fontes • 14 Artefatos",
               url: "https://notebooklm.google.com/notebook/07b3db4a-51ac-4b78-99e3-9dff658331a6",
             },
             {
               titulo: "AYAHUASCA — Conhecimentos Gerais",
-              desc: "179 fontes catalogadas. Purismo do Cipó Tucunacá, quantificação HPLC de Harmina/THH e graduações 3.1 a 10.1.",
+              desc: "179 fontes catalogadas. Cipó Tucunacá, sinergia entre cipó e folha e graduações tradicionais.",
               tag: "179 Fontes • 4 Artefatos",
               url: "https://notebooklm.google.com/notebook/a15d5b6b-2b66-4f1c-898b-9c7c493e752b",
-            },
-            {
-              titulo: "Assessoria Nativaram — Compliance 2026",
-              desc: "189 fontes catalogadas. Resolução CONAD 01/2010, Marco Sanitário ANVISA 2025/2026 e Engenharia de Linguagem.",
-              tag: "189 Fontes • 3 Artefatos",
-              url: "https://notebooklm.google.com/notebook/2c0f0a2f-8b13-4539-859e-45446a7a3612",
-            },
-            {
-              titulo: "DADOS — Rastreabilidade Nativaram",
-              desc: "Base estruturada de dados operacionais, conformidade SisGen e dossiê documental para remessas protegidas.",
-              tag: "Base Oficial • Rastreabilidade",
-              url: "https://notebooklm.google.com/notebook/0b84a49b-c58f-499f-9457-df6382b5e10b",
             },
           ].map((item, idx) => (
             <div
@@ -427,93 +383,6 @@ export function EstudosClient() {
               </a>
             </div>
           ))}
-        </div>
-
-        {/* Vitrine de Artefatos Gerados & Baixados do NotebookLM */}
-        <div className="rounded-2xl p-6 bg-floresta-950/90 border border-ambar-500/30 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ambar-500/15 pb-3">
-            <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-ambar-400" />
-              <h4 className="font-serif text-base font-bold text-areia-100">
-                Artefatos Oficiais Baixados & Anexados pelo NotebookLM
-              </h4>
-            </div>
-            <span className="text-[11px] font-mono text-ambar-300/80">
-              Slide Decks & Dossiês Sincronizados
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {/* Card Slide Deck 1 */}
-            <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/20 flex flex-col justify-between space-y-3">
-              <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-ambar-400 uppercase bg-ambar-500/15 px-2 py-0.5 rounded">
-                    Slide Deck • 13.5 MB
-                  </span>
-                  <span className="text-[10px] font-mono text-areia-400">PDF em Alta Resolução</span>
-                </div>
-                <h5 className="font-serif text-sm font-bold text-areia-100">
-                  Nativaram Sacred Guide
-                </h5>
-                <p className="text-xs text-areia-300 font-light">
-                  Apresentação visual gerada pelo NotebookLM com a iconografia das 15 essências de rapé sagrado, cinética das cinzas e sabedoria tradicional.
-                </p>
-              </div>
-              <div className="flex items-center gap-2 pt-2 border-t border-ambar-500/10">
-                <button
-                  onClick={() => setActivePdfModal("/documentos/nativaram-sacred-guide-slide-deck.pdf")}
-                  className="flex-1 inline-flex items-center justify-center gap-1 text-xs text-ambar-300 bg-ambar-500/15 hover:bg-ambar-500/25 px-3 py-1.5 rounded-lg border border-ambar-500/30 transition-colors"
-                >
-                  <Eye className="h-3 w-3" />
-                  <span>Visualizar Apresentação</span>
-                </button>
-                <a
-                  href="/documentos/nativaram-sacred-guide-slide-deck.pdf"
-                  download
-                  className="inline-flex items-center gap-1 text-xs text-areia-200 bg-floresta-800 hover:bg-floresta-700 px-3 py-1.5 rounded-lg transition-colors"
-                >
-                  <Download className="h-3 w-3 text-ambar-400" />
-                  <span>Baixar</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Card Slide Deck 2 */}
-            <div className="p-4 rounded-xl bg-floresta-900/60 border border-ambar-500/20 flex flex-col justify-between space-y-3">
-              <div className="space-y-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono text-ambar-400 uppercase bg-ambar-500/15 px-2 py-0.5 rounded">
-                    Slide Deck • 18.9 MB
-                  </span>
-                  <span className="text-[10px] font-mono text-areia-400">PDF em Alta Resolução</span>
-                </div>
-                <h5 className="font-serif text-sm font-bold text-areia-100">
-                  Nativaram Ethnobotanical Manifesto
-                </h5>
-                <p className="text-xs text-areia-300 font-light">
-                  Apresentação visual institucional sobre a aliança entre os povos originários do Acre e o método científico, destacando a preservação da fauna.
-                </p>
-              </div>
-              <div className="flex items-center gap-2 pt-2 border-t border-ambar-500/10">
-                <button
-                  onClick={() => setActivePdfModal("/documentos/nativaram-ethnobotanical-manifesto-slide-deck.pdf")}
-                  className="flex-1 inline-flex items-center justify-center gap-1 text-xs text-ambar-300 bg-ambar-500/15 hover:bg-ambar-500/25 px-3 py-1.5 rounded-lg border border-ambar-500/30 transition-colors"
-                >
-                  <Eye className="h-3 w-3" />
-                  <span>Visualizar Apresentação</span>
-                </button>
-                <a
-                  href="/documentos/nativaram-ethnobotanical-manifesto-slide-deck.pdf"
-                  download
-                  className="inline-flex items-center gap-1 text-xs text-areia-200 bg-floresta-800 hover:bg-floresta-700 px-3 py-1.5 rounded-lg transition-colors"
-                >
-                  <Download className="h-3 w-3 text-ambar-400" />
-                  <span>Baixar</span>
-                </a>
-              </div>
-            </div>
-          </div>
         </div>
 
         {/* Adicionar Link Personalizado do NotebookLM */}
@@ -579,18 +448,18 @@ export function EstudosClient() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          TABELA GERAL DE TODOS OS 16 PDFs LOCAIS
+          BIBLIOTECA PÚBLICA: TODOS OS ARQUIVOS DE /documentos
           ═══════════════════════════════════════════ */}
       <section className="space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-ambar-500/15 pb-4">
           <div className="flex items-center gap-2">
             <FileCheck className="h-5 w-5 text-ambar-400" />
             <h3 className="font-serif text-lg sm:text-xl font-bold text-areia-100">
-              Acervo Completo de Documentos & PDFs Oficiais ({todosDocumentosPdf.length})
+              Biblioteca Pública de Documentos ({estudosData.length + 1})
             </h3>
           </div>
           <span className="text-xs text-areia-400 font-mono">
-            Repositório Oficial em /public/documentos
+            Arquivos abertos para leitura e download
           </span>
         </div>
 
@@ -599,16 +468,48 @@ export function EstudosClient() {
             <table className="w-full text-left border-collapse text-xs">
               <thead>
                 <tr className="border-b border-ambar-500/20 bg-floresta-900/80 text-[11px] font-mono text-ambar-400 uppercase tracking-wider">
-                  <th className="py-3.5 px-4 sm:px-6">Documento Oficial</th>
+                  <th className="py-3.5 px-4 sm:px-6">Documento</th>
                   <th className="py-3.5 px-4 hidden sm:table-cell">Categoria</th>
                   <th className="py-3.5 px-4">Tamanho</th>
                   <th className="py-3.5 px-4 text-right">Ações</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-ambar-500/10 text-areia-300">
-                {todosDocumentosPdf.map((doc, idx) => (
+                <tr className="hover:bg-floresta-900/40 transition-colors">
+                  <td className="py-3.5 px-4 sm:px-6">
+                    <div className="flex items-center gap-3">
+                      <Scale className="h-4 w-4 text-ambar-400/80 shrink-0" />
+                      <div>
+                        <span className="font-semibold text-areia-100 block">
+                          Resolução CONAD nº 01/2010: texto oficial
+                        </span>
+                        <span className="text-[10px] text-areia-400 font-mono">
+                          Ministério da Justiça (gov.br) • DOU nº 17, 26/01/2010, Seção 1
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="py-3.5 px-4 hidden sm:table-cell">
+                    <span className="text-[10px] font-mono text-ambar-300 bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/15">
+                      Governança & CONAD
+                    </span>
+                  </td>
+                  <td className="py-3.5 px-4 font-mono text-areia-400">Link externo</td>
+                  <td className="py-3.5 px-4 text-right">
+                    <a
+                      href={RESOLUCAO_CONAD_OFICIAL_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-[11px] text-ambar-400 hover:text-ambar-300 font-semibold px-2.5 py-1 rounded-lg border border-ambar-500/20 hover:bg-floresta-800 transition-colors"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                      <span>Abrir no gov.br</span>
+                    </a>
+                  </td>
+                </tr>
+                {estudosData.map((doc) => (
                   <tr
-                    key={idx}
+                    key={doc.id}
                     className="hover:bg-floresta-900/40 transition-colors"
                   >
                     <td className="py-3.5 px-4 sm:px-6">
@@ -616,33 +517,33 @@ export function EstudosClient() {
                         <FileText className="h-4 w-4 text-ambar-400/80 shrink-0" />
                         <div>
                           <span className="font-semibold text-areia-100 block">
-                            {doc.nome}
+                            {doc.titulo}
                           </span>
                           <span className="text-[10px] text-areia-400 font-mono">
-                            {doc.arquivo}
+                            {doc.pdfArquivo}
                           </span>
                         </div>
                       </div>
                     </td>
                     <td className="py-3.5 px-4 hidden sm:table-cell">
                       <span className="text-[10px] font-mono text-ambar-300 bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/15">
-                        {doc.categoria}
+                        {doc.categoriaLabel}
                       </span>
                     </td>
                     <td className="py-3.5 px-4 font-mono text-areia-400">
-                      {doc.tamanho}
+                      {formatoArquivo(doc.pdfArquivo)} • {doc.pdfTamanho}
                     </td>
                     <td className="py-3.5 px-4 text-right">
                       <div className="flex items-center justify-end gap-2">
                         <button
-                          onClick={() => setActivePdfModal(`/documentos/${doc.arquivo}`)}
+                          onClick={() => setActivePdfModal(`/documentos/${doc.pdfArquivo}`)}
                           className="inline-flex items-center gap-1 text-[11px] text-ambar-400 hover:text-ambar-300 font-semibold px-2.5 py-1 rounded-lg border border-ambar-500/20 hover:bg-floresta-800 transition-colors"
                         >
                           <Eye className="h-3 w-3" />
                           <span>Ver</span>
                         </button>
                         <a
-                          href={`/documentos/${doc.arquivo}`}
+                          href={`/documentos/${doc.pdfArquivo}`}
                           download
                           className="inline-flex items-center gap-1 text-[11px] text-areia-300 hover:text-areia-100 font-semibold px-2.5 py-1 rounded-lg border border-ambar-500/20 hover:bg-floresta-800 transition-colors"
                         >
@@ -657,6 +558,11 @@ export function EstudosClient() {
             </table>
           </div>
         </div>
+
+        {/* Aviso Mandatório de Segurança Integrativa (+18), mesmo texto de ManifestoLanding */}
+        <p className="pt-2 border-t border-ambar-500/15 text-[11px] text-areia-400/80 leading-relaxed font-light">
+          <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong> Nossos sacramentos e práticas etnobotânicas são de uso estritamente cerimonial, litúrgico e religioso tradicional, nos termos do Art. 5º da CF/88 e da Resolução CONAD nº 01/2010. A Cooperativa Nativaram não realiza consultas médicas, diagnósticos psiquiátricos ou promessas clínicas, nem comercializa substâncias em canais abertos da internet. O acesso é exclusivo a maiores de 18 anos devidamente associados e templos credenciados.
+        </p>
       </section>
       </div>
       )}
@@ -676,7 +582,7 @@ export function EstudosClient() {
               <div className="flex items-center gap-2 truncate pr-4">
                 <FileText className="h-4 w-4 text-ambar-400 shrink-0" />
                 <span className="font-serif text-xs sm:text-sm font-semibold text-areia-100 truncate">
-                  Visualizador de Documento Oficial Nativaram Brasil
+                  Visualizador de Documentos da Cooperativa Nativaram
                 </span>
               </div>
               <div className="flex items-center gap-2 shrink-0">
@@ -686,7 +592,7 @@ export function EstudosClient() {
                   className="inline-flex items-center gap-1.5 rounded-lg bg-ambar-500/15 text-ambar-300 px-3 py-1 text-xs font-semibold hover:bg-ambar-500/30 transition-colors"
                 >
                   <Download className="h-3.5 w-3.5" />
-                  <span className="hidden sm:inline">Baixar PDF</span>
+                  <span className="hidden sm:inline">Baixar</span>
                 </a>
                 <a
                   href={activePdfModal}
@@ -712,7 +618,7 @@ export function EstudosClient() {
               <iframe
                 src={activePdfModal}
                 className="w-full h-full border-none"
-                title="Documento PDF"
+                title="Documento da biblioteca"
               />
             </div>
           </div>
@@ -790,7 +696,7 @@ export function EstudosClient() {
               {/* Principais Descobertas */}
               <div className="p-5 rounded-xl bg-amber-600/[0.06] border border-amber-600/20 space-y-2.5">
                 <h5 className="font-serif text-xs font-bold uppercase tracking-wider text-amber-950">
-                  Síntese Fitoquímica & Descobertas
+                  Destaques do documento
                 </h5>
                 <ul className="space-y-2 text-xs text-pedra-800 font-light">
                   {readingStudy.principaisDescobertas.map((item, idx) => (
@@ -805,7 +711,7 @@ export function EstudosClient() {
               {/* Referências Bibliográficas */}
               <div className="space-y-1.5 pt-2 border-t border-amber-600/20">
                 <h5 className="font-serif text-[11px] font-bold uppercase tracking-wider text-amber-950">
-                  Referências Acadêmicas & Fontes Primárias
+                  Fontes citadas
                 </h5>
                 <ul className="space-y-1 text-[11px] text-pedra-700 font-light italic">
                   {readingStudy.referenciasAcademicas.map((ref, idx) => (
@@ -818,7 +724,7 @@ export function EstudosClient() {
             {/* Footer do Leitor */}
             <div className="px-6 py-4 bg-amber-600/10 border-t border-amber-600/20 flex items-center justify-between">
               <span className="text-[11px] font-mono text-pedra-600">
-                Documento Oficial da Cooperativa Nativaram Brasil
+                Documento da Cooperativa Nativaram
               </span>
               <a
                 href={`/documentos/${readingStudy.pdfArquivo}`}
@@ -826,7 +732,7 @@ export function EstudosClient() {
                 className="inline-flex items-center gap-2 rounded-xl bg-floresta-800 hover:bg-floresta-900 text-areia-100 px-4 py-2 text-xs font-semibold transition-colors"
               >
                 <Download className="h-3.5 w-3.5 text-ambar-400" />
-                <span>Baixar PDF Completo</span>
+                <span>Baixar documento completo</span>
               </a>
             </div>
           </div>
