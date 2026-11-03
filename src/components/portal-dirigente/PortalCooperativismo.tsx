@@ -248,7 +248,7 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
               <HeartHandshake className="h-3.5 w-3.5" /> Destinação Social
             </span>
             <p className="text-[11px] leading-relaxed">
-              Parte das contribuições apoia o fortalecimento do projeto e o acolhimento integrativo de irmãos em processos de recuperação e transformação de vida.
+              Parte das contribuições apoia o fortalecimento do projeto, a agrofloresta no Acre e a partilha solidária com casas pequenas credenciadas.
             </p>
           </div>
         </div>

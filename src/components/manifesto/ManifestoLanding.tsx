@@ -52,7 +52,7 @@ const faqsInstitucionais: FaqItem[] = [
   {
     pergunta: "Como funcionam os 'Projetos de Luz'?",
     resposta:
-      "Todo o superávit operacional e fitoquímico resultante do rateio das atividades é revertido em praxeologia social gratuita: fornecimento monitorado de sacramentos para suporte integrativo de pessoas enfrentando dependência química, alcoolismo e traumas existenciais em clínicas parceiras, além do custeio da Ecovila e Agrofloresta comunitária em Cruzeiro do Sul (Acre) e proteção ativa aos ninhos da Ararajuba.",
+      "Todo o superávit operacional e fitoquímico resultante do rateio das atividades é revertido em praxeologia social gratuita: custeio da Ecovila e Agrofloresta comunitária em Cruzeiro do Sul (Acre), proteção ativa aos ninhos da Ararajuba, apoio às comunidades da floresta e partilha solidária de sacramentos com templos credenciados de pequeno porte, sempre para uso exclusivo em seus ritos religiosos.",
   },
   {
     pergunta: "Como um templo religioso pode solicitar credenciamento litúrgico?",
@@ -470,7 +470,7 @@ export function ManifestoLanding() {
                     Univ. de São Paulo
                   </h4>
                   <p className="text-xs text-areia-400 leading-relaxed font-light">
-                    Pesquisas de neurobiologia, neuroplasticidade, segurança integrativa e farmacologia clínica de alcaloides indólicos.
+                    Pesquisas acadêmicas sobre segurança e etnobotânica.
                   </p>
                 </div>
 
@@ -806,10 +806,10 @@ export function ManifestoLanding() {
 
                 <div className="space-y-4 text-sm text-areia-300 leading-relaxed font-light">
                   <p>
-                    A Cooperativa Nativaram converte o superávit operacional e fitoquímico de suas atividades em suporte humano direto através dos <strong className="text-areia-100 font-semibold">&ldquo;Projetos de Luz&rdquo;</strong>. Nossas ações incluem o fornecimento monitorado e gratuito de sacramentos para suporte integrativo de indivíduos enfrentando severa vulnerabilidade social — tais como dependência química, alcoolismo crônico, depressão severa e traumas existenciais agudos.
+                    A Cooperativa Nativaram converte o superávit operacional e fitoquímico de suas atividades em suporte humano direto através dos <strong className="text-areia-100 font-semibold">&ldquo;Projetos de Luz&rdquo;</strong>. Nossas ações incluem a regeneração da agrofloresta no Acre, o apoio às comunidades da floresta e a partilha solidária de sacramentos com casas pequenas e templos credenciados que não conseguiriam arcar sozinhos com o rateio logístico.
                   </p>
                   <p>
-                    Em cooperação com equipes transdisciplinares, os sacramentos da floresta atuam como catalisadores para a neuroplasticidade, a ressignificação de histórias de dor e a reintegração comunitária digna.
+                    Toda partilha segue o mesmo credenciamento exigido dos demais templos: os sacramentos chegam apenas a instituições religiosas homologadas, para uso exclusivo em seus ritos, nunca fora do contexto litúrgico.
                   </p>
                 </div>
 

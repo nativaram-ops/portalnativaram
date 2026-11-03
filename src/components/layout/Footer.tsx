@@ -213,6 +213,10 @@ export const Footer = () => {
             <strong>Resolução CONAD nº 01/2010</strong> e ao{" "}
             <strong>Marco ANVISA de 28/01/2025</strong>.
           </p>
+          <p className="text-[10px] text-areia-400/70 leading-relaxed text-justify mt-2">
+            <strong>Conteúdo destinado a maiores de 18 anos.</strong> Sacramentos
+            de uso exclusivamente litúrgico, mediante credenciamento.
+          </p>
         </div>
 
         {/* Copyright */}

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title:
     "Projetos de Luz — Praxeologia Social, Agrofloresta & Refúgio de Fauna no Acre | Cooperativa Nativaram",
   description:
-    "Conheça a dimensão socioambiental do cooperativismo da Nativaram: destinação do superávit de rateio para reflorestamento do Vale do Juruá, proteção das Ararajubas e fornecimento litúrgico gratuito para acolhimento de pessoas vulneráveis.",
+    "Conheça a dimensão socioambiental do cooperativismo da Nativaram: destinação do superávit de rateio para reflorestamento do Vale do Juruá, proteção das Ararajubas e partilha solidária de sacramentos com templos credenciados de pequeno porte.",
   openGraph: {
     title:
       "Projetos de Luz — Regeneração da Floresta & Acolhimento Fraterno | Cooperativa Nativaram",

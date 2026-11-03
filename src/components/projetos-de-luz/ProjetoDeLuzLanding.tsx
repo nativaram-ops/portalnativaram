@@ -78,9 +78,9 @@ const pilaresDeLuz: PilarLuz[] = [
   {
     icone: HandHeart,
     titulo: "Acolhimento Litúrgico & Fraternidade",
-    subtitulo: "Suporte solidário a instituições de acolhimento",
+    subtitulo: "Partilha solidária com templos credenciados",
     descricao:
-      "Destinação solidária e gratuita de sacramentos botânicos puros a comunidades de acolhimento e templos que desenvolvem trabalho humanitário a pessoas em vulnerabilidade social extrema, superação de dependência e descompassos do cotidiano, com supervisão séria.",
+      "Destinação solidária e gratuita de sacramentos botânicos puros a templos credenciados e comunidades da floresta com poucos recursos, sempre para uso exclusivo em seus ritos religiosos e sob o mesmo credenciamento exigido das demais casas.",
     detalhes: [
       "Sacramentos doados integralmente sem custo à instituição",
       "Acompanhamento por dirigentes com experiência comprovada",
@@ -480,7 +480,7 @@ export function ProjetoDeLuzLanding() {
               Cada contribuição de rateio operacional gera um excedente social
               destinado à regeneração da mata, ao refúgio da fauna acreana, à
               remuneração digna das famílias ribeirinhas e ao apoio solidário a
-              casas que acolhem os que mais necessitam.
+              casas pequenas e comunidades da floresta.
             </p>
           </AnimateOnScroll>
 

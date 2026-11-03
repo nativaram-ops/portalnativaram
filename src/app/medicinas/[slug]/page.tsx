@@ -219,15 +219,15 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
             </AnimateOnScroll>
           </div>
 
-          {/* Benefícios nos 3 Planos */}
+          {/* Uso tradicional nos 3 planos */}
           <div className="space-y-6 pt-4">
             <AnimateOnScroll>
               <div className="text-center max-w-xl mx-auto space-y-2">
                 <span className="text-[11px] font-semibold text-ambar-400 uppercase tracking-[0.15em]">
-                  Ação Integrativa
+                  Contexto Litúrgico
                 </span>
                 <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
-                  Benefícios Multidimensionais
+                  Tradição e Liturgia
                 </h2>
               </div>
             </AnimateOnScroll>
@@ -241,7 +241,7 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
                       <Leaf className="h-5 w-5 text-emerald-400" />
                     </div>
                     <h3 className="font-serif text-base font-bold text-emerald-400">
-                      Plano Físico
+                      Uso Tradicional
                     </h3>
                   </div>
                   <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
@@ -258,7 +258,7 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
                       <Brain className="h-5 w-5 text-blue-400" />
                     </div>
                     <h3 className="font-serif text-base font-bold text-blue-400">
-                      Plano Mental
+                      Contexto de Reza
                     </h3>
                   </div>
                   <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
@@ -275,7 +275,7 @@ export default async function MedicinaDetailPage({ params }: PageProps) {
                       <Sparkles className="h-5 w-5 text-purple-400" />
                     </div>
                     <h3 className="font-serif text-base font-bold text-purple-400">
-                      Plano Sutil
+                      Dimensão Litúrgica
                     </h3>
                   </div>
                   <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">

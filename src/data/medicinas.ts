@@ -40,11 +40,11 @@ export const medicinas: Medicina[] = [
       "Ao unir o tabaco forte com as cinzas alcalinas do Tsunu e os óleos naturais do Eucalipto e do Alecrim, esta mistura cria uma resposta imediata de desobstrução e foco, preservando os sais minerais e nutrientes essenciais das folhas mesmo após o fogo da queima.",
     beneficios: {
       fisico:
-        "Favorece a sensação de desobstrução e frescor do peito e do nariz, suavizando desconfortos sazonais de forma sutil e natural.",
+        "Presente em cerimônias de abertura de trabalhos, quando a casa se prepara para a reza coletiva.",
       mental:
-        "Traz uma clareza de pensamento maravilhosa, ajudando a se concentrar em tarefas difíceis sem aquela sensação de estafa.",
+        "Usado tradicionalmente em momentos de concentração e reza, antes de estudos e orações.",
       sutil:
-        "Alinha e equilibra os sete centros de energia (chakras) do corpo, criando um verdadeiro campo de proteção ao redor.",
+        "Associado na tradição aos sete centros de energia (chakras), como rito de firmeza e proteção do espaço sagrado.",
     },
     diretrizes:
       "Consagre em um local bem calmo. Sente-se de forma confortável, faça uma respiração profunda e use o kuripe ou o tepi com um sopro firme e amoroso. Sintonize o ambiente com as frequências harmônicas de 432Hz.",
@@ -73,11 +73,11 @@ export const medicinas: Medicina[] = [
       "O cacau fornece a teobromina, um composto altamente resistente ao calor que mantém 90% de sua força após a queima ritualística. A teobromina atua abrindo suavemente os vasos de sangue e relaxando o sistema cardiovascular.",
     beneficios: {
       fisico:
-        "Favorece a fluidez circulatória corporal, suavizando a sensação de cansaço muscular e tensões físicas.",
+        "Consagrado tradicionalmente em encontros de partilha e cerimônias de comunhão entre os irmãos da casa.",
       mental:
-        "Estimula os hormônios do bem-estar e da felicidade no cérebro, diminuindo sentimentos de tristeza profunda e desânimo.",
+        "Acompanha momentos de reconexão e pausa consciente dentro da liturgia.",
       sutil:
-        "Atua diretamente no Chakra Cardíaco (no coração), acolhendo pesos emocionais e abrindo os canais da empatia e da união.",
+        "Associado na tradição ao Chakra Cardíaco, símbolo de empatia e união da corrente.",
     },
     diretrizes:
       "Consagre quando buscar um momento de reconexão consigo mesmo. Sente-se confortavelmente, use um kuripe ou tepi, respirando de forma pausada pela boca, integrando os sentimentos na frequência harmônica de 432Hz.",
@@ -105,11 +105,11 @@ export const medicinas: Medicina[] = [
       "Embora a cumarina original se degrade parcialmente com altas temperaturas, a queima lenta deixa uma cinza mineral rica em potássio e cálcio biodisponíveis combinados com os óleos balsâmicos do Breu Preto.",
     beneficios: {
       fisico:
-        "Proporciona sensação de abertura respiratória e frescor nasal, acolhendo o peso e a pressão na fronte e na face.",
+        "Consagrado em ritos de firmeza e proteção, quando o trabalho pede postura e presença.",
       mental:
-        "Corta na hora o fluxo de pensamentos repetitivos, obsessivos ou loops de preocupação, trazendo estabilidade cognitiva e foco.",
+        "Usado tradicionalmente em momentos de concentração e silêncio antes da reza.",
       sutil:
-        "Trabalha como um escudo protetor, promovendo uma forte ligação com o elemento terra (enraizamento) nos Chakras Básico e Coronário.",
+        "Associado na tradição ao elemento terra e aos Chakras Básico e Coronário, como rito de enraizamento.",
     },
     diretrizes:
       "Consagre com firme intenção de proteção e firmeza. Prepare um espaço silencioso e consagre com sopro firme. Realize o expurgo das toxinas, sintonizando o ambiente com sonoridades orgânicas de 432Hz.",
@@ -135,14 +135,14 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado de forma artesanal e sob rezas de enraizamento pelo nosso feitor caboclo. Toda a matéria-prima é de origem renovável, obtida eticamente em parcerias sustentáveis.",
     alquimiaFitoquimica:
-      "O fitoativo visionário DMT presente na casca da raiz viva sofre degradação térmica completa acima de 250°C. Assim, o rapé é 100% livre de efeitos psicoativos, retendo taninos cicatrizantes e minerais termoestáveis.",
+      "Preparado a partir da casca da raiz da Jurema Preta, moída e unida ao tabaco segundo o feitio tradicional. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
-        "Atua como adstringente botânico das vias respiratórias superiores, acolhendo tecidos e promovendo proteção natural.",
+        "Consagrado tradicionalmente ao anoitecer, em cerimônias de silêncio e introspecção.",
       mental:
-        "Promove uma estabilização imediata contra descompassos emocionais, devolvendo o equilíbrio e a presença.",
+        "Acompanha ritos de firmeza e recolhimento, quando a corrente busca presença e quietude.",
       sutil:
-        "Ativa intensamente o Chakra Básico (Muladhara), trazendo presença física absoluta e conectando com a energia da terra.",
+        "Associado na tradição ao Chakra Básico (Muladhara) e à conexão com a energia da terra.",
     },
     diretrizes:
       "Consagre preferencialmente ao anoitecer em silêncio e introspecção. Aplique de forma uniforme nas duas narinas e segure o fôlego nasal, cuspindo os resíduos. Use frequências de 432Hz para estabilizar.",
@@ -172,11 +172,11 @@ export const medicinas: Medicina[] = [
       "Rico em flavonoides naturais estáveis (como crisina e apigenina) combinados ao tamponamento alcalino das cinzas de Tsunú (pH 9,30 a 9,60), favorecendo a desaceleração suave e a quietude mental.",
     beneficios: {
       fisico:
-        "Proporciona sensação de relaxamento corporal brando e acolhimento da respiração ao final do dia.",
+        "Consagrado tradicionalmente ao entardecer, em ritos de encerramento e recolhimento.",
       mental:
-        "Suaviza o ritmo de pensamentos intensos, convidando à calmaria interior e ao repouso consciente.",
+        "Acompanha vigílias mansas e momentos de quietude dentro da liturgia.",
       sutil:
-        "Harmoniza os Chakras Cardíaco (Anahata) e Frontal (Ajna), preparando o campo sutil para vigílias mansas e recolhimento.",
+        "Associado na tradição aos Chakras Cardíaco (Anahata) e Frontal (Ajna), como preparação para a vigília.",
     },
     diretrizes:
       "Consagre preferencialmente ao entardecer ou antes do repouso noturno. Receba o sopro suave e mantenha a respiração tranquila. Sintonize com sons serenos da natureza em 432Hz.",
@@ -205,11 +205,11 @@ export const medicinas: Medicina[] = [
       "A casca do Mulateiro é extremamente rica em ácido ursólico e lignanas com potente ação antioxidante. O ácido ursólico é termoestável e preserva até 80% de sua atividade na calcinação.",
     beneficios: {
       fisico:
-        "Protetor botânico das vias respiratórias, suavizando a sensação de peso e pressões acumuladas na fronte.",
+        "Presente em rituais de transição e na abertura de novos ciclos dentro da casa.",
       mental:
-        "Estimula o equilíbrio bilateral, quebrando pensamentos obsessivos e ajudando a dissolver tensões intelectuais.",
+        "Usado tradicionalmente em momentos de concentração e reza voltados ao desapego.",
       sutil:
-        "Ativa vigorosamente o Chakra Básico (Muladhara) e o Chakra Frontal, propiciando proteção áurica e forte aterramento.",
+        "Associado na tradição ao Chakra Básico (Muladhara) e ao Chakra Frontal, como rito de proteção e aterramento.",
     },
     diretrizes:
       "Consagre em rituais de transição, ao buscar iniciar novos ciclos de vida com vigor. Use o kuripe ou tepi, aplicando em ambas as narinas de forma equilibrada. Sintonize com sons de água e frequências de 432Hz.",
@@ -238,11 +238,11 @@ export const medicinas: Medicina[] = [
       "A casca do Murici é uma fonte abundante de ferro, potássio, vitamina C e taninos. A calcinação controlada resulta em uma cinza rica em potássio e ferro bioativos que aumentam a condutividade e a resposta corporal de vigor.",
     beneficios: {
       fisico:
-        "Suaviza estados de sensibilidade respiratória, promovendo sensação de frescor e nutrindo o vigor corporal.",
+        "Consagrado tradicionalmente no início do dia e antes de trabalhos longos da corrente.",
       mental:
-        "Nutre a vitalidade mental, ativando as vias cognitivas de ação, presença e foco diante de elevadas demandas intelectuais.",
+        "Acompanha momentos de presença e foco na reza coletiva.",
       sutil:
-        "Fortalece o Chakra Umbilical (Plexo Solar) e o Chakra Cardíaco, trazendo coragem e equilibrando a energia vital.",
+        "Associado na tradição ao Plexo Solar e ao Chakra Cardíaco, símbolo de coragem e força vital.",
     },
     diretrizes:
       "Consagre no início do dia ou antes de sessões que demandem alta resistência física. Segure o fôlego nasal no momento do sopro e cuspa os resíduos. Use sons graves de terra em 432Hz.",
@@ -273,11 +273,11 @@ export const medicinas: Medicina[] = [
       "Estudos preliminares sugerem que a folha de Nissural é rica em fitocomplexos nobres. A moagem ultrafina preservada em cinzas alcalinas de Tsunu facilita o tráfego de neurotransmissores de introspecção.",
     beneficios: {
       fisico:
-        "Suaviza tensões na região da fronte, auxiliando no acolhimento do cansaço mental e visual.",
+        "Consagrado em momentos de oração profunda e cerimônias de estudo íntimo.",
       mental:
-        "Promove um estado de clareza intuitiva, acalmando o pensar acelerado e organizando as sinapses para a meditação.",
+        "Usado tradicionalmente em momentos de concentração, silêncio e reza.",
       sutil:
-        "Atua diretamente no Chakra Coronário e no Chakra Frontal, limpando os canais superiores e criando proteção.",
+        "Associado na tradição aos Chakras Coronário e Frontal e à conexão com os avós da floresta.",
     },
     diretrizes:
       "Consagre em momentos de profunda oração, busca de orientação espiritual ou cerimônias de estudo íntimo. Aplique com um sopro suave e focado. Use sons de harpas, flautas e frequências de 432Hz.",
@@ -307,11 +307,11 @@ export const medicinas: Medicina[] = [
       "Diferente de pós inalados visionários como o Yopo, o rapé feito com a casca de Schizolobium amazonicum é livre de efeitos visionários. A queima acima de 250°C degrada totalmente qualquer composto triptamínico, resultando em uma cinza altamente alcalina de rápida ação.",
     beneficios: {
       fisico:
-        "Desobstrução profunda das vias respiratórias superiores, promovendo sensação de alívio da pressão frontal e serenidade ocular.",
+        "Consagrado em trabalhos de força, com postura firme e intenção focada, sob orientação do dirigente.",
       mental:
-        "Ativação de hiperconsciência, cortando loops de preocupação, medos e cansaços intelectuais.",
+        "Usado tradicionalmente em ritos de firmeza, quando a corrente pede atenção e presença.",
       sutil:
-        "Abre o Chakra Coronário e o Plexo Solar, dispensando bloqueios áuricos e ativando o guerreiro interior.",
+        "Associado na tradição ao Chakra Coronário e ao Plexo Solar, símbolo do guerreiro interior.",
     },
     diretrizes:
       "Por ser um rapé de força extra-forte, consagre com postura firme e intenção focada. Mantenha a respiração pela boca. Sintonize com sons de fogueira, tambor cerimonial em 432Hz.",
@@ -340,11 +340,11 @@ export const medicinas: Medicina[] = [
       "As sementes de Pixuri contêm teores elevados de linalol (composto sedativo e neuroprotetor). Processo de moagem ultrafina à sombra que preserva os fitocomplexos aromáticos que atuam no relaxamento celular.",
     beneficios: {
       fisico:
-        "Favorece o relaxamento suave e a sensação de fluidez, acolhendo tensões na região da fronte e promovendo calmaria corporal.",
+        "Consagrado tradicionalmente ao anoitecer, em ritos de encerramento dos trabalhos.",
       mental:
-        "Reduz as tensões mentais diárias e a agitação pré-sono, induzindo o cérebro a emitir ondas de relaxamento profundo (alfa e theta).",
+        "Acompanha momentos de silêncio e recolhimento ao fim da jornada litúrgica.",
       sutil:
-        "Proteção áurica com foco no Chakra Frontal e Cardíaco, criando um escudo contra pesadelos e sintonias densas noturnas.",
+        "Associado na tradição aos Chakras Frontal e Cardíaco, como rito de proteção noturna.",
     },
     diretrizes:
       "Consagre ao anoitecer ou antes de deitar em seu espaço de repouso. Aplique com um sopro longo, suave e acolhedor. Permaneça em silêncio de olhos fechados. Use músicas relaxantes e frequências de 432Hz.",
@@ -373,11 +373,11 @@ export const medicinas: Medicina[] = [
       "Embora a folha in natura contenha compostos visionários, o calor do feitio acima de 200°C provoca a degradação térmica completa do DMT. O rapé não possui efeitos psicoativos, retendo flavonoides e taninos termoestáveis que equilibram as células mucosas.",
     beneficios: {
       fisico:
-        "Ação suavizante e protetora local das mucosas respiratórias superiores, acolhendo estados de sensibilidade nasal.",
+        "Presente em cerimônias de rezo feminino e em ritos de recolhimento da casa.",
       mental:
-        "Estimula a síntese de serotonina e endorfinas, diminuindo as tensões do dia e promovendo paz mental.",
+        "Acompanha momentos de meditação e silêncio dentro da liturgia.",
       sutil:
-        "Ativa de forma doce o Chakra Cardíaco (Anahata) e o Chakra Frontal (Ajna), equilibrando a sensibilidade intuitiva.",
+        "Associado na tradição ao Chakra Cardíaco (Anahata) e ao Chakra Frontal (Ajna), símbolo da sensibilidade intuitiva.",
     },
     diretrizes:
       "Consagre em ambiente silencioso com foco em meditação, autocuidado ou rituais de harmonização emocional. Receba o sopro suave de olhos fechados. Use músicas de rezo feminino em 432Hz.",
@@ -407,11 +407,11 @@ export const medicinas: Medicina[] = [
       "As cinzas de Samaúma e Ipê-Amarelo são extremamente ricas em óxidos de potássio, cálcio e lapachol residual. Essa elevada riqueza de eletrólitos minerais confere ao preparado uma altíssima condutividade, facilitando as sinapses neurais de foco.",
     beneficios: {
       fisico:
-        "Favorece a expansão natural da respiração e auxilia na suavização de tensões musculares posturais.",
+        "Consagrado em ritos de alinhamento, com a coluna ereta e sopro firme.",
       mental:
-        "Acalma o fluxo desordenado de preocupações lógicas diárias, organizando as ideias e aumentando a clareza para decisões.",
+        "Usado tradicionalmente em momentos de busca de orientação e firmeza de propósito.",
       sutil:
-        "Ativa intensamente o Chakra Básico (Muladhara - enraizamento) e o Chakra Coronário, promovendo conexão vertical.",
+        "Associado na tradição ao Chakra Básico (Muladhara) e ao Chakra Coronário, como rito de conexão vertical.",
     },
     diretrizes:
       "Consagre em momentos que necessite de orientação, firmeza de propósito ou realinhamento geral. Sente-se com a coluna ereta. Use kuripe ou tepi com sopro firme. Sintonize com sons da mata e tambor em 432Hz.",
@@ -440,11 +440,11 @@ export const medicinas: Medicina[] = [
       "As folhas de Miconia albicans concentram flavonoides e compostos triterpênicos nobres (ácido oleanólico e ácido ursólico) que, integrados às cinzas alcalinas de Tsunú (pH 9,65 a 9,95), promovem estabilidade e presença corporal.",
     beneficios: {
       fisico:
-        "Apoia a sensação de firmeza postural e conforto corporal durante longas vigílias e práticas meditativas sentadas.",
+        "Consagrado em ritos de ancoramento e antes de vigílias longas da corrente.",
       mental:
-        "Ancora a atenção no momento presente, dissipando dispersões e favorecendo a paciência e a escuta madura.",
+        "Acompanha estudos prolongados e momentos de escuta atenta na liturgia.",
       sutil:
-        "Atua fortemente no Chakra Básico (Muladhara) e no Plexo Solar (Manipura), conectando à resiliência dos anciãos da floresta.",
+        "Associado na tradição ao Chakra Básico (Muladhara) e ao Plexo Solar (Manipura), em memória dos anciãos da floresta.",
     },
     diretrizes:
       "Consagre em ritos de ancoramento, estudos prolongados ou antes de vigílias que peçam estabilidade física e serenidade. Use o kuripe ou tepi de forma focada e respeitosa em sintonia de 432Hz.",
@@ -473,11 +473,11 @@ export const medicinas: Medicina[] = [
       "As cascas de Tsunu calcinadas produzem cinzas altamente alcalinas que elevam o pH da cavidade nasal (pH entre 9,75 e 10,2). Esse processo transforma toda a nicotina ativa em base livre de absorção instantânea e altíssima eficácia cognitiva.",
     beneficios: {
       fisico:
-        "Excepcional limpador do trato respiratório superior. Nutre a sensação de vigor corporal e renova o tônus.",
+        "Rapé clássico das cerimônias de abertura e encerramento de trabalhos.",
       mental:
-        "Oferece o equilíbrio perfeito entre o alerta focado e o relaxamento sereno. Zera os ruídos mentais com rapidez e precisão.",
+        "Usado tradicionalmente em momentos de concentração e reza, ao início ou ao fim do dia.",
       sutil:
-        "Alinha todos os Chakras do corpo, promovendo uma profunda ancoragem (aterramento) e limpeza de energias estagnadas.",
+        "Associado na tradição a todos os chakras, como rito de aterramento e alinhamento geral.",
     },
     diretrizes:
       "A sabedoria botânica básica perfeita para sua jornada de oração ou bem-estar. Consagre ao acordar para despertar a mente, ou no final do dia para descarregar o cansaço. Use kuripe ou tepi. Sintonize em 432Hz.",
@@ -506,11 +506,11 @@ export const medicinas: Medicina[] = [
       "Une as cinzas de Samaúma às folhas moídas de Cipó-Jiboia que contêm fitocomplexos nobres, saponinas e linalol termoestável. Essa sinergia promove a pureza das vias respiratórias superiores e apoia a vitalidade natural do organismo.",
     beneficios: {
       fisico:
-        "Atua tonificando o fluxo de energia corporal geral, acolhendo o cansaço do corpo e a sensação de peso nas pernas.",
+        "Consagrado em cerimônias de harmonização, com respiração pausada e sopro firme.",
       mental:
-        "Excelente facilitador do transe meditativo calmo (ondas theta), limpando a estafa intelectual e favorecendo a clareza.",
+        "Acompanha momentos de meditação e reza em busca de orientação.",
       sutil:
-        "Foco intenso no Chakra Cardíaco e no Chakra Frontal, ativando a força de harmonização espiritual da serpente cósmica Yube.",
+        "Associado na tradição aos Chakras Cardíaco e Frontal e à força espiritual da serpente Yube.",
     },
     diretrizes:
       "Consagre em sessões de harmonização de linhagens emocionais antigas ou quando buscar orientação e forte proteção da floresta. Aplique de forma firme com o kuripe ou tepi, respirando de forma pausada pela boca. Sintonize em 432Hz.",
