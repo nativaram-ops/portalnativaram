@@ -237,26 +237,37 @@ export const CONDICOES_RATEIO_COOPERATIVO = {
   missaoCooperativa: "Cooperativa sem fins lucrativos dedicada à salvaguarda do sacramento e viabilização solidária para congregações, apoiando projetos comunitários de acolhimento social e reequilíbrio vital.",
 };
 
-export interface ResultadoCalculoCota {
-  faixa: "abaixoMinimo" | "5a10L" | "10a20L" | "acima20L";
+interface ResultadoCalculoCotaBase {
   faixaLabel: string;
   valorUnitario: number;
-  valorTotal: number;
   economiaTotal: number;
-  aCombinar: boolean;
   unidade: string;
 }
+
+/** Acima de 20 L/kg o total é definido pelo Conselho: `valorTotal` é `null`. */
+export type ResultadoCalculoCota =
+  | (ResultadoCalculoCotaBase & {
+      faixa: "abaixoMinimo" | "5a10L" | "10a20L";
+      valorTotal: number;
+      aCombinar: false;
+    })
+  | (ResultadoCalculoCotaBase & {
+      faixa: "acima20L";
+      valorTotal: null;
+      aCombinar: true;
+    });
 
 /**
  * Calcula a cota unitária e total de rateio para uma determinada graduação e quantidade
  */
 export function obterCotaRateio(graduacaoIdOuCodigo: string, quantidade: number): ResultadoCalculoCota {
+  // Busca exata: um código desconhecido nunca vira o valor de outra graduação.
   const item = TABELA_EVOLUTIVA_RATEIO.find(
-    (t) =>
-      t.graduacaoId === graduacaoIdOuCodigo ||
-      t.codigo === graduacaoIdOuCodigo ||
-      t.graduacaoId.startsWith(graduacaoIdOuCodigo)
-  ) || TABELA_EVOLUTIVA_RATEIO[1]; // Pituã como fallback padrão
+    (t) => t.graduacaoId === graduacaoIdOuCodigo || t.codigo === graduacaoIdOuCodigo
+  );
+  if (!item) {
+    throw new Error(`Graduação sem linha na tabela de rateio: "${graduacaoIdOuCodigo}"`);
+  }
 
   const unidade = item.unidade;
 
@@ -265,8 +276,8 @@ export function obterCotaRateio(graduacaoIdOuCodigo: string, quantidade: number)
       faixa: "acima20L",
       faixaLabel: "Acima de 20 Litros/kg (A combinar)",
       valorUnitario: item.valor10a20L,
-      valorTotal: quantidade * item.valor10a20L,
-      economiaTotal: quantidade * item.economiaPorUnidade,
+      valorTotal: null,
+      economiaTotal: 0,
       aCombinar: true,
       unidade,
     };

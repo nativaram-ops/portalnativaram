@@ -124,8 +124,8 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
 
   // Campos de contato e intenção
   const [dirigenteNome, setDirigenteNome] = useState(templo.dirigente || "");
-  const [dirigenteTelefone, setDirigenteTelefone] = useState("11987654321");
-  const [dirigenteEmail, setDirigenteEmail] = useState("dirigente@templo.org.br");
+  const [dirigenteTelefone, setDirigenteTelefone] = useState("");
+  const [dirigenteEmail, setDirigenteEmail] = useState("");
   const [dataCerimonia, setDataCerimonia] = useState(() => {
     // Sugere data com 35 dias de antecedência (respeitando os 30 dias mínimos)
     const d = new Date();
@@ -193,6 +193,9 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
           if (item.id === id) {
             const novaQtd = item.quantidade + delta;
             if (novaQtd <= 0) return null;
+            // Não desce abaixo do lote mínimo do item (ex.: 5 L de Ayahuasca); remover é pelo botão de remover.
+            const minimo = ITENS_CATALOGO.find((c) => c.id === id)?.minimo ?? 1;
+            if (novaQtd < minimo) return item;
             const isAyahuasca = item.tipo === "GRADUACAO_AYAHUASCA" || item.tipo === "SACRAMENTO_REDUZIDO";
             const novoRateio = isAyahuasca ? obterCotaRateio(item.id, novaQtd).valorUnitario : item.rateioUnitarioEstimado;
             return { ...item, quantidade: novaQtd, rateioUnitarioEstimado: novoRateio };
@@ -258,9 +261,8 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
       if (onPedidoCriado) {
         onPedidoCriado(data.pedido.id);
       }
-
-      // Abre automaticamente o WhatsApp com os dados pré-preenchidos
-      window.open(data.whatsappUrl, "_blank", "noopener,noreferrer");
+      // O WhatsApp abre pelo botão da tela de sucesso: abrir aqui, depois do await,
+      // é bloqueado como pop-up no iOS/Safari.
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Erro desconhecido ao processar pedido.";
       setErroMsg(msg);
@@ -576,7 +578,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
           </h3>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div className="space-y-1">
             <label className="text-areia-400 block text-[11px] font-light">Templo Credenciado</label>
             <div className="p-3 rounded-lg bg-floresta-950/80 border border-ambar-500/15 font-semibold text-areia-100">
@@ -604,6 +606,19 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
               onChange={(e) => setDirigenteTelefone(e.target.value)}
               placeholder="Ex: 11987654321"
               className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none font-mono"
+            />
+          </div>
+
+          <div className="space-y-1">
+            <label htmlFor="pedido-email" className="text-areia-400 block text-[11px] font-light">E-mail para retorno do Conselho *</label>
+            <input
+              id="pedido-email"
+              type="email"
+              required
+              value={dirigenteEmail}
+              onChange={(e) => setDirigenteEmail(e.target.value)}
+              placeholder="Ex: secretaria@seutemplo.org.br"
+              className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none"
             />
           </div>
         </div>

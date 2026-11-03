@@ -82,11 +82,14 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
   const frascosSanangaSugeridos = Math.max(1, Math.ceil(gotasSananga / 200));
 
   // Rateio Cooperativo do Modo Cerimônia
-  const cotaAyahuasca = obterCotaRateio(graduacao.codigo, litrosRecomendados);
+  const cotaAyahuasca = obterCotaRateio(graduacao.id, litrosRecomendados);
   const rateioRape = incluirRape ? frascosRapeSugeridos * 65 : 0;
   const rateioSananga = incluirSananga ? frascosSanangaSugeridos * 80 : 0;
-  const rateioTotalCerimonia = cotaAyahuasca.valorTotal + rateioRape + rateioSananga;
-  const rateioPorParticipante = numParticipantes > 0 ? rateioTotalCerimonia / numParticipantes : 0;
+  // Acima de 20 L o total é definido pelo Conselho (valorTotal null): não há soma a exibir.
+  const rateioTotalCerimonia =
+    cotaAyahuasca.valorTotal === null ? null : cotaAyahuasca.valorTotal + rateioRape + rateioSananga;
+  const rateioPorParticipante =
+    rateioTotalCerimonia !== null && numParticipantes > 0 ? rateioTotalCerimonia / numParticipantes : null;
 
   // Cálculos do Modo Reconstituição 10:1
   const dadosReconst = (() => {
@@ -98,7 +101,6 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           fatorMultiplicador: 1.43,
           calicesPorLitro10: 24,
           brixEsperado: "16 a 20 °Brix",
-          cotaLoteProntoRef: litros10Base >= 10 ? 300 : 320,
         };
       case "5.1":
         return {
@@ -107,7 +109,6 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           fatorMultiplicador: 2.0,
           calicesPorLitro10: 33,
           brixEsperado: "11 a 14 °Brix",
-          cotaLoteProntoRef: litros10Base >= 10 ? 240 : 260,
         };
       case "3.1":
         return {
@@ -116,7 +117,6 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           fatorMultiplicador: 3.33,
           calicesPorLitro10: 55,
           brixEsperado: "7 a 9 °Brix",
-          cotaLoteProntoRef: litros10Base >= 10 ? 200 : 220,
         };
     }
   })();
@@ -127,9 +127,12 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
 
   // Rateio da Reconstituição
   const cotaWirapuru10 = obterCotaRateio("10.1", litros10Base);
-  const custoBase10 = cotaWirapuru10.valorTotal;
+  // O controle vai até 20 L, sempre dentro das faixas com valor definido.
+  const custoBase10 = litros10Base * cotaWirapuru10.valorUnitario;
+  // Referência: o mesmo volume final pedido já pronto, na faixa desse volume.
+  const cotaLoteProntoRef = obterCotaRateio(alvoReconst, volumeFinalLitrosNum).valorUnitario;
   const custoEfetivoPorLitroReconst = volumeFinalLitrosNum > 0 ? custoBase10 / volumeFinalLitrosNum : 0;
-  const economiaPorLitroReconst = Math.max(0, dadosReconst.cotaLoteProntoRef - custoEfetivoPorLitroReconst);
+  const economiaPorLitroReconst = Math.max(0, cotaLoteProntoRef - custoEfetivoPorLitroReconst);
   const custoPorCalice = calicesTotais > 0 ? custoBase10 / calicesTotais : 0;
 
   return (
@@ -238,7 +241,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
               </label>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                 {GRADUACOES_SACRAMENTAIS.slice(0, 4).map((g) => {
-                  const cotaRef = obterCotaRateio(g.codigo, litrosRecomendados);
+                  const cotaRef = obterCotaRateio(g.id, litrosRecomendados);
                   return (
                     <button
                       key={g.id}
@@ -345,7 +348,9 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 <div className="flex items-baseline justify-between pt-1">
                   <div>
                     <span className="text-2xl font-black font-serif text-areia-100">
-                      R$ {rateioTotalCerimonia.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+                      {rateioTotalCerimonia === null
+                        ? "Sob consulta ao Conselho"
+                        : `R$ ${rateioTotalCerimonia.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
                     </span>
                     <span className="text-[10px] text-areia-400 block mt-0.5">
                       Ayahuasca: R$ {cotaAyahuasca.valorUnitario}/L
@@ -353,12 +358,14 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     </span>
                   </div>
 
-                  <div className="text-right">
-                    <span className="text-base font-bold text-amber-300 font-mono">
-                      ~R$ {rateioPorParticipante.toFixed(2)}
-                    </span>
-                    <span className="text-[10px] text-areia-400 block">por participante</span>
-                  </div>
+                  {rateioPorParticipante !== null && (
+                    <div className="text-right">
+                      <span className="text-base font-bold text-amber-300 font-mono">
+                        ~R$ {rateioPorParticipante.toFixed(2)}
+                      </span>
+                      <span className="text-[10px] text-areia-400 block">por participante</span>
+                    </div>
+                  )}
                 </div>
 
                 {cotaAyahuasca.economiaTotal > 0 && (
@@ -461,6 +468,12 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 onChange={(e) => setLitros10Base(Number(e.target.value))}
                 className="w-full accent-ambar-500 cursor-pointer"
               />
+              {litros10Base < 5 && (
+                <div className="text-[10px] text-amber-300/90 flex items-start gap-1">
+                  <Info className="h-3 w-3 shrink-0 mt-0.5" />
+                  <span>Lote mínimo operacional é de 5 Litros. Volumes menores servem só para planejar o uso de um lote já recebido.</span>
+                </div>
+              )}
             </div>
 
             {/* Graduação Alvo Desejada */}
@@ -696,6 +709,8 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                       </td>
 
                       <td className="py-3.5 text-right font-sans">
+                        {/* O dimensionamento de cerimônia calcula em litros; o Gel é medido em kg. */}
+                        {item.unidade === "Litro" && (
                         <button
                           type="button"
                           onClick={() => {
@@ -712,6 +727,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                           <span>Dimensionar</span>
                           <ArrowRight className="h-3 w-3" />
                         </button>
+                        )}
                       </td>
                     </tr>
                   ))}
