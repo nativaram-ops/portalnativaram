@@ -19,6 +19,7 @@ Cada executor deve ler o plano integralmente antes de iniciar, respeitar as cond
 | [009](009-wcag-a11y-seo-canonicals-and-obsidian-sync.md) | Acessibilidade WCAG 2.1 AA, SEO Canonical (`/sacramentos` + Sitemap) & Higienização do Segundo Cérebro | P2 | S | LOW | 004 | DONE |
 | [010](010-auditoria-interacoes-medicamentosas-e-documentos.md) | Senha admin exposta (P0), Fonte Única da Matriz de Interações, Lacunas de Fármacos & Documentos Novos | P0/P1 | M–L | MED | — | DONE |
 | [011](011-documentos-publicos-e-saude-geral-do-projeto.md) | RLS Aberto (P0), Documentos Internos Expostos em `/estudos`, Biblioteca Pública Enxuta, Lint/CI/Dependências & Peso do Repositório | P0/P1/P2 | M | MED | — | DONE |
+| [012](012-auditoria-geral-seguranca-rateio-e-compliance-publico.md) | Repositório público, bypass de login e admin, APIs sem autenticação, migração 005, cálculo de rateio (Mel/Gel), compliance público (alegações terapêuticas, tabela "atacado"), a11y/perf e faxina do repositório | P0/P1/P2 | L | MED | — | IN PROGRESS (A feito) |
 
 > **010 e 011 (2026-11-02):** parte de código concluída. Itens de senha ficaram fora por decisão do usuário. Pendências que dependem de pessoas (revisão clínica e jurídica, refazer PDFs, rodar a migração 004 no Supabase) estão em `Segundo-Cerebro/06-Arquitetura-do-Portal/Roadmap-e-Componentes-do-Site.md`.
 
