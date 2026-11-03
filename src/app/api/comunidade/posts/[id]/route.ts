@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { obterPublicacaoPorSlug, deletarPublicacao } from "@/lib/db/comunidade";
-import { verifyAdminRequest } from "@/lib/auth/session";
+import { resolverTitularDaRequisicao } from "@/lib/auth/session";
 
 export async function GET(
   _request: NextRequest,
@@ -31,18 +31,16 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { searchParams } = new URL(request.url);
-    const temploCodigo = searchParams.get("temploCodigo") || "";
-    const isAdmin = verifyAdminRequest(request);
-
-    if (!temploCodigo && !isAdmin) {
+    // O templo dono vem da sessão; o código na URL não autoriza nada.
+    const titular = resolverTitularDaRequisicao(request);
+    if (!titular) {
       return NextResponse.json(
-        { success: false, error: "Código litúrgico de autorização ausente" },
+        { success: false, error: "Entre no Portal do Dirigente para excluir." },
         { status: 401 }
       );
     }
 
-    const excluido = await deletarPublicacao(id, temploCodigo, isAdmin);
+    const excluido = await deletarPublicacao(id, titular.codigo, titular.isAdmin);
 
     if (!excluido) {
       return NextResponse.json(

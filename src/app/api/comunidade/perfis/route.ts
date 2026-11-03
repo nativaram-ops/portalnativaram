@@ -5,7 +5,7 @@ import {
   salvarPerfilTemplo,
   deletarPerfilTemplo,
 } from "@/lib/db/comunidade";
-import { verifyAdminRequest } from "@/lib/auth/session";
+import { verifyAdminRequest, resolverTitularDaRequisicao } from "@/lib/auth/session";
 import { PerfilTemploSchema } from "@/lib/validators/comunidade";
 
 export async function GET(request: NextRequest) {
@@ -39,6 +39,15 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
+    // O perfil editado é sempre o do templo da sessão (o Conselho pode indicar outro).
+    const titular = resolverTitularDaRequisicao(request, body.codigoLiturgico);
+    if (!titular || !titular.codigo) {
+      return NextResponse.json(
+        { success: false, error: "Entre no Portal do Dirigente para editar o perfil." },
+        { status: 401 }
+      );
+    }
+
     const validado = PerfilTemploSchema.safeParse(body);
     if (!validado.success) {
       return NextResponse.json(
@@ -51,7 +60,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const codigoLiturgico = body.codigoLiturgico || "NAT-TEMPLO-842";
+    const codigoLiturgico = titular.codigo;
     const slug =
       body.slug ||
       validado.data.nomeInstituicao

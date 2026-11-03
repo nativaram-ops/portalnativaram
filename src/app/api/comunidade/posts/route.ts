@@ -4,14 +4,24 @@ import {
   salvarPublicacao,
 } from "@/lib/db/comunidade";
 import { PublicacaoSchema, verificarConformidadeTexto } from "@/lib/validators/comunidade";
+import { resolverTitularDaRequisicao } from "@/lib/auth/session";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const temploCodigo = searchParams.get("temploCodigo") || undefined;
+    let temploCodigo = searchParams.get("temploCodigo") || undefined;
     const categoria = searchParams.get("categoria") || undefined;
     const busca = searchParams.get("busca") || undefined;
-    const todosStatus = searchParams.get("todosStatus") === "true";
+
+    // Rascunhos e arquivados só para o próprio templo (ou o Conselho).
+    let todosStatus = false;
+    if (searchParams.get("todosStatus") === "true") {
+      const titular = resolverTitularDaRequisicao(request, temploCodigo);
+      if (titular) {
+        todosStatus = true;
+        if (!titular.isAdmin) temploCodigo = titular.codigo;
+      }
+    }
 
     const posts = await obterPublicacoesComunidade({
       temploCodigo,
@@ -31,6 +41,26 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    const titular = resolverTitularDaRequisicao(request, body.temploCodigo);
+    if (!titular || !titular.codigo) {
+      return NextResponse.json(
+        { success: false, error: "Entre no Portal do Dirigente para publicar." },
+        { status: 401 }
+      );
+    }
+
+    // Edição de post existente: só o templo dono (ou o Conselho).
+    if (body.id && !titular.isAdmin) {
+      const existentes = await obterPublicacoesComunidade({ apenasPublicados: false });
+      const atual = existentes.find((p) => p.id === body.id);
+      if (atual && atual.temploCodigo.toUpperCase() !== titular.codigo) {
+        return NextResponse.json(
+          { success: false, error: "Esta publicação pertence a outro templo." },
+          { status: 403 }
+        );
+      }
+    }
 
     // Validação Zod dos campos
     const validado = PublicacaoSchema.safeParse(body);
@@ -74,7 +104,7 @@ export async function POST(request: NextRequest) {
       ESTUDO_ETNOFARMACEUTICO: "Estudo Fitoquímico",
     };
 
-    const temploCodigo = body.temploCodigo || "NAT-TEMPLO-842";
+    const temploCodigo = titular.codigo;
     const temploNome = body.temploNome || "Templo Credenciado";
     const temploSlug =
       body.temploSlug ||

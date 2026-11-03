@@ -5,7 +5,7 @@ import {
   deletarItemAgenda,
 } from "@/lib/db/comunidade";
 import { ItemAgendaSchema } from "@/lib/validators/comunidade";
-import { verifyAdminRequest } from "@/lib/auth/session";
+import { resolverTitularDaRequisicao } from "@/lib/auth/session";
 
 export async function GET(request: NextRequest) {
   try {
@@ -25,6 +25,24 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
+    const titular = resolverTitularDaRequisicao(request, body.temploCodigo);
+    if (!titular || !titular.codigo) {
+      return NextResponse.json(
+        { success: false, error: "Entre no Portal do Dirigente para editar a agenda." },
+        { status: 401 }
+      );
+    }
+
+    if (body.id && !titular.isAdmin) {
+      const atual = (await obterAgendaLiturgica()).find((i) => i.id === body.id);
+      if (atual && atual.temploCodigo.toUpperCase() !== titular.codigo) {
+        return NextResponse.json(
+          { success: false, error: "Este rito pertence a outro templo." },
+          { status: 403 }
+        );
+      }
+    }
+
     const validado = ItemAgendaSchema.safeParse(body);
     if (!validado.success) {
       return NextResponse.json(
@@ -37,7 +55,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const temploCodigo = body.temploCodigo || "NAT-TEMPLO-842";
+    const temploCodigo = titular.codigo;
 
     const itemSalvo = await salvarItemAgenda({
       id: body.id,
@@ -57,17 +75,22 @@ export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const id = searchParams.get("id");
-    const temploCodigo = searchParams.get("temploCodigo") || "";
-    const isAdmin = verifyAdminRequest(request);
+    const titular = resolverTitularDaRequisicao(request);
 
-    if (!id || (!temploCodigo && !isAdmin)) {
+    if (!titular) {
       return NextResponse.json(
-        { success: false, error: "ID e código litúrgico são obrigatórios" },
+        { success: false, error: "Entre no Portal do Dirigente para editar a agenda." },
+        { status: 401 }
+      );
+    }
+    if (!id) {
+      return NextResponse.json(
+        { success: false, error: "ID do rito é obrigatório" },
         { status: 400 }
       );
     }
 
-    const excluido = await deletarItemAgenda(id, temploCodigo, isAdmin);
+    const excluido = await deletarItemAgenda(id, titular.codigo, titular.isAdmin);
     if (!excluido) {
       return NextResponse.json(
         { success: false, error: "Permissão negada ou evento inexistente" },

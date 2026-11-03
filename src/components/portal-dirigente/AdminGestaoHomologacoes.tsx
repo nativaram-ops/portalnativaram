@@ -145,7 +145,9 @@ export const AdminGestaoHomologacoes: React.FC = () => {
 
   const salvarCacheLocal = (lista: SolicitacaoAcesso[]) => {
     try {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(lista));
+      // Chaves de acesso nunca ficam gravadas no navegador.
+      const semChaves = lista.map(({ senhaGerada: _chave, ...resto }) => resto);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(semChaves));
     } catch {
       // Ignora erro de quota
     }
@@ -297,35 +299,15 @@ export const AdminGestaoHomologacoes: React.FC = () => {
         }
       }
 
-      // Fallback local caso API serverless falhe
-      const alvo = solicitacoes.find((s) => s.id === id);
-      if (alvo) {
-        const sufixo =
-          id.split("-").pop() ||
-          Math.random().toString(36).substring(2, 6).toUpperCase();
-        const prefixo =
-          alvo.tipo === "INSTITUICAO_FORMAL" ? "NAT-TEMPLO" : "NAT-GRP";
-        const loginGerado = alvo.loginGerado || `${prefixo}-${sufixo}`;
-        const senhaGerada =
-          alvo.senhaGerada ||
-          `Luz${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
-        const atualizada: SolicitacaoAcesso = {
-          ...alvo,
-          ...(payloadComplementar || {}),
-          status: "HOMOLOGADO",
-          loginGerado,
-          senhaGerada,
-          dataHomologacao: new Date().toLocaleDateString("pt-BR"),
-        };
-        setSolicitacoes((prev) => {
-          const nova = prev.map((s) => (s.id === id ? atualizada : s));
-          salvarCacheLocal(nova);
-          return nova;
-        });
-        setEditandoId(null);
-      }
+      // Sem homologação local: um acesso só existe se o servidor o registrou.
+      alert(
+        res.status === 401
+          ? "Sessão do Conselho expirada. Entre novamente para homologar."
+          : "O servidor não confirmou a homologação. Nenhum acesso foi criado; tente de novo."
+      );
     } catch (err) {
       console.error("Erro ao homologar:", err);
+      alert("Erro de conexão: a homologação não foi registrada.");
     } finally {
       setHomologandoId(null);
     }

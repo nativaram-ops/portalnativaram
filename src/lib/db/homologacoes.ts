@@ -464,47 +464,9 @@ export async function validarCredenciaisDirigente(
       (s.email && s.email.trim().toLowerCase() === loginLower);
     if (!loginValido) return false;
 
-    if (s.senhaGerada) {
-      return s.senhaGerada === senhaLimpa;
-    }
-    return senhaLimpa.length >= 4;
+    // Sem chave gerada não há como autenticar: nenhum valor é aceito.
+    return Boolean(s.senhaGerada) && s.senhaGerada === senhaLimpa;
   });
-
-  // Fallback para qualquer chave homologada com padrão NAT-GRP-XXXX ou NAT-TEMPLO-XXXX ou e-mail institucional
-  // caso tenha sido gerada em outra instância serverless e a senha siga o padrão Luz2026-XXXX
-  if (
-    !match &&
-    (loginUpper.startsWith("NAT-GRP-") ||
-      loginUpper.startsWith("NAT-TEMPLO-") ||
-      loginUpper.startsWith("REC-2026-") ||
-      loginLower.includes("@")) &&
-    /^Luz202\d-\d{4}$/i.test(senhaLimpa)
-  ) {
-    const isGrupo = loginUpper.startsWith("NAT-GRP-") || loginUpper.startsWith("REC-");
-    return {
-      id: loginLower.includes("@") ? `NAT-TEMPLO-${senhaLimpa.slice(-4)}` : loginUpper,
-      tipo: isGrupo ? "GRUPO_INFORMAL" : "INSTITUICAO_FORMAL",
-      nomeEntidade: isGrupo
-        ? `Núcleo Homologado (${loginUpper})`
-        : `Congregação Homologada (${loginLimpo})`,
-      nomeResponsavel: "Dirigente Homologado",
-      telefone: "",
-      email: loginLower.includes("@") ? loginLower : "",
-      cidade: "Brasil",
-      estado: "BR",
-      linhagem: "Tradição Ayahuasqueira",
-      graduacao: "5.1 Pituã",
-      volumeEstimado: "5 Litros",
-      intencao: "Congregação homologada com chave litúrgica válida.",
-      status: "HOMOLOGADO",
-      loginGerado: loginLower.includes("@")
-        ? `NAT-TEMPLO-${senhaLimpa.slice(-4)}`
-        : loginUpper,
-      senhaGerada: senhaLimpa,
-      dataEnvio: new Date().toLocaleDateString("pt-BR"),
-      dataHomologacao: new Date().toLocaleDateString("pt-BR"),
-    };
-  }
 
   return match || null;
 }

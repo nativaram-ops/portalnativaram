@@ -220,7 +220,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
     }
 
     setErrorMsg(
-      "Credenciais não localizadas. Utilize seu Código de Homologação (ex: NAT-TEMPLO-842 ou NAT-GRP-OLYY) + Senha (Luz2026-XXXX), ou para Administração utilize 'adm-nativaram' e a senha master."
+      "Credenciais não localizadas. Confira o Código de Homologação e a chave recebidos do Conselho Gestor."
     );
     setLoadingAuth(false);
   };

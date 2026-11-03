@@ -7,6 +7,7 @@ import {
 } from "@/lib/db/pedidos";
 import { NovoPedidoSchema } from "@/lib/validators/pedido";
 import { StatusPedido } from "@/types/pedido";
+import { resolverTitularDaRequisicao } from "@/lib/auth/session";
 
 const WHATSAPP_COOPERATIVA = "556899779104";
 
@@ -29,10 +30,23 @@ function parseStatus(raw: string | null): StatusPedido | "TODOS" | undefined {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const temploId = searchParams.get("temploId") || undefined;
+
+    // Pedidos têm telefone, e-mail e CNPJ: só o Conselho vê todos; o dirigente vê
+    // apenas os do templo da sessão, seja qual for o temploId pedido na URL.
+    const titular = resolverTitularDaRequisicao(request);
+    if (!titular) {
+      return NextResponse.json(
+        { sucesso: false, erro: "Entre no Portal do Dirigente para consultar pedidos." },
+        { status: 401 }
+      );
+    }
+
+    const temploId = titular.isAdmin
+      ? searchParams.get("temploId") || undefined
+      : titular.codigo;
     const status = parseStatus(searchParams.get("status"));
     const busca = searchParams.get("busca") || undefined;
-    const incluirMetricas = searchParams.get("metricas") === "true";
+    const incluirMetricas = titular.isAdmin && searchParams.get("metricas") === "true";
 
     const pedidos = await obterTodosPedidos({ temploId, status, busca });
 
@@ -58,6 +72,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const titular = resolverTitularDaRequisicao(request);
+    if (!titular) {
+      return NextResponse.json(
+        { sucesso: false, erro: "Entre no Portal do Dirigente para solicitar." },
+        { status: 401 }
+      );
+    }
+
     const body = await request.json();
     const parseResult = NovoPedidoSchema.safeParse(body);
 
@@ -72,7 +94,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const pedidoCriado = await criarPedido(parseResult.data);
+    // O templo do pedido é o da sessão (o Conselho pode registrar para qualquer um).
+    const dadosPedido = titular.isAdmin
+      ? parseResult.data
+      : { ...parseResult.data, temploId: titular.codigo };
+    const pedidoCriado = await criarPedido(dadosPedido);
     const whatsappQuery = formatarMensagemWhatsApp(pedidoCriado);
     const whatsappUrl = `https://wa.me/${WHATSAPP_COOPERATIVA}?text=${whatsappQuery}`;
 

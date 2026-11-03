@@ -6,6 +6,7 @@ import {
 } from "@/lib/auth/session";
 import { VerificarChaveSchema } from "@/lib/validators/solicitacao";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { resolverPapelSupabase } from "@/lib/auth/papel";
 import {
   createAuthSupabaseClient,
   withTimeout,
@@ -51,7 +52,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { login, senha, modo } = parseResult.data;
+    const { login, senha } = parseResult.data;
     const loginLower = login.toLowerCase().trim();
 
     // 1. Senha master do Conselho Gestor. Quando ADMIN_MASTER_PASSWORD está definida
@@ -91,14 +92,9 @@ export async function POST(request: NextRequest) {
           );
 
           if (!error && data?.user) {
-            const isUserAdmin =
-              modo === "ADMIN" ||
-              ADMIN_LOGINS.includes(loginLower) ||
-              loginLower.includes("adm") ||
-              data.user.user_metadata?.papel === "ADMIN" ||
-              data.user.app_metadata?.role === "admin";
+            const papel = resolverPapelSupabase(data.user, ADMIN_LOGINS);
 
-            if (isUserAdmin) {
+            if (papel?.role === "ADMIN") {
               const response = NextResponse.json({
                 sucesso: true,
                 role: "ADMIN",
@@ -123,38 +119,37 @@ export async function POST(request: NextRequest) {
               return response;
             }
 
-            // Conta Dirigente autenticada via Supabase
-            const codigo =
-              data.user.user_metadata?.codigo_liturgico ||
-              data.user.user_metadata?.login_gerado ||
-              `NAT-SUPA-${data.user.id.slice(0, 6).toUpperCase()}`;
+            // Conta Dirigente: o código do templo só vem de app_metadata (gravado pelo
+            // servidor). Sem ele, a conta não tem templo e segue para a validação abaixo.
+            if (papel?.role === "DIRIGENTE") {
+              const codigo = papel.codigo;
+              const response = NextResponse.json({
+                sucesso: true,
+                role: "DIRIGENTE",
+                congregao: {
+                  id: codigo,
+                  loginGerado: codigo,
+                  nome:
+                    data.user.user_metadata?.nome_entidade ||
+                    data.user.user_metadata?.nome ||
+                    `Congregação (${data.user.email})`,
+                  dirigente:
+                    data.user.user_metadata?.nome_responsavel ||
+                    data.user.email ||
+                    "Dirigente Homologado",
+                  cidade: data.user.user_metadata?.cidade || "Brasil / AC",
+                  tipo: data.user.user_metadata?.tipo || "INSTITUICAO_FORMAL",
+                  status: "HOMOLOGADO",
+                },
+              });
 
-            const response = NextResponse.json({
-              sucesso: true,
-              role: "DIRIGENTE",
-              congregao: {
-                id: codigo,
-                loginGerado: codigo,
-                nome:
-                  data.user.user_metadata?.nome_entidade ||
-                  data.user.user_metadata?.nome ||
-                  `Congregação (${data.user.email})`,
-                dirigente:
-                  data.user.user_metadata?.nome_responsavel ||
-                  data.user.email ||
-                  "Dirigente Homologado",
-                cidade: data.user.user_metadata?.cidade || "Brasil / AC",
-                tipo: data.user.user_metadata?.tipo || "INSTITUICAO_FORMAL",
-                status: "HOMOLOGADO",
-              },
-            });
-
-            setSessionCookie(response, {
-              role: "DIRIGENTE",
-              codigo,
-              sub: data.user.id,
-            });
-            return response;
+              setSessionCookie(response, {
+                role: "DIRIGENTE",
+                codigo,
+                sub: data.user.id,
+              });
+              return response;
+            }
           }
         } catch (authErr) {
           console.warn("Aviso na autenticação remota Supabase Auth:", authErr);

@@ -70,8 +70,9 @@ export const ReconhecimentoSchema = z.object({
     .string()
     .min(15, {
       message: "Compartilhe suscintamente a intenção dos trabalhos e o momento atual do grupo.",
-    }),
-  duvidasOuNecessidades: z.string().optional(),
+    })
+    .max(3000),
+  duvidasOuNecessidades: z.string().max(3000).optional(),
 
   // 3. Guardião Responsável e Contato Fraterno
   nomeResponsavel: z

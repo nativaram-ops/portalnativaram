@@ -120,6 +120,29 @@ export function verificarConformidadeTexto(texto: string): AlertaConformidadeLin
 // SCHEMAS DE VALIDAÇÃO ZOD
 // ══════════════════════════════════════════════════════════
 
+/** Teto por imagem (data URL base64 já comprimida no navegador): ~1,1 MB. */
+const TETO_IMAGEM = 1_500_000;
+
+/** Imagem aceita: caminho do próprio site, https ou data URL de webp/jpeg/png. */
+const imagemSegura = z
+  .string()
+  .max(TETO_IMAGEM, "Imagem grande demais")
+  .refine(
+    (v) =>
+      v === "" ||
+      (v.startsWith("/") && !v.startsWith("//")) ||
+      v.startsWith("https://") ||
+      /^data:image\/(webp|jpeg|png);base64,/.test(v),
+    "Imagem inválida: use WebP, JPEG ou PNG"
+  );
+
+/** Link exibido a visitantes: só https. */
+const linkHttps = z
+  .string()
+  .max(2000)
+  .url("Link inválido")
+  .refine((u) => u.startsWith("https://"), "Use um link que comece com https://");
+
 export const PublicacaoSchema = z.object({
   titulo: z
     .string()
@@ -131,7 +154,8 @@ export const PublicacaoSchema = z.object({
     .max(300, "O resumo deve ter no máximo 300 caracteres"),
   conteudoMarkdown: z
     .string()
-    .min(30, "O conteúdo deve ter no mínimo 30 caracteres"),
+    .min(30, "O conteúdo deve ter no mínimo 30 caracteres")
+    .max(50_000, "O conteúdo deve ter no máximo 50 mil caracteres"),
   categoria: z.enum([
     "REFLEXAO_DOUTRINARIA",
     "RELATO_VIVENCIA",
@@ -140,13 +164,13 @@ export const PublicacaoSchema = z.object({
     "COMUNICADO_LITURGICO",
     "ESTUDO_ETNOFARMACEUTICO",
   ]),
-  imagemCapa: z.string().optional(),
-  fotosGaleria: z.array(z.string()).optional().default([]),
+  imagemCapa: imagemSegura.optional(),
+  fotosGaleria: z.array(imagemSegura).max(12, "Máximo de 12 fotos").optional().default([]),
   anexos: z
     .array(
       z.object({
-        nome: z.string().min(2),
-        url: z.string().url("URL de anexo inválida"),
+        nome: z.string().min(2).max(200),
+        url: linkHttps,
         tamanho: z.string().optional(),
         tipo: z.enum(["PDF", "SLIDE", "DOCUMENTO", "LINK_EXTERNO"]),
       })
@@ -163,10 +187,11 @@ export const PublicacaoSchema = z.object({
           "NOTEBOOKLM",
           "OUTRO",
         ]),
-        url: z.string().url("URL do embed inválida"),
-        titulo: z.string().optional(),
+        url: linkHttps,
+        titulo: z.string().max(200).optional(),
       })
     )
+    .max(10)
     .optional()
     .default([]),
   status: z.enum(["PUBLICADO", "RASCUNHO", "ARQUIVADO"]).default("PUBLICADO"),
@@ -179,17 +204,20 @@ export const PerfilTemploSchema = z.object({
   linhagem: z.string().min(3, "Linhagem doutrinária obrigatória"),
   cidade: z.string().min(2, "Cidade obrigatória"),
   estado: z.string().min(2, "Estado obrigatório"),
-  bioApresentacao: z.string().min(20, "Apresentação deve ter no mínimo 20 caracteres"),
-  fotoPerfilUrl: z.string().optional(),
-  fotoCapaUrl: z.string().optional(),
-  fotosEspaco: z.array(z.string()).optional().default([]),
+  bioApresentacao: z
+    .string()
+    .min(20, "Apresentação deve ter no mínimo 20 caracteres")
+    .max(5000, "Apresentação deve ter no máximo 5 mil caracteres"),
+  fotoPerfilUrl: imagemSegura.optional(),
+  fotoCapaUrl: imagemSegura.optional(),
+  fotosEspaco: z.array(imagemSegura).max(12, "Máximo de 12 fotos").optional().default([]),
   redesSociais: z
     .object({
-      instagram: z.string().optional(),
-      youtube: z.string().optional(),
-      spotify: z.string().optional(),
-      facebook: z.string().optional(),
-      website: z.string().optional(),
+      instagram: z.string().max(300).optional(),
+      youtube: z.string().max(300).optional(),
+      spotify: z.string().max(300).optional(),
+      facebook: z.string().max(300).optional(),
+      website: linkHttps.optional().or(z.literal("")),
     })
     .default({}),
   whatsappContato: z.string().optional(),
@@ -199,10 +227,10 @@ export const PerfilTemploSchema = z.object({
 
 export const ItemAgendaSchema = z.object({
   tituloRito: z.string().min(3, "Título do encontro obrigatório"),
-  descricao: z.string().optional(),
+  descricao: z.string().max(3000).optional(),
   dataEvento: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Data deve estar no formato AAAA-MM-DD"),
   horarioInicio: z.string().regex(/^\d{2}:\d{2}$/, "Horário deve estar no formato HH:MM"),
-  vagasInfo: z.string().optional(),
-  linkInscricao: z.string().optional(),
+  vagasInfo: z.string().max(300).optional(),
+  linkInscricao: linkHttps.optional().or(z.literal("")),
   status: z.enum(["CONFIRMADO", "CANCELADO", "CONCLUIDO"]).default("CONFIRMADO"),
 });

@@ -10,7 +10,7 @@ export const ItemPedidoSchema = z.object({
   ]),
   nome: z.string().min(2, "Nome do sacramento é obrigatório"),
   codigoOuSubtitulo: z.string().default(""),
-  quantidade: z.number().min(1, "Quantidade mínima é 1"),
+  quantidade: z.number().min(1, "Quantidade mínima é 1").max(1000),
   unidade: z.enum([
     "Litros",
     "kg",
@@ -33,13 +33,17 @@ export const NovoPedidoSchema = z.object({
     .min(10, "Telefone ou WhatsApp do dirigente com DDD é obrigatório"),
   dirigenteEmail: z.string().email("E-mail institucional válido é obrigatório"),
   cnpj: z.string().min(14, "CNPJ da instituição religiosa é obrigatório"),
-  itens: z.array(ItemPedidoSchema).min(1, "Selecione ao menos um sacramento para a partilha litúrgica"),
+  itens: z
+    .array(ItemPedidoSchema)
+    .min(1, "Selecione ao menos um sacramento para a partilha litúrgica")
+    .max(30),
   dataCerimoniaPretendida: z
     .string()
     .min(4, "Informe a data prevista para a cerimônia litúrgica"),
   mensagemIntencao: z
     .string()
-    .min(5, "Compartilhe a intenção ou observações litúrgicas para o Conselho"),
+    .min(5, "Compartilhe a intenção ou observações litúrgicas para o Conselho")
+    .max(3000),
 });
 
 export const AtualizarPedidoSchema = z.object({

@@ -6,17 +6,26 @@ import {
   formatarMensagemAtualizacaoWhatsApp,
 } from "@/lib/db/pedidos";
 import { AtualizarPedidoSchema } from "@/lib/validators/pedido";
-import { verifyAdminRequest } from "@/lib/auth/session";
+import { verifyAdminRequest, resolverTitularDaRequisicao } from "@/lib/auth/session";
 
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const titular = resolverTitularDaRequisicao(request);
+    if (!titular) {
+      return NextResponse.json(
+        { sucesso: false, erro: "Entre no Portal do Dirigente para consultar pedidos." },
+        { status: 401 }
+      );
+    }
+
     const { id } = await params;
     const pedido = await obterPedidoPorId(id);
 
-    if (!pedido) {
+    // Pedido de outro templo responde como inexistente (não confirma que o id existe).
+    if (!pedido || (!titular.isAdmin && pedido.temploId.toUpperCase() !== titular.codigo)) {
       return NextResponse.json(
         { sucesso: false, erro: `Solicitação ${id} não encontrada.` },
         { status: 404 }

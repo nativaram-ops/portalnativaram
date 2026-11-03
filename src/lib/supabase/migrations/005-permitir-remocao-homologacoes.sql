@@ -1,4 +1,11 @@
 -- ============================================================
+-- ⚠️ OBSOLETA — NÃO EXECUTAR. As políticas abaixo valem para todos os
+-- papéis (sem TO), inclusive a chave pública (anon), e permitiriam apagar
+-- solicitações, templos e perfis. O servidor usa a service role, que já
+-- ignora o RLS, então o botão de excluir não depende delas.
+-- Se esta migração já foi rodada, execute a 006 para desfazê-la.
+-- Mantida apenas como histórico.
+-- ============================================================
 -- Cooperativa Nativaram — Migração 005
 -- Habilita políticas de remoção (DELETE) e recusa no Supabase
 -- para permitir a exclusão de instituições, solicitações de homologação

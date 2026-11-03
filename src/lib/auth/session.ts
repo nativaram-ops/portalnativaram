@@ -27,21 +27,23 @@ export function getAdminSecret(): string | null {
   return process.env.NODE_ENV === "production" ? null : DEV_SECRET_PADRAO;
 }
 
-function getSessionSecret(): string {
-  const segredo = getAdminSecret();
-  if (segredo) return segredo;
-  // Fallback resiliente: se ADMIN_SECRET_KEY ainda não foi configurada na Vercel,
-  // deriva de credenciais ativas do ambiente (Supabase ou hash seguro) para não derrubar sessões legítimas
-  return (
-    process.env.SUPABASE_SERVICE_ROLE_KEY ||
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
-    "nativaram-liturgia-resilient-session-secret-2026"
-  );
+/**
+ * Segredo que assina o cookie de sessão. Só aceita segredos de servidor:
+ * `ADMIN_SECRET_KEY` ou, na falta dela, a service role do Supabase.
+ * Nunca a chave pública (anon) nem um valor escrito no código. Sem nenhum
+ * dos dois em produção, nenhuma sessão é emitida ou aceita (fail-closed).
+ */
+function getSessionSecret(): string | null {
+  return getAdminSecret() || process.env.SUPABASE_SERVICE_ROLE_KEY || null;
 }
 
 function signBase64Url(encodedPayload: string): string {
+  const segredo = getSessionSecret();
+  if (!segredo) {
+    throw new Error("Sessão indisponível: configure ADMIN_SECRET_KEY no servidor.");
+  }
   return crypto
-    .createHmac("sha256", getSessionSecret())
+    .createHmac("sha256", segredo)
     .update(encodedPayload)
     .digest("base64url");
 }
@@ -202,6 +204,28 @@ export function verifyDirigenteOrAdminRequest(
     .trim()
     .toUpperCase();
   return sessionCodigo === expectedTemploCodigo.trim().toUpperCase();
+}
+
+/**
+ * Quem está fazendo a requisição e em nome de qual templo.
+ * - Conselho (ADMIN): pode agir em nome de qualquer templo (`codigoInformado`).
+ * - Dirigente: o templo vem SEMPRE da sessão assinada, nunca do corpo ou da URL.
+ * - Visitante: `null`.
+ */
+export function resolverTitularDaRequisicao(
+  request: NextRequest | Request,
+  codigoInformado?: string | null
+): { codigo: string; isAdmin: boolean } | null {
+  if (verifyAdminRequest(request)) {
+    return { codigo: (codigoInformado || "").trim().toUpperCase(), isAdmin: true };
+  }
+
+  const session = verifySessionToken(extractCookieToken(request));
+  const codigo = String(session?.codigo || session?.temploCodigo || "").trim().toUpperCase();
+  if (session?.role !== "DIRIGENTE" || !codigo) {
+    return null;
+  }
+  return { codigo, isAdmin: false };
 }
 
 /**

@@ -19,6 +19,8 @@ export const SUPABASE_PUBLIC_ANON_KEY =
  * Possui detecção de configuração para evitar exceções caso a chave não esteja definida.
  */
 export function isSupabaseConfigured(): boolean {
+  // A suíte de testes (scripts/test-*.mjs) nunca grava no banco de produção.
+  if (process.env.NATIVARAM_TEST === "1") return false;
   return Boolean(
     SUPABASE_PUBLIC_URL &&
       SUPABASE_PUBLIC_ANON_KEY &&

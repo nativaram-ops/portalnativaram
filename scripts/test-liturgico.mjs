@@ -14,12 +14,50 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
+// A suíte nunca fala com o Supabase de produção: isSupabaseConfigured() devolve false
+// com esta variável, e tudo roda no repositório local (data/ e tmpdir).
+process.env.NATIVARAM_TEST = "1";
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, "..");
 
 let passed = 0;
 let failed = 0;
+
+/** Importa módulos que usam o alias "@/" (rotas de API do App Router). */
+async function importarRota(caminhoRelativoARaiz) {
+  const { createRequire } = await import("node:module");
+  const createJiti = createRequire(__filename)("jiti");
+  const jitiComAlias = createJiti(__filename, {
+    alias: { "@": path.join(ROOT_DIR, "src") },
+  });
+  return jitiComAlias(path.join(ROOT_DIR, caminhoRelativoARaiz));
+}
+
+/** Remove registros TEST-* do repositório local de solicitações (data/ e tmpdir). */
+async function limparSolicitacoesDeTeste() {
+  const os = await import("node:os");
+  const dbPaths = [
+    path.join(process.cwd(), "data", "solicitacoes_homologacao.json"),
+    path.join(os.tmpdir(), "nativaram_solicitacoes_homologacao.json"),
+  ];
+  for (const dbPath of dbPaths) {
+    try {
+      const raw = await fs.readFile(dbPath, "utf-8");
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed)) {
+        const cleaned = parsed.filter((item) => !item.id.startsWith("TEST-"));
+        await fs.writeFile(dbPath, JSON.stringify(cleaned, null, 2), "utf-8");
+      } else if (parsed && Array.isArray(parsed.items)) {
+        parsed.items = parsed.items.filter((item) => !item.id.startsWith("TEST-"));
+        await fs.writeFile(dbPath, JSON.stringify(parsed, null, 2), "utf-8");
+      }
+    } catch {
+      // Ignora erro de limpeza se arquivo não existir
+    }
+  }
+}
 
 async function test(name, fn) {
   try {
@@ -545,78 +583,303 @@ async function runAllTests() {
       const loginInexistente = await validarCredenciaisDirigente("NAT-INEXISTENTE-999", "qualquer123");
       assert.strictEqual(loginInexistente, null, "Deve rejeitar login inexistente");
     } finally {
-      // Limpeza garantida de registros de teste (Supabase, data/ e os.tmpdir())
-      try {
-        const { getDirectSupabaseClient } = await import("../src/lib/db/core-hybrid-store.ts");
-        const supabase = getDirectSupabaseClient();
-        if (supabase) {
-          await supabase.from("solicitacoes_homologacao").delete().like("id", "TEST-%");
-          await supabase
-            .from("solicitacoes_homologacao")
-            .update({
-              status: "RECUSADO",
-              observacoes_conselho: "EXCLUIDO_PELO_ADMIN",
-            })
-            .like("id", "TEST-%");
-        }
-      } catch {
-        // Ignora falha de limpeza remota
-      }
-
-      const os = await import("node:os");
-      const dbPaths = [
-        path.join(process.cwd(), "data", "solicitacoes_homologacao.json"),
-        path.join(os.tmpdir(), "nativaram_solicitacoes_homologacao.json"),
-      ];
-      for (const dbPath of dbPaths) {
-        try {
-          const raw = await fs.readFile(dbPath, "utf-8");
-          const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) {
-            const cleaned = parsed.filter((item) => !item.id.startsWith("TEST-"));
-            await fs.writeFile(dbPath, JSON.stringify(cleaned, null, 2), "utf-8");
-          } else if (parsed && Array.isArray(parsed.items)) {
-            parsed.items = parsed.items.filter((item) => !item.id.startsWith("TEST-"));
-            await fs.writeFile(dbPath, JSON.stringify(parsed, null, 2), "utf-8");
-          }
-        } catch {
-          // Ignora erro de limpeza se arquivo não existir
-        }
-      }
+      await limparSolicitacoesDeTeste();
     }
   });
 
   await test("Exclusão de instituição remove registro do banco híbrido e revoga acesso", async () => {
-    const { registrarSolicitacao, homologarSolicitacao, excluirSolicitacao, obterTodasSolicitacoes } = await import(
-      "../src/lib/db/homologacoes.ts"
-    );
+    const {
+      registrarSolicitacao,
+      homologarSolicitacao,
+      excluirSolicitacao,
+      obterTodasSolicitacoes,
+      validarCredenciaisDirigente,
+    } = await import("../src/lib/db/homologacoes.ts");
 
     const testId = `TEST-DEL-${Date.now()}`;
-    await registrarSolicitacao({
-      id: testId,
-      tipo: "INSTITUICAO_FORMAL",
-      nomeEntidade: "Templo Teste para Exclusão",
-      nomeResponsavel: "Dirigente Teste",
-      telefone: "11911112222",
-      cidade: "São Paulo",
-      estado: "SP",
-      linhagem: "Xamanismo",
-      graduacao: "5.1 Pituã",
-      volumeEstimado: "5 Litros",
-      intencao: "Teste de exclusão",
-    });
+    try {
+      await registrarSolicitacao({
+        id: testId,
+        tipo: "INSTITUICAO_FORMAL",
+        nomeEntidade: "Templo Teste para Exclusão",
+        nomeResponsavel: "Dirigente Teste",
+        telefone: "11911112222",
+        cidade: "São Paulo",
+        estado: "SP",
+        linhagem: "Xamanismo",
+        graduacao: "5.1 Pituã",
+        volumeEstimado: "5 Litros",
+        intencao: "Teste de exclusão",
+      });
 
-    const resHom = await homologarSolicitacao(testId);
-    assert.ok(resHom, "Homologação para teste de exclusão deve ser criada");
+      const resHom = await homologarSolicitacao(testId);
+      assert.ok(resHom, "Homologação para teste de exclusão deve ser criada");
+      const { loginGerado, senhaGerada } = resHom;
+      assert.ok(
+        await validarCredenciaisDirigente(loginGerado, senhaGerada),
+        "Antes da exclusão o acesso deve funcionar"
+      );
 
-    // Executa exclusão
-    const excluido = await excluirSolicitacao(testId);
-    assert.strictEqual(excluido, true, "Exclusão deve retornar sucesso");
+      // Executa exclusão
+      const excluido = await excluirSolicitacao(testId);
+      assert.strictEqual(excluido, true, "Exclusão deve retornar sucesso");
 
-    // Confirma que não consta mais em obterTodasSolicitacoes
-    const todas = await obterTodasSolicitacoes();
-    const aindaExiste = todas.find((s) => s.id === testId);
-    assert.strictEqual(aindaExiste, undefined, "Instituição excluída não pode aparecer nas solicitações ativas");
+      // Confirma que não consta mais em obterTodasSolicitacoes
+      const todas = await obterTodasSolicitacoes();
+      const aindaExiste = todas.find((s) => s.id === testId);
+      assert.strictEqual(aindaExiste, undefined, "Instituição excluída não pode aparecer nas solicitações ativas");
+
+      // E o acesso deixa de existir
+      assert.strictEqual(
+        await validarCredenciaisDirigente(loginGerado, senhaGerada),
+        null,
+        "Instituição excluída não pode mais entrar no portal"
+      );
+    } finally {
+      await limparSolicitacoesDeTeste();
+    }
+  });
+
+  await test("Login de dirigente recusa código ou e-mail sem cadastro, mesmo com chave no formato das geradas", async () => {
+    const { validarCredenciaisDirigente } = await import("../src/lib/db/homologacoes.ts");
+    const chaveNoFormato = `Luz${new Date().getFullYear()}-4321`;
+
+    for (const login of ["NAT-TEMPLO-ZZ99", "NAT-GRP-ZZ99", "REC-2026-ZZ99", "alguem@exemplo.org"]) {
+      assert.strictEqual(
+        await validarCredenciaisDirigente(login, chaveNoFormato),
+        null,
+        `Login sem cadastro (${login}) não pode ser aceito`
+      );
+    }
+  });
+
+  await test("POST público de credenciamento não sobrescreve cadastro existente nem expõe códigos de acesso", async () => {
+    const { POST, GET } = await importarRota("src/app/api/solicitacoes/route.ts");
+    const { obterTodasSolicitacoes } = await import("../src/lib/db/homologacoes.ts");
+
+    const antes = (await obterTodasSolicitacoes()).find((s) => s.id === "NAT-TEMPLO-842");
+    assert.ok(antes, "Seed NAT-TEMPLO-842 deve existir");
+
+    const res = await POST(
+      new Request("http://localhost/api/solicitacoes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: "nat-templo-842",
+          tipo: "INSTITUICAO_FORMAL",
+          nomeEntidade: "Invasor",
+          nomeResponsavel: "Invasor",
+          telefone: "11900000000",
+          linhagem: "Qualquer",
+          graduacao: "5.1 Pituã",
+          volumeEstimado: "5 Litros",
+          intencao: "Tentativa de sobrescrever",
+        }),
+      })
+    );
+    assert.strictEqual(res.status, 409, "Protocolo existente deve ser recusado para visitantes");
+
+    const depois = (await obterTodasSolicitacoes()).find((s) => s.id === "NAT-TEMPLO-842");
+    assert.strictEqual(depois.nomeEntidade, antes.nomeEntidade, "Cadastro não pode ter sido alterado");
+    assert.strictEqual(depois.telefone, antes.telefone, "Telefone não pode ter sido alterado");
+
+    const lista = await (await GET(new Request("http://localhost/api/solicitacoes"))).json();
+    assert.ok(
+      lista.solicitacoes.every((s) => s.loginGerado === undefined && s.senhaGerada === undefined),
+      "Visitante não pode ver códigos de acesso"
+    );
+  });
+
+  await test("Comunidade: visitante não grava; dirigente grava só em nome do próprio templo e não sobrescreve post alheio", async () => {
+    const { POST } = await importarRota("src/app/api/comunidade/posts/route.ts");
+    const { POST: POST_AGENDA } = await importarRota("src/app/api/comunidade/agenda/route.ts");
+    const { POST: POST_PERFIL } = await importarRota("src/app/api/comunidade/perfis/route.ts");
+    const { createSessionToken, SESSION_COOKIE_NAME } = await import("../src/lib/auth/session.ts");
+    const { deletarPublicacao } = await import("../src/lib/db/comunidade.ts");
+
+    const cookieDe = (codigo) =>
+      `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo })}`;
+    const corpoPost = (extra = {}) =>
+      JSON.stringify({
+        titulo: "Reflexão de teste da suíte",
+        resumo: "Resumo de teste com tamanho suficiente.",
+        conteudoMarkdown: "Conteúdo de teste com tamanho suficiente para o validador.",
+        categoria: "REFLEXAO_DOUTRINARIA",
+        status: "RASCUNHO",
+        ...extra,
+      });
+    const req = (url, body, cookie) =>
+      new Request(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(cookie ? { cookie } : {}) },
+        body,
+      });
+
+    const criados = [];
+    try {
+      // Visitante (sem sessão) é recusado nas três rotas de gravação
+      assert.strictEqual((await POST(req("http://localhost/api/comunidade/posts", corpoPost()))).status, 401);
+      assert.strictEqual(
+        (await POST_AGENDA(req("http://localhost/api/comunidade/agenda", JSON.stringify({}), null))).status,
+        401
+      );
+      assert.strictEqual(
+        (await POST_PERFIL(req("http://localhost/api/comunidade/perfis", JSON.stringify({}), null))).status,
+        401
+      );
+
+      // Dirigente A tenta publicar em nome do templo 842: o templo vem da sessão
+      const resA = await POST(
+        req(
+          "http://localhost/api/comunidade/posts",
+          corpoPost({ temploCodigo: "NAT-TEMPLO-842" }),
+          cookieDe("NAT-TEMPLO-TESTA")
+        )
+      );
+      assert.strictEqual(resA.status, 200);
+      const postA = (await resA.json()).post;
+      criados.push(postA.id);
+      assert.strictEqual(postA.temploCodigo, "NAT-TEMPLO-TESTA", "Templo deve vir da sessão, não do corpo");
+
+      // Dirigente B tenta sobrescrever o post de A pelo id
+      const resB = await POST(
+        req("http://localhost/api/comunidade/posts", corpoPost({ id: postA.id }), cookieDe("NAT-TEMPLO-TESTB"))
+      );
+      assert.strictEqual(resB.status, 403, "Post de outro templo não pode ser sobrescrito");
+    } finally {
+      for (const id of criados) await deletarPublicacao(id, "", true);
+    }
+  });
+
+  await test("Pedidos: visitante não lê nem cria; dirigente só vê e cria pedidos do próprio templo", async () => {
+    const { GET, POST } = await importarRota("src/app/api/pedidos/route.ts");
+    const { GET: GET_ID } = await importarRota("src/app/api/pedidos/[id]/route.ts");
+    const { createSessionToken, SESSION_COOKIE_NAME } = await import("../src/lib/auth/session.ts");
+    const { obterTodosPedidos } = await import("../src/lib/db/pedidos.ts");
+    const cookieDe = (codigo) =>
+      `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo })}`;
+
+    // Visitante
+    assert.strictEqual((await GET(new Request("http://localhost/api/pedidos"))).status, 401);
+    const pedidoAlheio = (await obterTodosPedidos({})).find((p) => p.temploId.toUpperCase() !== "NAT-TEMPLO-TESTA");
+    assert.ok(pedidoAlheio, "Deve existir pedido de exemplo de outro templo");
+    assert.strictEqual(
+      (await GET_ID(new Request(`http://localhost/api/pedidos/${pedidoAlheio.id}`), {
+        params: Promise.resolve({ id: pedidoAlheio.id }),
+      })).status,
+      401
+    );
+    assert.strictEqual(
+      (await POST(
+        new Request("http://localhost/api/pedidos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({}),
+        })
+      )).status,
+      401
+    );
+
+    // Dirigente pedindo a lista de outro templo recebe só os próprios
+    const res = await GET(
+      new Request(`http://localhost/api/pedidos?temploId=${encodeURIComponent(pedidoAlheio.temploId)}`, {
+        headers: { cookie: cookieDe("NAT-TEMPLO-TESTA") },
+      })
+    );
+    assert.strictEqual(res.status, 200);
+    const json = await res.json();
+    assert.ok(
+      json.pedidos.every((p) => p.temploId.toUpperCase() === "NAT-TEMPLO-TESTA"),
+      "Dirigente não pode ver pedidos de outro templo"
+    );
+    assert.strictEqual(json.metricas, null, "Métricas gerais são só do Conselho");
+
+    // Pedido de outro templo pelo id
+    const resId = await GET_ID(
+      new Request(`http://localhost/api/pedidos/${pedidoAlheio.id}`, {
+        headers: { cookie: cookieDe("NAT-TEMPLO-TESTA") },
+      }),
+      { params: Promise.resolve({ id: pedidoAlheio.id }) }
+    );
+    assert.strictEqual(resId.status, 404, "Pedido de outro templo não pode ser lido");
+  });
+
+  await test("Validadores da comunidade recusam links não-https, imagens de outro tipo e conteúdo gigante", async () => {
+    const { PublicacaoSchema, PerfilTemploSchema, ItemAgendaSchema } = await import("../src/lib/validators/comunidade.ts");
+    const base = {
+      titulo: "Título válido",
+      resumo: "Resumo válido com tamanho.",
+      conteudoMarkdown: "x".repeat(40),
+      categoria: "REFLEXAO_DOUTRINARIA",
+    };
+    assert.ok(PublicacaoSchema.safeParse(base).success, "Publicação mínima válida deve passar");
+    assert.ok(
+      PublicacaoSchema.safeParse({ ...base, imagemCapa: "data:image/webp;base64,AAAA" }).success,
+      "Data URL WebP deve passar"
+    );
+    assert.ok(PublicacaoSchema.safeParse({ ...base, imagemCapa: "/images/feitio.jpg" }).success);
+
+    for (const [caso, extra] of [
+      ["markdown gigante", { conteudoMarkdown: "x".repeat(50_001) }],
+      ["imagem HTML", { imagemCapa: "data:text/html;base64,AAAA" }],
+      ["imagem protocolo-relativo", { imagemCapa: "//outro-site.com/a.png" }],
+      ["anexo javascript:", { anexos: [{ nome: "Doc", url: "javascript:alert(1)", tipo: "PDF" }] }],
+      ["anexo http", { anexos: [{ nome: "Doc", url: "http://exemplo.org/a.pdf", tipo: "PDF" }] }],
+      ["galeria com 13 fotos", { fotosGaleria: Array(13).fill("/a.jpg") }],
+    ]) {
+      assert.ok(!PublicacaoSchema.safeParse({ ...base, ...extra }).success, `Deveria recusar: ${caso}`);
+    }
+
+    const perfilBase = {
+      nomeInstituicao: "Templo",
+      dirigenteResponsavel: "Dirigente",
+      linhagem: "Linhagem",
+      cidade: "Rio Branco",
+      estado: "AC",
+      bioApresentacao: "Apresentação com tamanho suficiente.",
+    };
+    assert.ok(PerfilTemploSchema.safeParse(perfilBase).success);
+    assert.ok(
+      !PerfilTemploSchema.safeParse({ ...perfilBase, redesSociais: { website: "javascript:alert(1)" } }).success,
+      "Site do templo precisa ser https"
+    );
+    assert.ok(
+      !ItemAgendaSchema.safeParse({
+        tituloRito: "Rito",
+        dataEvento: "2026-12-01",
+        horarioInicio: "19:00",
+        linkInscricao: "data:text/html,oi",
+      }).success,
+      "Link de inscrição precisa ser https"
+    );
+  });
+
+  await test("Cadastro homologado sem chave gerada não aceita chave arbitrária", async () => {
+    const { registrarSolicitacao, validarCredenciaisDirigente } = await import("../src/lib/db/homologacoes.ts");
+    const testId = `TEST-SEMCHAVE-${Date.now()}`;
+    try {
+      await registrarSolicitacao({
+        id: testId,
+        tipo: "INSTITUICAO_FORMAL",
+        nomeEntidade: "Templo Sem Chave",
+        nomeResponsavel: "Dirigente Teste",
+        telefone: "11911113333",
+        cidade: "São Paulo",
+        estado: "SP",
+        linhagem: "Xamanismo",
+        graduacao: "5.1 Pituã",
+        volumeEstimado: "5 Litros",
+        intencao: "Teste de cadastro sem chave",
+        status: "HOMOLOGADO",
+      });
+      assert.strictEqual(
+        await validarCredenciaisDirigente(testId, "qualquer-coisa"),
+        null,
+        "Sem chave gerada, nenhuma chave pode ser aceita"
+      );
+    } finally {
+      await limparSolicitacoesDeTeste();
+    }
   });
 
   // 6. TESTES DO HUB COMUNITÁRIO, LINTER CONAD & BLOG DOS TEMPLOS
@@ -805,6 +1068,87 @@ async function runAllTests() {
     }
   });
 
+  await test("Cookie de sessão não é assinado com chave pública nem literal quando falta ADMIN_SECRET_KEY em produção", async () => {
+    const { createSessionToken, verifySessionToken } = await import("../src/lib/auth/session.ts");
+    const crypto = await import("node:crypto");
+    const anterior = {
+      key: process.env.ADMIN_SECRET_KEY,
+      service: process.env.SUPABASE_SERVICE_ROLE_KEY,
+      anon: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      node: process.env.NODE_ENV,
+    };
+    const restaurar = (nome, valor) => {
+      if (valor === undefined) delete process.env[nome];
+      else process.env[nome] = valor;
+    };
+    try {
+      delete process.env.ADMIN_SECRET_KEY;
+      delete process.env.SUPABASE_SERVICE_ROLE_KEY;
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = "chave-publica-de-teste";
+      process.env.NODE_ENV = "production";
+
+      // Token forjado com a chave pública: precisa ser recusado
+      const payload = Buffer.from(
+        JSON.stringify({ role: "ADMIN", codigo: "X", exp: Date.now() + 60_000 }),
+        "utf-8"
+      ).toString("base64url");
+      const assinatura = crypto
+        .createHmac("sha256", "chave-publica-de-teste")
+        .update(payload)
+        .digest("base64url");
+      assert.strictEqual(
+        verifySessionToken(`${payload}.${assinatura}`),
+        null,
+        "Token assinado com a chave pública não pode valer"
+      );
+      assert.throws(
+        () => createSessionToken({ role: "ADMIN" }),
+        "Sem segredo de servidor não se emite sessão"
+      );
+
+      // Com a service role (segredo só do servidor) a sessão funciona
+      process.env.SUPABASE_SERVICE_ROLE_KEY = "segredo-de-servidor-de-teste";
+      const token = createSessionToken({ role: "DIRIGENTE", codigo: "NAT-TEMPLO-T1" });
+      assert.strictEqual(verifySessionToken(token)?.codigo, "NAT-TEMPLO-T1");
+    } finally {
+      restaurar("ADMIN_SECRET_KEY", anterior.key);
+      restaurar("SUPABASE_SERVICE_ROLE_KEY", anterior.service);
+      restaurar("NEXT_PUBLIC_SUPABASE_ANON_KEY", anterior.anon);
+      restaurar("NODE_ENV", anterior.node);
+    }
+  });
+
+  await test("Papel vindo do Supabase Auth só considera app_metadata e a lista do Conselho", async () => {
+    const { resolverPapelSupabase } = await import("../src/lib/auth/papel.ts");
+    const conselho = ["conselho@nativaram.com.br"];
+
+    assert.strictEqual(
+      resolverPapelSupabase({ email: "admirador@exemplo.org", app_metadata: {} }, conselho),
+      null,
+      "Ter 'adm' no e-mail não concede nada"
+    );
+    assert.strictEqual(
+      resolverPapelSupabase(
+        { email: "pessoa@exemplo.org", app_metadata: {}, user_metadata: { papel: "ADMIN", codigo_liturgico: "NAT-TEMPLO-842" } },
+        conselho
+      ),
+      null,
+      "user_metadata é editável pelo usuário e não concede papel nem templo"
+    );
+    assert.deepStrictEqual(
+      resolverPapelSupabase({ email: "x@exemplo.org", app_metadata: { role: "admin" } }, conselho),
+      { role: "ADMIN" }
+    );
+    assert.deepStrictEqual(
+      resolverPapelSupabase({ email: "Conselho@Nativaram.com.br", app_metadata: {} }, conselho),
+      { role: "ADMIN" }
+    );
+    assert.deepStrictEqual(
+      resolverPapelSupabase({ email: "d@exemplo.org", app_metadata: { codigo_liturgico: "nat-templo-913" } }, conselho),
+      { role: "DIRIGENTE", codigo: "NAT-TEMPLO-913" }
+    );
+  });
+
   await test("Catálogo unificado possui exatamente 15 variedades de Rapé Sagrado e zero IDs duplicados", async () => {
     const { medicinas } = await import("../src/data/medicinas.ts");
     const { RAPES_TRADICIONAIS } = await import("../src/data/sacramentos.ts");
@@ -885,12 +1229,18 @@ async function runAllTests() {
       );
     }
 
-    // Scripts que alguém pode reexecutar não podem reabrir o acesso.
-    for (const arquivo of ["schema.sql", "schema_comunidade.sql", "migrations/004-fechar-rls-tabelas-sensiveis.sql"]) {
+    // Scripts que alguém pode executar não podem reabrir o acesso: os dois schemas e
+    // TODAS as migrações (exceto as marcadas como OBSOLETA no cabeçalho).
+    const migracoes = (await fs.readdir(path.join(supabaseDir, "migrations")))
+      .filter((nome) => nome.endsWith(".sql"))
+      .map((nome) => `migrations/${nome}`);
+    for (const arquivo of ["schema.sql", "schema_comunidade.sql", ...migracoes]) {
       const sql = await fs.readFile(path.join(supabaseDir, arquivo), "utf-8");
+      if (/OBSOLETA\s+—\s+NÃO EXECUTAR/.test(sql.slice(0, 400))) continue;
       const politicas = sql.match(/CREATE POLICY[\s\S]*?;/g) || [];
       for (const politica of politicas) {
         assert.ok(/FOR SELECT/.test(politica), `${arquivo}: política não-SELECT encontrada: ${politica.split("\n")[0]}`);
+        assert.ok(/\bTO\s+\w/.test(politica), `${arquivo}: política sem TO (vale para todos os papéis): ${politica.split("\n")[0]}`);
         assert.ok(
           !/solicitacoes_homologacao|pedidos_liturgicos|templos_credenciados/.test(politica),
           `${arquivo}: política pública em tabela sensível: ${politica.split("\n")[0]}`

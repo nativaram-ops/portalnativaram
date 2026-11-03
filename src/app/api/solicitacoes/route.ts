@@ -3,7 +3,11 @@ import {
   obterTodasSolicitacoes,
   registrarSolicitacao,
 } from "@/lib/db/homologacoes";
-import { verifyAdminRequest } from "@/lib/auth/session";
+import crypto from "crypto";
+import {
+  verifyAdminRequest,
+  verifyDirigenteOrAdminRequest,
+} from "@/lib/auth/session";
 import { RegistrarSolicitacaoSchema } from "@/lib/validators/solicitacao";
 
 export async function GET(request: NextRequest) {
@@ -43,6 +47,9 @@ export async function GET(request: NextRequest) {
     ).length;
 
     const isAdmin = verifyAdminRequest(request);
+    // O código de acesso (loginGerado) só aparece para quem já está autenticado;
+    // para visitantes ele permitiria enumerar logins de templos.
+    const autenticado = isAdmin || verifyDirigenteOrAdminRequest(request);
     const solicitacoesSeguras = isAdmin
       ? solicitacoes
       : solicitacoes.map(
@@ -51,8 +58,9 @@ export async function GET(request: NextRequest) {
             telefone: _telefone,
             email: _email,
             cnpj: _cnpj,
+            loginGerado,
             ...dadosPublicos
-          }) => dadosPublicos
+          }) => (autenticado ? { ...dadosPublicos, loginGerado } : dadosPublicos)
         );
 
     return NextResponse.json({
@@ -91,9 +99,22 @@ export async function POST(request: NextRequest) {
     }
 
     const dados = parseResult.data;
+    const isAdmin = verifyAdminRequest(request);
     const idProtocolo =
-      dados.id ||
-      `NAT-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+      dados.id?.toUpperCase() ||
+      `NAT-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
+
+    // Formulários públicos só criam: nunca sobrescrevem um cadastro existente
+    // (o protocolo é escolhido no navegador). Só o Conselho edita registros.
+    if (!isAdmin) {
+      const existentes = await obterTodasSolicitacoes();
+      if (existentes.some((s) => s.id.toUpperCase() === idProtocolo)) {
+        return NextResponse.json(
+          { sucesso: false, erro: "Protocolo já registrado. Gere um novo envio." },
+          { status: 409 }
+        );
+      }
+    }
 
     const registro = await registrarSolicitacao({
       id: idProtocolo,
@@ -109,7 +130,8 @@ export async function POST(request: NextRequest) {
       graduacao: dados.graduacao,
       volumeEstimado: dados.volumeEstimado,
       intencao: dados.intencao,
-      status: "PENDENTE_LIBERACAO",
+      // Sem status explícito: registro novo nasce PENDENTE_LIBERACAO e a edição
+      // do Conselho preserva um cadastro já HOMOLOGADO.
     });
 
     return NextResponse.json(
