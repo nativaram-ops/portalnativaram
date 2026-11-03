@@ -266,7 +266,10 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 - **Auditoria:** `plans/012-auditoria-geral-seguranca-rateio-e-compliance-publico.md` (segurança, rateio, compliance público, a11y/performance, repositório). Fato principal: o repositório no GitHub é público.
 - **Pacote A executado (acesso):** login de dirigente só com cadastro e chave reais; papel do Supabase Auth só por `app_metadata`; segredo de sessão sem chave pública nem literal; comunidade e pedidos exigem sessão e usam o templo da sessão; credenciamento público não sobrescreve cadastro; limites de tamanho, imagem e `https` nos validadores; migração `005` obsoleta e `006` criada; testes isolados do Supabase de produção. Decisão em [[ADR-010-Autorizacao-pela-Sessao-nas-APIs]].
 - **Pendências humanas (seção 0 do plano 012):** tornar o repositório privado; trocar chaves expostas; avaliar o registro `REC-2026-GIX0` com o encarregado de dados; conferir `ADMIN_SECRET_KEY` e `SUPABASE_SERVICE_ROLE_KEY` na Vercel; rodar a `004` e a `006` (não a `005`); desligar o cadastro público no Supabase Auth; gravar `app_metadata` nas contas do Supabase Auth que forem de admin ou dirigente.
-- **Próximos pacotes:** B (persistência e exclusão), C (cálculo de rateio: Mel/Gel com valor da Pituã), D (compliance público, com decisões do Conselho), E, F.
+- **Pacote C (C1–C4) executado:** Mel e Gel deixaram de receber o valor da Pituã (busca exata em `obterCotaRateio`, erro para código desconhecido); acima de 20 L/kg a calculadora mostra "Sob consulta ao Conselho"; reconstituição compara pela faixa do volume final; pedido sem contato fictício e com campo de e-mail. Testes em `scripts/test-rateio.mjs`.
+- **Pacote D (D1, D2, D9) executado:** retiradas das páginas públicas a oferta de sacramento para dependência química, alcoolismo e depressão e os "benefícios" fisiológicos das fichas de rapé; +18 no rodapé global. Pendente: campo `alquimiaFitoquimica` e `diretrizes` de `medicinas.ts`.
+- **Aguardam decisão do Conselho:** D3 (tabela por volume lida como atacado; valor por participante), D4 (Mel/Gel × veto a derivados), D5 (grupos sem CNPJ pedindo). C5 (fonte única de valores) depende de D3.
+- **Próximos pacotes:** B (persistência e exclusão), restante do D, E, F.
 
 ## Entregas do Visualizador de Documentos e Gestão de Homologações (2026-11-02)
 

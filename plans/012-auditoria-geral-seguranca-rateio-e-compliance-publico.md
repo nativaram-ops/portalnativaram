@@ -90,6 +90,8 @@
 
 ## Pacote C — Cálculo do rateio (P1)
 
+> **Andamento (2026-11-03): C1–C4 executados.** `obterCotaRateio` faz busca exata e lança erro para código desconhecido; acima de 20 L devolve `valorTotal: null` (tipo discriminado obriga o tratamento); calculadora usa `graduacao.id`, mostra "Sob consulta ao Conselho" e esconde "Dimensionar" do Gel (kg); reconstituição compara pela faixa do volume final e avisa abaixo de 5 L; pedido sem contato fictício, com campo de e-mail, ± respeita o mínimo e sem `window.open` pós-await. Testes em `scripts/test-rateio.mjs`. **C5 aguarda D3** (decisão do Conselho).
+
 **Arquivos:** `src/data/graduacoes.ts`, `PortalCalculadoraLiturgica.tsx`, `PortalCooperativismo.tsx`, `FormSolicitacaoPedido.tsx`, novo `scripts/test-rateio.mjs` (incluir no `npm test`).
 
 - **C1. Mel e Gel recebem o valor da Pituã.** `graduacoes.ts:253-259`: a busca usa `graduacaoId`, `codigo` ou `startsWith` e, sem achar, cai em `TABELA_EVOLUTIVA_RATEIO[1]` (Pituã). Em `GRADUACOES_SACRAMENTAIS` os códigos são `MEL`/`GEL` (`:104`, `:118`); na tabela de rateio são `12 a 15x1`/`20.1` (`:204`, `:216`). A calculadora chama com `graduacao.codigo` (`PortalCalculadoraLiturgica.tsx:85`). Resultado: Mel e Gel aparecem 43% a 80% abaixo da tabela. **Fazer:** busca exata por `graduacaoId`; sem achar, lançar erro; calculadora passa `graduacao.id`. Gel é por kg: a calculadora de cerimônia (litros por participante, `:57-72`) não se aplica a ele.
@@ -106,6 +108,8 @@
 ## Pacote D — Coerência com a missão e compliance público (P0/P1; maior parte é texto)
 
 A intenção declarada (cooperativa sem fins lucrativos, salvaguarda litúrgica, rateio de custo, CONAD 01/2010) está bem desenhada nos documentos e na área de segurança. As contradições abaixo enfraquecem justamente essa tese diante de uma fiscalização.
+
+> **Andamento (2026-11-03): D1, D2 e D9 executados** (Manifesto, Projetos de Luz, Cooperativismo l. 251, metadados de `/projetos-de-luz`, `beneficios` das 15 fichas de `medicinas.ts` + Jurema l. 138, rótulos da ficha pública, +18 no Footer). **Restou para um próximo passo** (mesma natureza do D2): o campo `alquimiaFitoquimica` de `medicinas.ts` ainda tem alegações (Rainha "não possui efeitos psicoativos… células mucosas", Cacau "sistema cardiovascular", Pixuri "sedativo e neuroprotetor", Nissural/Samaúma "neurotransmissores", Tsunu "eficácia cognitiva"), subtítulos como "Guardião do Sono", `diretrizes` com uso "ao acordar/antes de deitar" (fora do rito) e `ManifestoLanding.tsx:938` com conteúdo clínico em página pública.
 
 **Exige decisão do Conselho antes de codar:** D3, D4, D5. **Exige revisão jurídica:** D6, D10.
 
