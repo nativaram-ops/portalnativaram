@@ -32,7 +32,7 @@ Além disso, a cooperativa demandava uma solução de banco de dados relacional 
 3. **Autenticação Híbrida e Sessão Unificada no Portal do Dirigente:**
    - **Método 1 (Supabase Auth):** Login seguro por E-mail e Senha ou Magic Link (OTP) gratuito para dirigentes e administradores cadastrados no Supabase Auth. Integrado diretamente ao Route Handler `/api/auth/verificar-chave`, que emite o cookie HttpOnly `nativaram_session` assinado via HMAC-SHA256 para autorizar chamadas às APIs internas.
    - **Método 2 (Chave Litúrgica Canônica & Senha Master):** Acesso ágil por código de homologação (`NAT-TEMPLO-842`) ou credencial master do conselho (`adm-nativaram` com `ADMIN_MASTER_PASSWORD` e fallback de recuperação `adm2026`).
-   - **Resiliência de Sessão:** O segredo de assinatura de tokens deriva prioritariamente de `ADMIN_SECRET_KEY`, com fallback resiliente para as chaves ativas do Supabase, prevenindo desconexões ou erros 500 caso a chave ainda não tenha sido populada no ambiente de deploy.
+   - ~~**Resiliência de Sessão:** O segredo de assinatura de tokens deriva prioritariamente de `ADMIN_SECRET_KEY`, com fallback resiliente para as chaves ativas do Supabase, prevenindo desconexões ou erros 500 caso a chave ainda não tenha sido populada no ambiente de deploy.~~ Substituído em 2026-11-03 por [[ADR-010-Autorizacao-pela-Sessao-nas-APIs]]: só `ADMIN_SECRET_KEY` ou a service role; nunca a chave pública nem valor no código.
 
 ## Consequências
 - ✅ **Persistência Real em Produção:** Dados de pedidos e credenciamentos persistem com segurança na Vercel e qualquer ambiente em nuvem.

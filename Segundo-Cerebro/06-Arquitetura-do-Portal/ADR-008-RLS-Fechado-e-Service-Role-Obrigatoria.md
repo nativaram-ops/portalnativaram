@@ -26,6 +26,9 @@ A migração `003-politicas-rls-aplicacao.sql` e os scripts `schema.sql` / `sche
 - ⚠️ Pré-requisito operacional: `SUPABASE_SERVICE_ROLE_KEY` configurada na Vercel antes de rodar a `004`. Sem ela, gravações caem no fallback local temporário (`os.tmpdir()`), que se perde entre execuções.
 - ⚠️ Credenciais de templo geradas antes da `004` devem ser consideradas expostas e regeneradas.
 
+## Atualização 2026-11-03
+- A migração `005` (feita depois, para o botão de excluir) criava DELETE `USING (true)` sem `TO`, valendo para todos os papéis. Foi marcada como **obsoleta — não executar**; a `006` remove essas políticas caso já tenham sido criadas. O servidor apaga com a service role, que ignora o RLS. Ver [[ADR-010-Autorizacao-pela-Sessao-nas-APIs]].
+
 ## Status de execução
 - Código e SQL prontos no repositório (2026-11-02).
 - Pendente: confirmar a variável na Vercel, executar a `004` no SQL Editor do Supabase e regenerar credenciais. **A definir:** data de execução.

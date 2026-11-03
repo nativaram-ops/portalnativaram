@@ -261,6 +261,13 @@ Auditoria e reestruturação responsiva de ponta a ponta do portal para smartpho
 - **Vocabulário:** exceção clínica para conteúdo de segurança registrada em [[ADR-009-Vocabulario-Clinico-no-Conteudo-de-Seguranca]].
 - **Pendências humanas:** revisão clínica da matriz e dos documentos; revisão jurídica dos termos; refazer na fonte e comprimir os PDFs públicos; laudo HPLC que confirme o teor de harmina (9,21 mg/g é o único valor no código; o "8,03 mg/g de β-carbolinas totais" do catálogo do dirigente foi retirado por contradizer o 9,21 de harmina isolada); rodar a migração 004.
 
+## Auditoria geral e Pacote A do plano 012 (2026-11-03)
+
+- **Auditoria:** `plans/012-auditoria-geral-seguranca-rateio-e-compliance-publico.md` (segurança, rateio, compliance público, a11y/performance, repositório). Fato principal: o repositório no GitHub é público.
+- **Pacote A executado (acesso):** login de dirigente só com cadastro e chave reais; papel do Supabase Auth só por `app_metadata`; segredo de sessão sem chave pública nem literal; comunidade e pedidos exigem sessão e usam o templo da sessão; credenciamento público não sobrescreve cadastro; limites de tamanho, imagem e `https` nos validadores; migração `005` obsoleta e `006` criada; testes isolados do Supabase de produção. Decisão em [[ADR-010-Autorizacao-pela-Sessao-nas-APIs]].
+- **Pendências humanas (seção 0 do plano 012):** tornar o repositório privado; trocar chaves expostas; avaliar o registro `REC-2026-GIX0` com o encarregado de dados; conferir `ADMIN_SECRET_KEY` e `SUPABASE_SERVICE_ROLE_KEY` na Vercel; rodar a `004` e a `006` (não a `005`); desligar o cadastro público no Supabase Auth; gravar `app_metadata` nas contas do Supabase Auth que forem de admin ou dirigente.
+- **Próximos pacotes:** B (persistência e exclusão), C (cálculo de rateio: Mel/Gel com valor da Pituã), D (compliance público, com decisões do Conselho), E, F.
+
 ## Entregas do Visualizador de Documentos e Gestão de Homologações (2026-11-02)
 
 - **Correção da Visualização Inline de PDFs (`/estudos`):**
