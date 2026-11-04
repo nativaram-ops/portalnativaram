@@ -185,7 +185,7 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    setSessionCookie(response, { role: "DIRIGENTE", codigo });
+    setSessionCookie(response, { role: "DIRIGENTE", codigo, tipo: congregao.tipo });
     return response;
   } catch (error) {
     console.error("Erro ao validar credenciais:", error);

@@ -7,6 +7,8 @@ const DEFAULT_TTL_MS = 1000 * 60 * 60 * 12; // 12 horas
 export interface SessionPayload {
   role: "ADMIN" | "DIRIGENTE";
   codigo?: string;
+  /** Tipo do cadastro do dirigente: grupo sem CNPJ não vê nem recebe valores. */
+  tipo?: "INSTITUICAO_FORMAL" | "GRUPO_INFORMAL";
   temploCodigo?: string;
   sub?: string;
   iat?: number;
@@ -215,9 +217,13 @@ export function verifyDirigenteOrAdminRequest(
 export function resolverTitularDaRequisicao(
   request: NextRequest | Request,
   codigoInformado?: string | null
-): { codigo: string; isAdmin: boolean } | null {
+): { codigo: string; isAdmin: boolean; grupoInformal: boolean } | null {
   if (verifyAdminRequest(request)) {
-    return { codigo: (codigoInformado || "").trim().toUpperCase(), isAdmin: true };
+    return {
+      codigo: (codigoInformado || "").trim().toUpperCase(),
+      isAdmin: true,
+      grupoInformal: false,
+    };
   }
 
   const session = verifySessionToken(extractCookieToken(request));
@@ -225,7 +231,7 @@ export function resolverTitularDaRequisicao(
   if (session?.role !== "DIRIGENTE" || !codigo) {
     return null;
   }
-  return { codigo, isAdmin: false };
+  return { codigo, isAdmin: false, grupoInformal: session.tipo === "GRUPO_INFORMAL" };
 }
 
 /**

@@ -47,12 +47,12 @@ const faqsInstitucionais: FaqItem[] = [
   {
     pergunta: "O que é a 'Alquimia entre Dois Mundos' (Etnociência)?",
     resposta:
-      "É a sinergia horizontal entre a sabedoria imemorial dos pajés e anciãos e as investigações científicas de ponta. Não subordinamos o sagrado à academia ocidental nem diluímos as tradições em modismos. Cruzamos relatos orais com relatórios fitoquímicos indexados (como o Journal of Ethnopharmacology) e investigações de grandes universidades públicas (UFAC, USP, UFPB, UnB), com registro regulamentado no SisGen.",
+      "É a sinergia horizontal entre a sabedoria imemorial dos pajés e anciãos e as investigações científicas de ponta. Não subordinamos o sagrado à academia ocidental nem diluímos as tradições em modismos. Cruzamos relatos orais com a literatura científica publicada (como o Journal of Ethnopharmacology) e mantemos diálogo com pesquisadores de universidades públicas.",
   },
   {
     pergunta: "Como funcionam os 'Projetos de Luz'?",
     resposta:
-      "Todo o superávit operacional e fitoquímico resultante do rateio das atividades é revertido em praxeologia social gratuita: custeio da Ecovila e Agrofloresta comunitária em Cruzeiro do Sul (Acre), proteção ativa aos ninhos da Ararajuba, apoio às comunidades da floresta e partilha solidária de sacramentos com templos credenciados de pequeno porte, sempre para uso exclusivo em seus ritos religiosos.",
+      "As sobras do rateio, destinadas por deliberação de assembleia ao Fundo Social (FATES), nos termos da Lei 5.764/71, são revertidas em praxeologia social gratuita: custeio da Ecovila e Agrofloresta comunitária em Cruzeiro do Sul (Acre), proteção ativa aos ninhos da Ararajuba, apoio às comunidades da floresta e partilha solidária de sacramentos com templos credenciados de pequeno porte, sempre para uso exclusivo em seus ritos religiosos.",
   },
   {
     pergunta: "Como um templo religioso pode solicitar credenciamento litúrgico?",
@@ -126,7 +126,7 @@ export function ManifestoLanding() {
               </div>
               <div className="inline-flex items-center gap-2 rounded-xl border border-ambar-500/20 bg-floresta-900/80 px-3.5 py-2 text-xs text-areia-200 backdrop-blur-sm">
                 <ShieldCheck className="h-3.5 w-3.5 text-ambar-400" />
-                <span>SisGen Registrado • Sem Fins Lucrativos</span>
+                <span>Cooperativa • Sem Fins Lucrativos</span>
               </div>
             </div>
           </AnimateOnScroll>
@@ -344,7 +344,7 @@ export function ManifestoLanding() {
                       </h4>
                     </div>
                     <p className="text-xs text-areia-300 leading-relaxed font-light">
-                      Honramos a maestria milenar dos povos originários na manipulação das plantas de poder em convergência harmônica com o rigor do estudo técnico-científico ocidental e das universidades.
+                      Honramos a maestria milenar dos povos originários na manipulação das plantas de poder em diálogo com o estudo técnico-científico e com pesquisadores de universidades públicas.
                     </p>
                   </div>
                   <span className="text-[10px] font-mono text-ambar-400/70 uppercase tracking-widest pt-2 border-t border-ambar-500/10">
@@ -446,73 +446,73 @@ export function ManifestoLanding() {
                 </p>
               </div>
 
-              {/* Grid 4 Universidades */}
+              {/* Grid 4 Áreas de diálogo com pesquisadores (sem parceria formal declarada) */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div className="card-elevated rounded-xl p-6 space-y-3 border-t-2 border-t-ambar-500/40">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-ambar-400">UFAC</span>
+                    <span className="text-xs font-mono font-bold text-ambar-400">Botânica</span>
                     <GraduationCap className="h-4 w-4 text-ambar-400/70" />
                   </div>
                   <h4 className="font-serif text-sm font-bold text-areia-100">
-                    Univ. Federal do Acre
+                    Taxonomia Amazônica
                   </h4>
                   <p className="text-xs text-areia-400 leading-relaxed font-light">
-                    Estudos de campo botânicos in situ, taxonomia amazônica, mapeamento de etnotáxons e regeneração ecológica do cipó Tucunacá.
+                    Identificação das espécies, mapeamento de etnotáxons e manejo do cipó Tucunacá na floresta.
                   </p>
                 </div>
 
                 <div className="card-elevated rounded-xl p-6 space-y-3 border-t-2 border-t-ambar-500/40">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-ambar-400">USP</span>
+                    <span className="text-xs font-mono font-bold text-ambar-400">Etnobotânica</span>
                     <GraduationCap className="h-4 w-4 text-ambar-400/70" />
                   </div>
                   <h4 className="font-serif text-sm font-bold text-areia-100">
-                    Univ. de São Paulo
+                    Memória da Floresta
                   </h4>
                   <p className="text-xs text-areia-400 leading-relaxed font-light">
-                    Pesquisas acadêmicas sobre segurança e etnobotânica.
+                    Registro dos usos tradicionais e da relação entre os povos da terra e as plantas.
                   </p>
                 </div>
 
                 <div className="card-elevated rounded-xl p-6 space-y-3 border-t-2 border-t-ambar-500/40">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-ambar-400">UFPB</span>
+                    <span className="text-xs font-mono font-bold text-ambar-400">Fitoquímica</span>
                     <GraduationCap className="h-4 w-4 text-ambar-400/70" />
                   </div>
                   <h4 className="font-serif text-sm font-bold text-areia-100">
-                    Univ. Federal da Paraíba
+                    Composição Botânica
                   </h4>
                   <p className="text-xs text-areia-400 leading-relaxed font-light">
-                    Farmacobotânica sistemática, fitocomplexos e perfil cromatográfico de cascas e espécies medicinais brasileiras.
+                    Perfil de composição de cascas, folhas e sementes usadas no feitio tradicional.
                   </p>
                 </div>
 
                 <div className="card-elevated rounded-xl p-6 space-y-3 border-t-2 border-t-ambar-500/40">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-bold text-ambar-400">UnB</span>
+                    <span className="text-xs font-mono font-bold text-ambar-400">Segurança</span>
                     <GraduationCap className="h-4 w-4 text-ambar-400/70" />
                   </div>
                   <h4 className="font-serif text-sm font-bold text-areia-100">
-                    Univ. de Brasília
+                    Cuidado nas Cerimônias
                   </h4>
                   <p className="text-xs text-areia-400 leading-relaxed font-light">
-                    Investigações toxicológicas, segurança farmacológica e protocolos de redução de danos e interação bioquímica.
+                    Literatura sobre triagem e protocolos de segurança aplicados pelas casas credenciadas.
                   </p>
                 </div>
               </div>
 
-              {/* Bases Globais & SisGen */}
+              {/* Literatura científica de referência */}
               <div className="card-liturgico rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 border border-ambar-500/25">
                 <div className="space-y-2 text-center sm:text-left">
                   <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono text-ambar-400 font-bold uppercase tracking-wider">
                     <FlaskConical className="h-4 w-4" />
-                    <span>Conformidade com o Patrimônio Genético</span>
+                    <span>Diálogo com a Pesquisa</span>
                   </div>
                   <h4 className="font-serif text-lg font-bold text-areia-100">
-                    Cadastro Regulamentado no SisGen & Indexação Internacional
+                    Literatura Científica de Referência
                   </h4>
                   <p className="text-xs sm:text-sm text-areia-300 font-light max-w-2xl leading-relaxed">
-                    A Nativaram possui registro regular no <strong className="text-areia-100 font-medium">Sistema Nacional de Gestão do Patrimônio Genético e do Conhecimento Tradicional Associado (SisGen)</strong>, cumprindo rigorosamente a Lei nº 13.123/2015 e indexando pesquisas no <em>Journal of Ethnopharmacology</em> e <em>Dr. Duke&apos;s Database</em>.
+                    A Nativaram acompanha a literatura publicada em bases como o <em>Journal of Ethnopharmacology</em> e o <em>Dr. Duke&apos;s Database</em> e mantém diálogo com pesquisadores de universidades públicas. Esse diálogo não constitui parceria formal com nenhuma instituição.
                   </p>
                 </div>
                 <Link
@@ -659,7 +659,7 @@ export function ManifestoLanding() {
                     Ayahuasca Purista (Cipó Tucunacá & Rainha)
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Decocção sagrada conduzida sob oração silenciosa em Cruzeiro do Sul (Acre). Utilizamos exclusivamente o Cipó Tucunacá (estabilidade fitoquímica: 9.21 mg/g Harmina, 4.20 mg/g THH) e folhas de Chacrona Rainha colhidas ao amanhecer, rejeitando qualquer planta aditiva.
+                    Decocção sagrada conduzida sob oração silenciosa em Cruzeiro do Sul (Acre). Utilizamos exclusivamente o Cipó Tucunacá (perfil de alcaloides em laudo em validação) e folhas de Chacrona Rainha colhidas ao amanhecer, rejeitando qualquer planta aditiva.
                   </p>
                 </div>
                 <Link href="/feitio" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold pt-3 border-t border-ambar-500/15">
@@ -681,10 +681,10 @@ export function ManifestoLanding() {
                     Rapés Sagrados de Alta Precisão
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Preparos à base de fumo de corda orgânico selvagem (<em>Nicotiana rustica</em>) homogeneizados com cinzas alcalinizantes de árvores nativas (Tsunu, Murici, Cumaru, Mulateiro) em pH 9.75 - 10.2. Calcinação &gt;250°C livre de DMT ativo, garantindo ancoramento e silenciamento mental.
+                    Preparos à base de fumo de corda orgânico selvagem (<em>Nicotiana rustica</em>) homogeneizados com cinzas alcalinizantes de árvores nativas (Tsunu, Murici, Cumaru, Mulateiro) segundo o feitio tradicional. Contém nicotina natural do tabaco.
                   </p>
                 </div>
-                <Link href="/medicinas" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold pt-3 border-t border-ambar-500/15">
+                <Link href="/sacramentos" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold pt-3 border-t border-ambar-500/15">
                   <span>Explorar as 15 Essências</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
@@ -703,7 +703,7 @@ export function ManifestoLanding() {
                     Sananga Tradicional da Amazônia
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Extração aquosa pura das raízes de <em>Tabernaemontana sananho</em> e <em>T. undulata</em> colhidas na floresta virgem. Rito de purificação ocular que promove relaxamento dos músculos ciliares, clareza perceptual e leveza para os pensamentos.
+                    Extração aquosa pura das raízes de <em>Tabernaemontana sananho</em> e <em>T. undulata</em> colhidas na floresta virgem. Preparado tradicional aplicado nos olhos dentro do rito, sob orientação do dirigente da casa credenciada.
                   </p>
                 </div>
                 <Link href="/estudos" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold pt-3 border-t border-ambar-500/15">
@@ -725,7 +725,7 @@ export function ManifestoLanding() {
                     Instrumentos dos Povos da Terra
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Kuripes, Tepís, Maracás e Flautas esculpidos manualmente pelos artesãos e famílias indígenas tradicionais (os Txais). Comércio justo que apoia a economia dos territórios e materializa a cosmologia da floresta na liturgia.
+                    Kuripes, Tepís, Maracás e Flautas esculpidos manualmente pelos artesãos e famílias indígenas tradicionais (os Txais). Partilha justa que apoia os territórios e materializa a cosmologia da floresta na liturgia.
                   </p>
                 </div>
                 <span className="text-[11px] font-mono text-ambar-400/80 pt-3 border-t border-ambar-500/15">
@@ -746,7 +746,7 @@ export function ManifestoLanding() {
                     Expressão Musical Acústica & Frequência 432Hz
                   </h3>
                   <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                    A música e a arte sonora são extensões diretas do nosso trabalho de florescimento (Munay Sounds / Família Ancestral). Produções estritamente acústicas e orgânicas, sem auto-tune artificial, afinadas na frequência de 432Hz — harmônico associado à ressonância celular e aos ritmos da natureza.
+                    A música e a arte sonora são extensões diretas do nosso trabalho de florescimento (Munay Sounds / Família Ancestral). Produções estritamente acústicas e orgânicas, sem auto-tune artificial, afinadas na frequência de 432Hz, associada pela tradição aos ritmos da natureza.
                   </p>
                 </div>
                 <span className="text-[11px] font-mono text-ambar-400/80 pt-3 border-t border-ambar-500/15">
@@ -806,7 +806,7 @@ export function ManifestoLanding() {
 
                 <div className="space-y-4 text-sm text-areia-300 leading-relaxed font-light">
                   <p>
-                    A Cooperativa Nativaram converte o superávit operacional e fitoquímico de suas atividades em suporte humano direto através dos <strong className="text-areia-100 font-semibold">&ldquo;Projetos de Luz&rdquo;</strong>. Nossas ações incluem a regeneração da agrofloresta no Acre, o apoio às comunidades da floresta e a partilha solidária de sacramentos com casas pequenas e templos credenciados que não conseguiriam arcar sozinhos com o rateio logístico.
+                    A Cooperativa Nativaram destina as sobras do rateio, por deliberação de assembleia, ao Fundo Social (FATES), nos termos da Lei 5.764/71, e as converte em suporte humano direto através dos <strong className="text-areia-100 font-semibold">&ldquo;Projetos de Luz&rdquo;</strong>. Nossas ações incluem a regeneração da agrofloresta no Acre, o apoio às comunidades da floresta e a partilha solidária de sacramentos com casas pequenas e templos credenciados que não conseguiriam arcar sozinhos com o rateio logístico.
                   </p>
                   <p>
                     Toda partilha segue o mesmo credenciamento exigido dos demais templos: os sacramentos chegam apenas a instituições religiosas homologadas, para uso exclusivo em seus ritos, nunca fora do contexto litúrgico.
@@ -849,7 +849,7 @@ export function ManifestoLanding() {
       <SectionDivider variant="solar" />
 
       {/* ═══════════════════════════════════════════
-          CAPÍTULO VII: GOVERNANÇA, CONAD 01/2010 & MARCO ANVISA 2025
+          CAPÍTULO VII: GOVERNANÇA E CONAD 01/2010
           ═══════════════════════════════════════════ */}
       <section className="py-section-lg lg:py-section-xl bg-floresta-950">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
@@ -912,16 +912,16 @@ export function ManifestoLanding() {
                 <div className="space-y-3">
                   <div className="flex items-center gap-2 text-xs font-mono font-bold text-ambar-400 uppercase">
                     <FileText className="h-4 w-4" />
-                    <span>ANVISA Jan/2025</span>
+                    <span>Regra da Cooperativa</span>
                   </div>
                   <h3 className="font-serif text-base font-bold text-areia-100">
                     Conformidade Digital Absoluta
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Proibição de comercialização eletrônica e anúncios de microdoses ou derivados na web. A Nativaram cumpre 100% da resolução sanitária, operando apenas por credenciamento institucional restrito.
+                    A Nativaram não anuncia nem partilha sacramentos pela internet e não oferece microdoses nem derivados comerciais. A partilha ocorre apenas por credenciamento institucional restrito.
                   </p>
                 </div>
-                <span className="text-[10px] font-mono text-areia-400">D.O.U. 28 de Janeiro de 2025</span>
+                <span className="text-[10px] font-mono text-areia-400">Estatuto e Manual de Compliance</span>
               </div>
             </AnimateOnScroll>
           </div>
@@ -931,11 +931,11 @@ export function ManifestoLanding() {
             <div className="flex items-center gap-3">
               <Info className="h-5 w-5 text-ambar-400" />
               <h4 className="font-serif text-base sm:text-lg font-bold text-areia-100">
-                Protocolo Integrativo de Triagem e Anamnese dos Templos
+                Triagem de Segurança nas Casas Credenciadas
               </h4>
             </div>
             <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-              A distribuição responsável de sacramentos apoia-se na mitigação absoluta de riscos fisiológicos: prevenção rigorosa da <strong className="text-areia-100">Síndrome Serotoninérgica</strong> (washout clínico monitorado de no mínimo 5 semanas para medicamentos antidepressivos ISRS/IMAO), contraindicação absoluta para portadores de transtornos psicóticos primários (Esquizofrenia e Transtorno Bipolar Tipo I) e monitoramento de cardiopatias graves.
+              Quem usa medicamentos de uso contínuo deve informar o dirigente e passar por triagem antes de qualquer cerimônia; a casa credenciada tem protocolo de segurança próprio.
             </p>
             <div className="pt-2">
               <Link href="/compliance" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:underline font-mono">
@@ -1007,7 +1007,7 @@ export function ManifestoLanding() {
                   Formalização Cooperativa & Projetos Agroflorestais
                 </h4>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Institucionalização da Cooperativa Nativaram, registro no SisGen e início da estruturação da Ecovila e manejo regenerativo em Cruzeiro do Sul (Acre).
+                  Institucionalização da Cooperativa Nativaram e início da estruturação da Ecovila e manejo regenerativo em Cruzeiro do Sul (Acre).
                 </p>
               </div>
             </div>
@@ -1018,10 +1018,10 @@ export function ManifestoLanding() {
               <div className="space-y-1.5">
                 <span className="text-xs font-mono font-bold text-ambar-400">2025</span>
                 <h4 className="font-serif text-base font-bold text-areia-100">
-                  Marco ANVISA 2025 & Homologação de Compliance
+                  Homologação do Manual de Compliance
                 </h4>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Homologação unificada do Manual de Compliance, blindagem contra o comércio online irregular e formalização dos protocolos de anamnese e redução de danos.
+                  Homologação unificada do Manual de Compliance, blindagem contra o comércio online irregular e formalização dos protocolos de triagem e segurança das casas credenciadas.
                 </p>
               </div>
             </div>

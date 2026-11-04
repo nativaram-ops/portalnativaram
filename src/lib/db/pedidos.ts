@@ -10,6 +10,7 @@ import {
 import {
   getDirectSupabaseClient,
   withTimeout,
+  gravarNoSupabase,
   createHybridJsonStore,
 } from "./core-hybrid-store";
 
@@ -323,7 +324,10 @@ export function formatarMensagemWhatsApp(pedido: PedidoLiturgico): string {
   const itensFormatados = pedido.itens
     .map(
       (item) =>
-        `• *${item.nome}* (${item.codigoOuSubtitulo || item.tipo})\n  Quantidade: ${item.quantidade} ${item.unidade} | Rateio est.: R$ ${item.rateioTotalEstimado.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
+        `• *${item.nome}* (${item.codigoOuSubtitulo || item.tipo})\n  Quantidade: ${item.quantidade} ${item.unidade}` +
+        (item.rateioTotalEstimado > 0
+          ? ` | Rateio est.: R$ ${item.rateioTotalEstimado.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
+          : "")
     )
     .join("\n");
 
@@ -343,7 +347,9 @@ export function formatarMensagemWhatsApp(pedido: PedidoLiturgico): string {
     `🌿 *SACRAMENTOS & ALQUIMIAS SOLICITADAS:*`,
     itensFormatados,
     ``,
-    `💰 *Rateio Cooperativo Estimado:* R$ ${pedido.rateioTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`,
+    pedido.rateioTotal > 0
+      ? `💰 *Rateio Cooperativo Estimado:* R$ ${pedido.rateioTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
+      : `💰 *Rateio Cooperativo:* a definir pelo Conselho após análise da solicitação`,
     `⏳ *Data Prevista da Cerimônia:* ${pedido.dataCerimoniaPretendida}`,
     ``,
     `✨ *INTENÇÃO LITÚRGICA & OBSERVAÇÕES:*`,
@@ -567,14 +573,10 @@ export async function criarPedido(input: NovoPedidoInput): Promise<PedidoLiturgi
   // 1. Tentar salvar no Supabase se configurado
   const supabase = getDirectSupabaseClient();
   if (supabase) {
-    try {
-      await withTimeout(
-        supabase.from("pedidos_liturgicos").insert(mapPedidoToRow(novoPedido)),
-        2000
-      );
-    } catch (e) {
-      console.warn("Falha ao salvar no Supabase, mantendo persistência local:", e);
-    }
+    await gravarNoSupabase(
+      supabase.from("pedidos_liturgicos").insert(mapPedidoToRow(novoPedido)),
+      "gravar em pedidos_liturgicos"
+    );
   }
 
   // 2. Sempre salvar no backup local atômico

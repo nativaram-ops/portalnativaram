@@ -28,14 +28,18 @@ import {
   TABELA_EVOLUTIVA_RATEIO,
   CONDICOES_RATEIO_COOPERATIVO,
   obterCotaRateio,
+  VALORES_APOIO_LITURGICO,
 } from "@/data/graduacoes";
 
 interface PortalCalculadoraLiturgicaProps {
   onIrParaSolicitacao: () => void;
+  /** Grupo sem CNPJ: dimensiona volumes, sem exibir valores (o Conselho analisa cada solicitação). */
+  ocultarValores?: boolean;
 }
 
 export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProps> = ({
   onIrParaSolicitacao,
+  ocultarValores = false,
 }) => {
   const [modoAba, setModoAba] = useState<"CERIMONIA" | "RECONSTITUICAO" | "TABELA_EVOLUTIVA">("CERIMONIA");
 
@@ -83,13 +87,11 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
 
   // Rateio Cooperativo do Modo Cerimônia
   const cotaAyahuasca = obterCotaRateio(graduacao.id, litrosRecomendados);
-  const rateioRape = incluirRape ? frascosRapeSugeridos * 65 : 0;
-  const rateioSananga = incluirSananga ? frascosSanangaSugeridos * 80 : 0;
+  const rateioRape = incluirRape ? frascosRapeSugeridos * VALORES_APOIO_LITURGICO.rapeFrasco25g : 0;
+  const rateioSananga = incluirSananga ? frascosSanangaSugeridos * VALORES_APOIO_LITURGICO.sanangaFrasco : 0;
   // Acima de 20 L o total é definido pelo Conselho (valorTotal null): não há soma a exibir.
   const rateioTotalCerimonia =
     cotaAyahuasca.valorTotal === null ? null : cotaAyahuasca.valorTotal + rateioRape + rateioSananga;
-  const rateioPorParticipante =
-    rateioTotalCerimonia !== null && numParticipantes > 0 ? rateioTotalCerimonia / numParticipantes : null;
 
   // Cálculos do Modo Reconstituição 10:1
   const dadosReconst = (() => {
@@ -147,14 +149,16 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
             </span>
           </div>
           <p className="text-xs text-areia-300 font-light max-w-2xl leading-relaxed">
-            Planeje o dimensionamento e rateio da cerimônia por comungantes, calcule a diluição matemática do 10:1 Wirapuru ou consulte a tabela evolutiva de cotas por volume.
+            Planeje o volume da cerimônia por comungantes, calcule a diluição matemática do 10:1 Wirapuru ou consulte a tabela evolutiva de cotas por volume.
           </p>
         </div>
 
         {/* Alternador de 3 Abas */}
         <div className="flex items-center p-1 rounded-xl bg-floresta-900 border border-ambar-500/20 flex-wrap gap-1">
           <button
+            type="button"
             onClick={() => setModoAba("CERIMONIA")}
+            aria-pressed={modoAba === "CERIMONIA"}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               modoAba === "CERIMONIA"
                 ? "bg-ambar-500 text-floresta-950 font-bold shadow"
@@ -164,7 +168,9 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
             Dimensionar Cerimônia
           </button>
           <button
+            type="button"
             onClick={() => setModoAba("RECONSTITUICAO")}
+            aria-pressed={modoAba === "RECONSTITUICAO"}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               modoAba === "RECONSTITUICAO"
                 ? "bg-ambar-500 text-floresta-950 font-bold shadow"
@@ -173,8 +179,11 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           >
             Reconstituição 10:1
           </button>
+          {!ocultarValores && (
           <button
+            type="button"
             onClick={() => setModoAba("TABELA_EVOLUTIVA")}
+            aria-pressed={modoAba === "TABELA_EVOLUTIVA"}
             className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
               modoAba === "TABELA_EVOLUTIVA"
                 ? "bg-ambar-500 text-floresta-950 font-bold shadow"
@@ -183,6 +192,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
           >
             Tabela de Cotas
           </button>
+          )}
         </div>
       </div>
 
@@ -194,7 +204,10 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
             {/* Número de Participantes */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2">
+                <label
+                  htmlFor="calc-slider-participantes"
+                  className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2"
+                >
                   <Users className="h-4 w-4 text-ambar-400" />
                   <span>Número Esperado de Participantes</span>
                 </label>
@@ -210,6 +223,8 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     key={qtd}
                     type="button"
                     onClick={() => setNumParticipantes(qtd)}
+                    aria-pressed={numParticipantes === qtd}
+                    aria-label={`${qtd} participantes`}
                     className={`py-1.5 px-1 rounded-lg text-[11px] sm:text-xs font-semibold text-center transition-all ${
                       numParticipantes === qtd
                         ? "bg-ambar-500 text-floresta-950 font-bold"
@@ -223,7 +238,9 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
 
               {/* Slider interativo */}
               <input
+                id="calc-slider-participantes"
                 type="range"
+                aria-valuetext={`${numParticipantes} participantes`}
                 min={5}
                 max={150}
                 step={1}
@@ -235,11 +252,18 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
 
             {/* Seleção de Graduação */}
             <div className="space-y-2">
-              <label className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2">
+              <label
+                id="calc-rotulo-graduacao"
+                className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2"
+              >
                 <FlaskConical className="h-4 w-4 text-ambar-400" />
                 <span>Graduação Litúrgica Adotada</span>
               </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div
+                role="group"
+                aria-labelledby="calc-rotulo-graduacao"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-2"
+              >
                 {GRADUACOES_SACRAMENTAIS.slice(0, 4).map((g) => {
                   const cotaRef = obterCotaRateio(g.id, litrosRecomendados);
                   return (
@@ -247,6 +271,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                       key={g.id}
                       type="button"
                       onClick={() => setGraduacaoId(g.id)}
+                      aria-pressed={graduacaoId === g.id}
                       className={`p-3 rounded-xl text-left transition-all border ${
                         graduacaoId === g.id
                           ? "bg-floresta-900 border-ambar-500 text-areia-100 shadow-solar"
@@ -257,12 +282,14 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                         <span className="text-[10px] font-mono font-bold text-ambar-400">
                           Graduação {g.codigo}
                         </span>
-                        <span className="text-[10px] font-mono text-emerald-400 font-bold">
-                          R$ {cotaRef.valorUnitario}/L
-                        </span>
+                        {!ocultarValores && (
+                          <span className="text-[10px] font-mono text-emerald-400 font-bold">
+                            R$ {cotaRef.valorUnitario}/L
+                          </span>
+                        )}
                       </div>
                       <div className="font-serif text-xs font-bold mt-0.5">{g.nomeSagrado}</div>
-                      <div className="text-[10px] text-areia-400 font-light mt-0.5">Dose: {g.porcaoSugerida}</div>
+                      <div className="text-[10px] text-areia-400 font-light mt-0.5">Porção: {g.porcaoSugerida}</div>
                     </button>
                   );
                 })}
@@ -291,7 +318,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                   className="rounded accent-ambar-500 h-4 w-4"
                 />
                 <span>
-                  <strong>Dimensionar Rapé Sagrado:</strong> estimativa média de 1,5g por participante (R$ 65/frasco 25g).
+                  <strong>Dimensionar Rapé Sagrado:</strong> estimativa média de 1,5g por participante{ocultarValores ? "." : ` (R$ ${VALORES_APOIO_LITURGICO.rapeFrasco25g}/frasco 25g).`}
                 </span>
               </label>
 
@@ -303,7 +330,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                   className="rounded accent-ambar-500 h-4 w-4"
                 />
                 <span>
-                  <strong>Dimensionar Sananga Ancestral:</strong> abertura sensorial refrigerada a 4°C (R$ 80/frasco 10ml).
+                  <strong>Dimensionar Sananga Ancestral:</strong> abertura sensorial refrigerada a 4°C{ocultarValores ? "." : ` (R$ ${VALORES_APOIO_LITURGICO.sanangaFrasco}/frasco 10ml).`}
                 </span>
               </label>
             </div>
@@ -330,11 +357,12 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                   {litrosRecomendados} Litros
                 </div>
                 <p className="text-[10px] text-areia-400 font-light">
-                  Graduação {graduacao.codigo} {graduacao.nomeSagrado} • {comRepasse ? "Com repasse" : "Dose única"} (+15% margem)
+                  Graduação {graduacao.codigo} {graduacao.nomeSagrado} • {comRepasse ? "Com repasse" : "Porção única"} (+15% margem)
                 </p>
               </div>
 
-              {/* CARD DE RATEIO COOPERATIVO INTEGRADO */}
+              {/* CARD DE RATEIO COOPERATIVO INTEGRADO (oculto para grupo sem CNPJ) */}
+              {!ocultarValores && (
               <div className="p-3.5 rounded-xl bg-floresta-950/90 border border-ambar-500/25 space-y-2.5">
                 <div className="flex items-center justify-between">
                   <span className="text-[10px] font-mono text-ambar-400 uppercase font-bold flex items-center gap-1.5">
@@ -358,21 +386,13 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     </span>
                   </div>
 
-                  {rateioPorParticipante !== null && (
-                    <div className="text-right">
-                      <span className="text-base font-bold text-amber-300 font-mono">
-                        ~R$ {rateioPorParticipante.toFixed(2)}
-                      </span>
-                      <span className="text-[10px] text-areia-400 block">por participante</span>
-                    </div>
-                  )}
                 </div>
 
-                {cotaAyahuasca.economiaTotal > 0 && (
+                {cotaAyahuasca.custoFixoDiluidoTotal > 0 && (
                   <div className="text-[10px] text-emerald-400 flex items-center gap-1 pt-1.5 border-t border-ambar-500/10">
                     <TrendingDown className="h-3 w-3" />
                     <span>
-                      Economia por escala solidária: <strong>R$ {cotaAyahuasca.economiaTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</strong> no lote de Ayahuasca.
+                      Custo fixo de feitio e frete diluído no lote: <strong>R$ {cotaAyahuasca.custoFixoDiluidoTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</strong>.
                     </span>
                   </div>
                 )}
@@ -384,6 +404,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                   </div>
                 )}
               </div>
+              )}
 
               {/* Sacramentos de Apoio */}
               <div className="grid grid-cols-2 gap-2.5 text-xs">
@@ -432,12 +453,15 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
             {/* Volume de 10:1 que o dirigente possui */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2">
+                <label
+                  htmlFor="calc-slider-litros-10"
+                  className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2"
+                >
                   <FlaskConical className="h-4 w-4 text-amber-400" />
                   <span>Volume de 10:1 Wirapuru Disponível</span>
                 </label>
                 <span className="text-xs font-mono font-bold text-ambar-400 bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/20">
-                  {litros10Base} Litro{litros10Base > 1 ? "s" : ""} (Cota: R$ {cotaWirapuru10.valorUnitario}/L)
+                  {litros10Base} Litro{litros10Base > 1 ? "s" : ""}{ocultarValores ? "" : ` (Cota: R$ ${cotaWirapuru10.valorUnitario}/L)`}
                 </span>
               </div>
 
@@ -448,6 +472,8 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     key={litros}
                     type="button"
                     onClick={() => setLitros10Base(litros)}
+                    aria-pressed={litros10Base === litros}
+                    aria-label={`${litros} ${litros > 1 ? "litros" : "litro"}`}
                     className={`flex-1 py-1.5 rounded-lg text-xs font-semibold transition-all ${
                       litros10Base === litros
                         ? "bg-ambar-500 text-floresta-950 font-bold"
@@ -460,7 +486,9 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
               </div>
 
               <input
+                id="calc-slider-litros-10"
                 type="range"
+                aria-valuetext={`${litros10Base.toLocaleString("pt-BR")} ${litros10Base > 1 ? "litros" : "litro"}`}
                 min={0.5}
                 max={20}
                 step={0.5}
@@ -478,11 +506,14 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
 
             {/* Graduação Alvo Desejada */}
             <div className="space-y-2">
-              <label className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2">
+              <label
+                id="calc-rotulo-alvo"
+                className="text-xs font-serif font-bold text-areia-100 flex items-center gap-2"
+              >
                 <Droplets className="h-4 w-4 text-amber-400" />
                 <span>Graduação Alvo que Deseja Obter</span>
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div role="group" aria-labelledby="calc-rotulo-alvo" className="grid grid-cols-3 gap-2">
                 {[
                   {
                     id: "7.1" as const,
@@ -507,6 +538,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                     key={item.id}
                     type="button"
                     onClick={() => setAlvoReconst(item.id)}
+                    aria-pressed={alvoReconst === item.id}
                     className={`p-3 rounded-xl text-left transition-all border ${
                       alvoReconst === item.id
                         ? "bg-floresta-900 border-ambar-500 text-areia-100 shadow-solar"
@@ -596,24 +628,25 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 </div>
               </div>
 
-              {/* CARD DE ECONOMIA EFETIVA POR RECONSTITUIÇÃO */}
+              {/* CARD DE RATEIO DA RECONSTITUIÇÃO (oculto para grupo sem CNPJ) */}
+              {!ocultarValores && (
               <div className="p-3.5 rounded-xl bg-floresta-950/80 border border-emerald-500/30 space-y-2 text-xs">
                 <div className="flex items-center justify-between text-emerald-400 font-bold font-mono text-[10px] uppercase">
                   <span className="flex items-center gap-1">
-                    <TrendingDown className="h-3.5 w-3.5" /> Economia Efetiva por Reconstituição
+                    <TrendingDown className="h-3.5 w-3.5" /> Rateio do Lote Reconstituído
                   </span>
                   <span>R$ {custoPorCalice.toFixed(2)}/cálice</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2 text-areia-200">
                   <div className="p-2 rounded-lg bg-floresta-900/60 border border-ambar-500/10">
-                    <span className="text-[9px] text-areia-400 block">Custo Efetivo Final</span>
+                    <span className="text-[9px] text-areia-400 block">Rateio Efetivo por Litro</span>
                     <span className="font-bold text-emerald-300 text-sm">
                       R$ {custoEfetivoPorLitroReconst.toFixed(2)} / L
                     </span>
                   </div>
                   <div className="p-2 rounded-lg bg-floresta-900/60 border border-ambar-500/10">
-                    <span className="text-[9px] text-areia-400 block">Poupança por Litro</span>
+                    <span className="text-[9px] text-areia-400 block">Diferença frente ao lote pronto</span>
                     <span className="font-bold text-amber-300 text-sm">
                       + R$ {economiaPorLitroReconst.toFixed(2)} / L
                     </span>
@@ -621,9 +654,10 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 </div>
 
                 <p className="text-[10px] text-areia-400 font-light leading-relaxed">
-                  Ao transportar 10:1 hiperosmótico e reconstituir no templo com água estéril morna, sua congregação economiza até 70% em frete aéreo e barateia a cota final de forma substancial.
+                  Transportar o 10:1 e reconstituir no templo com água estéril morna reduz o volume despachado. O custo de frete e de feitio por litro fica menor, e o rateio repassa esse custo sem margem.
                 </p>
               </div>
+              )}
             </div>
 
             <button
@@ -638,7 +672,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
       )}
 
       {/* ABA 3: TABELA EVOLUTIVA COMPLETA INTEGRADA */}
-      {modoAba === "TABELA_EVOLUTIVA" && (
+      {modoAba === "TABELA_EVOLUTIVA" && !ocultarValores && (
         <div className="space-y-5 animate-fade-in">
           <div className="p-6 rounded-2xl bg-floresta-950/90 border border-ambar-500/30 space-y-4 shadow-elevated-md">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b border-ambar-500/20 pb-3">
@@ -651,7 +685,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                 </h4>
               </div>
               <span className="text-xs font-mono text-emerald-300 bg-emerald-950/60 border border-emerald-500/30 px-3 py-1 rounded-full">
-                À Vista • Cartão c/ Repasse de Taxa
+                Rateio de custos, sem margem
               </span>
             </div>
 
@@ -698,7 +732,7 @@ export const PortalCalculadoraLiturgica: React.FC<PortalCalculadoraLiturgicaProp
                       <td className="py-3.5 pr-3 font-bold text-emerald-400">
                         R$ {item.valor10a20L.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
                         <span className="text-[10px] text-emerald-400/90 font-normal block font-sans">
-                          Economia: R$ {item.economiaPorUnidade},00
+                          Custo fixo diluído: R$ {item.custoFixoDiluidoPorUnidade},00
                         </span>
                       </td>
 

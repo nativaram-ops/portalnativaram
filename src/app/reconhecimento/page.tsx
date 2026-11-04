@@ -222,7 +222,7 @@ export default function ReconhecimentoPage() {
             <span>Marco Legal &amp; Compromisso Deontológico</span>
           </div>
           <p className="text-[11px] text-areia-400 leading-relaxed font-light">
-            A Cooperativa Etnobotânica Nativaram não pratica comércio nem disponibiliza preparados botânicos tradicionais fora de ritos e liturgias sagradas. As partilhas cooperativas destinam-se exclusivamente ao amparo litúrgico de congregações, núcleos e círculos de oração que professam o uso religioso amparado na Resolução CONAD nº 01/2010 e na Lei Federal nº 5.764/1971.
+            A Cooperativa Etnobotânica Nativaram não pratica comércio nem disponibiliza preparados botânicos tradicionais fora de ritos e liturgias sagradas. As partilhas cooperativas destinam-se exclusivamente ao amparo litúrgico de congregações, núcleos e círculos de oração que professam o uso religioso. A Resolução CONAD nº 01/2010 ampara o uso religioso da ayahuasca; o rapé e os demais artefatos são partilhados apenas como parte da tradição das casas credenciadas, com composição informada e aviso de nicotina. A cooperativa se organiza nos termos da Lei Federal nº 5.764/1971.
           </p>
         </div>
       </section>

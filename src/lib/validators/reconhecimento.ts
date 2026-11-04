@@ -125,6 +125,14 @@ export const ReconhecimentoSchema = z.object({
         "O responsável deve zelar pela triagem de segurança dos participantes (atenção a interações e ambiente protegido).",
     }),
   }),
+
+  // 5. Consentimento destacado para dado sensível (LGPD, art. 11, I)
+  consentimentoLinhagem: z.literal(true, {
+    errorMap: () => ({
+      message:
+        "Para analisar o reconhecimento, precisamos do seu consentimento para tratar a informação sobre a linhagem espiritual.",
+    }),
+  }),
 });
 
 export type ReconhecimentoInput = z.infer<typeof ReconhecimentoSchema>;

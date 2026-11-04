@@ -402,6 +402,7 @@ async function runAllTests() {
       concordaUsoLiturgico: true,
       planejamentoAntecedencia30Dias: true,
       compromissoTriagemSeguranca: true,
+      consentimentoLinhagem: true,
     };
     const result = ReconhecimentoSchema.safeParse(payloadValido);
     assert.ok(result.success, "Payload válido deve ser aceito sem exigência de CNPJ");
@@ -854,6 +855,154 @@ async function runAllTests() {
     );
   });
 
+  await test("Pedidos: servidor recalcula o rateio oficial; grupo sem CNPJ não recebe valores; item fora do catálogo é recusado", async () => {
+    const { POST } = await importarRota("src/app/api/pedidos/route.ts");
+    const { createSessionToken, SESSION_COOKIE_NAME } = await import("../src/lib/auth/session.ts");
+    const { excluirPedido } = await import("../src/lib/db/pedidos.ts");
+    const cookie = (codigo, tipo) =>
+      `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo, tipo })}`;
+    const corpo = (itens) =>
+      JSON.stringify({
+        temploId: "QUALQUER",
+        temploNome: "Templo de Teste",
+        cidade: "Rio Branco",
+        estado: "AC",
+        dirigenteNome: "Dirigente Teste",
+        dirigenteTelefone: "68999990000",
+        dirigenteEmail: "teste@exemplo.org",
+        cnpj: "00000000000000",
+        itens,
+        dataCerimoniaPretendida: "2026-12-20",
+        mensagemIntencao: "Teste automatizado",
+      });
+    const item = (id, tipo, quantidade, rateio) => ({
+      id,
+      tipo,
+      nome: id,
+      codigoOuSubtitulo: "",
+      quantidade,
+      unidade: tipo === "RAPE_SAGRADO" ? "Frascos (25g)" : "Litros",
+      rateioUnitarioEstimado: rateio,
+    });
+    const enviar = (body, ck) =>
+      POST(
+        new Request("http://localhost/api/pedidos", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", cookie: ck },
+          body,
+        })
+      );
+
+    const criados = [];
+    try {
+      // Valor manipulado pelo navegador é ignorado
+      const res = await enviar(
+        corpo([item("5.1_PITUA", "GRADUACAO_AYAHUASCA", 7, 1), item("TSUNU", "RAPE_SAGRADO", 2, 0)]),
+        cookie("NAT-TEMPLO-TESTA", "INSTITUICAO_FORMAL")
+      );
+      assert.strictEqual(res.status, 201);
+      const pedido = (await res.json()).pedido;
+      criados.push(pedido.id);
+      assert.strictEqual(pedido.itens[0].rateioUnitarioEstimado, 260, "Pituã 7 L = valor oficial da faixa 5–10 L");
+      assert.strictEqual(pedido.itens[1].rateioUnitarioEstimado, 65, "Rapé = valor oficial de apoio");
+      assert.strictEqual(pedido.rateioTotal, 7 * 260 + 2 * 65);
+
+      // Grupo sem CNPJ: solicitação vai para análise, sem valores
+      const resGrupo = await enviar(
+        corpo([item("5.1_PITUA", "GRADUACAO_AYAHUASCA", 7, 260)]),
+        cookie("NAT-GRP-TESTB", "GRUPO_INFORMAL")
+      );
+      assert.strictEqual(resGrupo.status, 201);
+      const jsonGrupo = await resGrupo.json();
+      criados.push(jsonGrupo.pedido.id);
+      assert.strictEqual(jsonGrupo.pedido.rateioTotal, 0, "Grupo sem CNPJ não recebe valores");
+      assert.ok(
+        decodeURIComponent(jsonGrupo.whatsappUrl).includes("a definir pelo Conselho"),
+        "Mensagem ao Conselho indica valores a definir"
+      );
+
+      // Item inexistente
+      const resInvalido = await enviar(
+        corpo([item("INVENTADO", "GRADUACAO_AYAHUASCA", 7, 1)]),
+        cookie("NAT-TEMPLO-TESTA", "INSTITUICAO_FORMAL")
+      );
+      assert.strictEqual(resInvalido.status, 400);
+    } finally {
+      for (const id of criados) await excluirPedido(id);
+    }
+  });
+
+  await test("Exclusão é durável: cadastro inicial excluído não volta; recusa legítima continua visível; inexistente retorna false", async () => {
+    const {
+      obterTodasSolicitacoes,
+      excluirSolicitacao,
+      registrarSolicitacao,
+    } = await import("../src/lib/db/homologacoes.ts");
+    const os = await import("node:os");
+    const caminhos = [
+      path.join(process.cwd(), "data", "solicitacoes_homologacao.json"),
+      path.join(os.tmpdir(), "nativaram_solicitacoes_homologacao.json"),
+    ];
+    const backups = {};
+    for (const c of caminhos) {
+      try { backups[c] = await fs.readFile(c, "utf-8"); } catch { backups[c] = null; }
+    }
+    try {
+      const seed = (await obterTodasSolicitacoes()).find((s) => s.id === "NAT-TEMPLO-913");
+      assert.ok(seed, "Cadastro inicial NAT-TEMPLO-913 deve existir antes do teste");
+
+      assert.strictEqual(await excluirSolicitacao("NAT-TEMPLO-913"), true);
+      const depois = await obterTodasSolicitacoes();
+      assert.ok(!depois.some((s) => s.id === "NAT-TEMPLO-913"), "Cadastro inicial excluído não pode voltar pelos dados iniciais");
+
+      assert.strictEqual(await excluirSolicitacao("NAO-EXISTE-123"), false, "Exclusão de id inexistente retorna false");
+
+      const recusaId = `TEST-RECUSA-${Date.now()}`;
+      await registrarSolicitacao({
+        id: recusaId,
+        tipo: "GRUPO_INFORMAL",
+        nomeEntidade: "Grupo Recusado",
+        nomeResponsavel: "Responsável",
+        telefone: "11900001111",
+        cidade: "SP",
+        estado: "SP",
+        linhagem: "Teste",
+        graduacao: "3.1 Mainumbi",
+        volumeEstimado: "5 Litros",
+        intencao: "Teste de recusa legítima",
+        status: "RECUSADO",
+      });
+      assert.ok(
+        (await obterTodasSolicitacoes()).some((s) => s.id === recusaId),
+        "Recusa do Conselho (sem exclusão) continua no painel"
+      );
+    } finally {
+      for (const c of caminhos) {
+        if (backups[c] === null) await fs.rm(c, { force: true });
+        else await fs.writeFile(c, backups[c], "utf-8");
+      }
+    }
+  });
+
+  await test("Gravação no Supabase com erro falha em produção e só registra fora dela", async () => {
+    const { gravarNoSupabase } = await import("../src/lib/db/core-hybrid-store.ts");
+    const envAnterior = process.env.NODE_ENV;
+    const erroSimulado = Promise.resolve({ error: { message: "permission denied (RLS)" } });
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      process.env.NODE_ENV = "development";
+      await gravarNoSupabase(Promise.resolve({ error: { message: "x" } }), "teste");
+      process.env.NODE_ENV = "production";
+      await assert.rejects(() => gravarNoSupabase(erroSimulado, "teste"), /não confirmada/);
+      await gravarNoSupabase(Promise.resolve({ error: null }), "teste");
+    } finally {
+      console.error = originalError;
+      if (envAnterior === undefined) delete process.env.NODE_ENV;
+      else process.env.NODE_ENV = envAnterior;
+    }
+  });
+
   await test("Cadastro homologado sem chave gerada não aceita chave arbitrária", async () => {
     const { registrarSolicitacao, validarCredenciaisDirigente } = await import("../src/lib/db/homologacoes.ts");
     const testId = `TEST-SEMCHAVE-${Date.now()}`;
@@ -1200,7 +1349,7 @@ async function runAllTests() {
 
   await test("Sitemap público emite /sacramentos e perfis comunitários e omite /portal-dirigente", async () => {
     const sitemapFn = (await import("../src/app/sitemap.ts")).default;
-    const entries = sitemapFn();
+    const entries = await sitemapFn();
     const urls = entries.map((e) => e.url);
 
     assert.ok(urls.some((u) => u.endsWith("/sacramentos")), "Deve incluir /sacramentos canônico");

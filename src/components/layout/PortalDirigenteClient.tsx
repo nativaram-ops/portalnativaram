@@ -163,6 +163,7 @@ export const PortalDirigenteClient: React.FC = () => {
         dataAprovacao: s.dataHomologacao || s.dataEnvio || "2026",
         membros: 15,
         conadAprovado: true,
+        tipo: s.tipo,
       });
 
       const mapa = new Map<string, TemploMock>();
@@ -274,6 +275,9 @@ export const PortalDirigenteClient: React.FC = () => {
         t.id.toUpperCase() === codigoAcesso.trim().toUpperCase() ||
         t.id.toLowerCase().includes(codigoAcesso.trim().toLowerCase())
     ) || templos[0];
+
+  // Grupo sem CNPJ não vê valores: solicita e o Conselho analisa pelo WhatsApp.
+  const ocultarValores = temploAtual?.tipo === "GRUPO_INFORMAL";
 
   const handleAuthenticated = (role: "DIRIGENTE" | "ADMIN", codigo: string) => {
     setUserRole(role);
@@ -594,7 +598,7 @@ export const PortalDirigenteClient: React.FC = () => {
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-2">
-                {grupo.itens.map((item) => {
+                {grupo.itens.filter((item) => !(ocultarValores && item.id === "COOPERATIVISMO")).map((item) => {
                   const isAtiva = dirigenteTab === item.id;
                   return (
                     <button
@@ -674,6 +678,7 @@ export const PortalDirigenteClient: React.FC = () => {
       {dirigenteTab === "NOVA_SOLICITACAO" && (
         <FormSolicitacaoPedido
           templo={temploAtual}
+          ocultarValores={ocultarValores}
           pedidoParaRepetir={pedidoParaRepetir}
           onPedidoCriado={() => {
             setPedidoParaRepetir(null);
@@ -695,6 +700,7 @@ export const PortalDirigenteClient: React.FC = () => {
       {/* 3. CALCULADORA LITÚRGICA */}
       {dirigenteTab === "CALCULADORA" && (
         <PortalCalculadoraLiturgica
+          ocultarValores={ocultarValores}
           onIrParaSolicitacao={() => setDirigenteTab("NOVA_SOLICITACAO")}
         />
       )}
@@ -711,7 +717,7 @@ export const PortalDirigenteClient: React.FC = () => {
 
       {/* 6. CATÁLOGO DESCRITIVO DE GRADUAÇÕES */}
       {dirigenteTab === "GRADUACOES_CATALOGO" && (
-        <PortalCatalogoGraduacoes />
+        <PortalCatalogoGraduacoes ocultarValores={ocultarValores} />
       )}
 
       {/* 7. FAQ COMPLETO DO DIRIGENTE */}
@@ -730,7 +736,7 @@ export const PortalDirigenteClient: React.FC = () => {
       {dirigenteTab === "LAUDOS" && <PortalLaudosCustodia />}
 
       {/* 10. MATRIZ DE COOPERATIVISMO & COTAS */}
-      {dirigenteTab === "COOPERATIVISMO" && (
+      {dirigenteTab === "COOPERATIVISMO" && !ocultarValores && (
         <PortalCooperativismo
           onIrParaCalculadora={() => setDirigenteTab("CALCULADORA")}
           onIrParaSolicitacao={() => setDirigenteTab("NOVA_SOLICITACAO")}

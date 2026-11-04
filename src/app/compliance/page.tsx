@@ -20,11 +20,11 @@ import { JornadaNavTracker, JornadaNextStep } from "@/components/funil";
 export const metadata: Metadata = {
   title: "Marco Legal & Compliance Jurídico CONAD | Cooperativa Nativaram",
   description:
-    "Conformidade com Art. 5º da CF/88, Lei 11.343/06, Resolução CONAD nº 01/2010 e Marco Sanitário ANVISA 2025. Blindagem jurídica e proteção litúrgica da Cooperativa Nativaram.",
+    "Conformidade com Art. 5º da CF/88, Lei 11.343/06 e Resolução CONAD nº 01/2010. Blindagem jurídica e proteção litúrgica da Cooperativa Nativaram.",
   openGraph: {
     title: "Marco Legal & Compliance Jurídico CONAD | Cooperativa Nativaram",
     description:
-      "Conformidade com Art. 5º da CF/88, Lei 11.343/06, Resolução CONAD nº 01/2010 e Marco Regulatório ANVISA 2025.",
+      "Conformidade com Art. 5º da CF/88, Lei 11.343/06 e Resolução CONAD nº 01/2010.",
   },
 };
 
@@ -57,7 +57,7 @@ export default function CompliancePage() {
 
           <AnimateOnScroll delay={300}>
             <p className="text-base sm:text-lg text-areia-300 max-w-2xl mx-auto leading-relaxed font-light">
-              Garantias constitucionais, deontologia sagrada do CONAD e rigorosa conformidade com o marco sanitário da ANVISA de 28 de janeiro de 2025.
+              Garantias constitucionais, deontologia sagrada do CONAD e uma política própria de conformidade digital: nada de venda, anúncio ou derivado comercial na internet.
             </p>
           </AnimateOnScroll>
         </div>
@@ -109,7 +109,14 @@ export default function CompliancePage() {
                     <div>
                       <span className="text-[10px] font-semibold tracking-wider text-ambar-400 uppercase">Deontologia Religiosa</span>
                       <h3 className="font-serif text-xl font-bold text-areia-100">
-                        Resolução CONAD nº 01/2010
+                        <a
+                          href="https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/subcapas-senad/conad/atos-do-conad-1/2010/11___resolucao_n__01_2010___conad.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hover:text-ambar-300 underline decoration-ambar-500/30 underline-offset-4"
+                        >
+                          Resolução CONAD nº 01/2010
+                        </a>
                       </h3>
                     </div>
                   </div>
@@ -133,7 +140,7 @@ export default function CompliancePage() {
       <SectionDivider variant="botanical" />
 
       {/* ═══════════════════════════════════════════
-          MARCO SANITÁRIO ANVISA 2025
+          POLÍTICA DE CONFORMIDADE DIGITAL
           ═══════════════════════════════════════════ */}
       <section className="py-section-lg">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-12">
@@ -146,7 +153,7 @@ export default function CompliancePage() {
                   </div>
                   <div>
                     <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
-                      Marco Regulatório ANVISA (28 de Janeiro de 2025)
+                      Política de Conformidade Digital
                     </h2>
                     <p className="text-xs text-ambar-400 font-medium">
                       Diretrizes sanitárias de blindagem e conformidade digital absoluta
@@ -154,12 +161,12 @@ export default function CompliancePage() {
                   </div>
                 </div>
                 <span className="rounded-full bg-ambar-500/10 border border-ambar-500/30 px-3.5 py-1 text-xs font-semibold text-ambar-300">
-                  Vigente 2025
+                  Regra da Cooperativa
                 </span>
               </div>
 
               <p className="text-sm sm:text-base text-areia-200 leading-relaxed font-light">
-                Em conformidade rigorosa com a resolução sanitária da ANVISA publicada em 2025, a Cooperativa Nativaram adota política inegociável de <strong>Conformidade Digital Absoluta</strong>:
+                O sacramento existe para o rito, não para o comércio. Por isso, a Cooperativa Nativaram adota política inegociável de <strong>Conformidade Digital Absoluta</strong>:
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -183,7 +190,7 @@ export default function CompliancePage() {
                     </h4>
                   </div>
                   <p className="text-xs text-areia-300 leading-relaxed font-light">
-                    Não desenvolvemos nem divulgamos méis aromatizados, microdoses recreativas, florais ou suplementos baseados em Ayahuasca.
+                    Não fazemos derivados comerciais: méis aromatizados, cápsulas, extratos, aditivos, microdoses, florais ou suplementos. As reduções do mesmo preparado tradicional, sem aditivo, feitas para preservação e transporte até templos credenciados, não são derivados.
                   </p>
                 </div>
 

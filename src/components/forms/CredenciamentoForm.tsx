@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -575,7 +576,7 @@ export const CredenciamentoForm = () => {
                         <span className="text-ambar-400/90 font-medium">Porção sugerida:</span> {selectedGraduacao.porcaoSugerida} ({selectedGraduacao.duracaoEstimada})
                       </div>
                       <div>
-                        <span className="text-ambar-400/90 font-medium">Cota de rateio:</span> {selectedGraduacao.rateioAtacado5a10L} (5-10L) • {selectedGraduacao.rateioAtacado10a20L} (10-20L)
+                        <span className="text-ambar-400/90 font-medium">Cota de rateio:</span> {selectedGraduacao.rateioLote5a10L} (5-10L) • {selectedGraduacao.rateioLote10a20L} (10-20L)
                       </div>
                     </div>
                     <div className="pt-1 text-[11px] text-ambar-400/90 italic font-serif">
@@ -674,6 +675,18 @@ export const CredenciamentoForm = () => {
                 {errors.termoSegurancaIntegrativa && (
                   <p className="text-[11px] text-red-400 pl-7">{errors.termoSegurancaIntegrativa.message}</p>
                 )}
+
+                <p className="text-[11px] text-areia-400 leading-relaxed pt-1">
+                  Os dados deste formulário, incluindo o CPF do dirigente, são tratados apenas para a homologação, o contato e a logística, conforme o{" "}
+                  <Link
+                    href="/privacidade"
+                    target="_blank"
+                    className="text-ambar-400 hover:text-ambar-300 underline underline-offset-2"
+                  >
+                    Aviso de Privacidade
+                  </Link>
+                  .
+                </p>
               </div>
             </div>
           </div>

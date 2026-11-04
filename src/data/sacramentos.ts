@@ -160,7 +160,7 @@ export const RAPES_TRADICIONAIS: SacramentoRape[] = [
     pHMedio: "9,70 a 10,05",
     perfilFitoquimico: "Cinzas minerais ricas em potássio e cálcio biodisponíveis combinadas com cumarinas aromáticas naturais.",
     propositoTradicional: "Força vital, proteção áurica e ancoragem telúrica com frescor respiratório.",
-    goldenCopy: "A nobreza perfumada do Cumaru amazônico unida ao tabaco selvagem. Proporciona clareza cognitiva, foco estável e forte ligação com a terra para ritos de proteção e firmeza.",
+    goldenCopy: "A nobreza perfumada do Cumaru amazônico unida ao tabaco selvagem. Consagrado em ritos de proteção e firmeza, em ligação com a terra.",
     elementos: ["Tabaco Orgânico Selvagem", "Sementes e Cinzas de Cumaru", "Breu Preto"],
   },
   {

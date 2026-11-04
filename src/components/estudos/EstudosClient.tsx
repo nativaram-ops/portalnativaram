@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { estudosData, EstudoItem } from "@/data/estudos";
+import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
 
 const ComunidadeBlogMural = dynamic(() =>
   import("./ComunidadeBlogMural").then((m) => m.ComunidadeBlogMural)
@@ -38,6 +39,17 @@ const RESOLUCAO_CONAD_OFICIAL_URL =
 /** Tipo de arquivo exibido no card ("PDF" ou "Texto"), a partir da extensão. */
 const formatoArquivo = (arquivo: string) => (arquivo.endsWith(".md") ? "Texto" : "PDF");
 
+const CHAVE_CADERNOS = "nativaram_notebooklm_links";
+
+/** Só aceita links digitados que usam https:// (bloqueia javascript:, data:, http: etc.). */
+const ehLinkSeguro = (link: unknown): link is string =>
+  typeof link === "string" && /^https:\/\/\S+$/i.test(link.trim());
+
+/** Nome legível do documento aberto no visualizador (título do estudo ou nome do arquivo). */
+const nomeDoDocumento = (caminho: string) =>
+  estudosData.find((e) => `/documentos/${e.pdfArquivo}` === caminho)?.titulo ??
+  (caminho.split("/").pop() || "Documento da biblioteca");
+
 export function EstudosClient() {
   const [visaoAtiva, setVisaoAtiva] = useState<"COMUNIDADE" | "DOSSIES">("COMUNIDADE");
   const [selectedCategory, setSelectedCategory] = useState<string>("todos");
@@ -45,25 +57,39 @@ export function EstudosClient() {
   const [activePdfModal, setActivePdfModal] = useState<string | null>(null);
   const [readingStudy, setReadingStudy] = useState<EstudoItem | null>(null);
 
-  useEffect(() => {
-    if (!activePdfModal && !readingStudy) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setActivePdfModal(null);
-        setReadingStudy(null);
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [activePdfModal, readingStudy]);
-  const [customNotebookUrl, setCustomNotebookUrl] = useState<string>("");
-  const [savedNotebooks, setSavedNotebooks] = useState<string[]>(() => {
-    if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("nativaram_notebooklm_links");
-      return saved ? JSON.parse(saved) : [];
-    }
-    return [];
+  const dialogoPdf = useDialogoAcessivel({
+    aberto: Boolean(activePdfModal),
+    aoFechar: () => setActivePdfModal(null),
   });
+  const dialogoLeitor = useDialogoAcessivel({
+    aberto: Boolean(readingStudy),
+    aoFechar: () => setReadingStudy(null),
+  });
+  const [customNotebookUrl, setCustomNotebookUrl] = useState<string>("");
+  const [savedNotebooks, setSavedNotebooks] = useState<string[]>([]);
+  const [erroCaderno, setErroCaderno] = useState<string>("");
+
+  // Leitura do localStorage só no navegador; valor corrompido não derruba a página.
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(CHAVE_CADERNOS);
+      const lista: unknown = saved ? JSON.parse(saved) : [];
+      if (Array.isArray(lista)) {
+        setSavedNotebooks(Array.from(new Set(lista.filter(ehLinkSeguro).map((l) => l.trim()))));
+      }
+    } catch {
+      // Valor inválido: segue com a lista vazia.
+    }
+  }, []);
+
+  const gravarCadernos = (lista: string[]) => {
+    setSavedNotebooks(lista);
+    try {
+      localStorage.setItem(CHAVE_CADERNOS, JSON.stringify(lista));
+    } catch {
+      // Armazenamento indisponível (modo privado, cota): mantém só nesta visita.
+    }
+  };
 
   const categories = [
     { id: "todos", label: "Todos os Estudos", icon: Layers },
@@ -91,17 +117,19 @@ export function EstudosClient() {
 
   const handleSaveNotebook = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!customNotebookUrl.trim()) return;
-    const updated = [...savedNotebooks, customNotebookUrl.trim()];
-    setSavedNotebooks(updated);
-    localStorage.setItem("nativaram_notebooklm_links", JSON.stringify(updated));
+    const link = customNotebookUrl.trim();
+    if (!link) return;
+    if (!ehLinkSeguro(link)) {
+      setErroCaderno("Use um link completo que comece com https://");
+      return;
+    }
+    setErroCaderno("");
+    if (!savedNotebooks.includes(link)) gravarCadernos([...savedNotebooks, link]);
     setCustomNotebookUrl("");
   };
 
-  const handleRemoveNotebook = (index: number) => {
-    const updated = savedNotebooks.filter((_, i) => i !== index);
-    setSavedNotebooks(updated);
-    localStorage.setItem("nativaram_notebooklm_links", JSON.stringify(updated));
+  const handleRemoveNotebook = (link: string) => {
+    gravarCadernos(savedNotebooks.filter((l) => l !== link));
   };
 
   return (
@@ -404,12 +432,21 @@ export function EstudosClient() {
           </p>
 
           <form onSubmit={handleSaveNotebook} className="flex flex-col sm:flex-row gap-3">
+            <label htmlFor="link-caderno-notebooklm" className="sr-only">
+              Link do caderno no NotebookLM
+            </label>
             <input
+              id="link-caderno-notebooklm"
               type="url"
               value={customNotebookUrl}
-              onChange={(e) => setCustomNotebookUrl(e.target.value)}
+              onChange={(e) => {
+                setCustomNotebookUrl(e.target.value);
+                if (erroCaderno) setErroCaderno("");
+              }}
               placeholder="https://notebooklm.google.com/notebook/..."
-              className="flex-1 rounded-xl border border-ambar-500/30 bg-floresta-900 px-4 py-2.5 text-xs sm:text-sm text-areia-100 placeholder-areia-400/40 focus:border-ambar-400 focus:outline-none"
+              aria-invalid={Boolean(erroCaderno)}
+              aria-describedby={erroCaderno ? "erro-link-caderno" : undefined}
+              className="flex-1 rounded-xl border border-ambar-500/30 bg-floresta-900 px-4 py-2.5 text-xs sm:text-sm text-areia-100 placeholder-areia-400/40 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
             />
             <button
               type="submit"
@@ -418,6 +455,11 @@ export function EstudosClient() {
               Anexar Caderno
             </button>
           </form>
+          {erroCaderno && (
+            <p id="erro-link-caderno" role="alert" className="text-xs text-red-300">
+              {erroCaderno}
+            </p>
+          )}
 
           {savedNotebooks.length > 0 && (
             <div className="pt-2 space-y-2">
@@ -425,9 +467,9 @@ export function EstudosClient() {
                 Seus Cadernos Anexados:
               </span>
               <ul className="space-y-1.5">
-                {savedNotebooks.map((link, idx) => (
+                {savedNotebooks.map((link) => (
                   <li
-                    key={idx}
+                    key={link}
                     className="flex items-center justify-between gap-3 text-xs text-areia-200 bg-floresta-900/60 p-2.5 rounded-lg border border-ambar-500/15"
                   >
                     <a
@@ -440,7 +482,7 @@ export function EstudosClient() {
                       <span className="truncate">{link}</span>
                     </a>
                     <button
-                      onClick={() => handleRemoveNotebook(idx)}
+                      onClick={() => handleRemoveNotebook(link)}
                       className="text-red-400 hover:text-red-300 text-xs px-2 py-0.5 rounded hover:bg-red-950/40"
                     >
                       Remover
@@ -587,8 +629,11 @@ export function EstudosClient() {
           ═══════════════════════════════════════════ */}
       {activePdfModal && (
         <div
+          ref={dialogoPdf.containerRef}
           role="dialog"
           aria-modal="true"
+          aria-labelledby="visualizador-pdf-titulo"
+          tabIndex={-1}
           className="fixed inset-0 z-[120] flex items-center justify-center p-2 sm:p-6 bg-floresta-950/90 backdrop-blur-md animate-fade-in"
         >
           <div className="relative w-full max-w-5xl h-[92vh] flex flex-col rounded-2xl border-2 border-ambar-500/40 bg-floresta-950 shadow-solar overflow-hidden">
@@ -596,9 +641,13 @@ export function EstudosClient() {
             <div className="flex items-center justify-between px-4 sm:px-6 py-3 bg-floresta-900 border-b border-ambar-500/20">
               <div className="flex items-center gap-2 truncate pr-4">
                 <FileText className="h-4 w-4 text-ambar-400 shrink-0" />
-                <span className="font-serif text-xs sm:text-sm font-semibold text-areia-100 truncate">
+                <h2
+                  id="visualizador-pdf-titulo"
+                  className="font-serif text-xs sm:text-sm font-semibold text-areia-100 truncate"
+                >
                   Visualizador de Documentos da Cooperativa Nativaram
-                </span>
+                  <span className="sr-only">: {nomeDoDocumento(activePdfModal)}</span>
+                </h2>
               </div>
               <div className="flex items-center gap-2 shrink-0">
                 <a
@@ -619,6 +668,7 @@ export function EstudosClient() {
                   <span className="hidden sm:inline">Nova Aba</span>
                 </a>
                 <button
+                  ref={dialogoPdf.focoInicialRef}
                   onClick={() => setActivePdfModal(null)}
                   className="p-1 rounded-lg text-areia-400 hover:text-areia-100 hover:bg-floresta-800 transition-colors"
                   aria-label="Fechar visualizador"
@@ -633,12 +683,14 @@ export function EstudosClient() {
               <object
                 data={`${activePdfModal}#toolbar=1&navpanes=0`}
                 type="application/pdf"
+                title={nomeDoDocumento(activePdfModal)}
+                aria-label={nomeDoDocumento(activePdfModal)}
                 className="w-full h-full border-none"
               >
                 <iframe
                   src={`${activePdfModal}#toolbar=1&navpanes=0`}
                   className="w-full h-full border-none"
-                  title="Documento da biblioteca"
+                  title={nomeDoDocumento(activePdfModal)}
                 >
                   <div className="flex flex-col items-center justify-center h-full p-8 text-center space-y-4 text-areia-200">
                     <FileText className="h-12 w-12 text-ambar-400" />
@@ -677,8 +729,11 @@ export function EstudosClient() {
           ═══════════════════════════════════════════ */}
       {readingStudy && (
         <div
+          ref={dialogoLeitor.containerRef}
           role="dialog"
           aria-modal="true"
+          aria-labelledby="leitor-estudo-titulo"
+          tabIndex={-1}
           className="fixed inset-0 z-[120] flex items-center justify-center p-3 sm:p-6 bg-floresta-950/90 backdrop-blur-md animate-fade-in overflow-y-auto"
         >
           <div className="relative w-full max-w-3xl my-auto max-h-[92vh] flex flex-col rounded-3xl border-2 border-ambar-500/40 bg-gradient-to-b from-[#FAF7F0] via-[#F4ECE1] to-[#E9DFCB] text-pedra-900 shadow-[0_25px_70px_rgba(0,0,0,0.8),0_0_40px_rgba(212,163,89,0.35)] overflow-hidden">
@@ -691,6 +746,7 @@ export function EstudosClient() {
                 </span>
               </div>
               <button
+                ref={dialogoLeitor.focoInicialRef}
                 onClick={() => setReadingStudy(null)}
                 className="p-1 rounded-full text-pedra-700 hover:text-pedra-950 hover:bg-amber-600/10 transition-colors"
                 aria-label="Fechar leitor"
@@ -705,7 +761,10 @@ export function EstudosClient() {
                 <span className="text-[10px] font-mono uppercase tracking-widest text-amber-800 bg-amber-600/15 px-2.5 py-0.5 rounded-full">
                   {readingStudy.categoriaLabel} • {readingStudy.ano}
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-bold text-floresta-950">
+                <h3
+                  id="leitor-estudo-titulo"
+                  className="font-serif text-2xl sm:text-3xl font-bold text-floresta-950"
+                >
                   {readingStudy.titulo}
                 </h3>
                 <p className="text-xs sm:text-sm text-amber-900 font-light italic">

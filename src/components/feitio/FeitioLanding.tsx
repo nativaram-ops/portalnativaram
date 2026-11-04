@@ -44,17 +44,17 @@ const faqsFeitio: FaqItem[] = [
   {
     pergunta: "Por que a Nativaram adota o purismo estrito sem plantas aditivas?",
     resposta:
-      "Diferente de algumas vertentes do vegetalismo que incorporam dezenas de plantas aditivas ou análogos botânicos com perfis fitoquímicos instáveis (como a Chaliponga rica em 5-MeO-DMT ou a Arruda Síria), a Nativaram limita a decocção estritamente ao binômio Cipó Jagube/Mariri e Folha Chacrona Rainha. Esse purismo botânico evita a polifarmácia descontrolada, onde metabólitos competem pelas vias enzimáticas hepáticas do citocromo P450 (como CYP2D6 e CYP1A2). O resultado é um sacramento limpo, fisiologicamente seguro, com previsibilidade fitoquímica e suave transição espiritual.",
+      "Diferente de algumas vertentes do vegetalismo que incorporam dezenas de plantas aditivas ou análogos botânicos com perfis fitoquímicos instáveis (como a Chaliponga rica em 5-MeO-DMT ou a Arruda Síria), a Nativaram limita a decocção estritamente ao binômio Cipó Jagube/Mariri e Folha Chacrona Rainha, como no feitio das tradições ayahuasqueiras brasileiras. Plantas aditivas não entram no tacho. O resultado é um sacramento de composição conhecida e constante, fiel ao feitio tradicional.",
   },
   {
     pergunta: "O que são as chamadas 'Anayahuascas' ou análogos e por que a Nativaram as recusa?",
     resposta:
-      "O termo 'Anahuasca', popularizado na década de 1990 pelo etnobotânico Jonathan Ott, designa formulações não tradicionais que tentam reproduzir quimicamente a fórmula [IMAO + DMT] utilizando plantas exóticas ou substâncias de laboratório, como a Arruda Síria (Peganum harmala) e a Jurema Preta (Mimosa hostilis/tenuiflora) ou sais puros (Pharmahuasca). A Nativaram não aceita nem compactua com tais análogos: a Arruda Síria é saturada de Harmalina neurotóxica periférica e desprovida de THH (Tetra-hidroharmina), causando colapsos motores, hipotensão severa e náuseas espásticas; a raiz de Jurema oral possui taninos pirogálicos altamente irritantes para a mucosa estomacal; e, juridicamente, apenas a Ayahuasca tradicional amazônica (Banisteriopsis caapi + Psychotria viridis) é protegida pela Resolução CONAD nº 01/2010 como patrimônio biocultural e litúrgico.",
+      "O termo 'Anahuasca', popularizado na década de 1990 pelo etnobotânico Jonathan Ott, designa formulações não tradicionais que tentam reproduzir quimicamente a fórmula [IMAO + DMT] utilizando plantas exóticas ou substâncias de laboratório, como a Arruda Síria (Peganum harmala) e a Jurema Preta (Mimosa hostilis/tenuiflora) ou sais puros (Pharmahuasca). A Nativaram não aceita nem compactua com tais análogos: eles não pertencem a nenhuma tradição religiosa brasileira e não têm o amparo da Resolução CONAD nº 01/2010, que trata do uso religioso da ayahuasca tradicional amazônica (Banisteriopsis caapi + Psychotria viridis).",
   },
   {
     pergunta: "Quais as diferenças entre o Cipó Tucunacá e as outras variedades e primos botânicos?",
     resposta:
-      "O Cipó Tucunacá (Banisteriopsis caapi var. Tucunaca) é o padrão ouro da Nativaram por seu caule liso e perfil cromatográfico rico em Harmina e THH, com teor residual mínimo de Harmalina, garantindo uma condução lúcida e sem tremores motores. Outras variedades legítimas como o Caupuri (caule nodoso e rosariado) e o Ourinho (casca dourada e nós suaves) carregam nuances telúricas ou de purga física distinta. Primos botânicos da mesma família Malpighiaceae, como Banisteriopsis muricata e Tetrapterys mucronata, possuem longa tradição indígena no Noroeste Amazônico, mas não se confundem com a calibração canônica do Tucunacá acreano.",
+      "O Cipó Tucunacá (Banisteriopsis caapi var. Tucunaca) é o padrão ouro da Nativaram por seu caule liso e perfil cromatográfico rico em Harmina e THH, com teor residual mínimo de Harmalina. Outras variedades legítimas como o Caupuri (caule nodoso e rosariado) e o Ourinho (casca dourada e nós suaves) carregam nuances próprias, reconhecidas pelos feitores da tradição. Primos botânicos da mesma família Malpighiaceae, como Banisteriopsis muricata e Tetrapterys mucronata, possuem longa tradição indígena no Noroeste Amazônico, mas não se confundem com a calibração canônica do Tucunacá acreano.",
   },
   {
     pergunta: "Como ocorrem as variações sazonais de cipó colhido no Acre?",
@@ -454,7 +454,7 @@ export function FeitioLanding() {
               </div>
               <h4 className="font-serif text-base font-bold text-areia-100">Equilíbrio Cipó / Folha</h4>
               <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                A alquimia começa na dosagem precisa entre o Jagube (a força que ancora e inibe de forma reversível a enzima MAO-A) e a Chacrona Rainha (a luz que abre a percepção interior). Tradicionalmente calibrada entre 60/40 e 70/30 em biomassa tratada e pesada, garantindo firmeza sem sobrecarga gástrica.
+                A alquimia começa na proporção recomendada entre o Jagube (a força, na linguagem da tradição) e a Chacrona Rainha (a luz). A porção sugerida de cada planta é calibrada entre 60/40 e 70/30 em biomassa limpa e pesada, segundo o feitio da casa.
               </p>
             </div>
 
@@ -553,7 +553,7 @@ export function FeitioLanding() {
               <h4 className="font-serif text-lg font-bold text-areia-100">Cipó Tucunacá</h4>
               <span className="text-xs text-amber-300/80 font-mono italic">Banisteriopsis caapi var. Tucunaca</span>
               <p className="text-xs text-areia-300 font-light leading-relaxed">
-                Possui caule liso, cilíndrico e espiralado, sem nós pronunciados. Destaca-se pelo perfil fitoquímico canônico: rica abundância de <strong>Harmina</strong> e <strong>Tetra-hidroharmina (THH)</strong> com teor residual mínimo de Harmalina. Proporciona miração lúcida, ancoramento manso e navegação somática limpa, sem tremores motores.
+                Possui caule liso, cilíndrico e espiralado, sem nós pronunciados. Destaca-se pelo perfil fitoquímico canônico: rica abundância de <strong>Harmina</strong> e <strong>Tetra-hidroharmina (THH)</strong> com teor residual mínimo de Harmalina. É a variedade preferida pelos feitores da cooperativa para o feitio tradicional.
               </p>
             </div>
 
@@ -566,7 +566,7 @@ export function FeitioLanding() {
               <h4 className="font-serif text-lg font-bold text-areia-100">Cipó Caupuri</h4>
               <span className="text-xs text-amber-300/80 font-mono italic">Banisteriopsis caapi var. Caupuri</span>
               <p className="text-xs text-areia-300 font-light leading-relaxed">
-                Reconhecido pelos nódulos esféricos e calosidades bulbosas salientes ao longo de toda a liana (formato de rosário). Carrega uma energia física densa e profunda, associada tradicionalmente a limpezas orgânicas vigorosas e maior intensidade somática inicial.
+                Reconhecido pelos nódulos esféricos e calosidades bulbosas salientes ao longo de toda a liana (formato de rosário). Na linguagem das casas, é tido como um cipó de força densa e profunda.
               </p>
             </div>
 
@@ -579,7 +579,7 @@ export function FeitioLanding() {
               <h4 className="font-serif text-lg font-bold text-areia-100">Cipó Ourinho</h4>
               <span className="text-xs text-amber-300/80 font-mono italic">Banisteriopsis caapi var. Ourinho</span>
               <p className="text-xs text-areia-300 font-light leading-relaxed">
-                Liana de casca delgada com tonalidades áureas brilhantes ao corte e nós discretos. Reverenciado por comunidades da floresta pela fineza vibratória, leveza gástrica e por proporcionar uma interiorização límpida, de acolhimento e harmonização sutil.
+                Liana de casca delgada com tonalidades áureas brilhantes ao corte e nós discretos. Reverenciado por comunidades da floresta pela fineza com que é descrito na tradição oral, associado a ritos de acolhimento.
               </p>
             </div>
 
@@ -592,7 +592,7 @@ export function FeitioLanding() {
               <h4 className="font-serif text-lg font-bold text-areia-100">Cipó Preto / Yagé</h4>
               <span className="text-xs text-amber-300/80 font-mono italic">Etnovariedade Florestal</span>
               <p className="text-xs text-areia-300 font-light leading-relaxed">
-                Possui córtex escuro, textura rígida e alta concentração de taninos naturais da mata fechada. Tradicionalmente consagrado em ritos noturnos de reequilíbrio vital profundo e vigília nas tradições do Noroeste Amazônico, gerando estados de imersão densa e introspecção solene.
+                Possui córtex escuro, textura rígida e alta concentração de taninos naturais da mata fechada. Tradicionalmente consagrado em ritos noturnos e vigílias nas tradições do Noroeste Amazônico.
               </p>
             </div>
           </div>
@@ -606,7 +606,7 @@ export function FeitioLanding() {
               </h3>
             </div>
             <p className="text-sm text-areia-300 font-light leading-relaxed">
-              Além das variedades canônicas de <em>Banisteriopsis caapi</em>, a floresta amazônica abriga parentes botânicos que sintetizam beta-carbolinas e desempenham papéis específicos na etnofarmacologia indígena:
+              Além das variedades canônicas de <em>Banisteriopsis caapi</em>, a floresta amazônica abriga parentes botânicos que sintetizam beta-carbolinas e desempenham papéis específicos nas tradições indígenas:
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
               <div className="rounded-xl border border-ambar-500/20 bg-floresta-900/40 p-5 space-y-2">
@@ -710,7 +710,7 @@ export function FeitioLanding() {
                 <h4 className="font-serif text-lg font-bold text-areia-100">Chacrona Rainha</h4>
                 <span className="text-xs text-amber-300/80 font-mono italic">Psychotria viridis (Rubiaceae)</span>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  O arbusto canônico de sub-bosque sombreado da floresta amazônica. Suas folhas tenras armazenam <strong>N,N-DMT natural</strong> puro nos vacúolos celulares. Possui baixíssimo teor de taninos adstringentes e compostos agressivos, permitindo uma decocção límpida, suave ao trato gastrointestinal e de elevação contemplativa pura.
+                  O arbusto canônico de sub-bosque sombreado da floresta amazônica. Suas folhas tenras armazenam <strong>N,N-DMT natural</strong> puro nos vacúolos celulares. Possui baixo teor de taninos adstringentes, o que permite uma decocção límpida, preparada segundo a tradição.
                 </p>
               </div>
               <div className="pt-3 border-t border-ambar-500/15 text-[11px] font-mono text-emerald-400">
@@ -732,7 +732,7 @@ export function FeitioLanding() {
                 </p>
               </div>
               <div className="pt-3 border-t border-ambar-500/15 text-[11px] font-mono text-areia-400">
-                • Etnofarmacologia tradicional de acalento
+                • Uso tradicional ribeirinho
               </div>
             </div>
 
@@ -746,7 +746,7 @@ export function FeitioLanding() {
                 <h4 className="font-serif text-lg font-bold text-areia-100">Chaliponga / Oco-Yagé</h4>
                 <span className="text-xs text-rose-300/80 font-mono italic">Diplopterys cabrerana (Malpighiaceae)</span>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Curiosamente, não é da família do café (Rubiaceae), mas uma liana trepadeira da família do cipó (Malpighiaceae) cujas folhas acumulam triptaminas. Utilizada por etnias da Colômbia e Equador. <strong>Vetada no padrão Nativaram:</strong> seu perfil metabólico diverge da tradição canônica brasileira do binômio Tucunacá + Chacrona, gerando oscilações fisiológicas imprevisíveis.
+                  Curiosamente, não é da família do café (Rubiaceae), mas uma liana trepadeira da família do cipó (Malpighiaceae) cujas folhas acumulam triptaminas. Utilizada por etnias da Colômbia e Equador. <strong>Vetada no padrão Nativaram:</strong> não pertence à tradição brasileira do binômio Tucunacá + Chacrona.
                 </p>
               </div>
               <div className="pt-3 border-t border-rose-500/20 text-[11px] font-mono text-rose-400">
@@ -774,7 +774,7 @@ export function FeitioLanding() {
               <span className="text-gradient-solar">vs. &ldquo;Anayahuascas&rdquo; e Análogos</span>
             </h2>
             <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-              O termo <strong className="text-areia-100 font-medium">&ldquo;Anahuasca&rdquo;</strong> (popularizado pelo etnobotânico Jonathan Ott na década de 1990) designa formulações artificiais ou misturas de plantas não amazônicas que buscam mimetizar quimicamente a fórmula [IMAO + DMT]. Entenda os motivos técnicos, biológicos e legais que tornam a Ayahuasca tradicional insubstituível.
+              O termo <strong className="text-areia-100 font-medium">&ldquo;Anahuasca&rdquo;</strong> (popularizado pelo etnobotânico Jonathan Ott na década de 1990) designa formulações artificiais ou misturas de plantas não amazônicas que buscam mimetizar quimicamente a fórmula [IMAO + DMT]. Entenda os motivos de tradição, feitio e amparo legal que tornam a Ayahuasca tradicional insubstituível.
             </p>
           </AnimateOnScroll>
 
@@ -787,8 +787,8 @@ export function FeitioLanding() {
                   <Scale className="h-5 w-5" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono font-bold text-ambar-400 uppercase">Eixo Farmacológico 1</span>
-                  <h4 className="font-serif text-base font-bold text-areia-100">Tríade Harmala vs. Neurotoxicidade da Harmalina</h4>
+                  <span className="text-[11px] font-mono font-bold text-ambar-400 uppercase">Eixo Botânico 1</span>
+                  <h4 className="font-serif text-base font-bold text-areia-100">Cipó Amazônico vs. Arruda Síria</h4>
                 </div>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
@@ -797,7 +797,7 @@ export function FeitioLanding() {
                     <Check className="h-3.5 w-3.5" /> Ayahuasca Tradicional (Banisteriopsis caapi)
                   </strong>
                   <p>
-                    Rica em <strong>Harmina (9,21 mg/g)</strong> e <strong>Tetra-hidroharmina / THH (4,20 mg/g)</strong>. O THH atua como modulador suave da recaptação de serotonina, promovendo estabilidade emocional, recolhimento pacífico e clareza contemplativa, enquanto a Harmalina permanece em teores residuais seguros (~0,65 mg/g).
+                    O cipó do feitio tradicional contém <strong>Harmina</strong> e <strong>Tetra-hidroharmina (THH)</strong>, com Harmalina em teor residual. Os valores de referência por lote estão em laudo em validação.
                   </p>
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-floresta-950/70 p-4 space-y-1.5">
@@ -805,7 +805,7 @@ export function FeitioLanding() {
                     <X className="h-3.5 w-3.5" /> Anahuasca com Arruda Síria (Peganum harmala)
                   </strong>
                   <p>
-                    Quase desprovida de THH e saturada de <strong>Harmalina</strong> (&gt;50% a 65% dos alcaloides totais). A harmalina pura age como potente tremorígeno periférico sobre os canais iônicos, desencadeando tremores violentos incontroláveis, ataxia motora, sudorese fria, náuseas espásticas e quedas abruptas de pressão arterial.
+                    Planta do Mediterrâneo, do Oriente Médio e da Ásia Central, sem tradição nas casas ayahuasqueiras brasileiras. Tem outro perfil de alcaloides, com predomínio de <strong>Harmalina</strong>. Não faz parte do feitio.
                   </p>
                 </div>
               </div>
@@ -818,8 +818,8 @@ export function FeitioLanding() {
                   <ShieldAlert className="h-5 w-5" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono font-bold text-ambar-400 uppercase">Eixo Fisiológico 2</span>
-                  <h4 className="font-serif text-base font-bold text-areia-100">Digestibilidade Folhear vs. Agressão por Taninos</h4>
+                  <span className="text-[11px] font-mono font-bold text-ambar-400 uppercase">Eixo do Feitio 2</span>
+                  <h4 className="font-serif text-base font-bold text-areia-100">Folha de Chacrona vs. Jurema em Mistura Oral</h4>
                 </div>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
@@ -828,7 +828,7 @@ export function FeitioLanding() {
                     <Check className="h-3.5 w-3.5" /> Folhas de Chacrona (Psychotria viridis)
                   </strong>
                   <p>
-                    A extração é feita exclusivamente a partir de folhas tenras da floresta, que liberam os alcaloides em solução aquosa limpa, sem compostos cáusticos, preservando as vilosidades estomacais e intestinais do participante com excelente tolerância orgânica.
+                    A Chacrona entra no feitio como folha tenra colhida na floresta e cozida junto ao cipó em água pura, como manda a tradição.
                   </p>
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-floresta-950/70 p-4 space-y-1.5">
@@ -836,7 +836,7 @@ export function FeitioLanding() {
                     <X className="h-3.5 w-3.5" /> Jurema Preta Oral (Mimosa hostilis / tenuiflora)
                   </strong>
                   <p>
-                    A casca da raiz da Jurema contém concentrações massivas de <strong>taninos condensados pirogálicos</strong> e saponinas adstringentes. Quando ingerida em misturas orais associada a IMAO, provoca inflamação aguda da mucosa gástrica, vômitos refratários e sobrecarga nos glomérulos renais.
+                    A Jurema tem tradição própria, em outros ritos. Misturada ao cipó em preparos orais, deixa de ser a ayahuasca tradicional e não faz parte do feitio da cooperativa.
                   </p>
                 </div>
               </div>
@@ -849,25 +849,25 @@ export function FeitioLanding() {
                   <FlaskConical className="h-5 w-5" />
                 </div>
                 <div>
-                  <span className="text-[11px] font-mono font-bold text-ambar-400 uppercase">Eixo Bioquímico 3</span>
-                  <h4 className="font-serif text-base font-bold text-areia-100">Cinética Enzimática & Risco Serotoninérgico</h4>
+                  <span className="text-[11px] font-mono font-bold text-ambar-400 uppercase">Eixo de Composição 3</span>
+                  <h4 className="font-serif text-base font-bold text-areia-100">Composição Constante vs. Misturas sem Histórico</h4>
                 </div>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
                 <div className="rounded-xl border border-emerald-500/30 bg-floresta-950/70 p-4 space-y-1.5">
                   <strong className="text-emerald-400 font-mono text-xs flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5" /> Inibição Reversível Canônica (RIMA)
+                    <Check className="h-3.5 w-3.5" /> Binômio Tradicional Amazônico
                   </strong>
                   <p>
-                    O binômio amazônico atua como RIMA (Inibidor Reversível e Seletivo da MAO-A). A ligação é passageira e respeita a metabolização hepática pelas vias do citocromo P450, desvanecendo de forma suave e fisiologicamente segura em poucas horas.
+                    Duas plantas, sempre as mesmas, em proporção acompanhada a cada lote. A composição é informada à casa credenciada, que aplica seu próprio protocolo de segurança.
                   </p>
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-floresta-950/70 p-4 space-y-1.5">
                   <strong className="text-rose-400 font-mono text-xs flex items-center gap-1.5">
-                    <X className="h-3.5 w-3.5" /> Competição Caótica no Citocromo P450
+                    <X className="h-3.5 w-3.5" /> Misturas Exóticas e Sais de Laboratório
                   </strong>
                   <p>
-                    Anahuascas e formulações de Pharmahuasca competem desordenadamente pelas isoenzimas <code>CYP2D6</code> e <code>CYP1A2</code>, elevando de maneira crítica o risco de crises hipertensivas por acúmulo de tiramina e Síndrome Serotoninérgica grave.
+                    Anahuascas e formulações de Pharmahuasca não têm histórico ritual nem composição previsível. A cooperativa não as prepara nem as partilha.
                   </p>
                 </div>
               </div>
@@ -887,10 +887,10 @@ export function FeitioLanding() {
               <div className="space-y-3 text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
                 <div className="rounded-xl border border-emerald-500/30 bg-floresta-950/70 p-4 space-y-1.5">
                   <strong className="text-emerald-400 font-mono text-xs flex items-center gap-1.5">
-                    <Check className="h-3.5 w-3.5" /> Resolução CONAD nº 01/2010 & IPHAN
+                    <Check className="h-3.5 w-3.5" /> Resolução CONAD nº 01/2010
                   </strong>
                   <p>
-                    A salvaguarda legal e constitucional para uso religioso no Brasil ampara estritamente a bebida tradicional amazônica (<em>Banisteriopsis caapi</em> + <em>Psychotria viridis</em>), reconhecida como Patrimônio Cultural Imaterial pelo IPHAN com proteção jurídica às entidades religiosas.
+                    A Resolução CONAD nº 01/2010 trata do uso religioso da ayahuasca, a bebida tradicional amazônica preparada com <em>Banisteriopsis caapi</em> e <em>Psychotria viridis</em>.
                   </p>
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-floresta-950/70 p-4 space-y-1.5">
@@ -898,7 +898,7 @@ export function FeitioLanding() {
                     <X className="h-3.5 w-3.5" /> Ausência de Salvaguarda Legal para Análogos
                   </strong>
                   <p>
-                    Análogos botânicos sintéticos ou exóticos (Arruda Síria, casca de Jurema oral em misturas com IMAO e Pharmahuascas) não possuem histórico ritual nem reconhecimento pelo CONAD, enquadrando-se em manipulação perigosa fora do amparo litúrgico brasileiro.
+                    Análogos botânicos sintéticos ou exóticos (Arruda Síria, casca de Jurema oral em misturas com IMAO e Pharmahuascas) não possuem histórico ritual nem o amparo da Resolução CONAD nº 01/2010.
                   </p>
                 </div>
               </div>
@@ -916,13 +916,13 @@ export function FeitioLanding() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
           <AnimateOnScroll className="text-center max-w-3xl mx-auto space-y-3">
             <span className="text-[11px] font-bold text-ambar-400 uppercase tracking-[0.25em] font-mono">
-              Capítulo VII • Rigor Farmacobotânico
+              Capítulo VII • Rigor Botânico
             </span>
             <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
               Perfil Fitoquímico & Alcaloides Harmala
             </h2>
             <p className="text-sm text-areia-300 font-light">
-              A quantificação laboratorial que diferencia o Tucunacá selecionado e garante a estabilidade somática do sacramento.
+              Os alcaloides presentes no cipó Tucunacá selecionado. Os valores abaixo são referência de lote e aguardam laudo em validação.
             </p>
           </AnimateOnScroll>
 
@@ -934,9 +934,8 @@ export function FeitioLanding() {
                   <thead className="bg-floresta-900 text-ambar-400 border-b border-ambar-500/30">
                     <tr>
                       <th className="p-4 font-serif text-sm">Alcaloide Harmala</th>
-                      <th className="p-4 font-serif text-sm">Concentração (HPLC)</th>
-                      <th className="p-4 font-serif text-sm">Ação Farmacológica Principal</th>
-                      <th className="p-4 font-serif text-sm">Efeito na Condução Ritual</th>
+                      <th className="p-4 font-serif text-sm">Concentração (HPLC, laudo em validação)</th>
+                      <th className="p-4 font-serif text-sm">Origem no Feitio</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-ambar-500/10 text-areia-300">
@@ -945,37 +944,34 @@ export function FeitioLanding() {
                         <span className="h-2 w-2 rounded-full bg-ambar-400" />
                         Harmina
                       </td>
-                      <td className="p-4 font-mono text-amber-300 font-bold">9,21 mg/g</td>
-                      <td className="p-4">Inibição reversível e seletiva da enzima MAO-A periférica (RIMA).</td>
-                      <td className="p-4">Garante que o DMT atravesse a barreira gástrica sem degradação.</td>
+                      <td className="p-4 font-mono text-amber-300 font-bold">9,21 mg/g (laudo em validação)</td>
+                      <td className="p-4">Cipó Jagube (<em>Banisteriopsis caapi</em>).</td>
                     </tr>
                     <tr className="bg-floresta-900/40 hover:bg-floresta-900/60 transition-colors">
                       <td className="p-4 font-semibold text-areia-100 flex items-center gap-2">
                         <span className="h-2 w-2 rounded-full bg-ambar-400" />
                         Tetra-hidroharmina (THH)
                       </td>
-                      <td className="p-4 font-mono text-amber-300 font-bold">4,20 mg/g</td>
-                      <td className="p-4">Inibidor fraco da recaptação de serotonina (SERT) e modulador 5-HT2A.</td>
-                      <td className="p-4">Sustenta o estado meditativo lúcido, prolongado e sem oscilações abruptas.</td>
+                      <td className="p-4 font-mono text-amber-300 font-bold">4,20 mg/g (laudo em validação)</td>
+                      <td className="p-4">Cipó Jagube (<em>Banisteriopsis caapi</em>).</td>
                     </tr>
                     <tr className="bg-floresta-950/70 hover:bg-floresta-900/40 transition-colors">
                       <td className="p-4 font-semibold text-areia-100 flex items-center gap-2">
                         <span className="h-2 w-2 rounded-full bg-emerald-400" />
                         Harmalina
                       </td>
-                      <td className="p-4 font-mono text-emerald-400 font-bold">0,65 mg/g (Traço)</td>
-                      <td className="p-4">Teor residual. Altas concentrações causam toxicidade motora periférica.</td>
-                      <td className="p-4">A baixa taxa elimina tremores violentos e quedas severas de pressão.</td>
+                      <td className="p-4 font-mono text-emerald-400 font-bold">0,65 mg/g (traço, laudo em validação)</td>
+                      <td className="p-4">Cipó Jagube, em teor residual.</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
 
-              {/* Destaque Diferencial Somático */}
+              {/* Destaque do Cipó Tucunacá */}
               <div className="rounded-xl border border-ambar-500/25 bg-floresta-950 p-5 text-xs sm:text-sm text-areia-300 leading-relaxed flex items-start gap-3.5">
                 <ShieldCheck className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-areia-100">Por que o Tucunacá e os cipós próximos são insubstituíveis?</strong> Diferente de clones selvagens que acumulam harmalina instável — geradora de sudorese fria, taquicardias desordenadas e tremores musculares que desgastam o participante —, o padrão Nativaram proporciona um recolhimento suave, profunda clareza mental e uma navegação interior límpida.
+                  <strong className="text-areia-100">Por que o Tucunacá e os cipós próximos?</strong> São as variedades que os feitores da cooperativa conhecem e que a tradição acreana consagra. A cooperativa não promete efeito ao corpo ou à mente: o sacramento é partilhado apenas para o rito, em casas credenciadas.
                 </div>
               </div>
             </div>
@@ -1304,7 +1300,7 @@ export function FeitioLanding() {
                       </td>
                       <td className="p-4 font-mono text-areia-200">70 a 100 ml</td>
                       <td className="p-4">3 horas</td>
-                      <td className="p-4">Clareza mental, centramento e alinhamento do campo comunitário em trabalhos regulares.</td>
+                      <td className="p-4">Centramento e alinhamento da corrente em trabalhos regulares.</td>
                     </tr>
                     <tr className="bg-floresta-950/70 hover:bg-floresta-900/40 transition-colors">
                       <td className="p-4 font-semibold text-areia-100">

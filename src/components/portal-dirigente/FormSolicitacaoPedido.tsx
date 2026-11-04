@@ -20,7 +20,7 @@ import {
   Award,
   Layers,
 } from "lucide-react";
-import { GRADUACOES_SACRAMENTAIS, obterCotaRateio } from "@/data/graduacoes";
+import { GRADUACOES_SACRAMENTAIS, obterCotaRateio, VALORES_APOIO_LITURGICO } from "@/data/graduacoes";
 import { RAPES_TRADICIONAIS } from "@/data/sacramentos";
 import { ItemPedido } from "@/types/pedido";
 
@@ -41,6 +41,8 @@ interface FormSolicitacaoPedidoProps {
     itens: ItemPedido[];
     mensagemIntencao: string;
   } | null;
+  /** Grupo sem CNPJ: envia a solicitação sem ver valores; o Conselho analisa pelo WhatsApp. */
+  ocultarValores?: boolean;
 }
 
 // Opções de sacramentos rápidos para catálogo interativo com valores da Tabela Evolutiva
@@ -69,7 +71,7 @@ const ITENS_CATALOGO = [
     nome: r.nome,
     codigoOuSubtitulo: r.propositoTradicional.slice(0, 45) + "...",
     unidade: "Frascos (25g)" as const,
-    rateioUnitario: 65,
+    rateioUnitario: VALORES_APOIO_LITURGICO.rapeFrasco25g,
     quantidadePadrao: 2,
     minimo: 1,
     passo: 1,
@@ -80,7 +82,7 @@ const ITENS_CATALOGO = [
     nome: "Kuripe Artesanal de Bambu & Resina",
     codigoOuSubtitulo: "Aplicador individual sagrado",
     unidade: "Unidades" as const,
-    rateioUnitario: 85,
+    rateioUnitario: VALORES_APOIO_LITURGICO.kuripeUnidade,
     quantidadePadrao: 1,
     minimo: 1,
     passo: 1,
@@ -92,6 +94,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
   onPedidoCriado,
   onIrParaAcompanhamento,
   pedidoParaRepetir,
+  ocultarValores = false,
 }) => {
   // Itens selecionados no formulário
   const [itensSelecionados, setItensSelecionados] = useState<
@@ -396,12 +399,17 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
                     </span>
                   </div>
                   <p className="text-[11px] text-areia-400 font-light">
-                    {item.codigoOuSubtitulo} • Rateio est.: R${" "}
-                    {item.rateioUnitarioEstimado.toLocaleString("pt-BR", {
-                      minimumFractionDigits: 2,
-                    })}{" "}
-                    / {item.unidade}
-                    {item.quantidade >= 10 && (item.tipo === "GRADUACAO_AYAHUASCA" || item.tipo === "SACRAMENTO_REDUZIDO") && (
+                    {item.codigoOuSubtitulo}
+                    {!ocultarValores && (
+                      <>
+                        {" "}• Rateio est.: R${" "}
+                        {item.rateioUnitarioEstimado.toLocaleString("pt-BR", {
+                          minimumFractionDigits: 2,
+                        })}{" "}
+                        / {item.unidade}
+                      </>
+                    )}
+                    {!ocultarValores && item.quantidade >= 10 && (item.tipo === "GRADUACAO_AYAHUASCA" || item.tipo === "SACRAMENTO_REDUZIDO") && (
                       <span className="ml-1.5 text-emerald-400 font-medium">
                         (Faixa 10 a 20L aplicada)
                       </span>
@@ -433,6 +441,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
                     </button>
                   </div>
 
+                  {!ocultarValores && (
                   <div className="text-right min-w-[110px]">
                     <span className="text-[10px] text-areia-400 block font-light">Subtotal Cota</span>
                     <strong className="font-mono text-sm text-areia-100">
@@ -442,6 +451,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
                       })}
                     </strong>
                   </div>
+                  )}
 
                   <button
                     type="button"
@@ -485,9 +495,11 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
                       <span className="font-serif text-xs font-bold text-areia-100 group-hover:text-ambar-300 transition-colors">
                         {cat.nome}
                       </span>
-                      <span className="text-[10px] text-ambar-400 font-mono">
-                        R$ {cat.rateioUnitario}/{cat.unidade.split(" ")[0]}
-                      </span>
+                      {!ocultarValores && (
+                        <span className="text-[10px] text-ambar-400 font-mono">
+                          R$ {cat.rateioUnitario}/{cat.unidade.split(" ")[0]}
+                        </span>
+                      )}
                     </div>
                     <p className="text-[10px] text-areia-400 font-light mt-0.5 line-clamp-1">
                       {cat.codigoOuSubtitulo}
@@ -515,15 +527,16 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
           <div className="space-y-2">
-            <label className="text-xs font-semibold text-areia-200 block">
+            <label htmlFor="pedido-data-cerimonia" className="text-xs font-semibold text-areia-200 block">
               Data Prevista do Rito / Próxima Cerimônia *
             </label>
             <input
+              id="pedido-data-cerimonia"
               type="date"
               required
               value={dataCerimonia}
               onChange={(e) => setDataCerimonia(e.target.value)}
-              className="w-full rounded-xl border border-ambar-500/30 bg-floresta-950/80 px-4 py-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none"
+              className="w-full rounded-xl border border-ambar-500/30 bg-floresta-950/80 px-4 py-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
             />
             <p className="text-[11px] text-areia-400 font-light">
               Mínimo recomendado: 30 dias de antecedência para sincronia com as bateladas da lua no Acre.
@@ -552,16 +565,17 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
         </div>
 
         <div className="space-y-2">
-          <label className="text-xs font-semibold text-areia-200 block">
+          <label htmlFor="pedido-mensagem" className="text-xs font-semibold text-areia-200 block">
             Área de Preenchimento de Mensagem & Recomendações ao Conselho *
           </label>
           <textarea
+            id="pedido-mensagem"
             required
             rows={4}
             value={mensagemIntencao}
             onChange={(e) => setMensagemIntencao(e.target.value)}
             placeholder="Descreva o propósito do trabalho, a quantidade estimada de comungantes, instruções específicas para o recebimento da caixa isotérmica ou rezo para o feitio..."
-            className="w-full rounded-xl border border-ambar-500/30 bg-floresta-950/80 p-4 text-xs text-areia-100 placeholder-areia-500 focus:border-ambar-400 focus:outline-none leading-relaxed resize-y min-h-[110px]"
+            className="w-full rounded-xl border border-ambar-500/30 bg-floresta-950/80 p-4 text-xs text-areia-100 placeholder-areia-500 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400 leading-relaxed resize-y min-h-[110px]"
           />
           <span className="text-[11px] text-areia-400 font-light block">
             Esta mensagem será gravada no histórico da congregação e transmitida integralmente ao Conselho Guardião.
@@ -580,32 +594,34 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div className="space-y-1">
-            <label className="text-areia-400 block text-[11px] font-light">Templo Credenciado</label>
+            <span className="text-areia-400 block text-[11px] font-light">Templo Credenciado</span>
             <div className="p-3 rounded-lg bg-floresta-950/80 border border-ambar-500/15 font-semibold text-areia-100">
               {templo.nome} ({templo.id})
             </div>
           </div>
 
           <div className="space-y-1">
-            <label className="text-areia-400 block text-[11px] font-light">Dirigente Responsável</label>
+            <label htmlFor="pedido-dirigente-nome" className="text-areia-400 block text-[11px] font-light">Dirigente Responsável</label>
             <input
+              id="pedido-dirigente-nome"
               type="text"
               required
               value={dirigenteNome}
               onChange={(e) => setDirigenteNome(e.target.value)}
-              className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none"
+              className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
             />
           </div>
 
           <div className="space-y-1">
-            <label className="text-areia-400 block text-[11px] font-light">WhatsApp p/ Rastreio & Notificação *</label>
+            <label htmlFor="pedido-dirigente-telefone" className="text-areia-400 block text-[11px] font-light">WhatsApp p/ Rastreio & Notificação *</label>
             <input
+              id="pedido-dirigente-telefone"
               type="text"
               required
               value={dirigenteTelefone}
               onChange={(e) => setDirigenteTelefone(e.target.value)}
               placeholder="Ex: 11987654321"
-              className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none font-mono"
+              className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400 font-mono"
             />
           </div>
 
@@ -618,7 +634,7 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
               value={dirigenteEmail}
               onChange={(e) => setDirigenteEmail(e.target.value)}
               placeholder="Ex: secretaria@seutemplo.org.br"
-              className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none"
+              className="w-full rounded-lg border border-ambar-500/30 bg-floresta-950/80 p-3 text-xs text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
             />
           </div>
         </div>
@@ -632,14 +648,18 @@ export const FormSolicitacaoPedido: React.FC<FormSolicitacaoPedidoProps> = ({
           </span>
           <div className="flex items-baseline gap-2 mt-1">
             <span className="font-mono text-3xl font-bold text-areia-100">
-              R$ {rateioTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}
+              {ocultarValores
+                ? "Definido pelo Conselho"
+                : `R$ ${rateioTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`}
             </span>
             <span className="text-xs text-areia-400 font-light">
               (Apoio logístico, insumos florestais e acondicionamento)
             </span>
           </div>
           <p className="text-[11px] text-areia-400 font-light mt-1">
-            Sem cobrança de lucro ou margem mercantil (Art. 1º da Resolução CONAD nº 01/2010).
+            {ocultarValores
+              ? "Sua solicitação vai ao Conselho Gestor, que analisa e retorna pelo WhatsApp com o rateio, se proceder."
+              : "Rateio de custos, sem lucro ou margem, conforme os princípios deontológicos da Resolução CONAD nº 01/2010."}
           </p>
         </div>
 

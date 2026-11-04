@@ -1,3 +1,18 @@
+// CSP completa em modo observação (Report-Only): o navegador só relata violações
+// no console, sem bloquear nada. Promover para Content-Security-Policy depois de
+// conferir que nenhuma origem legítima (embeds, Supabase, fontes) é barrada.
+const CSP_REPORT_ONLY = [
+  "default-src 'self'",
+  "img-src 'self' data: blob: https:",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' https://fonts.gstatic.com data:",
+  "connect-src 'self' https://*.supabase.co",
+  "frame-src 'self' https://www.youtube.com https://open.spotify.com https://www.instagram.com",
+  "object-src 'self'",
+  "base-uri 'self'",
+].join("; ");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -45,17 +60,11 @@ const nextConfig = {
   // Headers de segurança e compliance
   async headers() {
     return [
+      // PDFs da biblioteca abrem no visualizador interno; demais arquivos seguem o padrão.
+      // X-Frame-Options e frame-ancestors já vêm da regra global abaixo.
       {
-        source: "/documentos/:path*",
+        source: "/documentos/:path*.pdf",
         headers: [
-          {
-            key: "X-Frame-Options",
-            value: "SAMEORIGIN",
-          },
-          {
-            key: "Content-Security-Policy",
-            value: "frame-ancestors 'self'",
-          },
           {
             key: "Content-Disposition",
             value: "inline",
@@ -76,6 +85,10 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value: "frame-ancestors 'self'",
+          },
+          {
+            key: "Content-Security-Policy-Report-Only",
+            value: CSP_REPORT_ONLY,
           },
           {
             key: "Referrer-Policy",

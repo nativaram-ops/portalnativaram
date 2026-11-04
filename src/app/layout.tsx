@@ -58,7 +58,7 @@ export const metadata: Metadata = {
       "Preservação cultural, ciência do feitio purista e provimento assistido de sacramentos tradicionais para instituições homologadas.",
     images: [
       {
-        url: "/assets/banners/frasco-rape-apresentacao.jpeg",
+        url: "/og-cooperativa-nativaram.jpg",
         width: 1200,
         height: 630,
         alt: "Cooperativa Nativaram — Cooperativa Etnobotânica",
@@ -70,13 +70,9 @@ export const metadata: Metadata = {
     title: "Cooperativa Nativaram | Cooperativa Etnobotânica",
     description:
       "Preservação cultural e ciência do feitio purista da Amazônia Ocidental.",
-    images: ["/assets/banners/frasco-rape-apresentacao.jpeg"],
+    images: ["/og-cooperativa-nativaram.jpg"],
   },
-  icons: {
-    icon: "/assets/logo.png",
-    shortcut: "/assets/logo.png",
-    apple: "/assets/logo.png",
-  },
+  // Ícones: src/app/icon.png (512x512) e src/app/apple-icon.png (180x180), servidos pelo App Router.
 };
 
 export default function RootLayout({
@@ -90,7 +86,7 @@ export default function RootLayout({
     name: "Cooperativa Nativaram",
     alternateName: "Nascidos do Raio de Sol - Cooperativa Etnobotânica",
     url: "https://nativaramcoop.eco.br",
-    logo: "https://nativaramcoop.eco.br/assets/logo.png",
+    logo: "https://nativaramcoop.eco.br/icon-512.png",
     description:
       "Cooperativa etnobotânica dedicada à salvaguarda cultural, à ciência do feitio purista da Ayahuasca e dos sacramentos tradicionais amazônicos sob amparo da Resolução CONAD nº 01/2010.",
     address: [

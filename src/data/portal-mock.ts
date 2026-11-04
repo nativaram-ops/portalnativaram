@@ -16,6 +16,7 @@ export interface TemploMock {
   dataAprovacao: string;
   membros: number;
   conadAprovado: boolean;
+  tipo?: "INSTITUICAO_FORMAL" | "GRUPO_INFORMAL";
 }
 
 export interface LoteFeitioMock {

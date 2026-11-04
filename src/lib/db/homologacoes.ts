@@ -1,6 +1,7 @@
 import {
   getDirectSupabaseClient,
   withTimeout,
+  gravarNoSupabase,
   createHybridJsonStore,
 } from "./core-hybrid-store";
 
@@ -177,7 +178,17 @@ function mesclarSolicitacoes(...listas: SolicitacaoAcesso[][]): SolicitacaoAcess
   return Array.from(mapa.values());
 }
 
-export async function obterTodasSolicitacoes(): Promise<SolicitacaoAcesso[]> {
+/** Marca gravada pelo Conselho ao excluir um cadastro (status RECUSADO + esta observação). */
+export const MARCA_EXCLUSAO = "EXCLUIDO_PELO_ADMIN";
+
+const estaExcluida = (s: SolicitacaoAcesso) => s.observacoesConselho === MARCA_EXCLUSAO;
+
+/**
+ * Todas as solicitações, inclusive as excluídas pelo Conselho. Uso interno: quem grava
+ * precisa preservar a marca de exclusão para que ela vença cópias antigas (dados
+ * iniciais ou o armazenamento temporário de outra instância serverless).
+ */
+async function obterSolicitacoesComExcluidas(): Promise<SolicitacaoAcesso[]> {
   const locais = await solicitacoesStore.readAll();
   let remotas: SolicitacaoAcesso[] = [];
 
@@ -188,10 +199,7 @@ export async function obterTodasSolicitacoes(): Promise<SolicitacaoAcesso[]> {
         data: SolicitacaoRow[] | null;
         error: unknown;
       }>(
-        supabase
-          .from("solicitacoes_homologacao")
-          .select("*")
-          .neq("status", "RECUSADO"),
+        supabase.from("solicitacoes_homologacao").select("*"),
         2000
       );
       if (!error && data && data.length > 0) {
@@ -204,13 +212,18 @@ export async function obterTodasSolicitacoes(): Promise<SolicitacaoAcesso[]> {
 
   const mescladas = mesclarSolicitacoes(DADOS_INICIAIS, remotas, locais);
 
-  // Filtrar registros marcados como excluídos ou placeholders obsoletos
-  const ativas = mescladas.filter(
-    (s) =>
-      s.id !== "REC-2026-OLYY" &&
-      s.status !== "RECUSADO" &&
-      s.observacoesConselho !== "EXCLUIDO_PELO_ADMIN"
+  // A exclusão vence: se qualquer cópia (nuvem ou local) traz a marca, o cadastro
+  // fica excluído, mesmo que outra cópia ainda diga HOMOLOGADO.
+  const excluidas = new Set(
+    [...remotas, ...locais].filter(estaExcluida).map((s) => s.id.trim().toUpperCase())
   );
+  return mescladas.map((s) =>
+    excluidas.has(s.id) ? { ...s, status: "RECUSADO" as const, observacoesConselho: MARCA_EXCLUSAO } : s
+  );
+}
+
+export async function obterTodasSolicitacoes(): Promise<SolicitacaoAcesso[]> {
+  const ativas = (await obterSolicitacoesComExcluidas()).filter((s) => !estaExcluida(s));
 
   // Ordenar: PENDENTE_LIBERACAO primeiro, depois HOMOLOGADO
   return ativas.sort((a, b) => {
@@ -226,7 +239,7 @@ export async function registrarSolicitacao(
     dataEnvio?: string;
   }
 ): Promise<SolicitacaoAcesso> {
-  const solicitacoes = await obterTodasSolicitacoes();
+  const solicitacoes = await obterSolicitacoesComExcluidas();
 
   const dataEnvio =
     nova.dataEnvio ||
@@ -271,14 +284,10 @@ export async function registrarSolicitacao(
 
   const supabase = getDirectSupabaseClient();
   if (supabase) {
-    try {
-      await withTimeout(
-        supabase.from("solicitacoes_homologacao").upsert(mapSolicitacaoToRow(salvo)),
-        2000
-      );
-    } catch {
-      // Mantido com segurança no repositório híbrido local
-    }
+    await gravarNoSupabase(
+      supabase.from("solicitacoes_homologacao").upsert(mapSolicitacaoToRow(salvo)),
+      "gravar em solicitacoes_homologacao"
+    );
   }
 
   return salvo;
@@ -313,7 +322,7 @@ export async function homologarSolicitacao(
   mensagemWhatsApp: string;
   whatsappUrl: string;
 } | null> {
-  const solicitacoes = await obterTodasSolicitacoes();
+  const solicitacoes = await obterSolicitacoesComExcluidas();
   const idUpper = id.trim().toUpperCase();
   let index = solicitacoes.findIndex((s) => s.id.toUpperCase() === idUpper);
 
@@ -395,14 +404,10 @@ export async function homologarSolicitacao(
 
   const supabase = getDirectSupabaseClient();
   if (supabase) {
-    try {
-      await withTimeout(
-        supabase.from("solicitacoes_homologacao").upsert(mapSolicitacaoToRow(atualizada)),
-        2000
-      );
-    } catch {
-      // Mantido com segurança no repositório híbrido local
-    }
+    await gravarNoSupabase(
+      supabase.from("solicitacoes_homologacao").upsert(mapSolicitacaoToRow(atualizada)),
+      "gravar em solicitacoes_homologacao"
+    );
   }
 
   // 3. Montar Mensagem pronta para o WhatsApp do Dirigente
@@ -477,71 +482,39 @@ export async function validarCredenciaisDirigente(
  */
 export async function excluirSolicitacao(id: string): Promise<boolean> {
   const idUpper = id.trim().toUpperCase();
-  let solicitacoes = await solicitacoesStore.readAll();
-  
-  const index = solicitacoes.findIndex(
+  const solicitacoes = await obterSolicitacoesComExcluidas();
+
+  const alvo = solicitacoes.find(
     (s) =>
-      s.id.toUpperCase() === idUpper ||
-      (s.loginGerado && s.loginGerado.toUpperCase() === idUpper)
+      !estaExcluida(s) &&
+      (s.id.toUpperCase() === idUpper ||
+        (s.loginGerado && s.loginGerado.toUpperCase() === idUpper))
   );
+  if (!alvo) return false;
 
-  const itemRemovido = index >= 0 ? solicitacoes[index] : null;
-  const loginGerado = itemRemovido?.loginGerado?.toUpperCase();
+  const marcado: SolicitacaoAcesso = {
+    ...alvo,
+    status: "RECUSADO",
+    observacoesConselho: MARCA_EXCLUSAO,
+  };
 
-  if (index >= 0) {
-    solicitacoes = solicitacoes.filter((_, i) => i !== index);
-    await solicitacoesStore.writeAll(solicitacoes);
-  }
+  // Mantém a linha com a marca (em vez de apagá-la) para que nenhuma cópia antiga ressuscite o acesso.
+  await solicitacoesStore.writeAll(solicitacoes.map((s) => (s.id === alvo.id ? marcado : s)));
 
   const supabase = getDirectSupabaseClient();
   if (supabase) {
-    try {
-      // 1. Tentar exclusão direta (hard delete)
-      await withTimeout(
-        supabase.from("solicitacoes_homologacao").delete().eq("id", idUpper),
-        2000
+    await gravarNoSupabase(
+      supabase.from("solicitacoes_homologacao").upsert(mapSolicitacaoToRow(marcado)),
+      "gravar exclusão em solicitacoes_homologacao"
+    );
+
+    const codigo = (alvo.loginGerado || alvo.id).toUpperCase();
+    for (const tabela of ["templos_credenciados", "perfis_comunidade"]) {
+      const { error: erroTabela } = await withTimeout<{ error: unknown }>(
+        supabase.from(tabela).delete().eq("codigo_liturgico", codigo),
+        3000
       );
-
-      // 2. Marcar como RECUSADO com flag EXCLUIDO_PELO_ADMIN caso RLS bloqueie DELETE
-      await withTimeout(
-        supabase
-          .from("solicitacoes_homologacao")
-          .update({
-            status: "RECUSADO",
-            observacoes_conselho: "EXCLUIDO_PELO_ADMIN",
-          })
-          .eq("id", idUpper),
-        2000
-      );
-
-      if (loginGerado) {
-        await withTimeout(
-          supabase.from("solicitacoes_homologacao").delete().eq("login_gerado", loginGerado),
-          2000
-        );
-        await withTimeout(
-          supabase
-            .from("solicitacoes_homologacao")
-            .update({
-              status: "RECUSADO",
-              observacoes_conselho: "EXCLUIDO_PELO_ADMIN",
-            })
-            .eq("login_gerado", loginGerado),
-          2000
-        );
-
-        // Remover também de templos_credenciados e perfis_comunidade se existirem
-        await withTimeout(
-          supabase.from("templos_credenciados").delete().eq("codigo_liturgico", loginGerado),
-          2000
-        );
-        await withTimeout(
-          supabase.from("perfis_comunidade").delete().eq("codigo_liturgico", loginGerado),
-          2000
-        );
-      }
-    } catch {
-      // Falha remota não impede exclusão local bem-sucedida
+      if (erroTabela) console.error(`[homologacoes] Falha ao remover de ${tabela}:`, erroTabela);
     }
   }
 

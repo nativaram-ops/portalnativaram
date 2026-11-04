@@ -50,7 +50,7 @@ const passosDoFunil = [
     titulo: "Marco Legal",
     subtitulo: "Segurança Jurídica & CONAD",
     descricao:
-      "Pleno amparo constitucional (Art. 5º CF/88), Resolução CONAD nº 01/2010 e Marco Sanitário ANVISA 2025.",
+      "Amparo constitucional (Art. 5º CF/88) e Resolução CONAD nº 01/2010, que trata do uso religioso da ayahuasca.",
     href: "/compliance",
     icone: ShieldCheck,
     cta: "Checar Garantias",

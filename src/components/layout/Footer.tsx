@@ -18,7 +18,7 @@ const footerLinks = [
   { href: "/", label: "Início" },
   { href: "/institucional", label: "Manifesto" },
   { href: "/feitio", label: "Feitio" },
-  { href: "/medicinas", label: "Sacramentos" },
+  { href: "/sacramentos", label: "Sacramentos" },
   { href: "/estudos", label: "Estudos & Comunidade" },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
   { href: "/compliance", label: "Marco Legal" },
@@ -210,8 +210,15 @@ export const Footer = () => {
             disponibilizado unicamente para rito litúrgico de instituições
             cadastradas e homologadas. Proibida qualquer comercialização, venda
             avulsa ou promessas de cura, em observância à{" "}
-            <strong>Resolução CONAD nº 01/2010</strong> e ao{" "}
-            <strong>Marco ANVISA de 28/01/2025</strong>.
+            <a
+              href="https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/subcapas-senad/conad/atos-do-conad-1/2010/11___resolucao_n__01_2010___conad.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline decoration-ambar-500/30 hover:text-ambar-400/80"
+            >
+              <strong>Resolução CONAD nº 01/2010</strong>
+            </a>
+            .
           </p>
           <p className="text-[10px] text-areia-400/70 leading-relaxed text-justify mt-2">
             <strong>Conteúdo destinado a maiores de 18 anos.</strong> Sacramentos
@@ -234,10 +241,10 @@ export const Footer = () => {
             </Link>
             <span className="text-floresta-700">·</span>
             <Link
-              href="/compliance"
+              href="/privacidade"
               className="hover:text-ambar-400/70 transition-colors"
             >
-              ANVISA 2025
+              Privacidade
             </Link>
             <span className="text-floresta-700">·</span>
             <Link

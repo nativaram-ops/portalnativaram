@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -878,6 +879,40 @@ export const ReconhecimentoForm = () => {
                     {errors.compromissoTriagemSeguranca.message}
                   </p>
                 )}
+
+                {/* 4. Consentimento para dado sensível (LGPD, art. 11, I) */}
+                <label className="flex items-start gap-3 p-3 rounded-xl bg-floresta-900/60 border border-ambar-500/40 cursor-pointer hover:bg-floresta-900/90 transition-all">
+                  <input
+                    type="checkbox"
+                    className="mt-1 h-4 w-4 rounded border-ambar-500/40 text-ambar-500 focus:ring-ambar-400 bg-floresta-950"
+                    {...register("consentimentoLinhagem")}
+                  />
+                  <div className="text-xs space-y-0.5">
+                    <span className="font-semibold text-areia-100 block">
+                      Consentimento para a Linhagem Espiritual (dado sensível)
+                    </span>
+                    <p className="text-[11px] text-areia-300 font-light leading-relaxed">
+                      Autorizo o tratamento da informação sobre minha linhagem espiritual, dado sensível, apenas para a análise do reconhecimento, conforme o Aviso de Privacidade.
+                    </p>
+                  </div>
+                </label>
+                {errors.consentimentoLinhagem && (
+                  <p className="text-[11px] text-red-400">
+                    {errors.consentimentoLinhagem.message}
+                  </p>
+                )}
+
+                <p className="text-[11px] text-areia-400 leading-relaxed pt-1">
+                  Leia o{" "}
+                  <Link
+                    href="/privacidade"
+                    target="_blank"
+                    className="text-ambar-400 hover:text-ambar-300 underline underline-offset-2"
+                  >
+                    Aviso de Privacidade
+                  </Link>{" "}
+                  para saber como a Cooperativa Nativaram trata os dados deste formulário e como exercer seus direitos.
+                </p>
               </div>
             </div>
           </div>

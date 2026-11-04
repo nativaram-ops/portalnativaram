@@ -17,8 +17,8 @@ export interface GraduacaoSacramento {
   duracaoEstimada: string;
   perfilLiturgico: string;
   indicacaoRito: string;
-  rateioAtacado5a10L: string;
-  rateioAtacado10a20L: string;
+  rateioLote5a10L: string;
+  rateioLote10a20L: string;
   perfilFitoquimico?: string;
   destaque: boolean;
 }
@@ -26,15 +26,15 @@ export interface GraduacaoSacramento {
 export const PARAMETROS_OPERACIONAIS_FEITIO = {
   origemFeitio: "Cruzeiro do Sul, Acre — Amazônia Ocidental",
   pontoApoioLogistico: "Serra, Espírito Santo — Sudeste",
-  cipoAdotado: "Banisteriopsis caapi var. Tucunaca (Caule liso e cilíndrico, 92,3% polimorfismo genético)",
+  cipoAdotado: "Banisteriopsis caapi var. Tucunaca (caule liso e cilíndrico)",
   folhaAdotada: "Psychotria viridis (Chacrona Rainha colhida ao amanhecer com rezo feminino)",
   pedidoMinimoLitros: 5,
   antecedenciaMinimaDias: 30,
-  destinacaoExclusiva: "Pessoas Jurídicas religiosas constituídas (Ata de Fundação e CNPJ)",
+  destinacaoExclusiva: "Pessoas jurídicas religiosas (Ata de Fundação e CNPJ). Grupos em formalização solicitam sem tabela de valores, mediante análise do Conselho (ADR-011).",
   perfilHarmalasTucunaca: {
-    harmina: "9,21 mg/g (Inibição reversível seletiva da MAO-A periférica - RIMA)",
-    thh: "4,20 mg/g (Tetra-hidroharmina: inibidor fraco de recaptação de serotonina, estabiliza visões)",
-    harmalina: "0,65 mg/g (Teor residual ínfimo: previne tremores motores periféricos e náuseas somáticas)",
+    harmina: "9,21 mg/g (laudo em validação)",
+    thh: "4,20 mg/g (tetra-hidroharmina; laudo em validação)",
+    harmalina: "0,65 mg/g (teor residual; laudo em validação)",
   },
 };
 
@@ -49,8 +49,8 @@ export const GRADUACOES_SACRAMENTAIS: GraduacaoSacramento[] = [
     duracaoEstimada: "2 a 3 horas",
     perfilLiturgico: "Límpido, sutil e acolhedor. Proporciona expansão mansa da presença e serenidade sensorial.",
     indicacaoRito: "Ideal para iniciantes, círculos de oração tranquilos, vigílias mansas e ritos de acalento.",
-    rateioAtacado5a10L: "R$ 220,00 / Litro",
-    rateioAtacado10a20L: "R$ 200,00 / Litro",
+    rateioLote5a10L: "R$ 220,00 / Litro",
+    rateioLote10a20L: "R$ 200,00 / Litro",
     perfilFitoquimico: "Rico em THH e Harmina equilibradas, voo leve sem desgaste somático.",
     destaque: false,
   },
@@ -64,8 +64,8 @@ export const GRADUACOES_SACRAMENTAIS: GraduacaoSacramento[] = [
     duracaoEstimada: "3 horas",
     perfilLiturgico: "Harmonia estável entre força do cipó e luz da folha. Miração equilibrada e alinhamento do ritmo.",
     indicacaoRito: "Padrão recomendado para rituais regulares da congregação e trabalhos coletivos de reequilíbrio vital.",
-    rateioAtacado5a10L: "R$ 260,00 / Litro",
-    rateioAtacado10a20L: "R$ 240,00 / Litro",
+    rateioLote5a10L: "R$ 260,00 / Litro",
+    rateioLote10a20L: "R$ 240,00 / Litro",
     perfilFitoquimico: "Concentração intermediária estável, clareza mental prolongada.",
     destaque: true,
   },
@@ -79,8 +79,8 @@ export const GRADUACOES_SACRAMENTAIS: GraduacaoSacramento[] = [
     duracaoEstimada: "3 a 4 horas",
     perfilLiturgico: "Densidade firme e expansão de presença prolongada. Condução ritualística com cantos e introspecção íntima.",
     indicacaoRito: "Indicado para congregações experientes, vigílias noturnas e trabalhos de transformação pessoal profunda.",
-    rateioAtacado5a10L: "R$ 320,00 / Litro",
-    rateioAtacado10a20L: "R$ 300,00 / Litro",
+    rateioLote5a10L: "R$ 320,00 / Litro",
+    rateioLote10a20L: "R$ 300,00 / Litro",
     perfilFitoquimico: "Alta densidade alcaloídica com retenção terpênica integral.",
     destaque: false,
   },
@@ -94,8 +94,8 @@ export const GRADUACOES_SACRAMENTAIS: GraduacaoSacramento[] = [
     duracaoEstimada: "4 a 5 horas",
     perfilLiturgico: "Consistência densa, altíssima concentração fitoquímica e presença solene. Conexão espiritual profunda.",
     indicacaoRito: "Exclusivo para dirigentes litúrgicos, mestres de cerimônia e trabalhos de alta egrégora espiritual.",
-    rateioAtacado5a10L: "R$ 380,00 / Litro",
-    rateioAtacado10a20L: "R$ 360,00 / Litro",
+    rateioLote5a10L: "R$ 380,00 / Litro",
+    rateioLote10a20L: "R$ 360,00 / Litro",
     perfilFitoquimico: "Graduação institucional suprema (Semi-Mel). Máxima extração de THH e Harmina nativas.",
     destaque: false,
   },
@@ -109,8 +109,8 @@ export const GRADUACOES_SACRAMENTAIS: GraduacaoSacramento[] = [
     duracaoEstimada: "4 a 5 horas",
     perfilLiturgico: "Consistência de mel nobre, ideal para preservação por longos períodos e redução do volume de transporte.",
     indicacaoRito: "Casas em regiões remotas que necessitam de estabilidade prolongada. Rateio operacional sob consulta.",
-    rateioAtacado5a10L: "R$ 460,00 / Litro",
-    rateioAtacado10a20L: "R$ 420,00 / Litro",
+    rateioLote5a10L: "R$ 460,00 / Litro",
+    rateioLote10a20L: "R$ 420,00 / Litro",
     destaque: false,
   },
   {
@@ -123,8 +123,8 @@ export const GRADUACOES_SACRAMENTAIS: GraduacaoSacramento[] = [
     duracaoEstimada: "4 a 6 horas",
     perfilLiturgico: "Grau supremo de pureza sem aditivos químicos, retendo o perfil terpênico e alcaloídico original intacto.",
     indicacaoRito: "Rituais de alta solenidade e conservação litúrgica avançada. Rateio operacional sob consulta.",
-    rateioAtacado5a10L: "R$ 1.250,00 / kg",
-    rateioAtacado10a20L: "R$ 1.100,00 / kg",
+    rateioLote5a10L: "R$ 1.250,00 / kg",
+    rateioLote10a20L: "R$ 1.100,00 / kg",
     destaque: false,
   },
 ];
@@ -145,7 +145,7 @@ export interface ItemTabelaEvolutiva {
   valor5a10L: number;
   valor10a20L: number;
   valorAcima20L: string;
-  economiaPorUnidade: number;
+  custoFixoDiluidoPorUnidade: number;
   proporcaoBiomassa: string;
   observacao: string;
 }
@@ -159,7 +159,7 @@ export const TABELA_EVOLUTIVA_RATEIO: ItemTabelaEvolutiva[] = [
     valor5a10L: 220,
     valor10a20L: 200,
     valorAcima20L: "A combinar",
-    economiaPorUnidade: 20,
+    custoFixoDiluidoPorUnidade: 20,
     proporcaoBiomassa: "3 kg/L",
     observacao: "Voo suave e manso",
   },
@@ -171,7 +171,7 @@ export const TABELA_EVOLUTIVA_RATEIO: ItemTabelaEvolutiva[] = [
     valor5a10L: 260,
     valor10a20L: 240,
     valorAcima20L: "A combinar",
-    economiaPorUnidade: 20,
+    custoFixoDiluidoPorUnidade: 20,
     proporcaoBiomassa: "5 kg/L",
     observacao: "Padrão canônico de equilíbrio",
   },
@@ -183,7 +183,7 @@ export const TABELA_EVOLUTIVA_RATEIO: ItemTabelaEvolutiva[] = [
     valor5a10L: 320,
     valor10a20L: 300,
     valorAcima20L: "A combinar",
-    economiaPorUnidade: 20,
+    custoFixoDiluidoPorUnidade: 20,
     proporcaoBiomassa: "7 kg/L",
     observacao: "Densidade firme e força elevada",
   },
@@ -195,7 +195,7 @@ export const TABELA_EVOLUTIVA_RATEIO: ItemTabelaEvolutiva[] = [
     valor5a10L: 380,
     valor10a20L: 360,
     valorAcima20L: "A combinar",
-    economiaPorUnidade: 20,
+    custoFixoDiluidoPorUnidade: 20,
     proporcaoBiomassa: "10 kg/L",
     observacao: "Alta concentração hiperosmótica",
   },
@@ -207,7 +207,7 @@ export const TABELA_EVOLUTIVA_RATEIO: ItemTabelaEvolutiva[] = [
     valor5a10L: 460,
     valor10a20L: 420,
     valorAcima20L: "A combinar",
-    economiaPorUnidade: 40,
+    custoFixoDiluidoPorUnidade: 40,
     proporcaoBiomassa: "Redução lenta 12-15x1",
     observacao: "Redução nobre para preservação e frete",
   },
@@ -219,11 +219,21 @@ export const TABELA_EVOLUTIVA_RATEIO: ItemTabelaEvolutiva[] = [
     valor5a10L: 1250,
     valor10a20L: 1100,
     valorAcima20L: "A combinar",
-    economiaPorUnidade: 150,
+    custoFixoDiluidoPorUnidade: 150,
     proporcaoBiomassa: "Pasta/Gel purista 20:1",
     observacao: "Alta densidade para reidratação",
   },
 ];
+
+/**
+ * Valores de rateio dos sacramentos e artefatos de apoio (fonte única: calculadora,
+ * formulário de pedido e cálculo oficial no servidor usam estes números).
+ */
+export const VALORES_APOIO_LITURGICO = {
+  rapeFrasco25g: 65,
+  sanangaFrasco: 80,
+  kuripeUnidade: 85,
+} as const;
 
 export const CONDICOES_RATEIO_COOPERATIVO = {
   experienciaFeitio: "Feitio artesanal e manual em Cruzeiro do Sul/AC com mais de 28 anos de tradição",
@@ -231,8 +241,7 @@ export const CONDICOES_RATEIO_COOPERATIVO = {
   pedidoMinimoLitros: 5,
   graduacaoSugeridaPadrao: "10x1 Semi-Mel",
   antecedenciaMinimaDias: 30,
-  pagamentoVista: "Valores para contribuições à vista",
-  parcelamento: "Parcelamento disponível com acréscimo exclusivo das taxas da operadora de cartão",
+  formaContribuicao: "Formas de contribuição ao rateio combinadas com o Conselho Gestor.",
   faixaAcima20L: "Valores a combinar com o Conselho Gestor, condicionados ao custo de matéria-prima e encargos operacionais do feitio na floresta.",
   missaoCooperativa: "Cooperativa sem fins lucrativos dedicada à salvaguarda do sacramento e viabilização solidária para congregações, apoiando projetos comunitários de acolhimento social e reequilíbrio vital.",
 };
@@ -240,7 +249,7 @@ export const CONDICOES_RATEIO_COOPERATIVO = {
 interface ResultadoCalculoCotaBase {
   faixaLabel: string;
   valorUnitario: number;
-  economiaTotal: number;
+  custoFixoDiluidoTotal: number;
   unidade: string;
 }
 
@@ -277,7 +286,7 @@ export function obterCotaRateio(graduacaoIdOuCodigo: string, quantidade: number)
       faixaLabel: "Acima de 20 Litros/kg (A combinar)",
       valorUnitario: item.valor10a20L,
       valorTotal: null,
-      economiaTotal: 0,
+      custoFixoDiluidoTotal: 0,
       aCombinar: true,
       unidade,
     };
@@ -289,7 +298,7 @@ export function obterCotaRateio(graduacaoIdOuCodigo: string, quantidade: number)
       faixaLabel: "Escala Solidária de 10 a 20 Litros/kg",
       valorUnitario: item.valor10a20L,
       valorTotal: quantidade * item.valor10a20L,
-      economiaTotal: quantidade * item.economiaPorUnidade,
+      custoFixoDiluidoTotal: quantidade * item.custoFixoDiluidoPorUnidade,
       aCombinar: false,
       unidade,
     };
@@ -301,7 +310,7 @@ export function obterCotaRateio(graduacaoIdOuCodigo: string, quantidade: number)
       faixaLabel: "Lote de 5 a 10 Litros/kg",
       valorUnitario: item.valor5a10L,
       valorTotal: quantidade * item.valor5a10L,
-      economiaTotal: 0,
+      custoFixoDiluidoTotal: 0,
       aCombinar: false,
       unidade,
     };
@@ -313,7 +322,7 @@ export function obterCotaRateio(graduacaoIdOuCodigo: string, quantidade: number)
     faixaLabel: "Abaixo do Pedido Mínimo (Base 5 a 10L)",
     valorUnitario: item.valor5a10L,
     valorTotal: quantidade * item.valor5a10L,
-    economiaTotal: 0,
+    custoFixoDiluidoTotal: 0,
     aCombinar: false,
     unidade,
   };

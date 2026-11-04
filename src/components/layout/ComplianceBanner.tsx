@@ -28,11 +28,11 @@ export const ComplianceBanner = () => {
           <ShieldAlert className="h-3.5 w-3.5 text-ambar-400 flex-shrink-0" />
           <span className="hidden sm:inline">
             Portal Institucional &amp; Salvaguarda Litúrgica — Atuação sob Art.
-            5º da CF/88, Res. CONAD 01/2010 e ANVISA 2025. Comércio e revenda
+            5º da CF/88 e Res. CONAD 01/2010. Comércio e revenda
             vedados.
           </span>
           <span className="sm:hidden">
-            Portal sob amparo CF/88, CONAD 01/2010 e ANVISA.
+            Portal sob amparo CF/88 e CONAD 01/2010.
           </span>
         </div>
         <button

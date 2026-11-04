@@ -16,9 +16,9 @@ const pilaresConformidade = [
   {
     titulo: "Florescimento & Serenidade",
     descricao:
-      "Em consonância estrita com a ANVISA, não prometemos desfechos clínicos ou curas. Convidamos à pausa consciente e ao reequilíbrio vital dos sentidos.",
+      "Não prometemos desfechos clínicos ou curas. Os sacramentos são partilhados apenas para o rito, em casas credenciadas.",
     icone: HeartHandshake,
-    badge: "Marco ANVISA 2025",
+    badge: "Zero Promessa Clínica",
   },
   {
     titulo: "Rateio de Custos Solidário",

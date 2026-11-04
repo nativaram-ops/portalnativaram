@@ -10,6 +10,7 @@ import {
 import {
   getDirectSupabaseClient,
   withTimeout,
+  gravarNoSupabase,
   createHybridJsonStore,
 } from "./core-hybrid-store";
 
@@ -483,9 +484,8 @@ export async function salvarPublicacao(
   // Tentar sincronizar em nuvem no Supabase
   const supabase = getDirectSupabaseClient();
   if (supabase) {
-    try {
-      await withTimeout(
-        supabase.from("publicacoes_comunidade").upsert({
+    await gravarNoSupabase(
+      supabase.from("publicacoes_comunidade").upsert({
           id: postCompleto.id,
           templo_codigo: postCompleto.temploCodigo,
           templo_nome: postCompleto.temploNome,
@@ -506,11 +506,8 @@ export async function salvarPublicacao(
           criado_em: postCompleto.criadoEm,
           atualizado_em: postCompleto.atualizadoEm,
         }),
-        2000
-      );
-    } catch {
-      // Mantido seguro no repositório híbrido local
-    }
+      "gravar em publicacoes_comunidade"
+    );
   }
 
   return postCompleto;
@@ -641,14 +638,10 @@ export async function salvarPerfilTemplo(
 
   const supabase = getDirectSupabaseClient();
   if (supabase) {
-    try {
-      await withTimeout(
-        supabase.from("perfis_comunidade").upsert(mapPerfilToRow(atualizado)),
-        2000
-      );
-    } catch {
-      // Mantido seguro no repositório híbrido local
-    }
+    await gravarNoSupabase(
+      supabase.from("perfis_comunidade").upsert(mapPerfilToRow(atualizado)),
+      "gravar em perfis_comunidade"
+    );
   }
 
   return atualizado;
@@ -754,14 +747,10 @@ export async function salvarItemAgenda(
 
   const supabase = getDirectSupabaseClient();
   if (supabase) {
-    try {
-      await withTimeout(
-        supabase.from("agenda_liturgica").upsert(mapAgendaToRow(itemCompleto)),
-        2000
-      );
-    } catch {
-      // Mantido seguro no repositório híbrido local
-    }
+    await gravarNoSupabase(
+      supabase.from("agenda_liturgica").upsert(mapAgendaToRow(itemCompleto)),
+      "gravar em agenda_liturgica"
+    );
   }
 
   return itemCompleto;

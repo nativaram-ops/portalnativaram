@@ -8,6 +8,7 @@ import {
 import { NovoPedidoSchema } from "@/lib/validators/pedido";
 import { StatusPedido } from "@/types/pedido";
 import { resolverTitularDaRequisicao } from "@/lib/auth/session";
+import { rateioUnitarioOficial } from "@/lib/rateio";
 
 const WHATSAPP_COOPERATIVA = "556899779104";
 
@@ -94,10 +95,27 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Valores sempre pela tabela oficial; grupo sem CNPJ não recebe valores (o
+    // Conselho analisa a solicitação pelo WhatsApp e define se procede).
+    let itens;
+    try {
+      itens = parseResult.data.itens.map((item) => ({
+        ...item,
+        rateioUnitarioEstimado: titular.grupoInformal ? 0 : rateioUnitarioOficial(item),
+      }));
+    } catch {
+      return NextResponse.json(
+        { sucesso: false, erro: "A solicitação contém item fora do catálogo da cooperativa." },
+        { status: 400 }
+      );
+    }
+
     // O templo do pedido é o da sessão (o Conselho pode registrar para qualquer um).
-    const dadosPedido = titular.isAdmin
-      ? parseResult.data
-      : { ...parseResult.data, temploId: titular.codigo };
+    const dadosPedido = {
+      ...parseResult.data,
+      itens,
+      temploId: titular.isAdmin ? parseResult.data.temploId : titular.codigo,
+    };
     const pedidoCriado = await criarPedido(dadosPedido);
     const whatsappQuery = formatarMensagemWhatsApp(pedidoCriado);
     const whatsappUrl = `https://wa.me/${WHATSAPP_COOPERATIVA}?text=${whatsappQuery}`;

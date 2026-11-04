@@ -61,6 +61,28 @@ export function createAuthSupabaseClient(): SupabaseClient | null {
  * Envolve qualquer Promise/Thenable do Supabase em um timeout estrito (padrão 2000ms),
  * rejeitando graciosamente para acionar o fallback local em caso de lentidão de rede.
  */
+/**
+ * Confere uma gravação no Supabase (o cliente devolve `error` em vez de lançar).
+ * Em produção, falha ou demora vira erro: a rota responde 5xx em vez de um "sucesso"
+ * que só existe no disco temporário da instância serverless. Fora de produção, só registra.
+ */
+export async function gravarNoSupabase(
+  operacao: PromiseLike<{ error: unknown }>,
+  contexto: string,
+  ms = 3000
+): Promise<void> {
+  try {
+    const { error } = await withTimeout(operacao, ms);
+    if (!error) return;
+    console.error(`[supabase] ${contexto}:`, error);
+  } catch (erro) {
+    console.error(`[supabase] ${contexto}:`, erro);
+  }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(`Gravação não confirmada no banco de dados (${contexto}).`);
+  }
+}
+
 export function withTimeout<T>(promise: PromiseLike<T>, ms = 2000): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;
   const timeoutPromise = new Promise<never>((_, reject) => {

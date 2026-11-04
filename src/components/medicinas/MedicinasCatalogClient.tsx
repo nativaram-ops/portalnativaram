@@ -269,14 +269,14 @@ export function MedicinasCatalogClient() {
                         Frascos de 15g — Dietas, Autoestudo & Primeiro Contato
                       </h3>
                       <p className="text-xs text-areia-300 leading-relaxed font-light">
-                        Formato compacto desenvolvido especialmente para associados em dietas individuais, primeiros contatos meditativos ou para congregações que buscam testar a sinergia de novas alquimias botânicas.
+                        Formato compacto pensado para casas credenciadas que recebem novos irmãos em cerimônia ou para congregações que buscam testar a sinergia de novas alquimias botânicas.
                       </p>
                     </div>
 
                     <ul className="space-y-2 text-xs text-areia-300/90">
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0" />
-                        <span>Porta de entrada perfeita para conhecer a força de novas medicinas</span>
+                        <span>Porta de entrada para conhecer a força de outros preparados tradicionais</span>
                       </li>
                       <li className="flex items-center gap-2">
                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-400 flex-shrink-0" />
@@ -437,7 +437,7 @@ export function MedicinasCatalogClient() {
                     {/* CTA de Consulta e Ficha */}
                     <div className="p-5 pt-0">
                       <Link
-                        href={`/medicinas/${med.slug}`}
+                        href={`/sacramentos/${med.slug}`}
                         className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl border border-ambar-500/25 bg-floresta-900/60 hover:bg-ambar-500 hover:text-floresta-950 text-xs font-bold uppercase tracking-wider text-ambar-300 transition-all group/btn"
                       >
                         <span>Ficha Fitoquímica Completa</span>
@@ -553,7 +553,7 @@ export function MedicinasCatalogClient() {
                     Sananga Ancestral <em>(Tabernaemontana sananho)</em>
                   </h2>
                   <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
-                    Extrato botânico aquoso milenar obtido das raízes de <em>Tabernaemontana sananho</em>. Consagrado pelas etnias Yawanawá, Katukina e Huni Kuin para despertar a acuidade sensorial, clareza da visão sutil e alinhamento do ritmo mental antes de preces e jornadas noturnas na mata.
+                    Preparado aquoso tradicional das raízes de <em>Tabernaemontana sananho</em>, consagrado pelas etnias Yawanawá, Katukina e Huni Kuin antes de preces e jornadas noturnas na mata.
                   </p>
 
                   <div className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4 space-y-2">
@@ -562,7 +562,7 @@ export function MedicinasCatalogClient() {
                       Diretriz Crítica de Conservação Litúrgica:
                     </span>
                     <p className="text-xs text-areia-300 font-light leading-relaxed">
-                      Conservação obrigatória em congelador ou sob refrigeração rigorosa contínua (4°C a 8°C). Produto 100% orgânico, vivo e isento de conservantes sintéticos.
+                      Conservação obrigatória em congelador ou sob refrigeração rigorosa contínua (4°C a 8°C). Preparado tradicional de origem botânica, sem conservantes sintéticos.
                     </p>
                   </div>
 

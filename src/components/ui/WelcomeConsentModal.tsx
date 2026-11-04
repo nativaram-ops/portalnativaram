@@ -13,6 +13,7 @@ import {
   Lock,
   Scale,
 } from "lucide-react";
+import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
 
 export function WelcomeConsentModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,13 +46,21 @@ export function WelcomeConsentModal() {
     setIsOpen(false);
   };
 
+  // Escape equivale ao botão "Fechar" (que também registra a ciência do aviso).
+  const { containerRef, focoInicialRef } = useDialogoAcessivel({
+    aberto: mounted && isOpen,
+    aoFechar: handleDismiss,
+  });
+
   if (!mounted || !isOpen) return null;
 
   return (
     <div
+      ref={containerRef}
       role="dialog"
       aria-modal="true"
       aria-labelledby="welcome-modal-title"
+      tabIndex={-1}
       className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-5 overflow-y-auto animate-fade-in"
     >
       {/* Backdrop escuro com desfoque profundo */}
@@ -73,6 +82,7 @@ export function WelcomeConsentModal() {
 
         {/* Botão Fechar no canto superior */}
         <button
+          ref={focoInicialRef}
           onClick={handleDismiss}
           className="absolute top-3.5 right-3.5 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-pedra-900/5 hover:bg-pedra-900/15 text-pedra-700 hover:text-pedra-950 transition-colors focus:outline-none focus:ring-2 focus:ring-amber-500"
           aria-label="Fechar janela de boas-vindas"

@@ -389,7 +389,13 @@ function VideoCard({ video }: { video: VideoAcervo }) {
 
   return (
     <div className="card-elevated rounded-2xl overflow-hidden border-floresta-800/80 hover:border-ambar-500/40 transition-all duration-300 bg-floresta-900/40">
-      <div className="relative aspect-video cursor-pointer group" onClick={togglePlay}>
+      <button
+        type="button"
+        onClick={togglePlay}
+        aria-label={isPlaying ? `Pausar ${video.titulo}` : `Reproduzir ${video.titulo}`}
+        aria-pressed={isPlaying}
+        className="relative block w-full aspect-video cursor-pointer group text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400 focus-visible:ring-inset"
+      >
         <video
           ref={videoRef}
           src={video.src}
@@ -409,7 +415,7 @@ function VideoCard({ video }: { video: VideoAcervo }) {
             </div>
           </div>
         )}
-      </div>
+      </button>
       <div className="p-4 sm:p-5 space-y-1.5">
         <h4 className="font-serif text-base font-bold text-areia-100">
           {video.titulo}
@@ -477,8 +483,9 @@ export function ProjetoDeLuzLanding() {
           <AnimateOnScroll delay={300}>
             <p className="text-sm sm:text-base lg:text-lg text-areia-200 leading-relaxed font-light max-w-2xl mx-auto">
               Sob a Lei nº 5.764/1971, a Cooperativa Nativaram não visa lucros.
-              Cada contribuição de rateio operacional gera um excedente social
-              destinado à regeneração da mata, ao refúgio da fauna acreana, à
+              Cada contribuição de rateio cobre custos reais. As sobras, por
+              deliberação de assembleia, vão ao Fundo Social (FATES), nos termos
+              da Lei 5.764/71, e se destinam à regeneração da mata, ao refúgio da fauna acreana, à
               remuneração digna das famílias ribeirinhas e ao apoio solidário a
               casas pequenas e comunidades da floresta.
             </p>
@@ -538,8 +545,9 @@ export function ProjetoDeLuzLanding() {
                     Todo o rateio cooperativo é transparente. Não existe margem
                     de lucro. Existe rateio solidário: cada cooperado paga
                     exatamente o custo de produção e logística, repartido entre
-                    todos. O que sobra não é &ldquo;lucro&rdquo; — é reinvestido
-                    integralmente nas 4 frentes sociais que apresentamos abaixo.
+                    todos. As sobras não são &ldquo;lucro&rdquo;: por deliberação de
+                    assembleia, vão ao Fundo Social (FATES), nos termos da Lei
+                    5.764/71, e custeiam as 4 frentes sociais apresentadas abaixo.
                   </p>
                   <p>
                     As famílias ribeirinhas de Cruzeiro do Sul recebem
@@ -583,7 +591,7 @@ export function ProjetoDeLuzLanding() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="text-xs font-semibold uppercase tracking-wider text-ambar-400">
-              Onde Floresce o Superávit Cooperativo
+              Onde Florescem as Sobras do Rateio
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
               Transformando Apoio Litúrgico em Consciência Viva
@@ -681,14 +689,14 @@ export function ProjetoDeLuzLanding() {
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center space-y-3 max-w-2xl mx-auto">
             <span className="text-xs font-semibold uppercase tracking-wider text-ambar-400">
-              Prestação de Contas
+              Meta de Destinação
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl font-bold text-areia-100">
               Para Onde Vai Cada Centavo do Rateio
             </h2>
             <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-              Matriz oficial de distribuição solidária — 100% transparente, 0% de
-              lucro privado.
+              Meta de destinação aprovada em assembleia (valores realizados serão
+              publicados na prestação de contas anual). Sem lucro privado.
             </p>
           </div>
 
@@ -698,22 +706,22 @@ export function ProjetoDeLuzLanding() {
               <div
                 className="h-full bg-emerald-500/80"
                 style={{ width: "40%" }}
-                title="40% — Insumos, Alimentação & Lenha"
+                title="Meta: 40% — Insumos, Alimentação & Lenha"
               />
               <div
                 className="h-full bg-ambar-500/80"
                 style={{ width: "40%" }}
-                title="40% — Remuneração das Famílias"
+                title="Meta: 40% — Remuneração das Famílias"
               />
               <div
                 className="h-full bg-sky-500/80"
                 style={{ width: "10%" }}
-                title="10% — Logística & Embalagens"
+                title="Meta: 10% — Logística & Embalagens"
               />
               <div
                 className="h-full bg-rose-500/80"
                 style={{ width: "10%" }}
-                title="10% — Fundo Social & Ecovila"
+                title="Meta: 10% — Fundo Social & Ecovila"
               />
             </div>
           </AnimateOnScroll>
@@ -731,6 +739,9 @@ export function ProjetoDeLuzLanding() {
                     <div className={`font-serif text-2xl font-bold ${fatia.cor}`}>
                       {fatia.porcentagem}%
                     </div>
+                    <span className="block text-[10px] font-mono uppercase tracking-wider text-areia-400">
+                      Meta
+                    </span>
                     <h4 className="text-xs font-bold text-areia-100 leading-snug">
                       {fatia.titulo}
                     </h4>
@@ -935,7 +946,7 @@ export function ProjetoDeLuzLanding() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/medicinas"
+                href="/sacramentos"
                 className="btn-secondary w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 text-xs font-medium"
               >
                 <span>Ver Compêndio de Sacramentos</span>

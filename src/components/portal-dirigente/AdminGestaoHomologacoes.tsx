@@ -31,6 +31,7 @@ import {
   gerarGuiaTransitoHtml,
   imprimirDocumentoHtml,
 } from "@/lib/documentos-homologacao";
+import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
 
 const LOCAL_STORAGE_KEY = "nativaram_solicitacoes_local";
 
@@ -414,6 +415,13 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     (s) => s.status === "HOMOLOGADO"
   ).length;
 
+  const dialogoExclusao = useDialogoAcessivel({
+    aberto: Boolean(confirmarExclusaoModal),
+    aoFechar: () => setConfirmarExclusaoModal(null),
+    // Durante a exclusão em curso, Escape não interrompe (igual ao botão Cancelar desabilitado).
+    fecharComEscape: !excluindoId,
+  });
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Cabeçalho da Seção */}
@@ -486,7 +494,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                   setNovoProtocolo({ ...novoProtocolo, id: e.target.value.toUpperCase() })
                 }
                 placeholder="Ex: REC-2026-OLYY"
-                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 font-mono uppercase focus:border-ambar-400 focus:outline-none"
+                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 font-mono uppercase focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
               />
             </div>
 
@@ -502,7 +510,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                     tipo: e.target.value as "GRUPO_INFORMAL" | "INSTITUICAO_FORMAL",
                   })
                 }
-                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none"
+                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
               >
                 <option value="GRUPO_INFORMAL">🌿 Grupo Informal / Rezador</option>
                 <option value="INSTITUICAO_FORMAL">🏛️ Instituição Formal (CNPJ)</option>
@@ -521,7 +529,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                   setNovoProtocolo({ ...novoProtocolo, nomeEntidade: e.target.value })
                 }
                 placeholder="Ex: Círculo de Oração Luz da Floresta"
-                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none"
+                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
               />
             </div>
 
@@ -537,7 +545,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                   setNovoProtocolo({ ...novoProtocolo, nomeResponsavel: e.target.value })
                 }
                 placeholder="Nome completo do responsável"
-                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none"
+                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
               />
             </div>
 
@@ -552,7 +560,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                   setNovoProtocolo({ ...novoProtocolo, telefone: e.target.value })
                 }
                 placeholder="Ex: 11999998888"
-                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none"
+                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
               />
             </div>
 
@@ -568,7 +576,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                     setNovoProtocolo({ ...novoProtocolo, cidade: e.target.value })
                   }
                   placeholder="Cidade"
-                  className="w-2/3 rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none"
+                  className="w-2/3 rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
                 />
                 <input
                   type="text"
@@ -581,7 +589,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                     })
                   }
                   placeholder="UF"
-                  className="w-1/3 rounded-xl border border-ambar-500/30 bg-floresta-900 px-2 py-2 text-center uppercase text-areia-100 focus:border-ambar-400 focus:outline-none"
+                  className="w-1/3 rounded-xl border border-ambar-500/30 bg-floresta-900 px-2 py-2 text-center uppercase text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
                 />
               </div>
             </div>
@@ -597,7 +605,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                   setNovoProtocolo({ ...novoProtocolo, graduacao: e.target.value })
                 }
                 placeholder="Ex: 5.1 Pituã"
-                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none"
+                className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
               />
             </div>
 
@@ -712,7 +720,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
             placeholder="Buscar protocolo (ex: REC-2026-OLYY), nome..."
-            className="w-full rounded-xl border border-ambar-500/20 bg-floresta-900/90 pl-9 pr-3 py-1.5 text-xs text-areia-100 placeholder-areia-400/50 focus:border-ambar-400 focus:outline-none"
+            className="w-full rounded-xl border border-ambar-500/20 bg-floresta-900/90 pl-9 pr-3 py-1.5 text-xs text-areia-100 placeholder-areia-400/50 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
           />
         </div>
       </div>
@@ -1123,18 +1131,26 @@ export const AdminGestaoHomologacoes: React.FC = () => {
 
       {/* Modal de Confirmação de Exclusão de Instituição */}
       {confirmarExclusaoModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in">
+        <div
+          ref={dialogoExclusao.containerRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="titulo-dialogo-exclusao"
+          tabIndex={-1}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 animate-fade-in"
+        >
           <div className="card-elevated rounded-2xl p-6 sm:p-8 max-w-lg w-full border-2 border-red-500/40 bg-floresta-950 space-y-5 shadow-2xl">
             <div className="flex items-center justify-between border-b border-red-500/20 pb-3">
               <div className="flex items-center gap-2.5 text-red-400">
                 <Trash2 className="h-5 w-5" />
-                <h4 className="font-serif text-lg font-bold text-areia-100">
+                <h4 id="titulo-dialogo-exclusao" className="font-serif text-lg font-bold text-areia-100">
                   Apagar Instituição / Homologação
                 </h4>
               </div>
               <button
                 type="button"
                 onClick={() => setConfirmarExclusaoModal(null)}
+                aria-label="Fechar confirmação de exclusão"
                 className="p-1 rounded-lg text-areia-400 hover:text-areia-100 bg-floresta-900"
               >
                 <X className="h-4 w-4" />
@@ -1169,6 +1185,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-end gap-3 pt-3 border-t border-ambar-500/15">
               <button
+                ref={dialogoExclusao.focoInicialRef}
                 type="button"
                 onClick={() => setConfirmarExclusaoModal(null)}
                 disabled={Boolean(excluindoId)}

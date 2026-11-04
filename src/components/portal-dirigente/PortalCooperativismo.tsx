@@ -145,7 +145,7 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
             </h4>
           </div>
           <span className="text-xs font-mono text-amber-300 bg-amber-950/70 border border-amber-500/30 px-3 py-1 rounded-full">
-            Válido para Pagamento à Vista • Parcelamento c/ Taxa de Cartão
+            Rateio de custos, sem margem
           </span>
         </div>
 
@@ -205,7 +205,7 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
                     </div>
                     <span className="text-[10px] text-emerald-400 font-sans flex items-center gap-0.5 mt-0.5">
                       <TrendingDown className="h-3 w-3" />
-                      Economia de R$ {item.economiaPorUnidade},00/{item.unidade.split(" ")[0].toLowerCase()}
+                      Custo fixo diluído: R$ {item.custoFixoDiluidoPorUnidade},00/{item.unidade.split(" ")[0].toLowerCase()}
                     </span>
                   </td>
 
@@ -239,7 +239,7 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
               <Coins className="h-3.5 w-3.5" /> Condições de Rateio
             </span>
             <p className="text-[11px] leading-relaxed">
-              Valores base calculados para pagamento à vista. Parcelamento fraterno disponível com repasse estrito das tarifas cobradas pela operadora de cartão de crédito.
+              Os valores cobrem o custo do feitio, da biomassa e da logística, sem margem. Em lotes maiores, o custo fixo de feitio e frete se divide por mais litros, e essa redução é repassada integralmente. As formas de contribuição são combinadas com o Conselho Gestor.
             </p>
           </div>
 
@@ -254,7 +254,7 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
         </div>
       </div>
 
-      {/* SIMULADOR INTERATIVO DE COTA & ECONOMIA POR VOLUME */}
+      {/* SIMULADOR INTERATIVO DE COTA POR VOLUME */}
       <div className="p-6 rounded-2xl bg-gradient-to-br from-floresta-950 via-floresta-900 to-floresta-950 border border-ambar-500/30 space-y-5 shadow-elevated-md">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 border-b border-ambar-500/20 pb-3">
           <div className="space-y-0.5">
@@ -279,15 +279,23 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
           <div className="lg:col-span-7 space-y-4">
             {/* Seletor de Graduação */}
             <div className="space-y-2">
-              <label className="text-xs font-serif font-bold text-areia-100 block">
+              <label
+                id="simulador-rotulo-graduacao"
+                className="text-xs font-serif font-bold text-areia-100 block"
+              >
                 1. Selecione o Sacramento / Graduação:
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div
+                role="group"
+                aria-labelledby="simulador-rotulo-graduacao"
+                className="grid grid-cols-2 sm:grid-cols-3 gap-2"
+              >
                 {TABELA_EVOLUTIVA_RATEIO.map((item) => (
                   <button
                     key={item.graduacaoId}
                     type="button"
                     onClick={() => setGraduacaoSimulada(item.graduacaoId)}
+                    aria-pressed={graduacaoSimulada === item.graduacaoId}
                     className={`p-2.5 rounded-xl text-left transition-all border text-xs ${
                       graduacaoSimulada === item.graduacaoId
                         ? "bg-floresta-900 border-ambar-500 text-areia-100 shadow-solar"
@@ -308,7 +316,10 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
             {/* Seletor de Volume */}
             <div className="space-y-2">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-serif font-bold text-areia-100">
+                <label
+                  htmlFor="simulador-slider-volume"
+                  className="text-xs font-serif font-bold text-areia-100"
+                >
                   2. Volume Desejado ({itemGrad.unidade}):
                 </label>
                 <span className="text-xs font-mono font-bold text-ambar-400 bg-floresta-900 px-2 py-0.5 rounded border border-ambar-500/20">
@@ -323,6 +334,7 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
                     key={vol}
                     type="button"
                     onClick={() => setVolumeSimulado(vol)}
+                    aria-pressed={volumeSimulado === vol}
                     className={`py-1.5 rounded-lg text-xs font-semibold text-center transition-all ${
                       volumeSimulado === vol
                         ? "bg-ambar-500 text-floresta-950 font-bold"
@@ -336,7 +348,13 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
 
               {/* Slider */}
               <input
+                id="simulador-slider-volume"
                 type="range"
+                aria-valuetext={
+                  itemGrad.unidade === "Litro"
+                    ? `${volumeSimulado} ${volumeSimulado > 1 ? "litros" : "litro"}`
+                    : `${volumeSimulado} kg`
+                }
                 min={1}
                 max={30}
                 step={1}
@@ -373,14 +391,14 @@ export const PortalCooperativismo: React.FC<PortalCooperativismoProps> = ({
               </div>
 
               <div className="p-2.5 rounded-xl bg-floresta-900/60 border border-ambar-500/10">
-                <span className="text-[9px] font-mono text-emerald-400 uppercase block">Economia Gerada</span>
+                <span className="text-[9px] font-mono text-emerald-400 uppercase block">Custo Fixo Diluído</span>
                 <div className="font-bold text-emerald-400 text-sm mt-0.5">
-                  {resultadoSimulacao.economiaTotal > 0
-                    ? `R$ ${resultadoSimulacao.economiaTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
+                  {resultadoSimulacao.custoFixoDiluidoTotal > 0
+                    ? `R$ ${resultadoSimulacao.custoFixoDiluidoTotal.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`
                     : "Faixa Base"}
                 </div>
                 <span className="text-[9px] text-areia-400">
-                  {resultadoSimulacao.economiaTotal > 0 ? "Por escala cooperativa" : "Lotes 5 a 10L"}
+                  {resultadoSimulacao.custoFixoDiluidoTotal > 0 ? "Repassado no rateio" : "Lotes 5 a 10L"}
                 </span>
               </div>
             </div>

@@ -28,7 +28,7 @@ export const medicinas: Medicina[] = [
     slug: "7-ervas",
     nome: "Rapé 7 Ervas",
     subtitulo:
-      "A Força da Natureza em Sintonia e Limpeza Total",
+      "Sete Ervas em Sintonia na Abertura dos Trabalhos",
     tipo: "rape",
     composicaoBotanica:
       "Tabebuia serratifolia (Tsunu), Eucalyptus globulus (Eucalipto), Artemisia vulgaris (Artemísia), Rosmarinus officinalis (Alecrim), Anadenanthera colubrina (Angico), Cordia verbenacea (Catissaral) e Nissural.",
@@ -37,7 +37,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado artesanalmente por nosso feitor caboclo com mais de 20 anos de estudos. Matérias-primas obtidas de forma renovável e sustentável em parcerias com casas de plantas locais e coletores regionais.",
     alquimiaFitoquimica:
-      "Ao unir o tabaco forte com as cinzas alcalinas do Tsunu e os óleos naturais do Eucalipto e do Alecrim, esta mistura cria uma resposta imediata de desobstrução e foco, preservando os sais minerais e nutrientes essenciais das folhas mesmo após o fogo da queima.",
+      "Reúne o tabaco às cinzas alcalinas do Tsunu e às folhas secas de Eucalipto, Alecrim, Artemísia, Angico, Catissaral e Nissural, moídas e peneiradas segundo o feitio tradicional. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Presente em cerimônias de abertura de trabalhos, quando a casa se prepara para a reza coletiva.",
@@ -47,7 +47,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição aos sete centros de energia (chakras), como rito de firmeza e proteção do espaço sagrado.",
     },
     diretrizes:
-      "Consagre em um local bem calmo. Sente-se de forma confortável, faça uma respiração profunda e use o kuripe ou o tepi com um sopro firme e amoroso. Sintonize o ambiente com as frequências harmônicas de 432Hz.",
+      "Consagrado dentro da cerimônia, na abertura dos trabalhos, sob orientação do dirigente da casa credenciada. O sopro é aplicado com kuripe ou tepi, de forma firme e respeitosa. Muitas casas acompanham o rito com cantos ou sons em 432Hz.",
     cuidados:
       "Contém nicotina. Não recomendado para mulheres grávidas ou em período de amamentação, e pessoas com alta sensibilidade ao fumo.",
     referencias:
@@ -62,7 +62,7 @@ export const medicinas: Medicina[] = [
     slug: "cacau",
     nome: "Rapé de Cacau",
     subtitulo:
-      "O Sopro do Acolhimento, Doçura e Harmonização do Coração",
+      "O Sopro do Acolhimento e da Comunhão da Corrente",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica (Tabaco Sagrado) e Theobroma cacao (Cacau Selvagem).",
@@ -70,7 +70,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Desenvolvido de forma artesanal por nosso feitor caboclo sob a egrégora de estudos de mais de duas décadas em tradições da floresta. Matéria-prima botânica obtida de fontes sustentáveis e renováveis.",
     alquimiaFitoquimica:
-      "O cacau fornece a teobromina, um composto altamente resistente ao calor que mantém 90% de sua força após a queima ritualística. A teobromina atua abrindo suavemente os vasos de sangue e relaxando o sistema cardiovascular.",
+      "Une o tabaco sagrado ao cacau selvagem, torrado e moído no feitio tradicional. Em muitas tradições da floresta, o cacau é planta de partilha e comunhão. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado tradicionalmente em encontros de partilha e cerimônias de comunhão entre os irmãos da casa.",
@@ -80,7 +80,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao Chakra Cardíaco, símbolo de empatia e união da corrente.",
     },
     diretrizes:
-      "Consagre quando buscar um momento de reconexão consigo mesmo. Sente-se confortavelmente, use um kuripe ou tepi, respirando de forma pausada pela boca, integrando os sentimentos na frequência harmônica de 432Hz.",
+      "Consagrado em cerimônias de partilha e comunhão, sob orientação do dirigente da casa credenciada. O sopro é recebido sentado, com kuripe ou tepi, em respiração pausada pela boca. Cantos ou sons em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Evitar uso concomitante com estimulantes cardíacos sintéticos pesados.",
     referencias: "Rocha (2023); Yunka (2026); Vida — Tradições de Valor (2026).",
@@ -94,7 +94,7 @@ export const medicinas: Medicina[] = [
     slug: "cumaru",
     nome: "Rapé de Cumaru",
     subtitulo:
-      "Força Vital e Ancoragem Telúrica",
+      "Firmeza e Ancoragem na Terra",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica, Dipteryx odorata (Cumaru) e Protium heptaphyllum (Breu Preto).",
@@ -102,7 +102,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Desenvolvido de maneira artesanal por nosso feitor caboclo, com a sabedoria e a força de mais de 20 anos de estudos profundos em diversas etnias do Acre. Matéria-prima coletada de forma renovável.",
     alquimiaFitoquimica:
-      "Embora a cumarina original se degrade parcialmente com altas temperaturas, a queima lenta deixa uma cinza mineral rica em potássio e cálcio biodisponíveis combinados com os óleos balsâmicos do Breu Preto.",
+      "Une o tabaco às sementes de Cumaru e à resina de Breu Preto, de aroma balsâmico, em queima lenta e moagem artesanal. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado em ritos de firmeza e proteção, quando o trabalho pede postura e presença.",
@@ -112,7 +112,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao elemento terra e aos Chakras Básico e Coronário, como rito de enraizamento.",
     },
     diretrizes:
-      "Consagre com firme intenção de proteção e firmeza. Prepare um espaço silencioso e consagre com sopro firme. Realize o expurgo das toxinas, sintonizando o ambiente com sonoridades orgânicas de 432Hz.",
+      "Consagrado em ritos de proteção e firmeza, sob orientação do dirigente da casa credenciada. O espaço é preparado em silêncio e o sopro é firme. Sons orgânicos em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Apenas para adultos (+18). Siga as orientações de proporção segura e respeitosa.",
     referencias:
@@ -127,7 +127,7 @@ export const medicinas: Medicina[] = [
     slug: "jurema-preta",
     nome: "Rapé de Jurema Preta",
     subtitulo:
-      "Enraizamento Sagrado, Firmeza e Visão Ancestral",
+      "Enraizamento Sagrado, Firmeza e Memória dos Antigos",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica e Mimosa tenuiflora (Jurema Preta / hostilis).",
@@ -145,7 +145,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao Chakra Básico (Muladhara) e à conexão com a energia da terra.",
     },
     diretrizes:
-      "Consagre preferencialmente ao anoitecer em silêncio e introspecção. Aplique de forma uniforme nas duas narinas e segure o fôlego nasal, cuspindo os resíduos. Use frequências de 432Hz para estabilizar.",
+      "Consagrado tradicionalmente ao anoitecer, em cerimônias de silêncio conduzidas pelo dirigente da casa credenciada. O sopro é aplicado de forma uniforme nas duas narinas e os resíduos são cuspidos. Sons em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Não recomendado para grávidas, lactantes ou indivíduos com sensibilidade severa ao tabaco.",
     referencias:
@@ -161,7 +161,7 @@ export const medicinas: Medicina[] = [
     slug: "passiflora",
     nome: "Rapé de Passiflora",
     subtitulo:
-      "Acalento Noturno, Serenidade dos Sentidos e Harmonização do Ritmo",
+      "A Flor do Maracujá Silvestre nos Ritos de Encerramento",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica, Passiflora incarnata (Flor de Maracujá Silvestre) e cinzas alcalinas de Tsunú (Platycyamus regnellii).",
@@ -169,7 +169,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado de forma artesanal pelo nosso feitor caboclo com mais de 20 anos de caminhada prática na floresta. Folhas e flores colhidas sob manejo sustentável.",
     alquimiaFitoquimica:
-      "Rico em flavonoides naturais estáveis (como crisina e apigenina) combinados ao tamponamento alcalino das cinzas de Tsunú (pH 9,30 a 9,60), favorecendo a desaceleração suave e a quietude mental.",
+      "Une o tabaco às flores e folhas de maracujá silvestre (Passiflora incarnata), secas à sombra, e às cinzas alcalinas de Tsunú, moídas segundo o feitio tradicional. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado tradicionalmente ao entardecer, em ritos de encerramento e recolhimento.",
@@ -179,7 +179,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição aos Chakras Cardíaco (Anahata) e Frontal (Ajna), como preparação para a vigília.",
     },
     diretrizes:
-      "Consagre preferencialmente ao entardecer ou antes do repouso noturno. Receba o sopro suave e mantenha a respiração tranquila. Sintonize com sons serenos da natureza em 432Hz.",
+      "Consagrado ao entardecer, nos ritos de encerramento e recolhimento da casa, sob orientação do dirigente. O sopro é suave e a respiração, tranquila. Sons da natureza em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Destinado exclusivamente a adultos (+18) em contexto litúrgico e contemplativo.",
     referencias:
@@ -194,7 +194,7 @@ export const medicinas: Medicina[] = [
     slug: "mulateiro",
     nome: "Rapé de Mulateiro",
     subtitulo:
-      "O Sopro da Renovação, Juventude e Desapego",
+      "O Sopro da Renovação de Ciclos e do Desapego",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica e Calycophyllum spruceanum (Mulateiro / Capirona).",
@@ -202,7 +202,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado de maneira 100% artesanal pelo nosso feitor caboclo, que carrega a força de mais de 20 anos de estudos profundos e dietas na floresta. Matéria-prima de origem renovável.",
     alquimiaFitoquimica:
-      "A casca do Mulateiro é extremamente rica em ácido ursólico e lignanas com potente ação antioxidante. O ácido ursólico é termoestável e preserva até 80% de sua atividade na calcinação.",
+      "Une o tabaco à casca do Mulateiro, árvore amazônica conhecida por renovar a própria casca e, por isso, símbolo de renovação nas tradições da floresta. A casca é seca, queimada e moída no feitio artesanal. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Presente em rituais de transição e na abertura de novos ciclos dentro da casa.",
@@ -212,7 +212,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao Chakra Básico (Muladhara) e ao Chakra Frontal, como rito de proteção e aterramento.",
     },
     diretrizes:
-      "Consagre em rituais de transição, ao buscar iniciar novos ciclos de vida com vigor. Use o kuripe ou tepi, aplicando em ambas as narinas de forma equilibrada. Sintonize com sons de água e frequências de 432Hz.",
+      "Consagrado em ritos de transição e na abertura de novos ciclos da casa, sob orientação do dirigente. O sopro é aplicado com kuripe ou tepi, de forma equilibrada nas duas narinas. Sons de água e frequências de 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Siga as orientações de uso respeitoso e focado.",
     referencias:
@@ -227,7 +227,7 @@ export const medicinas: Medicina[] = [
     slug: "murici",
     nome: "Rapé de Murici",
     subtitulo:
-      "O Sopro do Vigor, Resistência e Força Física",
+      "O Sopro da Coragem nos Trabalhos Longos da Corrente",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica e Byrsonima crassifolia (Murici).",
@@ -235,17 +235,17 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado artesanalmente por nosso feitor caboclo sob a egrégora de estudos de mais de duas décadas. Matéria-prima botânica obtida de fontes renováveis.",
     alquimiaFitoquimica:
-      "A casca do Murici é uma fonte abundante de ferro, potássio, vitamina C e taninos. A calcinação controlada resulta em uma cinza rica em potássio e ferro bioativos que aumentam a condutividade e a resposta corporal de vigor.",
+      "Une o tabaco à casca do Murici, árvore do cerrado e da Amazônia, calcinada em fogo controlado e moída no feitio artesanal. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
-        "Consagrado tradicionalmente no início do dia e antes de trabalhos longos da corrente.",
+        "Consagrado tradicionalmente na abertura de trabalhos longos da corrente.",
       mental:
         "Acompanha momentos de presença e foco na reza coletiva.",
       sutil:
         "Associado na tradição ao Plexo Solar e ao Chakra Cardíaco, símbolo de coragem e força vital.",
     },
     diretrizes:
-      "Consagre no início do dia ou antes de sessões que demandem alta resistência física. Segure o fôlego nasal no momento do sopro e cuspa os resíduos. Use sons graves de terra em 432Hz.",
+      "Consagrado na abertura de trabalhos longos da corrente, sob orientação do dirigente da casa credenciada. No momento do sopro, o fôlego nasal é mantido e os resíduos são cuspidos. Sons graves de terra em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Não recomendado para indivíduos hipertensos graves sem acompanhamento.",
     referencias:
@@ -270,7 +270,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Preparado de forma sagrada e sob rezas de conexão por nosso feitor caboclo. Matéria-prima coletada de forma ecológica e sustentável.",
     alquimiaFitoquimica:
-      "Estudos preliminares sugerem que a folha de Nissural é rica em fitocomplexos nobres. A moagem ultrafina preservada em cinzas alcalinas de Tsunu facilita o tráfego de neurotransmissores de introspecção.",
+      "Une o tabaco às cinzas alcalinas de Tsunu e às folhas de Nissural, planta da família Rubiaceae cujo preparo é guardado em sigilo pela tradição. A moagem é ultrafina. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado em momentos de oração profunda e cerimônias de estudo íntimo.",
@@ -280,7 +280,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição aos Chakras Coronário e Frontal e à conexão com os avós da floresta.",
     },
     diretrizes:
-      "Consagre em momentos de profunda oração, busca de orientação espiritual ou cerimônias de estudo íntimo. Aplique com um sopro suave e focado. Use sons de harpas, flautas e frequências de 432Hz.",
+      "Consagrado em momentos de oração profunda e em cerimônias de estudo, sob orientação do dirigente da casa credenciada. O sopro é suave e focado. Sons de harpas, flautas e frequências de 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Requer uso respeitoso e focado, evitando consagração em ambientes ruidosos.",
     referencias:
@@ -296,7 +296,7 @@ export const medicinas: Medicina[] = [
     slug: "parica",
     nome: "Rapé de Paricá",
     subtitulo:
-      "A Força do Guerreiro, Diagnóstico e Fogo da Transformação",
+      "A Força do Guerreiro e o Fogo da Transformação",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica e cinzas da casca do tronco de Paricá (Schizolobium amazonicum / Anadenanthera).",
@@ -304,7 +304,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado artesanalmente por nosso feitor caboclo sob a egrégora de estudos de mais de duas décadas em diversas etnias da Amazônia. Matéria-prima de origem renovável.",
     alquimiaFitoquimica:
-      "Diferente de pós inalados visionários como o Yopo, o rapé feito com a casca de Schizolobium amazonicum é livre de efeitos visionários. A queima acima de 250°C degrada totalmente qualquer composto triptamínico, resultando em uma cinza altamente alcalina de rápida ação.",
+      "Une o tabaco às cinzas da casca do tronco de Paricá, queimada em fogo alto e moída no feitio tradicional. É um preparado de força extra-forte, reservado a trabalhos de força. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado em trabalhos de força, com postura firme e intenção focada, sob orientação do dirigente.",
@@ -314,7 +314,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao Chakra Coronário e ao Plexo Solar, símbolo do guerreiro interior.",
     },
     diretrizes:
-      "Por ser um rapé de força extra-forte, consagre com postura firme e intenção focada. Mantenha a respiração pela boca. Sintonize com sons de fogueira, tambor cerimonial em 432Hz.",
+      "Por ser de força extra-forte, é consagrado em trabalhos de força, com postura firme, sob orientação direta do dirigente da casa credenciada. A respiração é mantida pela boca. Sons de fogueira e tambor cerimonial em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Não recomendado para iniciantes sem acompanhamento ou pessoas com crises inflamatórias agudas da mucosa.",
     referencias:
@@ -329,7 +329,7 @@ export const medicinas: Medicina[] = [
     slug: "pixuri",
     nome: "Rapé de Pixuri",
     subtitulo:
-      "O Escudo de Proteção e Guardião do Sono",
+      "O Escudo de Proteção nos Ritos de Encerramento",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica, cinzas de Tsunu e sementes de Pixuri (Licaria puchury-major).",
@@ -337,7 +337,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado de forma artesanal sob rezas de proteção por nosso feitor caboclo. Matéria-prima coletada de forma ecológica em casas de plantas locais parceiras.",
     alquimiaFitoquimica:
-      "As sementes de Pixuri contêm teores elevados de linalol (composto sedativo e neuroprotetor). Processo de moagem ultrafina à sombra que preserva os fitocomplexos aromáticos que atuam no relaxamento celular.",
+      "Une o tabaco às cinzas de Tsunu e às sementes de Pixuri, de aroma intenso, moídas à sombra no feitio artesanal para guardar o perfume das sementes. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado tradicionalmente ao anoitecer, em ritos de encerramento dos trabalhos.",
@@ -347,7 +347,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição aos Chakras Frontal e Cardíaco, como rito de proteção noturna.",
     },
     diretrizes:
-      "Consagre ao anoitecer ou antes de deitar em seu espaço de repouso. Aplique com um sopro longo, suave e acolhedor. Permaneça em silêncio de olhos fechados. Use músicas relaxantes e frequências de 432Hz.",
+      "Consagrado ao anoitecer, nos ritos de encerramento dos trabalhos, sob orientação do dirigente da casa credenciada. O sopro é longo e suave, seguido de silêncio de olhos fechados. Cantos suaves e frequências de 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Conservar o frasco âmbar fechado para evitar a volatilização de seus aromas nobres.",
     referencias:
@@ -362,7 +362,7 @@ export const medicinas: Medicina[] = [
     slug: "rainha",
     nome: "Rapé de Rainha (Chacrona)",
     subtitulo:
-      "Conexão ao Sagrado Feminino e Paz Interna",
+      "Conexão ao Sagrado Feminino e ao Recolhimento",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica, cinzas alcalinas de Tsunu e folhas de Chacrona (Psychotria viridis).",
@@ -370,7 +370,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado de forma artesanal por nosso feitor caboclo sob a egrégora de estudos de mais de 20 anos de dietas e vivências na Amazônia. Matéria-prima de origem 100% renovável.",
     alquimiaFitoquimica:
-      "Embora a folha in natura contenha compostos visionários, o calor do feitio acima de 200°C provoca a degradação térmica completa do DMT. O rapé não possui efeitos psicoativos, retendo flavonoides e taninos termoestáveis que equilibram as células mucosas.",
+      "Une o tabaco às cinzas alcalinas de Tsunu e às folhas de Chacrona (Psychotria viridis), secas, queimadas e moídas no feitio tradicional. Nas tradições da ayahuasca, a Chacrona é chamada de Rainha, e o nome deste rapé guarda essa memória. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Presente em cerimônias de rezo feminino e em ritos de recolhimento da casa.",
@@ -380,9 +380,9 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao Chakra Cardíaco (Anahata) e ao Chakra Frontal (Ajna), símbolo da sensibilidade intuitiva.",
     },
     diretrizes:
-      "Consagre em ambiente silencioso com foco em meditação, autocuidado ou rituais de harmonização emocional. Receba o sopro suave de olhos fechados. Use músicas de rezo feminino em 432Hz.",
+      "Consagrado em cerimônias de rezo feminino e em ritos de recolhimento da casa, sob orientação de quem dirige o trabalho. O sopro é suave, recebido de olhos fechados. Cantos de rezo feminino em 432Hz podem acompanhar o rito.",
     cuidados:
-      "Contém nicotina. Não recomendado para grávidas devido a contrações vasculares locais sutilizadas.",
+      "Contém nicotina. Não recomendado para grávidas ou lactantes.",
     referencias:
       "Nunes et al. (2021); Sateré-Mawé Tradition (2023); Nativaram Brasil (2026).",
     forca: "suave",
@@ -404,7 +404,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Desenvolvido de forma artesanal sob rezas de alinhamento pelo nosso feitor caboclo. Colheita manual de cascas de árvores caídas e de galhos de fontes renováveis.",
     alquimiaFitoquimica:
-      "As cinzas de Samaúma e Ipê-Amarelo são extremamente ricas em óxidos de potássio, cálcio e lapachol residual. Essa elevada riqueza de eletrólitos minerais confere ao preparado uma altíssima condutividade, facilitando as sinapses neurais de foco.",
+      "Une o tabaco às cinzas de Samaúma, a grande árvore da floresta amazônica, e à casca de Ipê-Amarelo, colhidas de árvores caídas e de galhos, queimadas e moídas no feitio artesanal. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado em ritos de alinhamento, com a coluna ereta e sopro firme.",
@@ -414,7 +414,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao Chakra Básico (Muladhara) e ao Chakra Coronário, como rito de conexão vertical.",
     },
     diretrizes:
-      "Consagre em momentos que necessite de orientação, firmeza de propósito ou realinhamento geral. Sente-se com a coluna ereta. Use kuripe ou tepi com sopro firme. Sintonize com sons da mata e tambor em 432Hz.",
+      "Consagrado em ritos de alinhamento e firmeza de propósito, sob orientação do dirigente da casa credenciada. O sopro é recebido sentado, com a coluna ereta, por kuripe ou tepi. Sons da mata e tambor em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Evitar o uso se houver quadros de sinusite inflamatória aguda.",
     referencias:
@@ -429,7 +429,7 @@ export const medicinas: Medicina[] = [
     slug: "canela-de-velho",
     nome: "Rapé de Canela de Velho",
     subtitulo:
-      "Sabedoria dos Anciãos, Firmeza Estrutural e Enraizamento",
+      "Sabedoria dos Anciãos e Enraizamento",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica, cinzas alcalinas de Tsunú (Platycyamus regnellii) e folhas de Canela de Velho (Miconia albicans).",
@@ -437,7 +437,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado de forma 100% artesanal sob rezas de firmeza por nosso feitor caboclo, com mais de 20 anos de estudos nas matas. Matéria-prima obtida de forma renovável e sustentável.",
     alquimiaFitoquimica:
-      "As folhas de Miconia albicans concentram flavonoides e compostos triterpênicos nobres (ácido oleanólico e ácido ursólico) que, integrados às cinzas alcalinas de Tsunú (pH 9,65 a 9,95), promovem estabilidade e presença corporal.",
+      "Une o tabaco às cinzas alcalinas de Tsunú e às folhas de Canela de Velho (Miconia albicans), planta do cerrado, secas e moídas no feitio artesanal. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado em ritos de ancoramento e antes de vigílias longas da corrente.",
@@ -447,7 +447,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição ao Chakra Básico (Muladhara) e ao Plexo Solar (Manipura), em memória dos anciãos da floresta.",
     },
     diretrizes:
-      "Consagre em ritos de ancoramento, estudos prolongados ou antes de vigílias que peçam estabilidade física e serenidade. Use o kuripe ou tepi de forma focada e respeitosa em sintonia de 432Hz.",
+      "Consagrado em ritos de ancoramento e antes de vigílias longas da corrente, sob orientação do dirigente da casa credenciada. O sopro é aplicado com kuripe ou tepi, de forma focada e respeitosa. Sons em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Voltado exclusivamente a adultos (+18) sob propósito claro de introspecção.",
     referencias:
@@ -462,7 +462,7 @@ export const medicinas: Medicina[] = [
     slug: "tsunu",
     nome: "Rapé de Tsunu",
     subtitulo:
-      "O Sopro Clássico de Alinhamento Geral, Foco e Aterramento",
+      "O Sopro Clássico de Abertura e Encerramento dos Trabalhos",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica e cinzas refinadas da casca da árvore de Tsunu (Platycyamus regnellii - Pau Pereira).",
@@ -470,17 +470,17 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado de maneira artesanal pelo nosso feitor caboclo sob a egrégora de estudos de mais de 20 anos em diversas nações da Amazônia. Matéria-prima obtida de forma ética e sustentável.",
     alquimiaFitoquimica:
-      "As cascas de Tsunu calcinadas produzem cinzas altamente alcalinas que elevam o pH da cavidade nasal (pH entre 9,75 e 10,2). Esse processo transforma toda a nicotina ativa em base livre de absorção instantânea e altíssima eficácia cognitiva.",
+      "Une o tabaco às cinzas da casca de Tsunu (Pau Pereira), base tradicional de muitos rapés amazônicos. A casca é calcinada e peneirada até virar pó fino. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Rapé clássico das cerimônias de abertura e encerramento de trabalhos.",
       mental:
-        "Usado tradicionalmente em momentos de concentração e reza, ao início ou ao fim do dia.",
+        "Usado tradicionalmente em momentos de concentração e reza, na abertura ou no encerramento dos trabalhos.",
       sutil:
         "Associado na tradição a todos os chakras, como rito de aterramento e alinhamento geral.",
     },
     diretrizes:
-      "A sabedoria botânica básica perfeita para sua jornada de oração ou bem-estar. Consagre ao acordar para despertar a mente, ou no final do dia para descarregar o cansaço. Use kuripe ou tepi. Sintonize em 432Hz.",
+      "Rapé clássico das cerimônias de abertura e encerramento de trabalhos, consagrado sob orientação do dirigente da casa credenciada. O sopro é aplicado com kuripe ou tepi. Sons em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Não recomendado para grávidas, lactantes ou pessoas hipertensas sem controle médico.",
     referencias:
@@ -495,7 +495,7 @@ export const medicinas: Medicina[] = [
     slug: "veia-de-paje",
     nome: "Rapé Veia de Pajé",
     subtitulo:
-      "Circulação Ativa, Harmonização do Coração e Força de Yube",
+      "A Força de Yube e a Proteção da Floresta",
     tipo: "rape",
     composicaoBotanica:
       "Nicotiana rustica, Epipremnum aureum (Cipó Jiboia) e cinzas condutoras de Samaúma (Ceiba pentandra).",
@@ -503,7 +503,7 @@ export const medicinas: Medicina[] = [
     feitioRastreabilidade:
       "Confeccionado artesanalmente sob rezas de harmonização profunda por nosso feitor caboclo com mais de 20 anos de estudos em diversas etnias da Amazônia. Matéria-prima coletada de forma ecológica.",
     alquimiaFitoquimica:
-      "Une as cinzas de Samaúma às folhas moídas de Cipó-Jiboia que contêm fitocomplexos nobres, saponinas e linalol termoestável. Essa sinergia promove a pureza das vias respiratórias superiores e apoia a vitalidade natural do organismo.",
+      "Une o tabaco às folhas moídas de Cipó-Jiboia e às cinzas de Samaúma, no feitio artesanal. A jiboia remete a Yube, a serpente sagrada das tradições do Acre. Contém nicotina natural do tabaco.",
     beneficios: {
       fisico:
         "Consagrado em cerimônias de harmonização, com respiração pausada e sopro firme.",
@@ -513,7 +513,7 @@ export const medicinas: Medicina[] = [
         "Associado na tradição aos Chakras Cardíaco e Frontal e à força espiritual da serpente Yube.",
     },
     diretrizes:
-      "Consagre em sessões de harmonização de linhagens emocionais antigas ou quando buscar orientação e forte proteção da floresta. Aplique de forma firme com o kuripe ou tepi, respirando de forma pausada pela boca. Sintonize em 432Hz.",
+      "Consagrado em cerimônias de proteção e de busca de orientação espiritual, sob orientação do dirigente da casa credenciada. O sopro é firme, com kuripe ou tepi, e a respiração, pausada pela boca. Sons em 432Hz podem acompanhar o rito.",
     cuidados:
       "Contém nicotina. Rapé de força intermediária a forte. Não consagrar em momentos de enxaquecas agudas nas têmporas.",
     referencias:
