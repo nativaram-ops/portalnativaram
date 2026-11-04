@@ -70,6 +70,8 @@
 
 ## Pacote B — Dados, exclusão e testes que não tocam produção (P1)
 
+> **Andamento (2026-11-04): B1–B4 executados.** Testes isolados do Supabase; exclusão durável (marca `EXCLUIDO_PELO_ADMIN` vence cópias antigas e dados iniciais; recusa legítima volta a aparecer; retorno real); em produção, gravação no Supabase com erro vira 5xx (`gravarNoSupabase`); `data/*.json` continuam no disco e o site roda sem eles (dados iniciais no código). Reconhecimentos seguem também em `solicitacoes_homologacao` (via formulário), por isso não ganharam tabela própria.
+
 ### B1. Testes nunca escrevem no Supabase real nem em `data/`
 - **Onde:** `.env.local` aponta para o Supabase de produção, sem service role. `scripts/test-liturgico.mjs:515-622` registra, homologa e depois apaga `TEST-%` remotamente com a anon key. `core-hybrid-store.ts:11` grava em `data/` versionado.
 - **Fazer:** variável `NATIVARAM_TEST=1` definida no script `test` do `package.json` (ou no topo de cada `scripts/test-*.mjs`). Com ela, `getDirectSupabaseClient()` retorna `null` e o diretório de dados é um `fs.mkdtemp` (aceite `NATIVARAM_DATA_DIR`). Apague a limpeza remota `delete().like("id","TEST-%")`. Coloque `finally` no teste de exclusão.
@@ -90,7 +92,7 @@
 
 ## Pacote C — Cálculo do rateio (P1)
 
-> **Andamento (2026-11-03): C1–C4 executados.** `obterCotaRateio` faz busca exata e lança erro para código desconhecido; acima de 20 L devolve `valorTotal: null` (tipo discriminado obriga o tratamento); calculadora usa `graduacao.id`, mostra "Sob consulta ao Conselho" e esconde "Dimensionar" do Gel (kg); reconstituição compara pela faixa do volume final e avisa abaixo de 5 L; pedido sem contato fictício, com campo de e-mail, ± respeita o mínimo e sem `window.open` pós-await. Testes em `scripts/test-rateio.mjs`. **C5 aguarda D3** (decisão do Conselho).
+> **Andamento (2026-11-03): C1–C4 executados.** `obterCotaRateio` faz busca exata e lança erro para código desconhecido; acima de 20 L devolve `valorTotal: null` (tipo discriminado obriga o tratamento); calculadora usa `graduacao.id`, mostra "Sob consulta ao Conselho" e esconde "Dimensionar" do Gel (kg); reconstituição compara pela faixa do volume final e avisa abaixo de 5 L; pedido sem contato fictício, com campo de e-mail, ± respeita o mínimo e sem `window.open` pós-await. Testes em `scripts/test-rateio.mjs`. **C5 feito em 2026-11-04** após D3: `VALORES_APOIO_LITURGICO` como fonte única e valor oficial recalculado no servidor (`src/lib/rateio.ts`).
 
 **Arquivos:** `src/data/graduacoes.ts`, `PortalCalculadoraLiturgica.tsx`, `PortalCooperativismo.tsx`, `FormSolicitacaoPedido.tsx`, novo `scripts/test-rateio.mjs` (incluir no `npm test`).
 
@@ -106,6 +108,8 @@
 ---
 
 ## Pacote D — Coerência com a missão e compliance público (P0/P1; maior parte é texto)
+
+> **Andamento (2026-11-04): D3–D12 executados** com as decisões do dono (ADR-011): D3 valores mantidos com vocabulário de custo; D4 Mel/Gel mantidos e explicados em `/compliance`; D5 grupo sem CNPJ não vê valores e o pedido vai ao Conselho "a definir"; D6 menção ao "Marco ANVISA 2025" retirada (sem fonte primária encontrada) e CONAD separada do rapé; D7/D8 alegações e termos restantes saíram (inclusive `alquimiaFitoquimica`, `diretrizes` e subtítulos de `medicinas.ts`); D10 `/privacidade` preliminar (revisão jurídica pendente) e consentimento da linhagem; D11 "sobras/FATES". Mantido de propósito: o bloco de alertas de segurança em `/compliance` (redução de danos, não promessa de benefício).
 
 A intenção declarada (cooperativa sem fins lucrativos, salvaguarda litúrgica, rateio de custo, CONAD 01/2010) está bem desenhada nos documentos e na área de segurança. As contradições abaixo enfraquecem justamente essa tese diante de uma fiscalização.
 
