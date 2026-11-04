@@ -55,7 +55,7 @@ categoria: Índice Rápido
 | **SEO & Indexação Canônica** | `src/app/sitemap.ts` e `src/app/robots.ts` | Sitemap unificado em `/sacramentos`, `/estudos/comunidade/[slug]` e `/estudos/dossies/[slug]`; bloqueio de `/portal-dirigente` |
 | **Funil Didático (5 Estações)** | `Segundo-Cerebro/06-Arquitetura-do-Portal/Funil-de-Conversao-e-Navegacao-Didatica.md` | Arquitetura das 5 estações (Origem -> Feitio -> Sacramentos -> Marco Legal -> Credenciamento) e política anti-inchaço |
 | **Design Tokens & A4 Print** | `src/app/globals.css` e `tailwind.config.ts` | Floresta `#16281E`, Âmbar `#D4A359`, Areia `#F8F6F0`, `bg-radial-vignette`, `animate-pulse-subtle`, WCAG 2.1 AA e regras `@media print` |
-| **Harness & Planos Executados** | `plans/README.md` e `AGENTS.md` | Planos 001 a 009 concluídos; 010 e 011 executados em 2026-11-02; 012 (auditoria geral) com Pacote A feito em 2026-11-03, com pendências de revisão clínica/jurídica e ações manuais listadas em cada plano. Verificação: `npm test` (4 suítes), `npx tsc --noEmit`, `npm run lint` (ESLint 9) e CI em `.github/workflows/verificacao.yml` |
+| **Harness & Planos Executados** | `plans/README.md` e `AGENTS.md` | Planos 001 a 009 concluídos; 010 e 011 executados em 2026-11-02; 012 (auditoria geral) concluído no código em 2026-11-04, com pendências de revisão clínica/jurídica e ações manuais listadas em cada plano. Verificação: `npm test` (4 suítes), `npx tsc --noEmit`, `npm run lint` (ESLint 9) e CI em `.github/workflows/verificacao.yml` |
 
 ---
 
@@ -113,4 +113,5 @@ categoria: Índice Rápido
 - [[ADR-007-Hub-Comunitario-e-Blog-Etnobotanico]]
 - [[ADR-008-RLS-Fechado-e-Service-Role-Obrigatoria]]
 - [[ADR-010-Autorizacao-pela-Sessao-nas-APIs]]
+- [[ADR-011-Rateio-de-Custos-Mel-Gel-e-Grupos-sem-CNPJ]]
 - [[Manual-de-Comunicacao-e-Blindagem-Algoritmica]]

@@ -108,3 +108,23 @@ Segundo-Cerebro/.obsidian/
 .windsurf/
 .zcode/
 .zencoder/
+
+# ============================================================
+# Não versionar: ferramentas de agentes, cofre e fontes internas (ver AGENTS.md)
+# Existem só na máquina local. Não use `git add -f` nestes caminhos.
+# Ficam versionados: plans/, AGENTS.md, CONTEXT.md, data/, knowledge-base/ (lida pelo npm test), docs/agents/
+# ============================================================
+/skills/
+/.agents/
+/skills-lock.json
+/Segundo-Cerebro
+/Segundo-Cerebro/
+/docs/context/
+/docs/fontes/
+/HANDOFF.md
+/task.md
+/walkthrough.md
+/implementation_plan.md
+/enable-long-paths.reg
+/login_notebooklm.bat
+/tsconfig.tsbuildinfo

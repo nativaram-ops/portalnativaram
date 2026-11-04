@@ -290,3 +290,17 @@ As 10 ferramentas e frameworks adicionados para expansão de capacidades operaci
 10. **Composio** (`ComposioHQ/composio` & `ComposioHQ/awesome-claude-skills`):
     - **`/composio`**: Gateway para conectar o agente a mais de 1.000 integrações SaaS (GitHub, Linear, Slack, Stripe, Jira, Google Workspace).
     - **MCP Server**: Registrado globalmente como `composio` (`npx -y composio-core mcp start`).
+
+## Itens fora do Git (repositório público e deploy leve)
+
+Estes caminhos estão no `.gitignore` e não fazem parte do build nem dos testes:
+
+- `skills/`, `.agents/`, `skills-lock.json` (skills e ferramentas de agentes)
+- `.agent/`, `agent/`, `tools/` (ambientes Python e ferramentas externas)
+- `Segundo-Cerebro/` (cofre do Obsidian)
+- `docs/context/`, `docs/fontes/` (fontes internas, originais e arquivo morto)
+- `HANDOFF.md`, `task.md`, `walkthrough.md`, `implementation_plan.md` (rascunhos de sessão)
+
+Agentes (Antigravity, Claude Code e outros) NÃO devem adicionar esses caminhos ao Git nem usar `git add -f` neles. Eles existem só na máquina local. O cofre `Segundo-Cerebro/` continua sendo lido e atualizado localmente.
+
+Continuam versionados: `src/`, `public/`, `data/`, `plans/`, `knowledge-base/` (lida pelo `npm test`), `docs/agents/`, `AGENTS.md`, `CONTEXT.md`.

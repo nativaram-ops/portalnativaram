@@ -1,10 +1,10 @@
 @echo off
 chcp 65001 >nul
-title Nativaram Brasil — Portal do Associado
+title Cooperativa Nativaram — Portal do Associado
 cd /d "%~dp0"
 
 echo =======================================================
-echo    COOPERATIVA ETNOBOTÂNICA NATIVARAM BRASIL
+echo    COOPERATIVA ETNOBOTÂNICA NATIVARAM
 echo    Portal do Associado & Salvaguarda Litúrgica
 echo =======================================================
 echo.

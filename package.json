@@ -2,6 +2,9 @@
   "name": "nativaram-portal",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "dev:clean": "cmd /c \"rmdir /s /q .next 2>nul & node scripts/dev.mjs\"",
@@ -9,8 +12,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node node_modules/jiti/bin/jiti.js scripts/test-liturgico.mjs && node node_modules/jiti/bin/jiti.js scripts/test-matriz.mjs && node node_modules/jiti/bin/jiti.js scripts/test-rateio.mjs && node node_modules/jiti/bin/jiti.js scripts/test-documentos.mjs && node node_modules/jiti/bin/jiti.js scripts/test-biblioteca.mjs",
-    "notebooklm": "tools\\notebooklm-py\\.venv\\Scripts\\notebooklm.exe"
+    "typecheck": "tsc --noEmit --incremental false",
+    "test": "node node_modules/jiti/bin/jiti.js scripts/test-liturgico.mjs && node node_modules/jiti/bin/jiti.js scripts/test-matriz.mjs && node node_modules/jiti/bin/jiti.js scripts/test-rateio.mjs && node node_modules/jiti/bin/jiti.js scripts/test-documentos.mjs && node node_modules/jiti/bin/jiti.js scripts/test-biblioteca.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -33,7 +36,7 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^9.39.5",
     "eslint-config-next": "^15.5.28",
-    "ffmpeg-static": "^5.3.0",
+    "jiti": "1.21.7",
     "postcss": "^8.5.3",
     "sharp": "^0.35.4",
     "tailwindcss": "^3.4.17",

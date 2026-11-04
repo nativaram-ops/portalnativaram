@@ -64,11 +64,15 @@ async function cleanPort(port) {
 
 async function main() {
   console.log("=======================================================");
-  console.log("   NATIVARAM BRASIL — SERVIDOR DE DESENVOLVIMENTO     ");
+  console.log("   COOPERATIVA NATIVARAM — SERVIDOR DE DESENVOLVIMENTO");
   console.log("   Engine: Next.js 15 + Turbopack (Porta 3000)        ");
   console.log("=======================================================");
 
-  await cleanPort(PORT);
+  // Só no Windows: libera a porta matando processos órfãos (taskkill).
+  // Em outros sistemas apenas sobe o next dev, sem matar nada.
+  if (process.platform === "win32") {
+    await cleanPort(PORT);
+  }
 
   const nextBin = "./node_modules/next/dist/bin/next";
   const args = [nextBin, "dev", "--turbo", "--port", String(PORT)];
