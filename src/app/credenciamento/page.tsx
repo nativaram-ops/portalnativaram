@@ -33,9 +33,9 @@ export const metadata: Metadata = {
     url: "https://nativaramcoop.eco.br/credenciamento",
     images: [
       {
-        url: "/assets/projetos-de-luz/projeto-luz-altar.jpg",
-        width: 1200,
-        height: 675,
+        url: "/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg",
+        width: 1600,
+        height: 1200,
         alt: "Credenciamento Litúrgico Institucional — Cooperativa Nativaram",
       },
     ],

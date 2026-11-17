@@ -27,6 +27,9 @@ Cada executor deve ler o plano integralmente antes de iniciar, respeitar as cond
 | [017](017-grafo-5-evolucao-observatorio-doi-supabase-e-atalhos.md) | Grafo 5: Resolução Direta por DOI, Migração Supabase `007` & Atalhos `#observatorio` | P1 | M | LOW | 014, 015 | DONE |
 | [018](018-grafo-6-saneamento-seeds-a11y-e-lint-zero.md) | Grafo 6: Saneamento Semântico de Seeds, A11y em `/reconhecimento` & Limpeza ESLint | P1 | S | LOW | 017 | DONE |
 | [019](019-grafo-7-tdd-verificacao-real-chrome-e-obsidian.md) | Grafo 7: TDD Ampliado, Verificação Real Chrome DevTools MCP & Consolidação `ADR-014` | P1 | S | LOW | 017, 018 | DONE |
+| [020](020-grafo-8-varredura-academica-global-dmt-ayahuasca.md) | Grafo 8: Varredura Internacional & Curadoria de Estudos sobre DMT & Ayahuasca | P1 | M | LOW | 019 | DONE |
+| [021](021-grafo-9-fotos-reais-locais-sem-ia.md) | Grafo 9: Expurgo de Imagens de IA de Locais & Fotos Reais Verificadas (Acre/Agrofloresta) | P1 | M | LOW | — | DONE |
+| [022](022-grafo-10-verificacao-e2e-obsidian-e-push.md) | Grafo 10: TDD, E2E Chrome DevTools MCP, Consolidação `ADR-015` & Push Final | P1 | S | LOW | 020, 021 | DONE |
 
 > **010 e 011 (2026-11-02):** parte de código concluída. Itens de senha ficaram fora por decisão do usuário. Pendências que dependem de pessoas (revisão clínica e jurídica, refazer PDFs, rodar a migração 004 no Supabase) estão em `Segundo-Cerebro/06-Arquitetura-do-Portal/Roadmap-e-Componentes-do-Site.md`.
 

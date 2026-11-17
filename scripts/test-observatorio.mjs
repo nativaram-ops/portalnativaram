@@ -314,6 +314,72 @@ async function run() {
     }
   });
 
+  await test("Acervo global (>=25 estudos) cobre os 5 eixos, tem DOIs únicos e zero alertas CONAD", async () => {
+    const { createRequire } = await import("node:module");
+    const req = createRequire(import.meta.url);
+    const jitiLocal = req(path.join(ROOT_DIR, "node_modules", "jiti"))(import.meta.url, {
+      alias: { "@": path.join(ROOT_DIR, "src") },
+    });
+    const { ANEXOS_SEMENTE_VERIFICADOS, listarAnexosObservatorio } = jitiLocal(
+      path.join(ROOT_DIR, "src", "lib", "db", "observatorio.ts")
+    );
+    const {
+      EIXOS_OBSERVATORIO,
+      NovoAnexoObservatorioSchema,
+      validarConformidadeAnexo,
+    } = jitiLocal(path.join(ROOT_DIR, "src", "lib", "validators", "observatorio.ts"));
+
+    assert.ok(
+      ANEXOS_SEMENTE_VERIFICADOS.length >= 25,
+      `Esperado >= 25 sementes globais, recebido ${ANEXOS_SEMENTE_VERIFICADOS.length}`
+    );
+
+    const eixosPresentes = new Set();
+    const dois = new Set();
+    for (const item of ANEXOS_SEMENTE_VERIFICADOS) {
+      eixosPresentes.add(item.eixoTematico);
+      const doiNorm = String(item.doi || "").trim().toLowerCase();
+      assert.ok(/^10\.\d{4,9}\/\S+$/.test(doiNorm), `DOI inválido: ${item.doi}`);
+      assert.ok(!dois.has(doiNorm), `DOI duplicado no acervo: ${item.doi}`);
+      dois.add(doiNorm);
+      assert.ok(Boolean(item.paisOrigem?.trim()), `paisOrigem ausente em ${item.id}`);
+
+      const parsed = NovoAnexoObservatorioSchema.safeParse({
+        doi: item.doi,
+        titulo: item.titulo,
+        autores: item.autores,
+        ano: item.ano,
+        periodico: item.periodico,
+        paisOrigem: item.paisOrigem,
+        eixoTematico: item.eixoTematico,
+        sinteseLinguagemClara: item.sinteseLinguagemClara,
+        urlOrigem: item.urlOrigem,
+        pdfAbertoUrl: item.pdfAbertoUrl || "",
+        notaDirigente: item.notaDirigente || "",
+      });
+      assert.strictEqual(
+        parsed.success,
+        true,
+        `Falha Zod em ${item.id}: ${parsed.success ? "" : JSON.stringify(parsed.error.issues)}`
+      );
+
+      const alertas = validarConformidadeAnexo(item.sinteseLinguagemClara, item.notaDirigente);
+      assert.deepStrictEqual(alertas, [], `Alertas de linguagem em ${item.id}: ${alertas.join(", ")}`);
+    }
+
+    for (const eixo of EIXOS_OBSERVATORIO) {
+      assert.ok(eixosPresentes.has(eixo.id), `Eixo ${eixo.id} sem estudo semente`);
+    }
+
+    const jsonDisk = JSON.parse(
+      await fs.readFile(path.join(ROOT_DIR, "data", "anexos_academicos.json"), "utf-8")
+    );
+    assert.strictEqual(jsonDisk.length, ANEXOS_SEMENTE_VERIFICADOS.length);
+
+    const filtroSuica = await listarAnexosObservatorio(undefined, "Suíça");
+    assert.ok(filtroSuica.length >= 1, "Busca por país (Suíça) deve retornar estudos");
+  });
+
   console.log("\n=======================================================");
   console.log(`   RESULTADOS: ${passed} passaram | ${failed} falharam`);
   console.log("=======================================================\n");

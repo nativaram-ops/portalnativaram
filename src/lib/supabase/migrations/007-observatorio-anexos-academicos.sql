@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS public.anexos_academicos (
     ),
     sintese_linguagem_clara TEXT NOT NULL,
     nota_dirigente TEXT,
+    pais_origem TEXT,
     status_revisao TEXT NOT NULL DEFAULT 'REVISAO_EXTERNA_PARES',
     adicionado_por_codigo TEXT NOT NULL,
     adicionado_por_nome TEXT NOT NULL,

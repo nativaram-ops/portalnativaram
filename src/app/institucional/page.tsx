@@ -14,10 +14,10 @@ export const metadata: Metadata = {
       "Nascidos do Raio de Sol — A Alquimia entre Dois Mundos, Valores Institucionais e Salvaguarda Ancestral da Cooperativa Nativaram.",
     images: [
       {
-        url: "/assets/manifesto/nascidos-raio-de-sol.jpg",
-        width: 1200,
-        height: 675,
-        alt: "Nascidos do Raio de Sol — Altar Sagrado na Floresta Amazônica",
+        url: "/assets/manifesto/cruzeiro-do-sul-rio-moa-acre.jpg",
+        width: 1440,
+        height: 1072,
+        alt: "Luz solar sobre a Floresta Amazônica e o Rio Moa, Cruzeiro do Sul, Acre",
       },
     ],
   },

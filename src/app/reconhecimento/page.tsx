@@ -31,9 +31,9 @@ export const metadata: Metadata = {
     url: "https://nativaramcoop.eco.br/reconhecimento",
     images: [
       {
-        url: "/assets/projetos-de-luz/projeto-luz-altar.jpg",
+        url: "/assets/feitio/curadas/feitio-garrafa-tronco.jpg",
         width: 1200,
-        height: 675,
+        height: 1600,
         alt: "Acolhimento & Reconhecimento Litúrgico — Cooperativa Nativaram",
       },
     ],

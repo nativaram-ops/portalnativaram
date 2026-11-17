@@ -56,6 +56,7 @@ export const ObservatorioAcademico: React.FC = () => {
   const [filtroEixoAcervo, setFiltroEixoAcervo] = useState<EixoTematicoObservatorio | "todos">(
     "todos"
   );
+  const [filtroTextoAcervo, setFiltroTextoAcervo] = useState("");
 
   const [sessao, setSessao] = useState<SessaoStatus>({ authenticated: false });
   const [copiadoChave, setCopiadoChave] = useState<string | null>(null);
@@ -146,6 +147,19 @@ export const ObservatorioAcademico: React.FC = () => {
     setTimeout(() => setCopiadoChave(null), 2500);
   };
 
+  const anexoParaArtigo = (a: AnexoEstudoPublicado): ArtigoAcademicoExterno => ({
+    doi: a.doi,
+    titulo: a.titulo,
+    autores: a.autores,
+    ano: a.ano,
+    periodico: a.periodico,
+    resumo: a.sinteseLinguagemClara,
+    urlOrigem: a.urlOrigem,
+    pdfAbertoUrl: a.pdfAbertoUrl,
+    acessoAberto: Boolean(a.pdfAbertoUrl),
+    fonteApi: "EUROPE_PMC",
+  });
+
   const alternarNaPasta = (artigo: ArtigoAcademicoExterno) => {
     setPastaNotebookLM((prev) => {
       const existe = prev.some((p) => p.doi.toLowerCase() === artigo.doi.toLowerCase());
@@ -235,10 +249,24 @@ export const ObservatorioAcademico: React.FC = () => {
     }
   };
 
-  const anexosFiltrados =
-    filtroEixoAcervo === "todos"
-      ? anexos
-      : anexos.filter((a) => a.eixoTematico === filtroEixoAcervo);
+  const termoAcervo = filtroTextoAcervo.trim().toLowerCase();
+  const anexosFiltrados = anexos.filter((a) => {
+    if (filtroEixoAcervo !== "todos" && a.eixoTematico !== filtroEixoAcervo) {
+      return false;
+    }
+    if (!termoAcervo) return true;
+    const alvo = [
+      a.titulo,
+      a.autores,
+      a.periodico,
+      a.doi,
+      a.paisOrigem || "",
+      a.sinteseLinguagemClara,
+    ]
+      .join(" ")
+      .toLowerCase();
+    return alvo.includes(termoAcervo);
+  });
 
   return (
     <div className="space-y-12 animate-fade-in">
@@ -561,7 +589,18 @@ export const ObservatorioAcademico: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <label htmlFor="filtro-texto-acervo" className="sr-only">
+              Filtrar acervo por país, autor, DOI ou palavra-chave
+            </label>
+            <input
+              id="filtro-texto-acervo"
+              type="search"
+              value={filtroTextoAcervo}
+              onChange={(e) => setFiltroTextoAcervo(e.target.value)}
+              placeholder="País, autor, DOI ou termo..."
+              className="w-full sm:w-52 rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-xs text-areia-100 placeholder:text-areia-500 focus:border-ambar-400 focus:outline-none"
+            />
             <Filter className="h-3.5 w-3.5 text-ambar-400 shrink-0" />
             <label htmlFor="filtro-eixo-acervo" className="sr-only">
               Filtrar acervo anexado por eixo
@@ -584,6 +623,22 @@ export const ObservatorioAcademico: React.FC = () => {
           </div>
         </div>
 
+        {pastaNotebookLM.length > 0 && (
+          <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-emerald-500/35 bg-emerald-950/35 px-4 py-2.5 text-xs text-emerald-100">
+            <span>
+              <strong>{pastaNotebookLM.length}</strong> estudo(s) selecionado(s) na Pasta NotebookLM.
+            </span>
+            <button
+              type="button"
+              onClick={baixarMarkdownNotebookLM}
+              className="inline-flex items-center gap-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 px-3.5 py-1.5 text-emerald-200 font-semibold transition-colors"
+            >
+              <Download className="h-3.5 w-3.5" />
+              <span>Exportar Pasta p/ NotebookLM ({pastaNotebookLM.length})</span>
+            </button>
+          </div>
+        )}
+
         {sucessoAnexo && (
           <div
             role="status"
@@ -600,6 +655,10 @@ export const ObservatorioAcademico: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
             {anexosFiltrados.map((anexo) => {
+              const artigoEquivalente = anexoParaArtigo(anexo);
+              const naPasta = pastaNotebookLM.some(
+                (p) => p.doi.toLowerCase() === anexo.doi.toLowerCase()
+              );
               const podeExcluir =
                 sessao.authenticated &&
                 (sessao.role === "ADMIN" ||
@@ -615,9 +674,16 @@ export const ObservatorioAcademico: React.FC = () => {
                       <span className="px-2.5 py-0.5 rounded-full bg-ambar-500/15 border border-ambar-500/30 text-ambar-300 uppercase">
                         {EIXO_LABELS[anexo.eixoTematico]}
                       </span>
-                      <span className="text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-                        Revisão Externa por Pares • {anexo.ano}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {anexo.paisOrigem && (
+                          <span className="px-2 py-0.5 rounded-full bg-floresta-800 border border-ambar-500/25 text-areia-200">
+                            {anexo.paisOrigem}
+                          </span>
+                        )}
+                        <span className="text-emerald-300 bg-emerald-500/15 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+                          Revisão Externa por Pares • {anexo.ano}
+                        </span>
+                      </div>
                     </div>
 
                     <h3 className="font-serif text-base sm:text-lg font-bold text-areia-100 leading-snug">
@@ -677,6 +743,29 @@ export const ObservatorioAcademico: React.FC = () => {
                           <Copy className="h-3 w-3" />
                         )}
                         <span>{copiadoChave === `acc-${anexo.id}` ? "Copiada" : "ABNT"}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() =>
+                          copiarTexto(`bib-acc-${anexo.id}`, formatarBibTeX(artigoEquivalente))
+                        }
+                        className="inline-flex items-center gap-1 text-areia-300 hover:text-areia-100 rounded-lg border border-areia-400/20 px-2.5 py-1 transition-colors"
+                      >
+                        <span>{copiadoChave === `bib-acc-${anexo.id}` ? "BibTeX ok" : "BibTeX"}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => alternarNaPasta(artigoEquivalente)}
+                        aria-pressed={naPasta}
+                        className={`inline-flex items-center gap-1 rounded-lg border px-2.5 py-1 transition-colors ${
+                          naPasta
+                            ? "border-emerald-500/40 bg-emerald-500/20 text-emerald-200"
+                            : "border-ambar-500/25 bg-floresta-900 text-ambar-300 hover:bg-floresta-800"
+                        }`}
+                      >
+                        <span>{naPasta ? "Na Pasta ✓" : "+ NotebookLM"}</span>
                       </button>
                     </div>
 

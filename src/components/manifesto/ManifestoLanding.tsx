@@ -65,14 +65,14 @@ export function ManifestoLanding() {
   return (
     <div className="space-y-0">
       {/* ═══════════════════════════════════════════
-          HERO — DISPLAY IMERSIVO COM IMAGEM GERADA
+          HERO — DISPLAY IMERSIVO COM FOTOGRAFIA REAL DO ACRE
           ═══════════════════════════════════════════ */}
       <section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden py-24 sm:py-32">
         {/* Background Image com Overlay Nobre */}
         <div className="absolute inset-0 z-0">
           <Image
-            src="/assets/manifesto/nascidos-raio-de-sol.jpg"
-            alt="Nascidos do Raio de Sol — O Altar Sagrado na Floresta Amazônica ao Amanhecer"
+            src="/assets/manifesto/cruzeiro-do-sul-rio-moa-acre.jpg"
+            alt="Luz solar sobre a Floresta Amazônica e o Rio Moa no Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre (Foto: Hector Bottai / Wikimedia Commons CC BY-SA 4.0)"
             fill
             priority
             className="object-cover object-center brightness-60 scale-105 transition-transform duration-1000"
@@ -772,8 +772,8 @@ export function ManifestoLanding() {
                 <div className="image-reveal rounded-3xl overflow-hidden border border-ambar-500/20 shadow-elevated-lg relative">
                   <div className="relative h-[420px] sm:h-[480px] w-full">
                     <Image
-                      src="/assets/manifesto/agrofloresta-projetos-de-luz.jpg"
-                      alt="Projetos de Luz — Ecovila e Agrofloresta Comunitária da Nativaram no Acre"
+                      src="/assets/manifesto/cruzeiro-do-sul-comunidade-acre.jpg"
+                      alt="Moradia tradicional ribeirinha junto à Samaúma no Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre (Foto: Vanda Viveiros de Castro / Wikimedia Commons CC BY-SA 4.0)"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -782,10 +782,10 @@ export function ManifestoLanding() {
                   </div>
                   <div className="absolute bottom-0 inset-x-0 p-6 space-y-1 bg-gradient-to-t from-floresta-950 via-floresta-950/90 to-transparent">
                     <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-widest">
-                      Cruzeiro do Sul • Acre
+                      Cruzeiro do Sul • Serra do Divisor (Acre)
                     </span>
                     <p className="text-xs text-areia-200 font-serif italic">
-                      Comunidade agroflorestal regenerativa, resgate de saberes e amparo social.
+                      Vivência ribeirinha tradicional sob a Samaúma — foto real (Vanda Viveiros de Castro / CC BY-SA 4.0).
                     </p>
                   </div>
                 </div>

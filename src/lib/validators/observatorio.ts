@@ -94,6 +94,7 @@ export const NovoAnexoObservatorioSchema = z.object({
     "direito_conad",
     "agrofloresta",
   ]),
+  paisOrigem: z.string().trim().max(80, "Origem limitada a 80 caracteres.").optional(),
   sinteseLinguagemClara: z
     .string()
     .trim()

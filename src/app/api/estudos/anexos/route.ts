@@ -96,6 +96,7 @@ export async function POST(request: NextRequest) {
       urlOrigem: parsed.data.urlOrigem,
       pdfAbertoUrl: parsed.data.pdfAbertoUrl || undefined,
       eixoTematico: parsed.data.eixoTematico,
+      paisOrigem: parsed.data.paisOrigem || undefined,
       sinteseLinguagemClara: parsed.data.sinteseLinguagemClara,
       notaDirigente: parsed.data.notaDirigente || undefined,
       adicionadoPorCodigo: codigoAutor,

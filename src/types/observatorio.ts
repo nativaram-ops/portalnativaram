@@ -35,6 +35,7 @@ export interface AnexoEstudoPublicado {
   urlOrigem: string;
   pdfAbertoUrl?: string;
   eixoTematico: EixoTematicoObservatorio;
+  paisOrigem?: string;
   sinteseLinguagemClara: string;
   notaDirigente?: string;
   statusRevisao: "REVISAO_EXTERNA_PARES";

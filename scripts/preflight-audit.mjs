@@ -42,11 +42,17 @@ async function checkCodigoSrc() {
     { re: /\bMarco Sanit[aá]rio ANVISA\b/i, msg: "Referência sem fonte a Marco Sanitário ANVISA" },
   ];
 
-  // Verifica ausência de barrel files eliminados (ADR-003)
-  for (const barrel of ["src/components/home/index.ts", "src/components/funil/index.ts"]) {
+  // Verifica ausência de barrel files eliminados (ADR-003) e imagens de IA de locais removidas (ADR-015)
+  for (const removido of [
+    "src/components/home/index.ts",
+    "src/components/funil/index.ts",
+    "public/assets/manifesto/agrofloresta-projetos-de-luz.jpg",
+    "public/assets/manifesto/nascidos-raio-de-sol.jpg",
+    "public/assets/projetos-de-luz/projeto-luz-altar.jpg",
+  ]) {
     try {
-      await fs.access(path.join(ROOT_DIR, barrel));
-      FALHAS.push(`Barrel file proibido reapareceu (ADR-003): ${barrel}`);
+      await fs.access(path.join(ROOT_DIR, removido));
+      FALHAS.push(`Arquivo proibido reapareceu (ADR-003/ADR-015): ${removido}`);
     } catch {
       // ok
     }

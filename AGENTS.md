@@ -39,7 +39,7 @@ Todo texto gerado DEVE obedecer ao **Dicionário de Engenharia de Linguagem** ab
 3. **Disclaimer Obrigatório (+18)**: Toda página com sacramentos DEVE ter o aviso de segurança integrativa no rodapé.
 4. **Sem Remarketing Sensível**: Nunca associar rastreamento a condições de saúde.
 5. **Composição em Português**: Toda ficha deve estar em português com composição completa.
-6. **Diretriz de Geração de Imagens (IA)**: NUNCA gerar figuras humanas ou personagens. Utilizar estritamente objetos botânicos, artefatos sagrados, frascos de vidro âmbar, balanças tradicionais e luz solar na floresta.
+6. **Diretriz de Imagens e Fotos Reais**: NUNCA usar imagens geradas por IA quando o visual representar um local geográfico real (buscar, baixar e creditar fotografia real sob licença livre); nunca gerar figuras humanas ou personagens por IA em imagens ilustrativas.
 
 ## Governança de Ambiente Local (Windows)
 
