@@ -16,7 +16,8 @@ import {
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { MedicinasCatalogClient } from "@/components/medicinas/MedicinasCatalogClient";
-import { JornadaNavTracker, JornadaNextStep } from "@/components/funil";
+import { JornadaNavTracker } from "@/components/funil/JornadaNavTracker";
+import { JornadaNextStep } from "@/components/funil/JornadaNextStep";
 
 export const metadata: Metadata = {
   title: "Compêndio Etnobotânico & Tradições Sagradas | Cooperativa Nativaram",
@@ -72,6 +73,13 @@ export default function MedicinasPage() {
               </h1>
               <p className="font-serif text-xs sm:text-sm text-ambar-400/90 tracking-wider max-w-2xl mx-auto">
                 Compêndio de Rapés Sagrados, Sananga Ancestral, Resinas e Artefatos da Floresta Amazônica para Culto Religioso e Prática Contemplativa
+              </p>
+              <p className="text-xs text-areia-300/85 max-w-xl mx-auto font-light">
+                As graduações da Ayahuasca e o rateio cooperativo ficam restritos ao{" "}
+                <Link href="/portal-dirigente" className="text-ambar-300 underline underline-offset-4 hover:text-ambar-200">
+                  Portal do Dirigente
+                </Link>{" "}
+                após credenciamento (CNPJ) ou reconhecimento fraterno de grupo.
               </p>
             </div>
           </AnimateOnScroll>
@@ -251,7 +259,7 @@ export default function MedicinasPage() {
                     Calcinação Purista (&gt; 250°C)
                   </h3>
                   <p className="text-xs text-areia-300 leading-relaxed font-light">
-                    O rito de calcinação controlada em alta temperatura assegura a destruição termolítica completa de compostos voláteis e alcaloides visionários termolábeis (como DMT). O rapé consagrado é <strong>estritamente não-alucinógeno</strong>, constituindo um sacramento telúrico de puro ancoramento, silêncio mental e presença sensorial no aqui-agora.
+                    O rito de calcinação controlada em alta temperatura assegura a destruição termolítica completa de compostos voláteis e alcaloides visionários termolábeis (como DMT). O rapé consagrado <strong>não possui propriedades visionárias</strong>, constituindo um sacramento telúrico de puro ancoramento, silêncio mental e presença sensorial no aqui-agora.
                   </p>
                 </div>
                 <div className="pt-3 border-t border-ambar-500/10 text-[10px] font-mono text-emerald-400/80">

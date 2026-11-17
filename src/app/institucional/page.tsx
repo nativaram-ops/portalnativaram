@@ -1,7 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { ManifestoLanding } from "@/components/manifesto/ManifestoLanding";
-import { JornadaNavTracker, JornadaNextStep } from "@/components/funil";
+import { JornadaNavTracker } from "@/components/funil/JornadaNavTracker";
+import { JornadaNextStep } from "@/components/funil/JornadaNextStep";
 
 export const metadata: Metadata = {
   title: "O Manifesto, Quem Somos & Vocação Cooperativa | Cooperativa Nativaram",

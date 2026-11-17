@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Clock,
   CheckCircle2,
@@ -135,7 +135,7 @@ export const AcompanhamentoPedidos: React.FC<AcompanhamentoPedidosProps> = ({
   const [expandidoId, setExpandidoId] = useState<string | null>(null);
   const [copiadoId, setCopiadoId] = useState<string | null>(null);
 
-  const carregarPedidos = async () => {
+  const carregarPedidos = useCallback(async () => {
     try {
       setCarregando(true);
       setErro("");
@@ -148,19 +148,19 @@ export const AcompanhamentoPedidos: React.FC<AcompanhamentoPedidosProps> = ({
 
       setPedidos(data.pedidos || []);
       // Expande o primeiro pedido ativo automaticamente se houver
-      if (data.pedidos && data.pedidos.length > 0 && !expandidoId) {
-        setExpandidoId(data.pedidos[0].id);
+      if (data.pedidos && data.pedidos.length > 0) {
+        setExpandidoId((prev) => prev || data.pedidos[0].id);
       }
     } catch (err: unknown) {
       setErro(err instanceof Error ? err.message : "Erro de conexão ao carregar solicitações.");
     } finally {
       setCarregando(false);
     }
-  };
+  }, [temploId]);
 
   useEffect(() => {
     carregarPedidos();
-  }, [temploId]);
+  }, [carregarPedidos]);
 
   const handleCopiarProtocolo = (protocolo: string) => {
     navigator.clipboard.writeText(protocolo);

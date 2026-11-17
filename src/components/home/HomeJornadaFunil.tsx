@@ -40,7 +40,7 @@ const passosDoFunil = [
     titulo: "Sacramentos",
     subtitulo: "Compêndio Etnobotânico",
     descricao:
-      "As 4 graduações de Ayahuasca (1.8 a 10.1 Wirapuru), 15 rapés sagrados tamponados (pH 10) e Sananga ancestral.",
+      "15 rapés sagrados (calcinação > 250°C), Sananga tradicional, resinas e kuripes. (Graduações de Ayahuasca restritas ao Portal do Dirigente.)",
     href: "/sacramentos",
     icone: Sparkles,
     cta: "Ver Sacramentos",
@@ -86,7 +86,7 @@ export const HomeJornadaFunil = () => {
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={150}>
-            <h2 className="font-serif text-display-xs sm:text-display-sm lg:text-display-md font-bold text-areia-100 text-glow">
+            <h2 className="font-serif text-2xl sm:text-display-sm lg:text-display-md font-bold text-areia-100 text-glow">
               Como Navegar &amp; Ingressar na{" "}
               <span className="text-gradient-solar">Cooperativa Nativaram</span>
             </h2>
@@ -171,17 +171,26 @@ export const HomeJornadaFunil = () => {
 
         {/* Dica de Orientação para Primeira Visita */}
         <AnimateOnScroll delay={600}>
-          <div className="mt-8 p-4 rounded-xl border border-ambar-500/20 bg-floresta-900/40 text-center flex flex-col sm:flex-row items-center justify-center gap-3">
+          <div className="mt-8 p-4 rounded-xl border border-ambar-500/20 bg-floresta-900/40 text-center flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5">
             <span className="text-xs text-areia-300 font-light">
-              <strong className="text-areia-100 font-medium">Primeira vez no portal?</strong> Sugerimos seguir o caminho passo a passo começando pelo Manifesto Institucional.
+              <strong className="text-areia-100 font-medium">Primeira vez ou pesquisa aberta?</strong> Inicie pelo Manifesto ou explore o Observatório Etnobotânico.
             </span>
-            <Link
-              href="/institucional"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-ambar-400 hover:text-ambar-300 underline underline-offset-4 decoration-ambar-500/40 shrink-0"
-            >
-              <span>Iniciar Jornada pelo Passo 01</span>
-              <ArrowRight className="h-3 w-3" />
-            </Link>
+            <div className="flex flex-wrap items-center justify-center gap-4 shrink-0">
+              <Link
+                href="/institucional"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-ambar-400 hover:text-ambar-300 underline underline-offset-4 decoration-ambar-500/40"
+              >
+                <span>Iniciar pelo Passo 01</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+              <Link
+                href="/estudos#observatorio"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-300 hover:text-emerald-200 underline underline-offset-4 decoration-emerald-500/40"
+              >
+                <span>Buscador Acadêmico &amp; DOI</span>
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
           </div>
         </AnimateOnScroll>
       </div>

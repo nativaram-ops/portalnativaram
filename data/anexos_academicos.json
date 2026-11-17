@@ -1,0 +1,49 @@
+[
+  {
+    "id": "ANX-2026-PH334",
+    "doi": "10.3390/ph13110334",
+    "titulo": "Toxicokinetics and Toxicodynamics of Ayahuasca Alkaloids N,N-Dimethyltryptamine (DMT), Harmine, Harmaline and Tetrahydroharmine: Clinical and Forensic Impact",
+    "autores": "Brito-da-Costa AM, Dias-da-Silva D, Gomes NGM, Dinis-Oliveira RJ, Madureira-Carvalho Á.",
+    "ano": "2020",
+    "periodico": "Pharmaceuticals (Basel, Switzerland)",
+    "urlOrigem": "https://europepmc.org/articles/PMC7690791",
+    "pdfAbertoUrl": "https://www.mdpi.com/1424-8247/13/11/334/pdf",
+    "eixoTematico": "seguranca_imao",
+    "sinteseLinguagemClara": "Revisão em acesso aberto que detalha como os alcaloides do cipó e da folha atuam no organismo, destacando o bloqueio reversível da enzima MAO-A e reforçando a necessidade de triagem rigorosa contra interações serotoninérgicas.",
+    "notaDirigente": "Fonte externa revisada por pares utilizada como referência de estudo para protocolos de acolhimento e segurança integrativa.",
+    "statusRevisao": "REVISAO_EXTERNA_PARES",
+    "adicionadoPorCodigo": "ADM-NATIVARAM",
+    "adicionadoPorNome": "Conselho Gestor — Cooperativa Nativaram",
+    "criadoEm": "2026-11-17T00:00:00.000Z"
+  },
+  {
+    "id": "ANX-2026-HERITAGE",
+    "doi": "10.4324/9780429001161-9",
+    "titulo": "A Genealogy of the Ayahuasca Cultural Heritage Registration Process in Brazil",
+    "autores": "Bia C. Labate, Glauber Loures de Assis",
+    "ano": "2023",
+    "periodico": "Religious Freedom and the Global Regulation of Ayahuasca",
+    "urlOrigem": "https://doi.org/10.4324/9780429001161-9",
+    "eixoTematico": "direito_conad",
+    "sinteseLinguagemClara": "Capítulo acadêmico que reconstitui o processo histórico de reconhecimento cultural da ayahuasca no Brasil junto ao IPHAN e o amparo institucional ao exercício religioso tradicional.",
+    "statusRevisao": "REVISAO_EXTERNA_PARES",
+    "adicionadoPorCodigo": "ADM-NATIVARAM",
+    "adicionadoPorNome": "Conselho Gestor — Cooperativa Nativaram",
+    "criadoEm": "2026-11-17T00:00:00.000Z"
+  },
+  {
+    "id": "ANX-2026-AFTERGLOW",
+    "doi": "10.1007/s00213-019-05445-3",
+    "titulo": "Ayahuasca’s ‘afterglow’: improved mindfulness and cognitive flexibility in ayahuasca drinkers",
+    "autores": "Ashleigh Murphy-Beiner, Kirstie Soar",
+    "ano": "2020",
+    "periodico": "Psychopharmacology",
+    "urlOrigem": "https://doi.org/10.1007/s00213-019-05445-3",
+    "eixoTematico": "etnobotanica_jurua",
+    "sinteseLinguagemClara": "Pesquisa observacional publicada em periódico científico analisando atenção plena e flexibilidade cognitiva após vivências rituais; registro estritamente descritivo, sem finalidade médica.",
+    "statusRevisao": "REVISAO_EXTERNA_PARES",
+    "adicionadoPorCodigo": "ADM-NATIVARAM",
+    "adicionadoPorNome": "Conselho Gestor — Cooperativa Nativaram",
+    "criadoEm": "2026-11-17T00:00:00.000Z"
+  }
+]

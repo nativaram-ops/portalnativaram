@@ -2,7 +2,8 @@
  * Mensagem de WhatsApp enviada ao Conselho Gestor ao concluir um cadastro
  * (Credenciamento de templos e Ficha de Reconhecimento de grupos).
  */
-export const WHATSAPP_CONSELHO = "556899779104";
+export const WHATSAPP_CONSELHO = "5568999979104";
+export const WHATSAPP_CONSELHO_FORMATADO = "(68) 99997-9104";
 
 export interface DadosMensagemCadastro {
   tipo: "CREDENCIAMENTO" | "RECONHECIMENTO";

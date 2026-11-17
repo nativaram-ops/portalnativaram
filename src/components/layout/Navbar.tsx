@@ -8,12 +8,12 @@ import { Lock, Menu, X, ShieldCheck, Sparkles } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Início" },
-  { href: "/institucional", label: "Manifesto" },
+  { href: "/institucional", label: "Quem Somos" },
   { href: "/feitio", label: "Feitio" },
   { href: "/sacramentos", label: "Sacramentos" },
   { href: "/compliance", label: "Marco Legal", icon: true },
   { href: "/projetos-de-luz", label: "Projetos de Luz" },
-  { href: "/estudos", label: "Estudos", badge: "Comunidade" },
+  { href: "/estudos", label: "Estudos" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -95,11 +95,6 @@ export const Navbar = () => {
                   </span>
                 ) : (
                   <span>{link.label}</span>
-                )}
-                {link.badge && (
-                  <span className="hidden xl:inline-flex rounded-full bg-ambar-500/20 px-1.5 py-0.5 text-[9px] font-bold text-ambar-300 shrink-0">
-                    {link.badge}
-                  </span>
                 )}
               </span>
               {/* Active indicator line with solar halo */}
@@ -190,11 +185,6 @@ export const Navbar = () => {
                   {link.icon && <ShieldCheck className="h-4 w-4 text-ambar-500" />}
                   {link.label}
                 </span>
-                {link.badge && (
-                  <span className="rounded-full bg-ambar-500/20 px-2 py-0.5 text-[10px] font-bold text-ambar-300">
-                    {link.badge}
-                  </span>
-                )}
               </Link>
             ))}
           </nav>
@@ -206,7 +196,15 @@ export const Navbar = () => {
               className="btn-primary w-full justify-center"
             >
               <Sparkles className="h-4 w-4" />
-              Credenciamento Litúrgico
+              Credenciar Instituição (CNPJ)
+            </Link>
+            <Link
+              href="/reconhecimento"
+              onClick={() => setIsOpen(false)}
+              className="btn-secondary w-full justify-center"
+            >
+              <ShieldCheck className="h-4 w-4 text-ambar-400" />
+              Grupo sem CNPJ (Reconhecimento)
             </Link>
             <Link
               href="/portal-dirigente"

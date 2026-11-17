@@ -1,7 +1,7 @@
 /**
  * Catálogo Oficial de Alquimias Sagradas, Rapés e Artefatos — Cooperativa Nativaram
  *
- * Em estrita observância à Resolução CONAD nº 01/2010, Marco Sanitário ANVISA e
+ * Em estrita observância à Resolução CONAD nº 01/2010 e às diretrizes institucionais da Cooperativa Nativaram,
  * Dossiê de Compliance Etnobotânico Cooperativa Nativaram.
  * Todo texto obedece rigorosamente ao Dicionário de Engenharia de Linguagem.
  */

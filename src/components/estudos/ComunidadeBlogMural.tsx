@@ -126,6 +126,9 @@ export const ComunidadeBlogMural: React.FC = () => {
           <div className="relative max-w-2xl">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-ambar-400/70" />
             <input
+              id="busca-mural-comunidade"
+              name="buscaMural"
+              aria-label="Buscar por templo, tema doutrinário, rapé ou rito"
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}

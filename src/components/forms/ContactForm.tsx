@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Send, CheckCircle2, AlertCircle, Sparkles } from "lucide-react";
+import { urlWhatsAppConselho } from "@/lib/whatsapp-cadastro";
 
 const contactSchema = z.object({
   nome: z.string().min(3, "O nome deve conter ao menos 3 caracteres"),
@@ -75,7 +76,7 @@ export const ContactForm = () => {
       data.mensagem,
     ].join("\n");
 
-    const url = `https://wa.me/556899779104?text=${encodeURIComponent(texto)}`;
+    const url = urlWhatsAppConselho(texto);
     setWhatsappUrl(url);
     setSubmitted(true);
     reset();

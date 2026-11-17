@@ -19,7 +19,7 @@ import {
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { CredenciamentoForm } from "@/components/forms/CredenciamentoForm";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
-import { JornadaNavTracker } from "@/components/funil";
+import { JornadaNavTracker } from "@/components/funil/JornadaNavTracker";
 import { Badge } from "@/components/ui/Badge";
 
 export const metadata: Metadata = {

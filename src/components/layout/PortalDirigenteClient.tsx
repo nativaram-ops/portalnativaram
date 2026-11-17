@@ -20,6 +20,7 @@ import {
   Printer,
 } from "lucide-react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { AcompanhamentoPedidos } from "@/components/portal-dirigente/AcompanhamentoPedidos";
 import { PortalLoginGate } from "@/components/portal-dirigente/PortalLoginGate";
@@ -237,16 +238,16 @@ export const PortalDirigenteClient: React.FC = () => {
       .then((res: any) => {
         const session = res?.data?.session;
         if (session?.user) {
-          const isAdmin =
-            session.user.email?.includes("adm") ||
-            session.user.user_metadata?.papel === "ADMIN";
+          const isAdmin = session.user.app_metadata?.papel === "ADMIN";
+          const codigoSessao =
+            typeof session.user.app_metadata?.codigo_liturgico === "string"
+              ? session.user.app_metadata.codigo_liturgico
+              : "";
 
           setUserRole(isAdmin ? "ADMIN" : "DIRIGENTE");
           setAuthenticatedAsAdmin(isAdmin);
           setCodigoAcesso(
-            session.user.user_metadata?.codigo_liturgico ||
-              session.user.email ||
-              "USUARIO-SUPABASE"
+            codigoSessao || session.user.email || "USUARIO-SUPABASE"
           );
           setIsAuthenticated(true);
         }
@@ -375,9 +376,9 @@ export const PortalDirigenteClient: React.FC = () => {
         {
           id: "CENTRAL_DOCUMENTOS",
           label: "Documentos & Modelos A4",
-          subLabel: "Anamnese, TCLE, Menores, POP e Trânsito",
+          subLabel: "Anamnese, TCLE, POP, Trânsito, LGPD e mais",
           icon: <FileCheck className="h-4 w-4 text-ambar-400" />,
-          badge: "5 DOCS",
+          badge: "11 DOCS",
           corBadge: "bg-ambar-500/20 text-ambar-300 border-ambar-500/40",
         },
         {
@@ -487,6 +488,13 @@ export const PortalDirigenteClient: React.FC = () => {
                 <span>Voltar ao Painel ADM</span>
               </button>
             )}
+            <Link
+              href="/estudos#observatorio"
+              className="rounded-xl border border-ambar-500/35 bg-ambar-500/10 hover:bg-ambar-500/20 text-ambar-300 text-xs inline-flex items-center justify-center gap-1.5 px-3.5 py-2 transition-colors"
+            >
+              <BookOpen className="h-3.5 w-3.5" />
+              <span>Observatório & Anexos</span>
+            </Link>
             <button
               onClick={handleLogout}
               className="rounded-xl border border-pedra-700/60 bg-pedra-900/60 hover:bg-pedra-800 text-areia-300 text-xs inline-flex items-center justify-center gap-1.5 px-3.5 py-2 transition-colors"

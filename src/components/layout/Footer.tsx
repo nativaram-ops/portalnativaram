@@ -99,7 +99,7 @@ export const Footer = () => {
               <div className="flex items-start gap-2.5">
                 <Phone className="h-3.5 w-3.5 text-emerald-400/70 flex-shrink-0 mt-0.5" />
                 <a
-                  href="https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Cooperativa%20Nativaram%20Brasil."
+                  href="https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Cooperativa%20Nativaram."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:text-emerald-300 transition-colors"
@@ -119,7 +119,7 @@ export const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="group relative flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-floresta-900 via-floresta-800 to-floresta-900 border border-ambar-500/40 hover:border-ambar-400 text-areia-100 hover:text-ambar-200 transition-all duration-300 shadow-md hover:shadow-solar"
-                  title="Acesse todos os links oficiais da Nativaram Brasil no Linktree"
+                  title="Acesse os canais oficiais e redes (@nativarambrasil) no Linktree"
                 >
                   <div className="flex items-center gap-2.5">
                     <div className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all shrink-0">

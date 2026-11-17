@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { WhatsAppIcon } from "@/components/ui/icons";
+import { urlWhatsAppConselho } from "@/lib/whatsapp-cadastro";
 
-const WHATSAPP_URL =
-  "https://wa.me/556899779104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Cooperativa%20Nativaram.";
+const WHATSAPP_URL = urlWhatsAppConselho(
+  "Olá, gostaria de informações sobre a Cooperativa Nativaram."
+);
 
 /**
  * Botão flutuante de WhatsApp.

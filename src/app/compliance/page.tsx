@@ -15,7 +15,8 @@ import {
 } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
-import { JornadaNavTracker, JornadaNextStep } from "@/components/funil";
+import { JornadaNavTracker } from "@/components/funil/JornadaNavTracker";
+import { JornadaNextStep } from "@/components/funil/JornadaNextStep";
 
 export const metadata: Metadata = {
   title: "Marco Legal & Compliance Jurídico CONAD | Cooperativa Nativaram",

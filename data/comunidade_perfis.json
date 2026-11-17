@@ -7,12 +7,12 @@
     "linhagem": "Linha do Santo Daime",
     "cidade": "São Paulo",
     "estado": "SP",
-    "bioApresentacao": "Igreja filiada e homologada para trabalhos litúrgicos de concentração, hinários de cura espiritual e missas da doutrina. Cultivamos o respeito ao sacramento puro e à memória da floresta amazônica sob as resoluções do CONAD.",
+    "bioApresentacao": "Igreja filiada e homologada para trabalhos litúrgicos de concentração, hinários de alinhamento espiritual e missas da doutrina. Cultivamos o respeito ao sacramento puro e à memória da floresta amazônica sob as resoluções do CONAD.",
     "fotoPerfilUrl": "/assets/logo.png",
     "fotoCapaUrl": "",
     "fotosEspaco": [
-      "/images/feitio-caldeirao-tucunaca.jpg",
-      "/images/cipo-tucunaca-bruto-barracao.jpg"
+      "/assets/feitio/curadas/feitio-caldeiroes-fileira.jpg",
+      "/assets/feitio/curadas/feitio-lianas-tucunaca-barracao.jpg"
     ],
     "redesSociais": {
       "instagram": "https://instagram.com/ceudocruzeiro.oficial",
@@ -38,8 +38,8 @@
     "fotoPerfilUrl": "",
     "fotoCapaUrl": "",
     "fotosEspaco": [
-      "/images/feitio-vigilia-noturna.jpg",
-      "/images/folhas-chacrona-orvalho.jpg"
+      "/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg",
+      "/assets/feitio/curadas/feitio-chacrona-fresca-caldeirao.jpg"
     ],
     "redesSociais": {
       "instagram": "https://instagram.com/fraternidaderainhadafloresta",

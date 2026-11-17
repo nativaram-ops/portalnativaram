@@ -1,7 +1,8 @@
 import React from "react";
 import type { Metadata } from "next";
 import { FeitioLanding } from "@/components/feitio/FeitioLanding";
-import { JornadaNavTracker, JornadaNextStep } from "@/components/funil";
+import { JornadaNavTracker } from "@/components/funil/JornadaNavTracker";
+import { JornadaNextStep } from "@/components/funil/JornadaNextStep";
 
 export const metadata: Metadata = {
   title: "A Sagrada Alquimia do Feitio Purista & Cosmovisão da Ayahuasca | Cooperativa Nativaram",
@@ -37,7 +38,7 @@ export default function FeitioPage() {
         tituloEtapaAtual="Feitio Purista & Alquimia Vegetal"
         proximaEtapaNumero={3}
         proximaEtapaTitulo="O Compêndio de Sacramentos Sagrados"
-        proximaEtapaDescricao="Agora que você testemunhou o feitio purista em Cruzeiro do Sul, explore as 4 graduações de Ayahuasca (1.8 a 10.1 Wirapuru), os 15 rapés sagrados tamponados e a Sananga refrigerada."
+        proximaEtapaDescricao="Agora que você testemunhou o feitio purista em Cruzeiro do Sul, explore os 15 rapés sagrados tamponados, a Sananga ancestral, resinas e artefatos tradicionais. (As graduações da Ayahuasca ficam reservadas no Portal do Dirigente após habilitação.)"
         proximaEtapaHref="/sacramentos"
         textoBotao="Conhecer os Sacramentos (Etapa 3/5)"
       />

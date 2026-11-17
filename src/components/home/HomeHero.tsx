@@ -1,20 +1,20 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Sparkles, ShieldCheck, ArrowRight, Flame, Lock } from "lucide-react";
+import { Sparkles, ShieldCheck, ArrowRight, Flame, Lock, Users } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { Badge } from "@/components/ui/Badge";
 
 export const HomeHero = () => {
   return (
-    <section className="relative min-h-[90dvh] lg:min-h-[94dvh] flex items-end overflow-hidden pb-16 pt-32 lg:pb-24">
+    <section className="relative min-h-[86dvh] lg:min-h-[90dvh] flex items-end overflow-hidden pb-14 pt-28 lg:pb-20">
       {/* Imagem de Fundo do Feitio */}
       <Image
         src="/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg"
         alt="Feitio sagrado da Ayahuasca em Cruzeiro do Sul, Acre — caldeirões sob a noite amazônica"
         fill
         priority
-        className="object-cover object-center brightness-[0.50] contrast-105"
+        className="object-cover object-center brightness-[0.48] contrast-105"
         sizes="100vw"
       />
 
@@ -29,27 +29,23 @@ export const HomeHero = () => {
         <div className="max-w-3xl space-y-6">
           <AnimateOnScroll delay={150}>
             <Badge variant="solar" dot icon={<Sparkles className="h-3 w-3 text-ambar-400" />}>
-              Ponte Ética & Salvaguarda do Sagrado Sacramento
+              Cooperativa Sem Fins Lucrativos • Lei 5.764/71 &amp; CONAD 01/2010
             </Badge>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={300}>
-            <h1 className="font-serif text-display-sm sm:text-display-md lg:text-display-lg font-bold text-areia-100 text-glow leading-[1.05] tracking-display text-balance">
-              O Portal Sagrado,
+            <h1 className="font-serif text-display-sm sm:text-display-md lg:text-display-lg font-bold text-areia-100 text-glow leading-[1.06] tracking-display text-balance">
+              Salvaguarda Litúrgica,
               <br />
-              <span className="text-gradient-solar">Alquimia Consciente</span>
+              <span className="text-gradient-solar">Feitio Purista &amp; Apoio</span>
               <br />
-              <span className="text-areia-200/90">& Apoio aos Templos de Luz</span>
+              <span className="text-areia-200/90">aos Templos e Grupos</span>
             </h1>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={450}>
-            <p className="text-sm sm:text-base text-areia-200/90 leading-relaxed max-w-2xl font-light text-pretty">
-              A Cooperativa Nativaram entende a Ayahuasca como um portal sagrado.
-              Conectamos dirigentes de instituições religiosas devidamente regulamentadas
-              a centros e mestres feitores tradicionais de <strong>Cruzeiro do Sul, no Acre</strong>.
-              Um elo de equilíbrio, harmonia e leveza: herança das grandes escolas ayahuasqueiras,
-              blindagem documental e <strong>despacho aéreo expresso via Gollog</strong> para todo o Brasil.
+            <p className="text-sm sm:text-base text-areia-200/95 leading-relaxed max-w-2xl font-light text-pretty">
+              Conectamos instituições religiosas constituídas (CNPJ) e grupos em formação à tradição purista de <strong>Cruzeiro do Sul, no Acre</strong> — com amparo legal, rastreabilidade documental e logística aérea refrigerada via Gollog. <strong>Não somos e-commerce nem comercializamos ao varejo.</strong>
             </p>
           </AnimateOnScroll>
 
@@ -60,24 +56,31 @@ export const HomeHero = () => {
                 className="btn-primary btn-press flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold tracking-wide"
               >
                 <ShieldCheck className="h-4 w-4" />
-                <span>Solicitar Credenciamento do Templo</span>
+                <span>Credenciar Instituição (CNPJ)</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="#sacralidade"
+                href="/reconhecimento"
                 className="btn-secondary btn-press flex items-center justify-center gap-2 text-xs sm:text-sm"
               >
-                <Flame className="h-4 w-4 text-ambar-400" />
-                <span>Nossa Nota de Sacralidade</span>
+                <Users className="h-4 w-4 text-ambar-400" />
+                <span>Grupo sem CNPJ? Reconhecimento</span>
+              </Link>
+              <Link
+                href="#caminhos-portal"
+                className="inline-flex items-center justify-center gap-1.5 text-xs font-medium text-ambar-300 hover:text-ambar-200 underline underline-offset-4 decoration-ambar-500/40 px-2 py-2"
+              >
+                <span>Ver os 3 Caminhos</span>
+                <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>
           </AnimateOnScroll>
 
           {/* Aviso Litúrgico */}
           <AnimateOnScroll delay={750}>
-            <p className="text-[11px] text-areia-400 flex items-center gap-2 pt-1 font-mono">
-              <Lock className="h-3 w-3 text-ambar-400" />
-              <span>Destinação exclusiva a pessoas jurídicas religiosas constituídas (CNPJ e Ata de Fundação).</span>
+            <p className="text-[11px] text-areia-300 flex items-center gap-2 pt-1 font-mono">
+              <Lock className="h-3 w-3 text-ambar-400 shrink-0" />
+              <span>Uso estritamente religioso (+18) • Para templos com CNPJ (Ata) e grupos via Acolhimento Fraterno.</span>
             </p>
           </AnimateOnScroll>
         </div>
@@ -85,7 +88,7 @@ export const HomeHero = () => {
 
       {/* Localização Badge */}
       <div className="absolute bottom-6 right-6 sm:bottom-8 sm:right-8 z-10 hidden md:block">
-        <Badge variant="floresta" icon={<Flame className="h-3.5 w-3.5 text-ambar-400 animate-flicker" />}>
+        <Badge variant="floresta" icon={<Flame className="h-3.5 w-3.5 text-ambar-400" />}>
           Cruzeiro do Sul • Acre • Vale do Juruá
         </Badge>
       </div>

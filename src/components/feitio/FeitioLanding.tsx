@@ -113,13 +113,13 @@ export function FeitioLanding() {
         <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <AnimateOnScroll>
             <div className="inline-flex items-center gap-2.5 rounded-full border border-ambar-500/30 bg-floresta-950/85 backdrop-blur-md px-5 py-2 text-xs font-semibold tracking-[0.18em] text-ambar-400 uppercase shadow-solar">
-              <Flame className="h-3.5 w-3.5 text-ambar-400 animate-flicker" />
+              <Flame className="h-3.5 w-3.5 text-ambar-400" />
               <span>Registro Documental • Cruzeiro do Sul, Acre • Feitio Ancestral</span>
             </div>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={150}>
-            <h1 className="font-serif text-display-md sm:text-display-lg lg:text-display-2xl font-bold text-areia-100 text-glow leading-tight">
+            <h1 className="font-serif text-display-md sm:text-display-lg lg:text-display-xl font-bold text-areia-100 text-glow leading-tight">
               A Sagrada Alquimia do
               <br />
               <span className="text-gradient-solar">Feitio Purista</span>

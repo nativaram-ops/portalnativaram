@@ -9,6 +9,7 @@ import { getGraduacaoPorId } from "@/data/graduacoes";
 import { registrarSolicitacao } from "@/lib/db/homologacoes";
 import { createHybridJsonStore } from "@/lib/db/core-hybrid-store";
 import { verifyAdminRequest } from "@/lib/auth/session";
+import { WHATSAPP_CONSELHO } from "@/lib/whatsapp-cadastro";
 
 interface RegistroReconhecimento extends ReconhecimentoDossier {
   id: string;
@@ -23,7 +24,7 @@ const reconhecimentosStore = createHybridJsonStore<RegistroReconhecimento>({
 });
 
 // Número oficial de atendimento fraterno da Cooperativa Nativaram
-const WHATSAPP_COOPERATIVA = "556899779104";
+const WHATSAPP_COOPERATIVA = WHATSAPP_CONSELHO;
 
 export async function GET(request: NextRequest) {
   try {

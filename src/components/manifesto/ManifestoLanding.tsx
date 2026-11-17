@@ -94,7 +94,7 @@ export function ManifestoLanding() {
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={150}>
-            <h1 className="font-serif text-display-md sm:text-display-lg lg:text-display-2xl font-bold text-areia-100 text-glow leading-tight">
+            <h1 className="font-serif text-display-md sm:text-display-lg lg:text-display-xl font-bold text-areia-100 text-glow leading-tight">
               Nascidos do
               <br />
               <span className="text-gradient-solar">Raio de Sol</span>
@@ -1035,7 +1035,7 @@ export function ManifestoLanding() {
                   Portal de Credenciamento & Acervo Etnocientífico Aberto
                 </h4>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Lançamento do portal institucional integrado com 20 PDFs científicos abertos para estudo, triagem digital segura e suporte contínuo a centenas de templos pelo Brasil.
+                  Lançamento do portal institucional integrado com acervo documental aberto (laudos, guias e comentários regulatórios), triagem digital segura e suporte contínuo a templos e grupos pelo Brasil.
                 </p>
               </div>
             </div>

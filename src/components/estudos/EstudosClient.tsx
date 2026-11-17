@@ -31,6 +31,9 @@ import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
 const ComunidadeBlogMural = dynamic(() =>
   import("./ComunidadeBlogMural").then((m) => m.ComunidadeBlogMural)
 );
+const ObservatorioAcademico = dynamic(() =>
+  import("./ObservatorioAcademico").then((m) => m.ObservatorioAcademico)
+);
 
 /** Texto oficial da Resolução CONAD nº 01/2010 (DOU nº 17, 26/01/2010), publicado pelo Ministério da Justiça. */
 const RESOLUCAO_CONAD_OFICIAL_URL =
@@ -51,7 +54,9 @@ const nomeDoDocumento = (caminho: string) =>
   (caminho.split("/").pop() || "Documento da biblioteca");
 
 export function EstudosClient() {
-  const [visaoAtiva, setVisaoAtiva] = useState<"COMUNIDADE" | "DOSSIES">("COMUNIDADE");
+  const [visaoAtiva, setVisaoAtiva] = useState<"COMUNIDADE" | "OBSERVATORIO" | "DOSSIES">(
+    "COMUNIDADE"
+  );
   const [selectedCategory, setSelectedCategory] = useState<string>("todos");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activePdfModal, setActivePdfModal] = useState<string | null>(null);
@@ -68,6 +73,30 @@ export function EstudosClient() {
   const [customNotebookUrl, setCustomNotebookUrl] = useState<string>("");
   const [savedNotebooks, setSavedNotebooks] = useState<string[]>([]);
   const [erroCaderno, setErroCaderno] = useState<string>("");
+
+  // Leitura do hash na URL (#observatorio, #acervo, #mural) e do localStorage no navegador.
+  useEffect(() => {
+    const aplicarHash = () => {
+      const h = window.location.hash.toLowerCase();
+      if (h === "#observatorio") setVisaoAtiva("OBSERVATORIO");
+      else if (h === "#acervo" || h === "#biblioteca") setVisaoAtiva("DOSSIES");
+      else if (h === "#mural" || h === "#comunidade") setVisaoAtiva("COMUNIDADE");
+    };
+    aplicarHash();
+    window.addEventListener("hashchange", aplicarHash);
+    return () => window.removeEventListener("hashchange", aplicarHash);
+  }, []);
+
+  const selecionarVisao = (visao: "COMUNIDADE" | "OBSERVATORIO" | "DOSSIES") => {
+    setVisaoAtiva(visao);
+    const hash =
+      visao === "OBSERVATORIO" ? "#observatorio" : visao === "DOSSIES" ? "#acervo" : "#mural";
+    try {
+      window.history.replaceState(null, "", hash);
+    } catch {
+      // Ignora em contextos sem history
+    }
+  };
 
   // Leitura do localStorage só no navegador; valor corrompido não derruba a página.
   useEffect(() => {
@@ -140,7 +169,7 @@ export function EstudosClient() {
       <div className="flex justify-center">
         <div className="inline-flex p-1.5 rounded-2xl bg-floresta-950/90 border-2 border-ambar-500/30 shadow-solar max-w-full overflow-x-auto touch-scroll-x">
           <button
-            onClick={() => setVisaoAtiva("COMUNIDADE")}
+            onClick={() => selecionarVisao("COMUNIDADE")}
             className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
               visaoAtiva === "COMUNIDADE"
                 ? "bg-ambar-500 text-floresta-950 font-bold shadow-solar scale-[1.02]"
@@ -155,7 +184,22 @@ export function EstudosClient() {
           </button>
 
           <button
-            onClick={() => setVisaoAtiva("DOSSIES")}
+            onClick={() => selecionarVisao("OBSERVATORIO")}
+            className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
+              visaoAtiva === "OBSERVATORIO"
+                ? "bg-ambar-500 text-floresta-950 font-bold shadow-solar scale-[1.02]"
+                : "text-areia-300 hover:text-areia-100 hover:bg-floresta-900/60"
+            }`}
+          >
+            <Search className="h-4 w-4" />
+            <span>Buscador Acadêmico &amp; Anexos</span>
+            <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hidden sm:inline">
+              Novo
+            </span>
+          </button>
+
+          <button
+            onClick={() => selecionarVisao("DOSSIES")}
             className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
               visaoAtiva === "DOSSIES"
                 ? "bg-ambar-500 text-floresta-950 font-bold shadow-solar scale-[1.02]"
@@ -173,6 +217,10 @@ export function EstudosClient() {
 
       {visaoAtiva === "COMUNIDADE" ? (
         <ComunidadeBlogMural />
+      ) : visaoAtiva === "OBSERVATORIO" ? (
+        <div id="observatorio">
+          <ObservatorioAcademico />
+        </div>
       ) : (
         <div className="space-y-16 animate-fade-in">
       {/* ═══════════════════════════════════════════

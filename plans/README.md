@@ -20,6 +20,13 @@ Cada executor deve ler o plano integralmente antes de iniciar, respeitar as cond
 | [010](010-auditoria-interacoes-medicamentosas-e-documentos.md) | Senha admin exposta (P0), Fonte Única da Matriz de Interações, Lacunas de Fármacos & Documentos Novos | P0/P1 | M–L | MED | — | DONE |
 | [011](011-documentos-publicos-e-saude-geral-do-projeto.md) | RLS Aberto (P0), Documentos Internos Expostos em `/estudos`, Biblioteca Pública Enxuta, Lint/CI/Dependências & Peso do Repositório | P0/P1/P2 | M | MED | — | DONE |
 | [012](012-auditoria-geral-seguranca-rateio-e-compliance-publico.md) | Repositório público, bypass de login e admin, APIs sem autenticação, migração 005, cálculo de rateio (Mel/Gel), compliance público (alegações terapêuticas, tabela "atacado"), a11y/perf e faxina do repositório | P0/P1/P2 | L | MED | — | IN PROGRESS (A, C1–C4, D1/D2/D9 feitos) |
+| [013](013-grafo-1-otimizacao-karpathy-e-skills.md) | Grafo 1: Otimizações Karpathy, Compactação `AGENTS.md`, `preflight-audit` determinístico & 4 Skills Específicas | P1 | M | LOW | — | DONE |
+| [014](014-grafo-2-backend-observatorio-academico.md) | Grafo 2: Backend Observatório Etnobotânico (Buscador Aberto + Anexador Híbrido + TDD) | P1 | M | LOW | 013 | DONE |
+| [015](015-grafo-3-frontend-buscador-e-anexador.md) | Grafo 3: UI Buscador Acadêmico, Caderno NotebookLM & Anexador Comunitário em `/estudos` | P1 | M | LOW | 014 | DONE |
+| [016](016-grafo-4-verificacao-e2e-e-consolidacao-obsidian.md) | Grafo 4: Verificação Real Chrome DevTools MCP/E2E & Consolidação `ADR-013` no Obsidian | P1 | S | LOW | 015 | DONE |
+| [017](017-grafo-5-evolucao-observatorio-doi-supabase-e-atalhos.md) | Grafo 5: Resolução Direta por DOI, Migração Supabase `007` & Atalhos `#observatorio` | P1 | M | LOW | 014, 015 | DONE |
+| [018](018-grafo-6-saneamento-seeds-a11y-e-lint-zero.md) | Grafo 6: Saneamento Semântico de Seeds, A11y em `/reconhecimento` & Limpeza ESLint | P1 | S | LOW | 017 | DONE |
+| [019](019-grafo-7-tdd-verificacao-real-chrome-e-obsidian.md) | Grafo 7: TDD Ampliado, Verificação Real Chrome DevTools MCP & Consolidação `ADR-014` | P1 | S | LOW | 017, 018 | DONE |
 
 > **010 e 011 (2026-11-02):** parte de código concluída. Itens de senha ficaram fora por decisão do usuário. Pendências que dependem de pessoas (revisão clínica e jurídica, refazer PDFs, rodar a migração 004 no Supabase) estão em `Segundo-Cerebro/06-Arquitetura-do-Portal/Roadmap-e-Componentes-do-Site.md`.
 

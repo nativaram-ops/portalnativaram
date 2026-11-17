@@ -32,8 +32,8 @@ export const PERFIS_INICIAIS: PerfilTemploComunidade[] = [
     fotoPerfilUrl: "",
     fotoCapaUrl: "",
     fotosEspaco: [
-      "/images/feitio-caldeirao-tucunaca.jpg",
-      "/images/cipo-tucunaca-bruto-barracao.jpg",
+      "/assets/feitio/curadas/feitio-caldeiroes-fileira.jpg",
+      "/assets/feitio/curadas/feitio-lianas-tucunaca-barracao.jpg",
     ],
     redesSociais: {
       instagram: "https://instagram.com/ceudocruzeiro.oficial",
@@ -60,8 +60,8 @@ export const PERFIS_INICIAIS: PerfilTemploComunidade[] = [
     fotoPerfilUrl: "",
     fotoCapaUrl: "",
     fotosEspaco: [
-      "/images/feitio-vigilia-noturna.jpg",
-      "/images/folhas-chacrona-orvalho.jpg",
+      "/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg",
+      "/assets/feitio/curadas/feitio-chacrona-fresca-caldeirao.jpg",
     ],
     redesSociais: {
       instagram: "https://instagram.com/fraternidaderainhadafloresta",
@@ -96,10 +96,10 @@ O Daime não requer aditivos ou qualquer desvio botânico. O cipó *Banisteriops
 Em nossa última sessão de concentração, observamos como a decantação sem borras caústicas proporciona um trabalho sereno, permitindo aos irmãos acolher a doutrina com reverência e lucidez.`,
     categoria: "REFLEXAO_DOUTRINARIA",
     categoriaLabel: "Reflexão Doutrinária",
-    imagemCapa: "/images/feitio-caldeirao-tucunaca.jpg",
+    imagemCapa: "/assets/feitio/curadas/feitio-caldeiroes-fileira.jpg",
     fotosGaleria: [
-      "/images/folhas-chacrona-orvalho.jpg",
-      "/images/cipo-tucunaca-bruto-barracao.jpg",
+      "/assets/feitio/curadas/feitio-chacrona-fresca-caldeirao.jpg",
+      "/assets/feitio/curadas/feitio-lianas-tucunaca-barracao.jpg",
     ],
     anexos: [
       {
@@ -142,7 +142,7 @@ Recomendamos sempre em nossas cerimônias de acalento:
 3. Permaneça em postura ereta, acolhendo o calor que desce pelo corpo.`,
     categoria: "BOTANICA_TRADICIONAL",
     categoriaLabel: "Botânica Tradicional",
-    imagemCapa: "/images/feitio-vigilia-noturna.jpg",
+    imagemCapa: "/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg",
     fotosGaleria: [],
     anexos: [
       {

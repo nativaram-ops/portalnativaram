@@ -249,7 +249,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Não recomendado para indivíduos hipertensos graves sem acompanhamento.",
     referencias:
-      "Pereira (2019); Sateré-Mawé Tradition (2023); Clube do Haux (2026); Nativaram Brasil (2026).",
+      "Pereira (2019); Sateré-Mawé Tradition (2023); Clube do Haux (2026); Cooperativa Nativaram (2026).",
     forca: "intermediaria",
     chakras: ["Plexo Solar (Manipura)", "Chakra Cardíaco (Anahata)"],
     emoji: "⚡",
@@ -284,7 +284,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Requer uso respeitoso e focado, evitando consagração em ambientes ruidosos.",
     referencias:
-      "Tradição Yawanawá (2022); RAPÉS SAGRADOS (2025); Nativaram Brasil (2026).",
+      "Tradição Yawanawá (2022); RAPÉS SAGRADOS (2025); Cooperativa Nativaram (2026).",
     forca: "suave",
     chakras: ["Chakra Coronário (Sahasrara)", "Chakra Frontal (Ajna)"],
     emoji: "🙏",
@@ -318,7 +318,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Não recomendado para iniciantes sem acompanhamento ou pessoas com crises inflamatórias agudas da mucosa.",
     referencias:
-      "Santos (2019); Vida — Tradições de Valor (2026); Yanomami Tradition (2023); Nativaram Brasil (2026).",
+      "Santos (2019); Vida — Tradições de Valor (2026); Yanomami Tradition (2023); Cooperativa Nativaram (2026).",
     forca: "extra-forte",
     chakras: ["Chakra Coronário (Sahasrara)", "Plexo Solar (Manipura)"],
     emoji: "🔥",
@@ -384,7 +384,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Não recomendado para grávidas ou lactantes.",
     referencias:
-      "Nunes et al. (2021); Sateré-Mawé Tradition (2023); Nativaram Brasil (2026).",
+      "Nunes et al. (2021); Sateré-Mawé Tradition (2023); Cooperativa Nativaram (2026).",
     forca: "suave",
     chakras: ["Chakra Cardíaco (Anahata)", "Chakra Frontal (Ajna)"],
     emoji: "👑",
@@ -418,7 +418,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Evitar o uso se houver quadros de sinusite inflamatória aguda.",
     referencias:
-      "Almeida (2020); Handroanthus Studies (2022); Kuntanawa Tradition (2023); Nativaram Brasil (2026).",
+      "Almeida (2020); Handroanthus Studies (2022); Kuntanawa Tradition (2023); Cooperativa Nativaram (2026).",
     forca: "forte",
     chakras: ["Chakra Básico (Muladhara)", "Chakra Coronário (Sahasrara)"],
     emoji: "🌲",
@@ -484,7 +484,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Não recomendado para grávidas, lactantes ou pessoas hipertensas sem controle médico.",
     referencias:
-      "Gupta et al. (2021); Yawanawa Tradition (2023); RAPÉS SAGRADOS (2025); Nativaram Brasil (2026).",
+      "Gupta et al. (2021); Yawanawa Tradition (2023); RAPÉS SAGRADOS (2025); Cooperativa Nativaram (2026).",
     forca: "intermediaria",
     chakras: ["Todos os 7 chakras"],
     emoji: "⚖️",
@@ -517,7 +517,7 @@ export const medicinas: Medicina[] = [
     cuidados:
       "Contém nicotina. Rapé de força intermediária a forte. Não consagrar em momentos de enxaquecas agudas nas têmporas.",
     referencias:
-      "Funasa (2018); Arara-Shawãdawa Tradition (2023); RAPÉS SAGRADOS (2025); Nativaram Brasil (2026).",
+      "Funasa (2018); Arara-Shawãdawa Tradition (2023); RAPÉS SAGRADOS (2025); Cooperativa Nativaram (2026).",
     forca: "forte",
     chakras: ["Chakra Cardíaco (Anahata)", "Chakra Frontal (Ajna)"],
     emoji: "🐍",

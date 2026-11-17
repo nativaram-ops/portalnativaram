@@ -1,19 +1,21 @@
 import React from "react";
 import { SectionDivider } from "@/components/ui/SectionDivider";
-import {
-  HomeHero,
-  HomePilaresBar,
-  HomeJornadaFunil,
-  HomeCompromissoSagrado,
-  HomeDepoimentosCredenciamento,
-  HomeFaqSection,
-} from "@/components/home";
+import { HomeHero } from "@/components/home/HomeHero";
+import { HomeAudienciaCaminhos } from "@/components/home/HomeAudienciaCaminhos";
+import { HomePilaresBar } from "@/components/home/HomePilaresBar";
+import { HomeJornadaFunil } from "@/components/home/HomeJornadaFunil";
+import { HomeCompromissoSagrado } from "@/components/home/HomeCompromissoSagrado";
+import { HomeDepoimentosCredenciamento } from "@/components/home/HomeDepoimentosCredenciamento";
+import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 
 export default function HomePage() {
   return (
     <div className="space-y-0">
-      {/* Hero — O Portal Sagrado & Apoio Litúrgico */}
+      {/* Hero — Identidade Cooperativa & Salvaguarda Litúrgica */}
       <HomeHero />
+
+      {/* Triagem Direta dos 3 Públicos (Visitante, Instituição CNPJ, Grupo s/ CNPJ) */}
+      <HomeAudienciaCaminhos />
 
       {/* Barra de Pilares Sagrados */}
       <HomePilaresBar />

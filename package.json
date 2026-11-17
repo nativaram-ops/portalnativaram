@@ -13,7 +13,10 @@
     "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit --incremental false",
-    "test": "node node_modules/jiti/bin/jiti.js scripts/test-liturgico.mjs && node node_modules/jiti/bin/jiti.js scripts/test-matriz.mjs && node node_modules/jiti/bin/jiti.js scripts/test-rateio.mjs && node node_modules/jiti/bin/jiti.js scripts/test-documentos.mjs && node node_modules/jiti/bin/jiti.js scripts/test-biblioteca.mjs"
+    "audit:preflight": "node scripts/preflight-audit.mjs",
+    "audit:ast": "node scripts/ast-scan.mjs",
+    "audit:e2e": "node scripts/e2e-crawler.mjs",
+    "test": "node node_modules/jiti/bin/jiti.js scripts/test-liturgico.mjs && node node_modules/jiti/bin/jiti.js scripts/test-matriz.mjs && node node_modules/jiti/bin/jiti.js scripts/test-rateio.mjs && node node_modules/jiti/bin/jiti.js scripts/test-documentos.mjs && node node_modules/jiti/bin/jiti.js scripts/test-biblioteca.mjs && node node_modules/jiti/bin/jiti.js scripts/test-observatorio.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

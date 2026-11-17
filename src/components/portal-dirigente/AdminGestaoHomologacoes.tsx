@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   Building2,
   Users,
@@ -34,6 +34,27 @@ import {
 import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
 
 const LOCAL_STORAGE_KEY = "nativaram_solicitacoes_local";
+
+function lerCacheLocal(): SolicitacaoAcesso[] {
+  try {
+    const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function salvarCacheLocal(lista: SolicitacaoAcesso[]) {
+  try {
+    // Chaves de acesso nunca ficam gravadas no navegador.
+    const semChaves = lista.map(({ senhaGerada: _chave, ...resto }) => resto);
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(semChaves));
+  } catch {
+    // Ignora erro de quota
+  }
+}
 
 function mesclarSolicitacoesCliente(
   remotas: SolicitacaoAcesso[],
@@ -94,7 +115,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     [id: string]: string;
   }>({});
 
-  // Edição rápida de um protocolo existente (ex: preencher nome/WhatsApp do REC-2026-OLYY)
+  // Edição rápida de um protocolo existente
   const [editandoId, setEditandoId] = useState<string | null>(null);
   const [formEdicao, setFormEdicao] = useState<{
     nomeEntidade: string;
@@ -133,28 +154,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     intencao: "Solicitação de acolhimento recebida via protocolo oficial no WhatsApp.",
   });
 
-  const lerCacheLocal = (): SolicitacaoAcesso[] => {
-    try {
-      const raw = localStorage.getItem(LOCAL_STORAGE_KEY);
-      if (!raw) return [];
-      const parsed = JSON.parse(raw);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch {
-      return [];
-    }
-  };
-
-  const salvarCacheLocal = (lista: SolicitacaoAcesso[]) => {
-    try {
-      // Chaves de acesso nunca ficam gravadas no navegador.
-      const semChaves = lista.map(({ senhaGerada: _chave, ...resto }) => resto);
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(semChaves));
-    } catch {
-      // Ignora erro de quota
-    }
-  };
-
-  const carregarSolicitacoes = async () => {
+  const carregarSolicitacoes = useCallback(async () => {
     setLoading(true);
     const locais = lerCacheLocal().filter(
       (s) =>
@@ -185,7 +185,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
   const handleExcluirInstituicao = async (id: string) => {
     setExcluindoId(id);
@@ -220,7 +220,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
 
   useEffect(() => {
     carregarSolicitacoes();
-  }, []);
+  }, [carregarSolicitacoes]);
 
   const iniciarEdicao = (sol: SolicitacaoAcesso) => {
     setEditandoId(sol.id);
@@ -467,7 +467,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                 <span>Homologar / Registrar Protocolo Recebido via WhatsApp</span>
               </h4>
               <p className="text-xs text-areia-400 font-light">
-                Insira o código de protocolo enviado pelo dirigente (ex: <code className="text-ambar-300">REC-2026-OLYY</code>) e os dados básicos para liberar o acesso imediatamente.
+                Insira o código de protocolo enviado pelo dirigente (ex: <code className="text-ambar-300">REC-2026-A1B2</code>) e os dados básicos para liberar o acesso imediatamente.
               </p>
             </div>
             <button
@@ -493,7 +493,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                 onChange={(e) =>
                   setNovoProtocolo({ ...novoProtocolo, id: e.target.value.toUpperCase() })
                 }
-                placeholder="Ex: REC-2026-OLYY"
+                placeholder="Ex: REC-2026-A1B2"
                 className="w-full rounded-xl border border-ambar-500/30 bg-floresta-900 px-3 py-2 text-areia-100 font-mono uppercase focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
               />
             </div>
@@ -719,7 +719,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
             type="text"
             value={busca}
             onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar protocolo (ex: REC-2026-OLYY), nome..."
+            placeholder="Buscar protocolo (ex: NAT-2026-A1B2 ou REC-2026-A1B2), nome..."
             className="w-full rounded-xl border border-ambar-500/20 bg-floresta-900/90 pl-9 pr-3 py-1.5 text-xs text-areia-100 placeholder-areia-400/50 focus:border-ambar-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
           />
         </div>

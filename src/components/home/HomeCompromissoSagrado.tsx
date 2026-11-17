@@ -56,7 +56,7 @@ export const HomeCompromissoSagrado = () => {
               <Badge
                 variant="solar"
                 dot
-                icon={<Flame className="h-3.5 w-3.5 text-ambar-400 animate-flicker" />}
+                icon={<Flame className="h-3.5 w-3.5 text-ambar-400" />}
               >
                 Compromisso Litúrgico &amp; Salvaguarda
               </Badge>
@@ -64,11 +64,11 @@ export const HomeCompromissoSagrado = () => {
 
             {/* Declaração Central */}
             <div className="space-y-4 max-w-3xl mx-auto">
-              <h2 className="font-serif text-display-xs sm:text-display-sm lg:text-display-md font-bold text-areia-100 leading-snug">
+              <h2 className="font-serif text-2xl sm:text-display-sm lg:text-display-md font-bold text-areia-100 leading-snug">
                 &ldquo;A Cooperativa Nativaram compreende a Ayahuasca como um portal sagrado.&rdquo;
               </h2>
               <p className="text-sm sm:text-base text-areia-200/90 font-light leading-relaxed">
-                Zelamos pela integridade de cada etapa, realizando a seleção e homologação prévia de todas as instituições a quem destinamos os sacramentos. Nosso compromisso é assegurar que a força vegetal chegue a mãos que honrem seu propósito espiritual.
+                Zelamos pela integridade de cada etapa, realizando a triagem e homologação prévia das instituições constituídas e dos grupos acolhidos em caminhada fraterna. Nosso compromisso é assegurar que a força vegetal chegue apenas a mãos que honrem seu propósito espiritual.
               </p>
             </div>
 
@@ -88,9 +88,9 @@ export const HomeCompromissoSagrado = () => {
                           {pilar.badge}
                         </span>
                       </div>
-                      <h4 className="font-serif text-xs font-bold text-areia-100">
+                      <h3 className="font-serif text-xs font-bold text-areia-100">
                         {pilar.titulo}
-                      </h4>
+                      </h3>
                       <p className="text-[11px] text-areia-300/80 leading-relaxed font-light">
                         {pilar.descricao}
                       </p>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useDeferredValue } from "react";
+import React, { useState, useEffect, useDeferredValue, useCallback } from "react";
 import Link from "next/link";
 import {
   FileText,
@@ -91,19 +91,7 @@ export const PortalComunidadeGestao: React.FC<Props> = ({
   const [ritoVagas, setRitoVagas] = useState("Vagas limitadas mediante anamnese CONAD");
   const [ritoDescricao, setRitoDescricao] = useState("");
 
-  // Carregar dados iniciais
-  useEffect(() => {
-    carregarDados();
-  }, [temploCodigo]);
-
-  // Executar linter léxico com useDeferredValue sempre que o título, resumo ou conteúdo mudar
-  const textoCombinado = useDeferredValue(`${postTitulo} ${postResumo} ${postConteudo}`);
-  useEffect(() => {
-    const alertas = verificarConformidadeTexto(textoCombinado);
-    setAlertasCompliance(alertas);
-  }, [textoCombinado]);
-
-  const carregarDados = async () => {
+  const carregarDados = useCallback(async () => {
     setLoading(true);
     try {
       const [resPosts, resPerfil, resAgenda] = await Promise.all([
@@ -142,7 +130,19 @@ export const PortalComunidadeGestao: React.FC<Props> = ({
     } finally {
       setLoading(false);
     }
-  };
+  }, [temploCodigo]);
+
+  // Carregar dados iniciais
+  useEffect(() => {
+    carregarDados();
+  }, [carregarDados]);
+
+  // Executar linter léxico com useDeferredValue sempre que o título, resumo ou conteúdo mudar
+  const textoCombinado = useDeferredValue(`${postTitulo} ${postResumo} ${postConteudo}`);
+  useEffect(() => {
+    const alertas = verificarConformidadeTexto(textoCombinado);
+    setAlertasCompliance(alertas);
+  }, [textoCombinado]);
 
   // Upload e compressão automática de imagem para WebP
   const handleUploadFotoCapa = async (e: React.ChangeEvent<HTMLInputElement>) => {

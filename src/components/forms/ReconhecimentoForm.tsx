@@ -287,7 +287,7 @@ export const ReconhecimentoForm = () => {
   if (dossier) {
     const finalWhatsappUrl =
       whatsappDirectUrl ||
-      `https://wa.me/556899779104?text=${formatReconhecimentoWhatsApp(dossier)}`;
+      `https://wa.me/5568999979104?text=${formatReconhecimentoWhatsApp(dossier)}`;
 
     return (
       <div className="card-elevated rounded-3xl p-6 sm:p-12 space-y-8 border-ambar-500/40 shadow-elevated relative overflow-hidden bg-floresta-950/95">
@@ -508,11 +508,18 @@ export const ReconhecimentoForm = () => {
 
             {/* Seletor de Tipo de Vínculo em Cards */}
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-areia-200 block">
+              <span
+                id="reconhecimento-vinculo-label"
+                className="text-xs font-semibold text-areia-200 block"
+              >
                 Como seu núcleo ou prática espiritual se caracteriza?{" "}
                 <span className="text-ambar-400">*</span>
-              </label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              </span>
+              <div
+                role="group"
+                aria-labelledby="reconhecimento-vinculo-label"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+              >
                 {TIPOS_VINCULO.map((tipo) => {
                   const Icon = tipo.icon;
                   const isSelected = selectedTipo === tipo.id;
@@ -665,12 +672,19 @@ export const ReconhecimentoForm = () => {
 
             {/* Seletor Visual de Graduações Canônicas */}
             <div className="space-y-3">
-              <label className="text-xs font-semibold text-areia-200 block">
+              <span
+                id="reconhecimento-graduacao-label"
+                className="text-xs font-semibold text-areia-200 block"
+              >
                 Graduação Canônica Pretendida para o Sacramento:{" "}
                 <span className="text-ambar-400">*</span>
-              </label>
+              </span>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div
+                role="group"
+                aria-labelledby="reconhecimento-graduacao-label"
+                className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+              >
                 {GRADUACOES_SACRAMENTAIS.map((grad) => {
                   const isSelected = selectedGraduacaoId === grad.id;
 
@@ -810,12 +824,19 @@ export const ReconhecimentoForm = () => {
 
             {/* Três Compromissos Mandatórios de Sacralidade */}
             <div className="space-y-3 pt-2">
-              <label className="text-xs font-semibold text-areia-200 block">
+              <span
+                id="reconhecimento-compromissos-label"
+                className="text-xs font-semibold text-areia-200 block"
+              >
                 Compromissos de Salvaguarda Litúrgica &amp; Segurança:{" "}
                 <span className="text-ambar-400">*</span>
-              </label>
+              </span>
 
-              <div className="space-y-2.5">
+              <div
+                role="group"
+                aria-labelledby="reconhecimento-compromissos-label"
+                className="space-y-2.5"
+              >
                 {/* 1. Uso Litúrgico CONAD */}
                 <label className="flex items-start gap-3 p-3 rounded-xl bg-floresta-900/60 border border-ambar-500/20 cursor-pointer hover:bg-floresta-900/90 transition-all">
                   <input

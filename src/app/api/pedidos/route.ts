@@ -9,8 +9,9 @@ import { NovoPedidoSchema } from "@/lib/validators/pedido";
 import { StatusPedido } from "@/types/pedido";
 import { resolverTitularDaRequisicao } from "@/lib/auth/session";
 import { rateioUnitarioOficial } from "@/lib/rateio";
+import { WHATSAPP_CONSELHO } from "@/lib/whatsapp-cadastro";
 
-const WHATSAPP_COOPERATIVA = "556899779104";
+const WHATSAPP_COOPERATIVA = WHATSAPP_CONSELHO;
 
 const STATUS_VALIDOS: readonly string[] = [
   "SOLICITADO",

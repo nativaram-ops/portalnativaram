@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { validarCredenciaisDirigente } from "@/lib/db/homologacoes";
 import {
   checkRateLimit,
+  resolverTitularDaRequisicao,
   setSessionCookie,
 } from "@/lib/auth/session";
 import { VerificarChaveSchema } from "@/lib/validators/solicitacao";
@@ -20,6 +21,23 @@ const ADMIN_LOGINS = [
   "conselho@nativaram.com.br",
   "nativaram@gmail.com",
 ];
+
+/**
+ * Consulta não-destrutiva da sessão atual (cookie HttpOnly), permitindo à UI
+ * pública habilitar ações autenticadas de Dirigente/Conselho sem ler localStorage.
+ */
+export async function GET(request: NextRequest) {
+  const titular = resolverTitularDaRequisicao(request);
+  if (!titular) {
+    return NextResponse.json({ authenticated: false });
+  }
+  return NextResponse.json({
+    authenticated: true,
+    role: titular.isAdmin ? "ADMIN" : "DIRIGENTE",
+    codigo: titular.codigo || (titular.isAdmin ? "ADM-NATIVARAM" : ""),
+    grupoInformal: titular.grupoInformal,
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {

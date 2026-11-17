@@ -196,20 +196,18 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
             // Continua com autenticação no navegador
           }
 
-          const emailLower = (data.user.email || "").toLowerCase();
           const isAdmin =
-            modoLogin === "ADMIN" ||
-            emailLower.includes("adm") ||
-            emailLower === "nativaram@gmail.com" ||
-            data.user.user_metadata?.papel === "ADMIN";
+            data.user.app_metadata?.papel === "ADMIN";
+          const codigoApp =
+            typeof data.user.app_metadata?.codigo_liturgico === "string"
+              ? data.user.app_metadata.codigo_liturgico
+              : "";
 
           onAuthenticated(
             isAdmin ? "ADMIN" : "DIRIGENTE",
             isAdmin
               ? "ADM-NATIVARAM"
-              : data.user.user_metadata?.codigo_liturgico ||
-                data.user.email ||
-                "USUARIO-SUPABASE"
+              : codigoApp || data.user.email || "USUARIO-SUPABASE"
           );
           setLoadingAuth(false);
           return;
@@ -266,7 +264,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
       setMagicLinkEnviado(true);
     } catch {
       setErrorMsg(
-        "O servidor de e-mail Supabase está em modo standby no momento. Entre diretamente informando seu Código de Homologação (NAT-TEMPLO-842 / NAT-GRP-OLYY) ou usuário ADM e sua senha."
+        "O servidor de e-mail Supabase está em modo standby no momento. Entre diretamente informando seu Código de Homologação (ex: NAT-TEMPLO-842 ou NAT-GRP-XXXX) ou usuário ADM e sua senha."
       );
     } finally {
       setLoadingAuth(false);
@@ -293,7 +291,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
 
     if (!loginLimpo) {
       setErrorMsg(
-        "Informe o código de homologação da congregação (ex: NAT-TEMPLO-842 ou NAT-GRP-OLYY)."
+        "Informe o código de homologação da congregação (ex: NAT-TEMPLO-842 ou NAT-GRP-XXXX)."
       );
       return;
     }

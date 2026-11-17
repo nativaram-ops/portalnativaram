@@ -8,7 +8,7 @@ import { EstudosClient } from "@/components/estudos/EstudosClient";
 export const metadata: Metadata = {
   title: "Estudos Etnobotânicos & Mural da Comunidade | Cooperativa Nativaram",
   description:
-    "Mural colaborativo de congregações credenciadas, relatos doutrinários, fotos de altares sagrados, laudos fitoquímicos da Ayahuasca e compêndios científicos sob o marco CONAD 01/2010.",
+    "Mural colaborativo de congregações credenciadas, relatos doutrinários, fotos de altares sagrados, laudos fitoquímicos da Ayahuasca e acervos etnobotânicos sob o marco CONAD 01/2010.",
   openGraph: {
     title: "Estudos Etnobotânicos & Mural da Comunidade | Cooperativa Nativaram",
     description:
@@ -29,7 +29,7 @@ export default function EstudosPage() {
         maxWidth="max-w-4xl"
         title={
           <>
-            Estudos Científicos,{" "}
+            Estudos Etnobotânicos,{" "}
             <span className="text-gradient-solar">Mural Litúrgico</span>
             <br />
             & Vozes da Floresta
