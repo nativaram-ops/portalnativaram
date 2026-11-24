@@ -41,6 +41,19 @@ Todo texto gerado DEVE obedecer ao **Dicionário de Engenharia de Linguagem** ab
 5. **Composição em Português**: Toda ficha deve estar em português com composição completa.
 6. **Diretriz de Imagens e Fotos Reais**: NUNCA usar imagens geradas por IA quando o visual representar um local geográfico real (buscar, baixar e creditar fotografia real sob licença livre); nunca gerar figuras humanas ou personagens por IA em imagens ilustrativas.
 
+## Conteúdo público conforme regulamentação (ADR-016, 24/11/2026)
+
+O site é **institucional e sem oferta**. Base: Resolução CONAD nº 1/2010, Lei 11.343/2006 (art. 2º, caput), Anvisa RE 342/2025 e Lei 9.294/1996 + RDC Anvisa 840/2023 (tabaco). Especificação completa em `plans/013-site-institucional-sem-oferta-e-abas-novas.md`.
+
+1. **Identidade:** "projeto de cooperativa em constituição, ainda sem registro e sem CNPJ". Nunca afirmar no presente "cooperativa sem fins lucrativos (Lei 5.764/71)", "cooperados", "templos credenciados/homologados" ou selos como "CONAD Homologado".
+2. **Sem oferta:** nada de valores (R$), cotas, "rateio" por litro, desconto por volume, pedido, calculadora, envio, frete, transporte ou logística. Isso vale **inclusive** para o substituto "rateio de custos" do dicionário acima, que não deve aparecer no site.
+3. **Sem cadastro:** não existem `/credenciamento` nem `/reconhecimento`, que redirecionam para `/entidades-religiosas`. O site não coleta dados de entidades. O login é só do Conselho.
+4. **Transporte:** o site não orienta nem "garante" transporte do sacramento, porque não há regulamentação (CONAD, proposição 2.B). Use a frase canônica do plano 013.
+5. **Rapé:** só conteúdo cultural, sem fichas por variedade, fotos de frasco ou oferta, sempre com o aviso de tabaco/nicotina e +18. **Sananga não aparece no site.**
+6. **Comunidade:** não publicar agenda de cerimônias, contatos pessoais de dirigentes nem perfis ou posts de exemplo.
+7. **Fotos de terceiros:** crédito visível com autor, licença com link e indicação de modificação, registrado em `src/data/creditos-imagens.ts`.
+8. Os testes `npm test` barram valores, frete, Gollog, pedido mínimo, cadastro, Doc 04 e transporte na FAQ. **Não enfraqueça esses testes** para fazer uma mudança passar.
+
 ## Governança de Ambiente Local (Windows)
 
 - **Execução de Scripts**: Sempre executar comandos Node/NPM via `cmd.exe /c` para evitar bloqueios de ExecutionPolicy do PowerShell.
