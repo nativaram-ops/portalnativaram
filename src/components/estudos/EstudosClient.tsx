@@ -119,7 +119,7 @@ export function EstudosClient() {
     { id: "rapes", label: "Rapés Sagrados", icon: Leaf },
     { id: "compliance", label: "Governança & CONAD", icon: Scale },
     { id: "etnociencia", label: "Manifesto & Etnociência", icon: Compass },
-  ];
+  ].filter((c) => c.id === "todos" || estudosData.some((e) => e.categoria === c.id));
 
   const filteredStudies = useMemo(() => {
     return estudosData.filter((item) => {

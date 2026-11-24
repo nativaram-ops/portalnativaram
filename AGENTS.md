@@ -3,9 +3,9 @@
 ## Identidade Institucional & Linguística Obrigatória
 
 > **Distinção Fundamental de Marcas:**
-> - **Cooperativa Nativaram** (ou *Cooperativa Etnobotânica Nativaram*): É este portal institucional — entidade cooperativa sem fins lucrativos de salvaguarda litúrgica, apoio a templos credenciados e rateio logístico sob a Lei 5.764/71 e CONAD 01/2010.
-> - **Nativaram Brasil**: É a loja comercial / canal de varejo externo da marca.
-> - **Regra:** Neste portal, o nome institucional oficial DEVE ser sempre **Cooperativa Nativaram**.
+> - **Cooperativa Nativaram**: é este portal institucional, de um **projeto de cooperativa em constituição, ainda sem registro e sem CNPJ** (ADR-016). Site sem oferta: acervo etnobotânico, segurança e marco legal.
+> - **Nativaram Brasil**: é a loja comercial / canal de varejo externo da marca.
+> - **Regra:** neste portal, o nome institucional DEVE ser sempre **Cooperativa Nativaram**. O portal **não linka** a loja nem seus canais (Linktree, Instagram `@nativarambrasil`) e não usa fotos de catálogo da loja.
 
 Todo texto gerado DEVE obedecer ao **Dicionário de Engenharia de Linguagem** abaixo.
 
@@ -49,10 +49,12 @@ O site é **institucional e sem oferta**. Base: Resolução CONAD nº 1/2010, Le
 2. **Sem oferta:** nada de valores (R$), cotas, "rateio" por litro, desconto por volume, pedido, calculadora, envio, frete, transporte ou logística. Isso vale **inclusive** para o substituto "rateio de custos" do dicionário acima, que não deve aparecer no site.
 3. **Sem cadastro:** não existem `/credenciamento` nem `/reconhecimento`, que redirecionam para `/entidades-religiosas`. O site não coleta dados de entidades. O login é só do Conselho.
 4. **Transporte:** o site não orienta nem "garante" transporte do sacramento, porque não há regulamentação (CONAD, proposição 2.B). Use a frase canônica do plano 013.
-5. **Rapé:** só conteúdo cultural, sem fichas por variedade, fotos de frasco ou oferta, sempre com o aviso de tabaco/nicotina e +18. **Sananga não aparece no site.**
+5. **Rapé:** só conteúdo cultural, sem fichas por variedade, fotos de frasco ou oferta, sempre com o aviso de tabaco/nicotina e +18. **Sananga não aparece no site**, exceto como item das fichas de triagem (pergunta sobre uso recente, Doc 01 e Doc 09).
 6. **Comunidade:** não publicar agenda de cerimônias, contatos pessoais de dirigentes nem perfis ou posts de exemplo.
 7. **Fotos de terceiros:** crédito visível com autor, licença com link e indicação de modificação, registrado em `src/data/creditos-imagens.ts`.
 8. Os testes `npm test` barram valores, frete, Gollog, pedido mínimo, cadastro, Doc 04 e transporte na FAQ. **Não enfraqueça esses testes** para fazer uma mudança passar.
+9. **WhatsApp único:** só existe um canal, para falar com a cooperativa. Todo botão usa `LINK_WHATSAPP` de `src/lib/contato.ts` (mensagem fixa) pelo componente `src/components/ui/BotaoWhatsApp.tsx` ou pelo `WhatsAppFAB`. Não crie links `wa.me` com outras mensagens nas páginas públicas.
+10. **Feitio e ciência:** descreva o feitio tradicional que o projeto estuda; o projeto não aparece como produtor ("utilizamos", "nosso padrão"). Nada de exaltar pureza ou concentração de DMT nem de descrever o rito como parte de tratamento (CONAD 1/2010 veda o uso terapêutico fora da pesquisa).
 
 ## Governança de Ambiente Local (Windows)
 

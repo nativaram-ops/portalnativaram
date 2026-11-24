@@ -1,34 +1,20 @@
 import React from "react";
 import Link from "next/link";
 import type { Metadata } from "next";
-import {
-  MessageCircle,
-  Mail,
-  MapPin,
-  ShieldCheck,
-  Sparkles,
-  ArrowRight,
-  ExternalLink,
-} from "lucide-react";
-import { ContactForm } from "@/components/forms/ContactForm";
+import { Mail, MapPin, ShieldCheck, Sparkles, ArrowRight } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
-import { SectionDivider } from "@/components/ui/SectionDivider";
-import { InstagramIcon } from "@/components/ui/icons";
-import {
-  EMAIL_INSTITUCIONAL,
-  WHATSAPP_CONSELHO_FORMATADO,
-  linkWhatsAppConselho,
-} from "@/lib/contato";
+import { BotaoWhatsApp } from "@/components/ui/BotaoWhatsApp";
+import { EMAIL_INSTITUCIONAL, linkEmailInstitucional } from "@/lib/contato";
 
 export const metadata: Metadata = {
   title: "Contato Institucional | Cooperativa Nativaram",
   description:
-    "Contato com a coordenação do projeto Cooperativa Nativaram, em constituição, por WhatsApp ou e-mail institucional. O site não coleta dados.",
+    "Fale com a coordenação do projeto Cooperativa Nativaram, em constituição, pelo WhatsApp ou e-mail institucional. O site não coleta dados.",
   alternates: { canonical: "/contato" },
   openGraph: {
     title: "Contato Institucional | Cooperativa Nativaram",
     description:
-      "Canal institucional para entidades religiosas constituídas e pesquisadores. O site não coleta dados.",
+      "Canal institucional da coordenação do projeto, em constituição. O site não coleta dados.",
     url: "https://nativaramcoop.eco.br/contato",
   },
 };
@@ -36,9 +22,7 @@ export const metadata: Metadata = {
 export default function ContatoPage() {
   return (
     <div className="space-y-0">
-      {/* ═══════════════════════════════════════════
-          HERO
-          ═══════════════════════════════════════════ */}
+      {/* HERO */}
       <section className="relative overflow-hidden py-section-md lg:py-section-lg border-b border-ambar-500/10">
         <div className="absolute top-0 right-1/3 w-80 h-80 bg-ambar-500/[0.04] rounded-full blur-[80px] pointer-events-none" />
 
@@ -46,13 +30,13 @@ export default function ContatoPage() {
           <AnimateOnScroll className="max-w-3xl space-y-5">
             <div className="inline-flex items-center gap-2 rounded-full border border-ambar-500/20 bg-floresta-900/60 backdrop-blur-md px-4 py-1.5 text-[11px] font-semibold tracking-[0.15em] text-ambar-400 uppercase">
               <Sparkles className="h-3 w-3" />
-              <span>Atendimento Fraterno & Institucional</span>
+              <span>Contato Institucional</span>
             </div>
 
             <h1 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100 text-glow">
-              Fale com os
+              Fale com a
               <br />
-              <span className="text-gradient-solar">Guardiões</span>
+              <span className="text-gradient-solar">cooperativa</span>
             </h1>
 
             <p className="text-sm sm:text-base text-areia-300/80 leading-relaxed max-w-xl">
@@ -64,152 +48,89 @@ export default function ContatoPage() {
         </div>
       </section>
 
-      {/* ═══════════════════════════════════════════
-          MAIN CONTENT GRID
-          ═══════════════════════════════════════════ */}
+      {/* CANAL CENTRAL */}
       <section className="py-section-md">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-            {/* Left: Contact Info */}
-            <div className="lg:col-span-5 space-y-6">
-              {/* WhatsApp Card — with glow */}
-              <AnimateOnScroll>
-                <div className="relative rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/50 via-floresta-900/80 to-floresta-950 p-6 sm:p-8 space-y-4 shadow-elevated-md overflow-hidden">
-                  {/* Glow */}
-                  <div className="absolute top-0 right-0 w-40 h-40 bg-emerald-500/10 rounded-full blur-[60px] pointer-events-none" />
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 space-y-6">
+          <AnimateOnScroll>
+            <div className="rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/50 via-floresta-900/80 to-floresta-950 p-6 sm:p-10 space-y-6 shadow-elevated-md text-center">
+              <div className="space-y-2">
+                <h2 className="font-serif text-xl sm:text-2xl font-bold text-areia-100">
+                  Canal oficial de contato
+                </h2>
+                <p className="text-sm text-areia-300 leading-relaxed max-w-xl mx-auto">
+                  Dúvidas institucionais, pesquisa acadêmica e orientação para entidades
+                  religiosas que querem se formalizar. O WhatsApp serve só para conversar
+                  com a coordenação do projeto.
+                </p>
+              </div>
 
-                  <div className="relative flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 glow-emerald">
-                      <MessageCircle className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <h2 className="font-serif text-lg font-bold text-areia-100">
-                        Canal Direto WhatsApp
-                      </h2>
-                      <p className="text-[11px] text-emerald-300/80">
-                        Coordenação do projeto
-                      </p>
-                    </div>
-                  </div>
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3">
+                <BotaoWhatsApp className="sm:min-w-[260px]" />
+                <a
+                  href={linkEmailInstitucional("Contato institucional - Cooperativa Nativaram")}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-ambar-500/40 bg-floresta-950/70 hover:bg-floresta-800 px-5 py-3 text-xs font-bold tracking-wider text-ambar-300 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400"
+                >
+                  <Mail className="h-4 w-4" />
+                  <span>{EMAIL_INSTITUCIONAL}</span>
+                </a>
+              </div>
 
-                  <p className="relative text-xs text-areia-300 leading-relaxed">
-                    Dúvidas institucionais, pesquisa acadêmica e orientação sobre
-                    formalização de entidades religiosas.
-                  </p>
-
-                  <a
-                    href={linkWhatsAppConselho("Olá, gostaria de falar com a coordenação do projeto Cooperativa Nativaram.")}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="relative inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-5 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-all active:scale-[0.98]"
-                  >
-                    <MessageCircle className="h-4 w-4" />
-                    <span>WhatsApp: {WHATSAPP_CONSELHO_FORMATADO}</span>
-                  </a>
-
-                  <p className="relative text-[10px] text-emerald-300/70 text-center font-medium">
-                    Atendimento fraterno com presença • Seg a Sex, 09h – 18h
-                  </p>
-                </div>
-              </AnimateOnScroll>
-
-              {/* Institutional Info */}
-              <AnimateOnScroll delay={200}>
-                <div className="card-elevated rounded-xl p-6 space-y-4">
-                  <h3 className="text-[11px] font-bold tracking-[0.15em] text-ambar-400/80 uppercase">
-                    Origem & Canais Oficiais
-                  </h3>
-
-                  <div className="space-y-3.5 text-xs text-areia-400">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <strong className="text-areia-200 block">
-                          Feitio Nativo & Agrofloresta
-                        </strong>
-                        Cruzeiro do Sul, Acre — Amazônia
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <Mail className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <strong className="text-areia-200 block">
-                          E-mail Oficial
-                        </strong>
-                        <span className="text-ambar-300/90 font-mono text-[11px]">
-                          {EMAIL_INSTITUCIONAL}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <InstagramIcon className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <strong className="text-areia-200 block">
-                          Canais Oficiais
-                        </strong>
-                        <div className="flex flex-col gap-1.5 pt-1">
-                          <a
-                            href="https://linktr.ee/nativarambrasil"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 text-xs text-ambar-300 hover:text-ambar-200 font-semibold transition-colors"
-                          >
-                            <span>linktr.ee/nativarambrasil</span>
-                            <ExternalLink className="h-3 w-3" />
-                          </a>
-                          <a
-                            href="https://instagram.com/nativarambrasil"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-xs text-areia-400 hover:text-ambar-300 transition-colors"
-                          >
-                            @nativarambrasil
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </AnimateOnScroll>
-
-              {/* Atalho para Entidades Religiosas */}
-              <AnimateOnScroll delay={400}>
-                <div className="card-liturgico rounded-xl p-5 space-y-3">
-                  <div className="flex items-center gap-2 text-[11px] font-semibold text-ambar-400 uppercase tracking-wider">
-                    <ShieldCheck className="h-3.5 w-3.5" />
-                    <span>Entidade Religiosa?</span>
-                  </div>
-                  <p className="text-xs text-areia-400 leading-relaxed">
-                    Veja quem pode dialogar com o projeto, os compromissos da
-                    entidade e a orientação para grupos em formação.
-                  </p>
+              <div className="rounded-lg border border-ambar-500/15 bg-floresta-950/60 p-4 flex items-start gap-2.5 text-left">
+                <ShieldCheck className="h-4 w-4 text-ambar-400 shrink-0 mt-0.5" />
+                <p className="text-xs text-areia-400 leading-relaxed">
+                  Este site é institucional. Não vendemos, não recebemos pedidos e não
+                  fazemos envios. Não há valores nem formulários de pedido. Ao escrever
+                  por WhatsApp ou e-mail, os dados que você enviar ficam nesses serviços.
+                  Saiba mais na{" "}
                   <Link
-                    href="/entidades-religiosas"
-                    className="inline-flex items-center gap-1.5 text-xs font-bold text-ambar-400 hover:text-ambar-300 transition-colors"
+                    href="/privacidade"
+                    className="text-ambar-400 underline underline-offset-2 hover:text-ambar-300"
                   >
-                    <span>Entidades Religiosas</span>
-                    <ArrowRight className="h-3.5 w-3.5" />
+                    Política de Privacidade
                   </Link>
-                </div>
-              </AnimateOnScroll>
+                  .
+                </p>
+              </div>
             </div>
+          </AnimateOnScroll>
 
-            {/* Right: Contact Form */}
-            <AnimateOnScroll delay={100} className="lg:col-span-7">
-              <ContactForm />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <AnimateOnScroll delay={100}>
+              <div className="card-elevated rounded-xl p-5 h-full space-y-2 text-xs text-areia-400">
+                <div className="flex items-center gap-2 text-[11px] font-semibold text-ambar-400 uppercase tracking-wider">
+                  <MapPin className="h-3.5 w-3.5" />
+                  <span>Origem do projeto</span>
+                </div>
+                <p>Cruzeiro do Sul, Acre — Amazônia.</p>
+                <p>
+                  Projeto de cooperativa em constituição, ainda sem registro e sem CNPJ.{" "}
+                  <Link href="/transparencia" className="text-ambar-400 underline underline-offset-2 hover:text-ambar-300">
+                    Transparência
+                  </Link>
+                  .
+                </p>
+              </div>
             </AnimateOnScroll>
-          </div>
-        </div>
-      </section>
 
-      {/* Compliance Notice */}
-      <section className="pb-section-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-lg border border-ambar-500/10 bg-floresta-900/20 p-4 text-center">
-            <p className="text-[11px] text-areia-400/60">
-              Este site é institucional. Não vendemos, não recebemos pedidos e não
-              fazemos envios. Não há valores nem formulários de pedido.
-            </p>
+            <AnimateOnScroll delay={200}>
+              <div className="card-liturgico rounded-xl p-5 h-full space-y-3">
+                <div className="flex items-center gap-2 text-[11px] font-semibold text-ambar-400 uppercase tracking-wider">
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                  <span>Entidade religiosa?</span>
+                </div>
+                <p className="text-xs text-areia-400 leading-relaxed">
+                  Veja quem pode dialogar com o projeto, os compromissos da
+                  entidade e a orientação para grupos em formação.
+                </p>
+                <Link
+                  href="/entidades-religiosas"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-ambar-400 hover:text-ambar-300 transition-colors"
+                >
+                  <span>Entidades Religiosas</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </AnimateOnScroll>
           </div>
         </div>
       </section>

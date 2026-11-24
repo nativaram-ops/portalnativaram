@@ -290,7 +290,7 @@ export function ManifestoLanding() {
                   Nossa Missão
                 </h3>
                 <p className="text-sm text-areia-300 leading-relaxed font-light">
-                  Atuar como um <strong className="text-areia-100 font-medium">canal de síntese e integridade</strong>, levando a sabedoria das plantas de poder e os tesouros da cultura ancestral ao buscador contemporâneo, unindo a tradição milenar da floresta e o estudo técnico fitoquímico em benefício do florescimento e da expansão da consciência.
+                  Estudar e registrar, com <strong className="text-areia-100 font-medium">síntese e integridade</strong>, a sabedoria botânica da floresta e o estudo técnico, para entidades religiosas, pesquisadores e o público.
                 </p>
               </div>
             </AnimateOnScroll>
@@ -304,7 +304,7 @@ export function ManifestoLanding() {
                   Nossa Visão
                 </h3>
                 <p className="text-sm text-areia-300 leading-relaxed font-light">
-                  Ser a <strong className="text-areia-100 font-medium">principal referência brasileira na integração de saberes etnobotânicos</strong>, sendo reconhecida pela pureza absoluta dos seus sacramentos e pela profundidade da conexão estabelecida entre as raízes amazônicas e o público global, ancorada no rigor ético e regulamentar.
+                  Ser <strong className="text-areia-100 font-medium">referência no estudo e na salvaguarda dos saberes etnobotânicos</strong>, com transparência e respeito às tradições, ancorada no rigor ético e regulamentar.
                 </p>
               </div>
             </AnimateOnScroll>
@@ -330,7 +330,7 @@ export function ManifestoLanding() {
                       </h4>
                     </div>
                     <p className="text-xs text-areia-300 leading-relaxed font-light">
-                      Tratamos cada elemento vegetal como manifestação do divino. Do manejo do cipó e da folha até o cozimento e a embalagem, cada etapa do processo é conduzida como uma oração ativa e ininterrupta.
+                      Tratamos cada elemento vegetal como manifestação do divino. Do manejo do cipó e da folha até o cozimento, cada etapa do processo é conduzida como uma oração ativa e ininterrupta.
                     </p>
                   </div>
                   <span className="text-[10px] font-mono text-ambar-400/70 uppercase tracking-widest pt-2 border-t border-ambar-500/10">
@@ -642,12 +642,12 @@ export function ManifestoLanding() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
           <AnimateOnScroll className="text-center max-w-3xl mx-auto space-y-3">
             <span className="text-[11px] font-bold text-ambar-400 uppercase tracking-[0.25em] font-mono">
-              Capítulo V • Nossa Curadoria
+              Capítulo V • Tradições que estudamos
             </span>
             <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
-              O Ecossistema Litúrgico
+              Tradições que
               <br />
-              <span className="text-gradient-solar">Cooperativa Nativaram</span>
+              <span className="text-gradient-solar">o projeto estuda</span>
             </h2>
             <p className="text-sm text-areia-300 font-light leading-relaxed">
               As tradições que o projeto estuda e registra.
@@ -655,7 +655,7 @@ export function ManifestoLanding() {
           </AnimateOnScroll>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* 1. Ayahuasca Purista */}
+            {/* 1. Ayahuasca Tradicional */}
             <AnimateOnScroll delay={100}>
               <div className="card-elevated rounded-2xl p-6 space-y-4 h-full flex flex-col justify-between">
                 <div className="space-y-3">
@@ -664,14 +664,14 @@ export function ManifestoLanding() {
                     <span className="text-xs font-mono font-bold uppercase tracking-wider">Feitio de Ayahuasca</span>
                   </div>
                   <h3 className="font-serif text-lg font-bold text-areia-100">
-                    Ayahuasca Purista (Cipó Tucunacá & Rainha)
+                    Ayahuasca Tradicional (Cipó Tucunacá & Rainha)
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Decocção sagrada conduzida sob oração silenciosa em Cruzeiro do Sul (Acre). Utilizamos exclusivamente o Cipó Tucunacá (perfil de alcaloides em laudo em validação) e folhas de Chacrona Rainha colhidas ao amanhecer, rejeitando qualquer planta aditiva.
+                    Decocção sagrada conduzida sob oração silenciosa. No feitio tradicional de Cruzeiro do Sul (Acre), usa-se o cipó Tucunacá e a folha Chacrona Rainha, sem plantas aditivas.
                   </p>
                 </div>
                 <Link href="/feitio" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold pt-3 border-t border-ambar-500/15">
-                  <span>Conhecer o Feitio Purista</span>
+                  <span>Conhecer o Feitio Tradicional</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -711,7 +711,7 @@ export function ManifestoLanding() {
                     Instrumentos dos Povos da Terra
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Kuripes, Tepís, Maracás e Flautas esculpidos à mão por artesãos e famílias indígenas tradicionais (os Txais). Artefatos que materializam a cosmologia da floresta na vida ritual.
+                    Kuripes, Tepís, Maracás e Flautas esculpidos à mão por artesãos e famílias indígenas tradicionais (os Txais). Artefatos que materializam a cosmologia da floresta na vida ritual. Conteúdo cultural. Não é oferta.
                   </p>
                 </div>
                 <span className="text-[11px] font-mono text-ambar-400/80 pt-3 border-t border-ambar-500/15">
@@ -732,11 +732,11 @@ export function ManifestoLanding() {
                     Expressão Musical Acústica & Frequência 432Hz
                   </h3>
                   <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                    A música e a arte sonora são extensões diretas do nosso trabalho de florescimento (Munay Sounds / Família Ancestral). Produções estritamente acústicas e orgânicas, sem auto-tune artificial, afinadas na frequência de 432Hz, associada pela tradição aos ritmos da natureza.
+                    A música e a arte sonora fazem parte da vida ritual das tradições que o projeto estuda. Muitas produções são acústicas e afinadas em 432Hz, frequência que algumas tradições associam aos ritmos da natureza.
                   </p>
                 </div>
                 <span className="text-[11px] font-mono text-ambar-400/80 pt-3 border-t border-ambar-500/15">
-                  Munay Sounds • 432Hz
+                  Arte sonora • 432Hz
                 </span>
               </div>
             </AnimateOnScroll>
@@ -958,7 +958,7 @@ export function ManifestoLanding() {
               <span className="text-gradient-solar">De Vivência Prática</span>
             </h2>
             <p className="text-sm text-areia-400 font-light">
-              Os marcos que moldaram a consolidação da Cooperativa Nativaram.
+              Os marcos que deram origem ao projeto Cooperativa Nativaram.
             </p>
           </AnimateOnScroll>
 

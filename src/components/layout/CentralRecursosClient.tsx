@@ -43,12 +43,6 @@ const ENTIDADE_MODELO: TemploMock = {
   cidade: "[Cidade/UF]",
   dirigente: "[Responsável legal]",
   cnpj: "[CNPJ da entidade]",
-  status: "MODELO",
-  graduacao: "",
-  volume: "",
-  dataAprovacao: "",
-  membros: 0,
-  conadAprovado: false,
 };
 
 type Aba = "DOCUMENTOS" | "INTERACOES" | "FAQ" | "MARCO_LEGAL";
@@ -160,6 +154,8 @@ export const CentralRecursosClient: React.FC = () => {
             key={item.id}
             type="button"
             role="tab"
+            id={`aba-${item.id}`}
+            aria-controls="painel-recursos"
             aria-selected={aba === item.id}
             onClick={() => setAba(item.id)}
             className={`rounded-xl px-3 py-3 text-left text-xs transition-all border focus:outline-none focus-visible:ring-2 focus-visible:ring-ambar-400 ${
@@ -179,7 +175,7 @@ export const CentralRecursosClient: React.FC = () => {
         ))}
       </div>
 
-      <div role="tabpanel">
+      <div role="tabpanel" id="painel-recursos" aria-labelledby={`aba-${aba}`}>
         {aba === "DOCUMENTOS" && <PortalCentralDocumentos templo={ENTIDADE_MODELO} />}
         {aba === "INTERACOES" && <PortalInteracoesMedicamentosas />}
         {aba === "FAQ" && <PortalAssessoriaFAQ />}

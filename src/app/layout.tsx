@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   keywords: [
     "Cooperativa Nativaram",
     "Nascidos do Raio de Sol",
-    "Cooperativa Etnobotânica",
+    "Projeto de Cooperativa Etnobotânica (em constituição)",
     "Salvaguarda Litúrgica",
-    "Feitio Purista",
+    "Feitio Tradicional",
     "Tucunacá",
     "Chacrona Rainha",
     "CONAD 01/2010",
@@ -60,15 +60,15 @@ export const metadata: Metadata = {
         url: "/og-cooperativa-nativaram.jpg",
         width: 1200,
         height: 630,
-        alt: "Cooperativa Nativaram — Cooperativa Etnobotânica",
+        alt: "Cooperativa Nativaram — projeto em constituição",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cooperativa Nativaram | Cooperativa Etnobotânica",
+    title: "Cooperativa Nativaram | Projeto em constituição",
     description:
-      "Preservação cultural e ciência do feitio purista da Amazônia Ocidental.",
+      "Projeto em constituição. Memória cultural e estudo do feitio tradicional da Amazônia Ocidental. Site institucional, sem oferta.",
     images: ["/og-cooperativa-nativaram.jpg"],
   },
   // Ícones: src/app/icon.png (512x512) e src/app/apple-icon.png (180x180), servidos pelo App Router.
@@ -83,20 +83,11 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Cooperativa Nativaram",
-    alternateName: "Nascidos do Raio de Sol - Cooperativa Etnobotânica",
+    alternateName: "Nascidos do Raio de Sol - projeto em constituição",
     url: "https://nativaramcoop.eco.br",
     logo: "https://nativaramcoop.eco.br/icon-512.png",
     description:
       "A Cooperativa Nativaram é um projeto de cooperativa em constituição, ainda sem registro e sem CNPJ. Site institucional: não vende, não recebe pedidos e não faz envios.",
-    address: [
-      {
-        "@type": "PostalAddress",
-        addressLocality: "Cruzeiro do Sul",
-        addressRegion: "AC",
-        addressCountry: "BR",
-        description: "Origem do feitio tradicional",
-      },
-    ],
     contactPoint: {
       "@type": "ContactPoint",
       contactType: "Contato institucional",

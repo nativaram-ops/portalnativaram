@@ -9,8 +9,8 @@ const pilares = [
   },
   {
     icon: Sun,
-    title: "Alquimia Consciente",
-    desc: "Equilíbrio, harmonia e alta vibração",
+    title: "Tradição e Estudo",
+    desc: "Saberes da floresta registrados com cuidado",
   },
   {
     icon: HeartPulse,

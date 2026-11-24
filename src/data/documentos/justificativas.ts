@@ -40,10 +40,10 @@ export const JUSTIFICATIVAS_DOCUMENTOS: Justificativa[] = [
       "Dados de saúde e religião são sensíveis (LGPD, art. 11). Base legal: consentimento específico e destacado e proteção da vida. O prazo de guarda é finito e definido pelo templo na Política de Privacidade (Doc 11); o titular pode pedir eliminação.",
   },
   {
-    titulo: "6. Menores e desintoxicação",
+    titulo: "6. Menores e dependência química",
     cor: "purple",
     texto:
-      "A CONAD 01/2010 deixa a decisão aos pais, no exercício do poder familiar. Exigir a assinatura ou a presença de ambos é regra da casa, não da norma. Em protocolos de desintoxicação, a avaliação é individual e com aval médico formal.",
+      "A CONAD 01/2010 deixa a decisão aos pais, no exercício do poder familiar. Exigir a assinatura ou a presença de ambos é regra da casa, não da norma. Pessoas em tratamento de dependência química só são avaliadas com parecer médico individual e por escrito; o rito não faz parte do tratamento.",
   },
   {
     titulo: "7. Veracidade e dever de cuidado",

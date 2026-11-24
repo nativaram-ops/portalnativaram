@@ -105,7 +105,19 @@
   - o gerador de "Guia de Trânsito" do painel foi apagado;
   - nova rota `/api/auth/sair` (logout real);
   - o botão de WhatsApp passou a usar o número oficial (antes havia um número com um dígito a menos).
+- **Segunda rodada (24/11/2026, revisão de ponta a ponta):**
+  - **WhatsApp único:** `LINK_WHATSAPP` em `src/lib/contato.ts` (mensagem fixa) e componente `BotaoWhatsApp`. Usado no botão flutuante (agora com o texto "Falar com a cooperativa" no desktop), no rodapé, em `/contato` e em `/entidades-religiosas`. O `ContactForm` saiu: `/contato` tem um único cartão central.
+  - **Sem links para a loja:** saíram o Linktree e o Instagram `@nativarambrasil` do rodapé e do contato.
+  - **Assets de catálogo:** 34 arquivos sem uso saíram de `public/` (frascos de rapé de 15 g e 25 g, kits, sananga, garrafas e "embalagem/custódia" do feitio, pasta `nativaram-oficial`). Cópia local em `docs/fontes/internos/assets-retirados-2026-11/`.
+  - **Caderno de rapés** retirado da biblioteca: seções com nomes de misturas da loja e cantos atribuídos a povos indígenas sem conferência. Cópia local em `docs/fontes/internos/pdfs-retirados-2026-11/`.
+  - **Dados mortos apagados:** `medicinas.ts`, `sacramentos.ts` (com sananga), `graduacoes.ts`, os mocks de templos/lotes/envios em `portal-mock.ts` e o gerador do Termo de Homologação.
+  - **Uso terapêutico:** a matriz, o Doc 01 e as justificativas tratavam o rito como parte de "protocolo de desintoxicação". O texto agora diz que o rito não faz parte de tratamento e exige parecer médico individual.
+  - **Landings:** o projeto deixa de aparecer como produtor ("utilizamos", "padrão ouro Nativaram"). Saíram as alegações de pureza ("pureza absoluta", "DMT natural puro"), as garantias ("Segurança Jurídica", "Amparo constitucional") e "Nossos preparados". O JSON-LD ficou sem endereço. A imagem OG não usa mais a foto CC BY-SA sem crédito.
+  - **Login do Conselho:** sem texto de "templos credenciados", sem selo de infraestrutura e sem dica de usuário.
+  - **Supabase:** a migração `008-fechar-leitura-publica-comunidade.sql` fecha a leitura anon de agenda, perfis e publicações. O seed SQL de templos de exemplo saiu.
+  - Testes novos: WhatsApp único e sem links da loja; catálogos e termo ausentes; migração 008.
 - **Pendências humanas:**
+  - **rodar a migração 008 no Supabase** (SQL Editor);
   - URLs de origem das 2 fotos do Wikimedia (`src/data/creditos-imagens.ts`, "A confirmar");
   - responsável e encarregado de dados em `/transparencia` e `/privacidade`;
   - revisão jurídica e clínica;

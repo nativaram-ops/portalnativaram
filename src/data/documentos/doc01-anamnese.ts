@@ -290,7 +290,7 @@ export const docAnamnese: DocumentoModelo = {
         {
           tipo: "nota",
           texto:
-            "**Nota clínica — desintoxicação e dependência química:** nesses protocolos costuma haver associação de ansiolíticos, antipsicóticos e anticonvulsivantes. A comissão analisa cada caso individualmente, com aval médico formal e acompanhamento transdisciplinar.",
+            "**Nota clínica — dependência química ou alcoolismo em tratamento:** esses tratamentos costumam associar ansiolíticos, antipsicóticos e anticonvulsivantes. O rito não faz parte de nenhum tratamento (CONAD 1/2010). Sem parecer médico individual e por escrito (Doc 06), a pessoa fica inapta.",
         },
       ],
     },
@@ -355,7 +355,7 @@ export const docAnamnese: DocumentoModelo = {
           tipo: "checklist",
           itens: [
             "**APTO(A)** — liberado(a) para a porção padrão.",
-            "**APTO(A) COM RESTRIÇÃO** — porção reduzida (máximo ____ ml da graduação ____).",
+            "**APTO(A) COM RESTRIÇÃO** — porção reduzida (máximo ____ ml).",
             "**INAPTO(A) TEMPORARIAMENTE** — suspensão de medicamento incompleta ou sem parecer (Doc 06), uso no dia ou outro motivo: ________. Reavaliar a partir de ____/____/______.",
             "**INAPTO(A) DEFINITIVAMENTE** — veto da matriz oficial ou condição de base: ________.",
           ],

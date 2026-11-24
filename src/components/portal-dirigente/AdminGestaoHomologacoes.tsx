@@ -25,10 +25,6 @@ import {
   Trash2,
 } from "lucide-react";
 import { SolicitacaoAcesso } from "@/lib/db/homologacoes";
-import {
-  gerarTermoHomologacaoHtml,
-  imprimirDocumentoHtml,
-} from "@/lib/documentos-homologacao";
 import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
 
 const LOCAL_STORAGE_KEY = "nativaram_solicitacoes_local";
@@ -1072,19 +1068,6 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                           </>
                         )}
                       </button>
-                    )}
-
-                    {!CADASTRO_ENCERRADO && isHomologado && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => imprimirDocumentoHtml(gerarTermoHomologacaoHtml(sol))}
-                          className="py-2.5 px-4 rounded-xl border border-ambar-500/40 bg-floresta-900 hover:bg-floresta-800 text-ambar-300 text-xs font-bold inline-flex items-center gap-2 transition-colors"
-                        >
-                          <FileText className="h-4 w-4" />
-                          <span>Termo de Homologação</span>
-                        </button>
-                      </>
                     )}
 
                     {!CADASTRO_ENCERRADO && whatsappUrl && (

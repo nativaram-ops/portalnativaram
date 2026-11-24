@@ -86,39 +86,12 @@ async function runAllTests() {
   // 3. INTEGRIDADE DOS CATÁLOGOS
   console.log("\n3. Integridade Etnobotânica & Fitoquímica:");
 
-  await test("Catálogo de Graduações possui 4 graduações canônicas de Ayahuasca", async () => {
-    const { GRADUACOES_SACRAMENTAIS } = await import("../src/data/graduacoes.ts");
-    assert.ok(GRADUACOES_SACRAMENTAIS.length >= 4, "Deve ter ao menos 4 graduações");
-    const codigos = GRADUACOES_SACRAMENTAIS.map((g) => g.codigo);
-    assert.ok(codigos.includes("3.1"), "Deve incluir 3.1 Mainumbi");
-    assert.ok(codigos.includes("5.1"), "Deve incluir 5.1 Pituã");
-    assert.ok(codigos.includes("7.1"), "Deve incluir 7.1 Anhangatã");
-    assert.ok(codigos.includes("10.1"), "Deve incluir 10.1 Wirapuru");
-  });
-
-  await test("Parâmetros do Feitio no Acre utilizam Tucunacá e Chacrona Rainha", async () => {
-    const { PARAMETROS_OPERACIONAIS_FEITIO } = await import("../src/data/graduacoes.ts");
-    assert.ok(
-      PARAMETROS_OPERACIONAIS_FEITIO.cipoAdotado.includes("Tucunaca"),
-      "Cipó deve ser Tucunacá"
-    );
-    assert.ok(
-      PARAMETROS_OPERACIONAIS_FEITIO.folhaAdotada.includes("Chacrona Rainha"),
-      "Folha deve ser Chacrona Rainha"
-    );
-    assert.strictEqual(
-      PARAMETROS_OPERACIONAIS_FEITIO.antecedenciaMinimaDias,
-      30,
-      "Antecedência mínima deve ser 30 dias"
-    );
-  });
-
-  await test("Catálogo de Rapés Tradicionais possui pH alcalino e zero compostos sintéticos", async () => {
-    const { RAPES_TRADICIONAIS } = await import("../src/data/sacramentos.ts");
-    assert.ok(RAPES_TRADICIONAIS.length >= 7, "Deve conter ao menos 7 variedades de rapé");
-    for (const r of RAPES_TRADICIONAIS) {
-      assert.ok(r.pHMedio.length > 0, `Rapé ${r.nome} deve ter pH médio documentado`);
-      assert.ok(r.elementos.length > 0, `Rapé ${r.nome} deve ter composição botânica`);
+  await test("ADR-016: catálogos de rapés, sananga e graduações saíram do código (sem fichas por variedade)", async () => {
+    for (const arquivo of ["medicinas.ts", "sacramentos.ts", "graduacoes.ts"]) {
+      const existe = await fs
+        .access(path.join(ROOT_DIR, "src", "data", arquivo))
+        .then(() => true, () => false);
+      assert.ok(!existe, `src/data/${arquivo} não deve voltar`);
     }
   });
 
@@ -936,47 +909,11 @@ async function runAllTests() {
     );
   });
 
-  await test("Catálogo unificado possui exatamente 15 variedades de Rapé Sagrado e zero IDs duplicados", async () => {
-    const { medicinas } = await import("../src/data/medicinas.ts");
-    const { RAPES_TRADICIONAIS } = await import("../src/data/sacramentos.ts");
-    const { GRADUACOES_SACRAMENTAIS } = await import("../src/data/graduacoes.ts");
-
-    const rapesMedicinas = medicinas.filter((m) => m.tipo === "rape");
-    assert.strictEqual(rapesMedicinas.length, 15, `Esperado 15 rapés em medicinas.ts, encontrado ${rapesMedicinas.length}`);
-    assert.strictEqual(RAPES_TRADICIONAIS.length, 15, `Esperado 15 rapés em sacramentos.ts, encontrado ${RAPES_TRADICIONAIS.length}`);
-
-    const gradIds = GRADUACOES_SACRAMENTAIS.map((g) => g.id);
-    assert.strictEqual(new Set(gradIds).size, gradIds.length, "Não deve haver IDs duplicados em GRADUACOES_SACRAMENTAIS");
-  });
-
-  await test("Documentos de homologação escapam HTML, omitem a senha e usam a marca institucional", async () => {
-    const { gerarTermoHomologacaoHtml } = await import(
-      "../src/lib/documentos-homologacao.ts"
-    );
-    const sol = {
-      id: "TEST-DOC-1",
-      tipo: "INSTITUICAO_FORMAL",
-      nomeEntidade: "Templo <script>alert(1)</script>",
-      nomeResponsavel: "Dirigente Teste",
-      telefone: "",
-      email: "",
-      cidade: "Rio Branco",
-      estado: "AC",
-      linhagem: "Santo Daime",
-      graduacao: "5.1 Pituã",
-      volumeEstimado: "5 Litros",
-      intencao: "Trabalhos litúrgicos",
-      status: "HOMOLOGADO",
-      loginGerado: "NAT-TEMPLO-000",
-      senhaGerada: "SenhaSecreta-XYZ",
-      dataEnvio: "01/01/2026",
-    };
-    for (const html of [gerarTermoHomologacaoHtml(sol)]) {
-      assert.ok(!html.includes("<script>alert(1)"), "Deve escapar HTML injetado");
-      assert.ok(!html.includes("SenhaSecreta-XYZ"), "Nunca deve imprimir a senha");
-      assert.ok(html.includes("Cooperativa Nativaram"), "Deve usar a marca institucional");
-      assert.ok(!html.includes("Nativaram Brasil"), "Não deve usar a marca do canal de varejo");
-    }
+  await test("ADR-016: gerador do Termo de Homologação foi removido (cadastro encerrado)", async () => {
+    const existe = await fs
+      .access(path.join(ROOT_DIR, "src", "lib", "documentos-homologacao.ts"))
+      .then(() => true, () => false);
+    assert.ok(!existe, "O termo declarava uma cooperativa constituída e rateio de sacramentos");
   });
 
   await test("Service Worker offline nunca intercepta /api/ nem métodos não-GET", async () => {
@@ -995,12 +932,10 @@ async function runAllTests() {
     assert.ok(!urls.some((u) => /credenciamento|reconhecimento|\/sacramentos\/|\/estudos\/comunidade\//.test(u)), "Sem cadastro, fichas ou perfis");
   });
 
-  await test("ADR-016: API de pedidos responde 410 e não há valores nos dados de graduações", async () => {
+  await test("ADR-016: API de pedidos responde 410", async () => {
     const { GET, POST } = await importarRota("src/app/api/pedidos/route.ts");
     assert.strictEqual((await GET()).status, 410);
     assert.strictEqual((await POST()).status, 410);
-    const grad = await fs.readFile(path.join(ROOT_DIR, "src", "data", "graduacoes.ts"), "utf-8");
-    assert.ok(!/R\$|rateio|cota/i.test(grad.replace(/\/\/.*$/gm, "")), "graduacoes.ts não pode ter valores nem rateio");
   });
 
   await test("ADR-016: site público sem oferta (valores, frete, Gollog, pedido mínimo) e sem cadastro", async () => {
@@ -1068,6 +1003,44 @@ async function runAllTests() {
         );
       }
     }
+  });
+
+  await test("ADR-016: migração 008 fecha a leitura anon de agenda, perfis e publicações", async () => {
+    const sql = await fs.readFile(
+      path.join(ROOT_DIR, "src", "lib", "supabase", "migrations", "008-fechar-leitura-publica-comunidade.sql"),
+      "utf-8"
+    );
+    for (const tabela of ["agenda_liturgica", "perfis_comunidade", "publicacoes_comunidade"]) {
+      assert.ok(new RegExp(`DROP POLICY IF EXISTS[^;]*ON public\\.${tabela}`).test(sql), `Deve derrubar a política de ${tabela}`);
+      assert.ok(new RegExp(`REVOKE SELECT ON public\\.${tabela} FROM anon`).test(sql), `Deve revogar SELECT de anon em ${tabela}`);
+    }
+  });
+
+  await test("ADR-016: WhatsApp único nas páginas públicas (só src/lib/contato.ts monta wa.me) e nenhum link para a loja", async () => {
+    // Admin (gated) e componentes de comunidade guardados sem uso público ficam fora.
+    const ignorar = /portal-dirigente[\\/]Admin|components[\\/]comunidade[\\/]|ComunidadeBlogMural/;
+    const ofensoresWa = [];
+    const ofensoresLoja = [];
+    async function varrer(dir) {
+      for (const entrada of await fs.readdir(dir, { withFileTypes: true })) {
+        const alvo = path.join(dir, entrada.name);
+        if (entrada.isDirectory()) await varrer(alvo);
+        else if (/\.(tsx?|json)$/.test(entrada.name)) {
+          const texto = await fs.readFile(alvo, "utf-8");
+          if (/nativarambrasil|linktr\.ee/i.test(texto)) ofensoresLoja.push(path.relative(ROOT_DIR, alvo));
+          if (!ignorar.test(alvo) && /wa\.me\//.test(texto) && !alvo.endsWith(path.join("lib", "contato.ts"))) {
+            ofensoresWa.push(path.relative(ROOT_DIR, alvo));
+          }
+        }
+      }
+    }
+    await varrer(path.join(ROOT_DIR, "src"));
+    await varrer(path.join(ROOT_DIR, "public"));
+    // wa.me só conta no que o público vê (src/app, src/components, public);
+    // src/lib/db/homologacoes.ts é do servidor e a rota de homologação responde 410.
+    ofensoresWa.splice(0, ofensoresWa.length, ...ofensoresWa.filter((f) => !/^src[\\/]lib[\\/]/.test(f)));
+    assert.deepStrictEqual(ofensoresWa, [], `wa.me fora de src/lib/contato.ts: ${ofensoresWa.join(", ")}`);
+    assert.deepStrictEqual(ofensoresLoja, [], `Link para canais da loja: ${ofensoresLoja.join(", ")}`);
   });
 
   console.log("\n=======================================================");

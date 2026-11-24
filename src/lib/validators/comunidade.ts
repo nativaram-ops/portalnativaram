@@ -61,28 +61,28 @@ export const TERMOS_PROIBIDOS_MAP: Record<string, { sugestao: string; motivo: st
     motivo: "Terminologia contracultural/recreativa vedada na governança litúrgica.",
   },
   loja: {
-    sugestao: "portal da cooperativa ou espaço de rateio fraterno",
-    motivo: "A entidade opera sem fins lucrativos sob a Lei 5.764/71.",
+    sugestao: "não usar: o site é institucional e sem oferta",
+    motivo: "Site institucional sem oferta (ADR-016, Anvisa RE 342/2025).",
   },
   venda: {
-    sugestao: "partilha fraterna ou rateio de custos",
-    motivo: "Sacramentos religiosos não são mercadorias comercializáveis.",
+    sugestao: "não usar: a partilha ocorre só entre entidades religiosas constituídas, fora do site",
+    motivo: "O sacramento não é mercadoria (CONAD 1/2010, princípio 2).",
   },
   comprar: {
-    sugestao: "solicitar credenciamento ou apoiar a cooperativa",
-    motivo: "Acesso mediante homologação canônica de templo, não compra.",
+    sugestao: "não usar: o site não recebe pedidos",
+    motivo: "Site institucional sem oferta (ADR-016).",
   },
   preco: {
-    sugestao: "cota de rateio ou contribuição cooperativa",
-    motivo: "Não há precificação comercial; há rateio de insumos de feitio.",
+    sugestao: "não usar: o site não publica valores",
+    motivo: "Site institucional sem oferta (ADR-016).",
   },
   produto: {
     sugestao: "sacramento, preparado tradicional ou artefato sagrado",
-    motivo: "Sacramentos não possuem caráter de mercadoria de prateleira.",
+    motivo: "Sacramentos não possuem caráter de mercadoria.",
   },
   cliente: {
-    sugestao: "irmão cooperado, associado ou templo credenciado",
-    motivo: "Relação institucional entre pares cooperados e congregações.",
+    sugestao: "entidade religiosa, pesquisador ou visitante",
+    motivo: "O projeto está em constituição: não tem clientes nem cooperados.",
   },
 };
 

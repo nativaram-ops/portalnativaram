@@ -79,7 +79,7 @@ export default function CompliancePage() {
                       <Scale className="h-5 w-5" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-semibold tracking-wider text-ambar-400 uppercase">Amparo Constitucional</span>
+                      <span className="text-[10px] font-semibold tracking-wider text-ambar-400 uppercase">Base constitucional</span>
                       <h3 className="font-serif text-xl font-bold text-areia-100">
                         Constituição & Lei de Drogas
                       </h3>

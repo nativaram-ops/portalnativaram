@@ -7,16 +7,14 @@ import {
   HeartHandshake,
   Mail,
   MapPin,
-  Phone,
   ExternalLink,
   Scale,
 } from "lucide-react";
-import { InstagramIcon } from "@/components/ui/icons";
+import { BotaoWhatsApp } from "@/components/ui/BotaoWhatsApp";
 import { CookiePreferencesButton } from "@/components/ui/CookiePreferencesButton";
 import {
   EMAIL_INSTITUCIONAL,
-  WHATSAPP_CONSELHO_FORMATADO,
-  linkWhatsAppConselho,
+  linkEmailInstitucional,
 } from "@/lib/contato";
 
 const footerLinks = [
@@ -90,64 +88,18 @@ export const Footer = () => {
                 <MapPin className="h-3.5 w-3.5 text-ambar-500/70 flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="text-areia-200 font-medium block">
-                    Feitio Nativo
+                    Origem do projeto
                   </span>
                   Cruzeiro do Sul, Acre
                 </div>
               </div>
-              <div className="flex items-start gap-2.5">
-                <Phone className="h-3.5 w-3.5 text-emerald-400/70 flex-shrink-0 mt-0.5" />
-                <a
-                  href={linkWhatsAppConselho("Olá, gostaria de informações sobre a Cooperativa Nativaram.")}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-emerald-400 hover:text-emerald-300 transition-colors"
-                >
-                  {WHATSAPP_CONSELHO_FORMATADO}
-                </a>
+              <div className="pt-1">
+                <BotaoWhatsApp variante="link" />
               </div>
               <div className="flex items-start gap-2.5">
                 <Mail className="h-3.5 w-3.5 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                <span>{EMAIL_INSTITUCIONAL}</span>
-              </div>
-
-              {/* Destaque Linktree Oficial */}
-              <div className="pt-2">
-                <a
-                  href="https://linktr.ee/nativarambrasil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group relative flex items-center justify-between gap-3 px-3.5 py-2.5 rounded-xl bg-gradient-to-r from-floresta-900 via-floresta-800 to-floresta-900 border border-ambar-500/40 hover:border-ambar-400 text-areia-100 hover:text-ambar-200 transition-all duration-300 shadow-md hover:shadow-solar"
-                  title="Acesse os canais oficiais e redes (@nativarambrasil) no Linktree"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <div className="w-6 h-6 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:text-emerald-300 transition-all shrink-0">
-                      <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                        <path d="m13.736 5.853 4.005-4.117 2.325 2.38-4.2 4.088h5.908v3.313h-5.908l4.2 4.088-2.325 2.38-4.005-4.117v7.906h-3.472V13.87l-4.005 4.117-2.325-2.38 4.2-4.088H2.226V8.204h5.908l-4.2-4.088 2.325-2.38 4.005 4.117V0h3.472v5.853z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <span className="text-[10px] font-mono uppercase tracking-wider text-ambar-400/90 block font-semibold">
-                        Links Oficiais • Central
-                      </span>
-                      <span className="text-xs font-semibold text-areia-100 group-hover:text-ambar-300 transition-colors">
-                        linktr.ee/nativarambrasil
-                      </span>
-                    </div>
-                  </div>
-                  <ExternalLink className="h-3.5 w-3.5 text-ambar-400/70 group-hover:text-ambar-300 group-hover:translate-x-0.5 transition-all shrink-0" />
-                </a>
-              </div>
-
-              <div className="flex items-center gap-3 pt-1">
-                <a
-                  href="https://instagram.com/nativarambrasil"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-xs text-ambar-400/80 hover:text-ambar-300 transition-colors"
-                >
-                  <InstagramIcon className="h-3.5 w-3.5" />
-                  @nativarambrasil
+                <a href={linkEmailInstitucional()} className="hover:text-ambar-300 transition-colors">
+                  {EMAIL_INSTITUCIONAL}
                 </a>
               </div>
             </div>

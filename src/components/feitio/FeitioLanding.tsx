@@ -42,24 +42,24 @@ interface FaqItem {
 
 const faqsFeitio: FaqItem[] = [
   {
-    pergunta: "Por que a Nativaram adota o purismo estrito sem plantas aditivas?",
+    pergunta: "Por que o feitio tradicional estudado pelo projeto não usa plantas aditivas?",
     resposta:
-      "Diferente de algumas vertentes do vegetalismo que incorporam dezenas de plantas aditivas ou análogos botânicos com perfis fitoquímicos instáveis (como a Chaliponga rica em 5-MeO-DMT ou a Arruda Síria), a Nativaram limita a decocção estritamente ao binômio Cipó Jagube/Mariri e Folha Chacrona Rainha, como no feitio das tradições ayahuasqueiras brasileiras. Plantas aditivas não entram no tacho. O resultado é um sacramento de composição conhecida e constante, fiel ao feitio tradicional.",
+      "Diferente de algumas vertentes do vegetalismo que incorporam dezenas de plantas aditivas ou análogos botânicos com perfis fitoquímicos instáveis (como a Chaliponga rica em 5-MeO-DMT ou a Arruda Síria), o feitio tradicional que o projeto estuda limita a decocção ao binômio Cipó Jagube/Mariri e Folha Chacrona Rainha, como no feitio das tradições ayahuasqueiras brasileiras. Plantas aditivas não entram no tacho. Assim se mantém a fidelidade ao feitio tradicional.",
   },
   {
-    pergunta: "O que são as chamadas 'Anayahuascas' ou análogos e por que a Nativaram as recusa?",
+    pergunta: "O que são as chamadas 'Anayahuascas' ou análogos e por que não fazem parte da tradição?",
     resposta:
-      "O termo 'Anahuasca', popularizado na década de 1990 pelo etnobotânico Jonathan Ott, designa formulações não tradicionais que tentam reproduzir quimicamente a fórmula [IMAO + DMT] utilizando plantas exóticas ou substâncias de laboratório, como a Arruda Síria (Peganum harmala) e a Jurema Preta (Mimosa hostilis/tenuiflora) ou sais puros (Pharmahuasca). A Nativaram não aceita nem compactua com tais análogos: eles não pertencem a nenhuma tradição religiosa brasileira e não têm o amparo da Resolução CONAD nº 01/2010, que trata do uso religioso da ayahuasca tradicional amazônica (Banisteriopsis caapi + Psychotria viridis).",
+      "O termo 'Anahuasca', popularizado na década de 1990 pelo etnobotânico Jonathan Ott, designa formulações não tradicionais que tentam reproduzir quimicamente a fórmula [IMAO + DMT] utilizando plantas exóticas ou substâncias de laboratório, como a Arruda Síria (Peganum harmala) e a Jurema Preta (Mimosa hostilis/tenuiflora) ou sais puros (Pharmahuasca). Esses análogos não pertencem a nenhuma tradição religiosa brasileira e estão fora do que trata a Resolução CONAD nº 01/2010, que cuida do uso religioso da ayahuasca tradicional amazônica (Banisteriopsis caapi + Psychotria viridis).",
   },
   {
     pergunta: "Quais as diferenças entre o Cipó Tucunacá e as outras variedades e primos botânicos?",
     resposta:
-      "O Cipó Tucunacá (Banisteriopsis caapi var. Tucunaca) é o padrão ouro da Nativaram por seu caule liso e perfil cromatográfico rico em Harmina e THH, com teor residual mínimo de Harmalina. Outras variedades legítimas como o Caupuri (caule nodoso e rosariado) e o Ourinho (casca dourada e nós suaves) carregam nuances próprias, reconhecidas pelos feitores da tradição. Primos botânicos da mesma família Malpighiaceae, como Banisteriopsis muricata e Tetrapterys mucronata, possuem longa tradição indígena no Noroeste Amazônico, mas não se confundem com a calibração canônica do Tucunacá acreano.",
+      "O Cipó Tucunacá (Banisteriopsis caapi var. Tucunaca) é o cipó mais usado no feitio tradicional acreano, de caule liso e perfil cromatográfico rico em Harmina e THH, com teor residual mínimo de Harmalina. Outras variedades legítimas como o Caupuri (caule nodoso e rosariado) e o Ourinho (casca dourada e nós suaves) carregam nuances próprias, reconhecidas pelos feitores da tradição. Primos botânicos da mesma família Malpighiaceae, como Banisteriopsis muricata e Tetrapterys mucronata, possuem longa tradição indígena no Noroeste Amazônico, mas não se confundem com a calibração canônica do Tucunacá acreano.",
   },
   {
     pergunta: "Como ocorrem as variações sazonais de cipó colhido no Acre?",
     resposta:
-      "A colheita na floresta amazônica respeita as estações de chuva e as cheias dos rios em Cruzeiro do Sul/AC. Embora o Cipó Tucunacá seja o padrão de excelência pelo alto teor de THH e teor residual mínimo de harmalina, os ciclos ecológicos nem sempre permitem a colheita ininterrupta desta única variedade. Nesses períodos, o feitio usa cipós botânicos estreitamente aparentados, colhidos de forma manual e sustentável, sempre na proporção com a folha Rainha.",
+      "A colheita na floresta amazônica respeita as estações de chuva e as cheias dos rios em Cruzeiro do Sul/AC. Embora o Cipó Tucunacá seja a variedade de referência na tradição acreana, os ciclos ecológicos nem sempre permitem a colheita ininterrupta desta única variedade. Nesses períodos, o feitio tradicional usa cipós botânicos estreitamente aparentados, colhidos de forma manual e sustentável, sempre na proporção com a folha Rainha.",
   },
   {
     pergunta: "Este site oferece o sacramento do feitio?",
@@ -80,14 +80,14 @@ export function FeitioLanding() {
   return (
     <div className="space-y-0">
       {/* ═══════════════════════════════════════════
-          HERO — A SAGRADA ALQUIMIA DO FEITIO PURISTA
+          HERO — A SAGRADA ALQUIMIA DO FEITIO TRADICIONAL
           ═══════════════════════════════════════════ */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden py-24 sm:py-32">
         {/* Imagem de Fundo com Overlay Cinematográfico */}
         <div className="absolute inset-0 z-0">
           <Image
             src="/assets/feitio/curadas/feitio-noturno-caldeiroes.jpg"
-            alt="Vigília noturna na Casa de Feitio da Nativaram em Cruzeiro do Sul, Acre"
+            alt="Vigília noturna em uma casa de feitio em Cruzeiro do Sul, Acre"
             fill
             priority
             className="object-cover object-center brightness-60 scale-105 transition-transform duration-1000"
@@ -112,7 +112,7 @@ export function FeitioLanding() {
             <h1 className="font-serif text-display-md sm:text-display-lg lg:text-display-xl font-bold text-areia-100 text-glow leading-tight">
               A Sagrada Alquimia do
               <br />
-              <span className="text-gradient-solar">Feitio Purista</span>
+              <span className="text-gradient-solar">Feitio Tradicional</span>
             </h1>
           </AnimateOnScroll>
 
@@ -326,7 +326,7 @@ export function FeitioLanding() {
             <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
               As Três Grandes Escolas
               <br />
-              <span className="text-gradient-solar">E a Síntese Litúrgica Nativaram</span>
+              <span className="text-gradient-solar">E o que o projeto estuda</span>
             </h2>
             <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
               No século XX, o encontro entre os povos da floresta, os seringueiros e a mística popular brasileira deu origem a tradições religiosas genuinamente nacionais, reconhecidas por sua disciplina, devoção e nobreza cerimonial.
@@ -430,7 +430,7 @@ export function FeitioLanding() {
               <span className="text-gradient-solar">Para Preparar a Ayahuasca</span>
             </h2>
             <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-              O preparo da Ayahuasca é a consagração máxima da química sagrada: o encontro harmônico entre a temperatura, o tempo de cozimento, a lixiviação lenta dos alcaloides e a oração contínua.
+              O preparo da Ayahuasca é a consagração máxima da química sagrada: o encontro harmônico entre a temperatura, o tempo de cozimento, o cozimento lento e a oração contínua.
             </p>
           </AnimateOnScroll>
 
@@ -452,11 +452,11 @@ export function FeitioLanding() {
             <div className="card-elevated rounded-2xl p-6 space-y-3">
               <div className="flex items-center gap-2.5 text-ambar-400">
                 <Droplets className="h-5 w-5" />
-                <span className="text-xs font-mono font-bold uppercase">2. Pureza Hídrica Amazônica</span>
+                <span className="text-xs font-mono font-bold uppercase">2. Água de vertente amazônica</span>
               </div>
               <h4 className="font-serif text-base font-bold text-areia-100">Água Cristalina de Nascente</h4>
               <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                Utilizamos exclusivamente água pura de vertentes preservadas da floresta do Acre, com pH neutro natural (~6.2 a 6.8), completamente desprovida de cloração, sulfatos, metais pesados ou agentes químicos industriais que possam oxidar os alcaloides triptamínicos sensíveis.
+                No feitio tradicional, usa-se água de vertentes preservadas da floresta do Acre, sem cloração nem agentes químicos industriais.
               </p>
             </div>
 
@@ -468,7 +468,7 @@ export function FeitioLanding() {
               </div>
               <h4 className="font-serif text-base font-bold text-areia-100">Chacrona Rainha com Rezo</h4>
               <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                As folhas de <em>Psychotria viridis</em> são colhidas ao amanhecer sob preces direcionadas à Rainha da Floresta, antes que a incidência solar forte desencadeie a foto-oxidação enzimática dos vacúolos celulares. A seleção manual descarta qualquer folha imperfeita, preservando a pureza máxima do N,N-DMT natural.
+                As folhas de <em>Psychotria viridis</em> são colhidas ao amanhecer sob preces direcionadas à Rainha da Floresta, antes que a incidência solar forte desencadeie a foto-oxidação enzimática dos vacúolos celulares. A seleção manual descarta folhas danificadas, como manda a tradição.
               </p>
             </div>
 
@@ -480,7 +480,7 @@ export function FeitioLanding() {
               </div>
               <h4 className="font-serif text-base font-bold text-areia-100">Abertura dos Feixes Vasculares</h4>
               <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                As lianas são desfeitas ritmicamente com malhos pesados de madeira de lei sobre cepos rústicos, sem o emprego de lâminas de ferro que possam alterar os sucos vegetais. Esse impacto mecânico abre as fibras longitudinais do cipó, facilitando a lixiviação completa da Harmina e da THH durante o cozimento.
+                As lianas são desfeitas ritmicamente com malhos pesados de madeira de lei sobre cepos rústicos, sem o emprego de lâminas de ferro que possam alterar os sucos vegetais. Esse impacto mecânico abre as fibras do cipó para o cozimento.
               </p>
             </div>
 
@@ -492,7 +492,7 @@ export function FeitioLanding() {
               </div>
               <h4 className="font-serif text-base font-bold text-areia-100">Cinética de Cozimento Lento</h4>
               <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                A cocção é conduzida sob fogo a lenha brando e constante (entre 85°C e 96°C) em tachos de aço inoxidável cirúrgico, ao longo de 10 a 14 horas por tacho. Realizam-se decocções sucessivas para extrair integralmente os princípios ativos sem pirólise térmica nem destruição molecular.
+                A cocção é conduzida sob fogo a lenha brando e constante (entre 85°C e 96°C) em tachos de aço inoxidável cirúrgico, ao longo de 10 a 14 horas por tacho. Faz-se mais de um cozimento, como manda a tradição.
               </p>
             </div>
 
@@ -504,7 +504,7 @@ export function FeitioLanding() {
               </div>
               <h4 className="font-serif text-base font-bold text-areia-100">Filtragem Fina & Ponto do Apuro</h4>
               <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                O líquido extraído é submetido a uma filtragem minuciosa em que usamos panos de menores micras, sem deixar massa vegetal, sedimentos ou qualquer resíduo que não deveria permanecer na bebida. Em seguida, a cocção é concentrada lentamente em tacho de acabamento com agitação contínua por remo de madeira de lei, atingindo o ponto sagrado de densidade cristalina, tom rubi translúcido e estabilidade somática impecável.
+                O líquido é filtrado em panos finos, sem deixar massa vegetal nem sedimentos. Em seguida, a cocção é concentrada lentamente em tacho de acabamento com agitação contínua por remo de madeira de lei, atingindo o ponto sagrado de densidade cristalina, tom rubi translúcido e estabilidade somática impecável.
               </p>
             </div>
           </div>
@@ -537,13 +537,13 @@ export function FeitioLanding() {
             {/* 1. Tucunacá */}
             <div className="card-elevated rounded-2xl p-6 space-y-3 border-t-2 border-t-amber-400">
               <div className="flex items-center justify-between text-xs font-mono text-ambar-400">
-                <span>Padrão Ouro Nativaram</span>
+                <span>Cipó de referência na tradição</span>
                 <Award className="h-4 w-4" />
               </div>
               <h4 className="font-serif text-lg font-bold text-areia-100">Cipó Tucunacá</h4>
               <span className="text-xs text-amber-300/80 font-mono italic">Banisteriopsis caapi var. Tucunaca</span>
               <p className="text-xs text-areia-300 font-light leading-relaxed">
-                Possui caule liso, cilíndrico e espiralado, sem nós pronunciados. Destaca-se pelo perfil fitoquímico canônico: rica abundância de <strong>Harmina</strong> e <strong>Tetra-hidroharmina (THH)</strong> com teor residual mínimo de Harmalina. É a variedade preferida pelos feitores da cooperativa para o feitio tradicional.
+                Possui caule liso, cilíndrico e espiralado, sem nós pronunciados. Destaca-se pelo perfil fitoquímico canônico: rica abundância de <strong>Harmina</strong> e <strong>Tetra-hidroharmina (THH)</strong> com teor residual mínimo de Harmalina. É a variedade mais usada pelos feitores no feitio tradicional acreano.
               </p>
             </div>
 
@@ -639,10 +639,10 @@ export function FeitioLanding() {
                 A <strong className="text-areia-100 font-semibold">Cooperativa Nativaram</strong> pauta todas as suas relações na mais alta transparência, verdade e respeito litúrgico perante as entidades religiosas, os dirigentes e o público.
               </p>
               <p>
-                Embora a variedade <strong className="text-ambar-300 font-semibold">Cipó Tucunacá</strong> (<em>Banisteriopsis caapi var. Tucunaca</em>) seja o nosso padrão áureo de feitio — em razão do seu perfil cromatográfico nobre, abundante em THH e com residual mínimo de harmalina —, é importante esclarecer que as dinâmicas naturais da floresta amazônica e os ciclos de chuvas nas cheias dos igarapés no Acre <strong className="text-areia-100 font-medium">nem sempre permitem a colheita exclusiva e ininterrupta desta única variedade botânica</strong>.
+                Embora a variedade <strong className="text-ambar-300 font-semibold">Cipó Tucunacá</strong> (<em>Banisteriopsis caapi var. Tucunaca</em>) seja a variedade de referência no feitio tradicional acreano, é importante esclarecer que as dinâmicas naturais da floresta amazônica e os ciclos de chuvas nas cheias dos igarapés no Acre <strong className="text-areia-100 font-medium">nem sempre permitem a colheita exclusiva e ininterrupta desta única variedade botânica</strong>.
               </p>
               <p>
-                Nesses períodos sazonais de manejo, o feitio usa <strong className="text-areia-100 font-medium">etnotáxons e cipós estreitamente aparentados à espécie</strong> (como variedades selecionadas de Caupuri suave e Ourinho silvestre), colhidos de forma manual e sustentável por extrativistas tradicionais.
+                Nesses períodos sazonais de manejo, o feitio tradicional usa <strong className="text-areia-100 font-medium">etnotáxons e cipós estreitamente aparentados à espécie</strong> (como variedades selecionadas de Caupuri suave e Ourinho silvestre), colhidos de forma manual e sustentável por extrativistas tradicionais.
               </p>
               <p>
                 Cada feitio é acompanhado pela sabedoria do experiente <strong className="text-areia-100 font-medium">mestre feitor caboclo</strong>, que conduz a cocção na proporção tradicional de Jagube e folhas de Chacrona Rainha.
@@ -700,11 +700,11 @@ export function FeitioLanding() {
                 <h4 className="font-serif text-lg font-bold text-areia-100">Chacrona Rainha</h4>
                 <span className="text-xs text-amber-300/80 font-mono italic">Psychotria viridis (Rubiaceae)</span>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  O arbusto canônico de sub-bosque sombreado da floresta amazônica. Suas folhas tenras armazenam <strong>N,N-DMT natural</strong> puro nos vacúolos celulares. Possui baixo teor de taninos adstringentes, o que permite uma decocção límpida, preparada segundo a tradição.
+                  O arbusto canônico de sub-bosque sombreado da floresta amazônica. Suas folhas contêm <strong>DMT</strong>, alcaloide de controle especial pela Portaria SVS/MS nº 344/1998. Possui baixo teor de taninos adstringentes, o que permite uma decocção límpida, preparada segundo a tradição.
                 </p>
               </div>
               <div className="pt-3 border-t border-ambar-500/15 text-[11px] font-mono text-emerald-400">
-                ✓ Padrão exclusivo do feitio Nativaram
+                ✓ Folha do feitio tradicional
               </div>
             </div>
 
@@ -736,11 +736,11 @@ export function FeitioLanding() {
                 <h4 className="font-serif text-lg font-bold text-areia-100">Chaliponga / Oco-Yagé</h4>
                 <span className="text-xs text-rose-300/80 font-mono italic">Diplopterys cabrerana (Malpighiaceae)</span>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Curiosamente, não é da família do café (Rubiaceae), mas uma liana trepadeira da família do cipó (Malpighiaceae) cujas folhas acumulam triptaminas. Utilizada por etnias da Colômbia e Equador. <strong>Vetada no padrão Nativaram:</strong> não pertence à tradição brasileira do binômio Tucunacá + Chacrona.
+                  Curiosamente, não é da família do café (Rubiaceae), mas uma liana trepadeira da família do cipó (Malpighiaceae) cujas folhas acumulam triptaminas. Utilizada por etnias da Colômbia e Equador. <strong>Fora do feitio tradicional:</strong> não pertence à tradição brasileira do binômio Tucunacá + Chacrona.
                 </p>
               </div>
               <div className="pt-3 border-t border-rose-500/20 text-[11px] font-mono text-rose-400">
-                ✕ Vetada no padrão purista Nativaram
+                ✕ Não faz parte do feitio tradicional
               </div>
             </div>
           </div>
@@ -764,7 +764,7 @@ export function FeitioLanding() {
               <span className="text-gradient-solar">vs. &ldquo;Anayahuascas&rdquo; e Análogos</span>
             </h2>
             <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-              O termo <strong className="text-areia-100 font-medium">&ldquo;Anahuasca&rdquo;</strong> (popularizado pelo etnobotânico Jonathan Ott na década de 1990) designa formulações artificiais ou misturas de plantas não amazônicas que buscam mimetizar quimicamente a fórmula [IMAO + DMT]. Entenda os motivos de tradição, feitio e amparo legal que tornam a Ayahuasca tradicional insubstituível.
+              O termo <strong className="text-areia-100 font-medium">&ldquo;Anahuasca&rdquo;</strong> (popularizado pelo etnobotânico Jonathan Ott na década de 1990) designa formulações artificiais ou misturas de plantas não amazônicas que buscam mimetizar quimicamente a fórmula [IMAO + DMT]. Entenda por que a tradição não usa esses preparos.
             </p>
           </AnimateOnScroll>
 
@@ -787,7 +787,7 @@ export function FeitioLanding() {
                     <Check className="h-3.5 w-3.5" /> Ayahuasca Tradicional (Banisteriopsis caapi)
                   </strong>
                   <p>
-                    O cipó do feitio tradicional contém <strong>Harmina</strong> e <strong>Tetra-hidroharmina (THH)</strong>, com Harmalina em teor residual. Os valores de referência por lote estão em laudo em validação.
+                    O cipó do feitio tradicional contém <strong>Harmina</strong> e <strong>Tetra-hidroharmina (THH)</strong>, com Harmalina em teor residual. Os valores de uma amostra de referência estão em laudo em validação.
                   </p>
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-floresta-950/70 p-4 space-y-1.5">
@@ -826,7 +826,7 @@ export function FeitioLanding() {
                     <X className="h-3.5 w-3.5" /> Jurema Preta Oral (Mimosa hostilis / tenuiflora)
                   </strong>
                   <p>
-                    A Jurema tem tradição própria, em outros ritos. Misturada ao cipó em preparos orais, deixa de ser a ayahuasca tradicional e não faz parte do feitio da cooperativa.
+                    A Jurema tem tradição própria, em outros ritos. Misturada ao cipó em preparos orais, deixa de ser a ayahuasca tradicional e não faz parte do feitio tradicional.
                   </p>
                 </div>
               </div>
@@ -871,7 +871,7 @@ export function FeitioLanding() {
                 </div>
                 <div>
                   <span className="text-[11px] font-mono font-bold text-ambar-400 uppercase">Eixo Jurídico 4</span>
-                  <h4 className="font-serif text-base font-bold text-areia-100">Amparo Litúrgico CONAD vs. Zoneamento Ilícito</h4>
+                  <h4 className="font-serif text-base font-bold text-areia-100">Uso religioso (CONAD 1/2010) × usos fora da tradição</h4>
                 </div>
               </div>
               <div className="space-y-3 text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
@@ -885,10 +885,10 @@ export function FeitioLanding() {
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-floresta-950/70 p-4 space-y-1.5">
                   <strong className="text-rose-400 font-mono text-xs flex items-center gap-1.5">
-                    <X className="h-3.5 w-3.5" /> Ausência de Salvaguarda Legal para Análogos
+                    <X className="h-3.5 w-3.5" /> Análogos fora do uso religioso tradicional
                   </strong>
                   <p>
-                    Análogos botânicos sintéticos ou exóticos (Arruda Síria, casca de Jurema oral em misturas com IMAO e Pharmahuascas) não possuem histórico ritual nem o amparo da Resolução CONAD nº 01/2010.
+                    Análogos botânicos sintéticos ou exóticos (Arruda Síria, casca de Jurema oral em misturas com IMAO e Pharmahuascas) não possuem histórico ritual e estão fora do que trata a Resolução CONAD nº 01/2010.
                   </p>
                 </div>
               </div>
@@ -912,7 +912,7 @@ export function FeitioLanding() {
               Perfil Fitoquímico & Alcaloides Harmala
             </h2>
             <p className="text-sm text-areia-300 font-light">
-              Os alcaloides presentes no cipó Tucunacá selecionado. Os valores abaixo são referência de lote e aguardam laudo em validação.
+              Os alcaloides do cipó Tucunacá. Os valores abaixo são de uma amostra de referência, com laudo em validação.
             </p>
           </AnimateOnScroll>
 
@@ -1034,7 +1034,7 @@ export function FeitioLanding() {
                 <div className="p-5 space-y-1.5">
                   <h4 className="font-serif text-base font-bold text-areia-100">Lianas Sagradas no Barracão</h4>
                   <p className="text-xs text-areia-400 font-light leading-relaxed">
-                    Armazenamento e trituração do cipó com malhos de madeira de lei, preservando a pureza sem contato ferroso oxidativo.
+                    Armazenamento e trituração do cipó com malhos de madeira de lei, sem contato com metal, como manda a tradição.
                   </p>
                 </div>
               </div>

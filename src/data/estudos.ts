@@ -61,38 +61,4 @@ export const estudosData: EstudoItem[] = [
       },
     ],
   },
-  {
-    id: "rapes-sagrados-floresta-e-ciencia",
-    titulo: "Rapés Sagrados: Essências entre a Floresta e a Ciência",
-    subtitulo: "Caderno etnobotânico do rapé: nomes científicos, lendas, história e ecologia",
-    categoria: "rapes",
-    categoriaLabel: "Rapés Sagrados • Caderno",
-    pdfArquivo: "nativaram-rapes-sagrados-floresta-e-ciencia.md",
-    pdfTamanho: "26,2 KB",
-    ano: "2026",
-    autorOuFonte: "Cooperativa Nativaram",
-    resumo:
-      "Caderno em texto aberto sobre as plantas usadas no rapé sagrado: nome científico, povos associados, contexto histórico, lenda, dimensão espiritual segundo a tradição e notas de ecologia. Conteúdo cultural e etnobotânico. Não é oferta. O rapé contém tabaco e nicotina, que causam dependência. Proibido para menores de 18 anos. Cantos, provérbios e povos associados a cada planta ainda estão em conferência com as comunidades citadas.",
-    principaisDescobertas: [
-      "Notas culturais e botânicas sobre as plantas e cinzas associadas ao rapé.",
-      "Aviso de tabaco e nicotina e restrição a maiores de 18 anos.",
-      "Notas de ecologia e conservação das espécies de origem.",
-    ],
-    referenciasAcademicas: [
-      "Relatos de tradição oral dos povos citados (em conferência)",
-      "Literatura etnobotânica sobre plantas amazônicas (referências específicas em revisão)",
-    ],
-    capitulos: [
-      {
-        titulo: "1. Raízes ancestrais e resistência cultural",
-        conteudo:
-          "O rapé sagrado é patrimônio imaterial de resistência dos povos da floresta. Mais que um preparado botânico, é um rito de sintonização, oração ativa e harmonia sensorial.",
-      },
-      {
-        titulo: "2. As plantas e a tradição",
-        conteudo:
-          "Cada nota relaciona a planta de origem, a família botânica, a lenda associada e a dimensão espiritual atribuída pela tradição, sempre como relato de fé e sem finalidade clínica.",
-      },
-    ],
-  },
 ];

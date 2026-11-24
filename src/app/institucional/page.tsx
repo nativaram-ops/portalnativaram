@@ -14,10 +14,10 @@ export const metadata: Metadata = {
       "Nascidos do Raio de Sol — A Alquimia entre Dois Mundos, Valores Institucionais e Salvaguarda Ancestral da Cooperativa Nativaram.",
     images: [
       {
-        url: "/assets/manifesto/cruzeiro-do-sul-rio-moa-acre.jpg",
-        width: 1440,
-        height: 1072,
-        alt: "Luz solar sobre a Floresta Amazônica e o Rio Moa, Cruzeiro do Sul, Acre",
+        url: "/og-cooperativa-nativaram.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Cooperativa Nativaram — projeto em constituição",
       },
     ],
   },
@@ -32,15 +32,15 @@ export default function InstitucionalPage() {
       {/* Conteúdo Institucional & Manifesto */}
       <ManifestoLanding />
 
-      {/* Transição Fluida para a Próxima Etapa: Feitio Purista */}
+      {/* Transição Fluida para a Próxima Etapa: Feitio Tradicional */}
       <JornadaNextStep
         etapaAtual={1}
         tituloEtapaAtual="Origem & Vocação Cooperativa"
         proximaEtapaNumero={2}
-        proximaEtapaTitulo="A Sagrada Alquimia do Feitio Purista"
+        proximaEtapaTitulo="A Sagrada Alquimia do Feitio Tradicional"
         proximaEtapaDescricao="Agora que você compreendeu nossa gênese e compromisso sagrado, conheça o rigor artesanal do preparo no Acre: biomassa 60/40, menores micras e recusa de anayahuascas."
         proximaEtapaHref="/feitio"
-        textoBotao="Avançar para o Feitio Purista (Etapa 2/5)"
+        textoBotao="Avançar para o Feitio Tradicional (Etapa 2/5)"
       />
     </div>
   );

@@ -13,10 +13,10 @@ export const metadata: Metadata = {
     url: "https://nativaramcoop.eco.br/projetos-de-luz",
     images: [
       {
-        url: "/assets/manifesto/cruzeiro-do-sul-rio-moa-acre.jpg",
-        width: 1440,
-        height: 1072,
-        alt: "Floresta e o Rio Moa no Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre",
+        url: "/og-cooperativa-nativaram.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Cooperativa Nativaram — projeto em constituição",
       },
     ],
   },

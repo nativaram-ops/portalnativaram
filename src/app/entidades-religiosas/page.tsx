@@ -18,14 +18,13 @@ import {
   Users,
   CheckCircle2,
 } from "lucide-react";
+import { BotaoWhatsApp } from "@/components/ui/BotaoWhatsApp";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { JornadaNavTracker } from "@/components/funil/JornadaNavTracker";
 import {
   EMAIL_INSTITUCIONAL,
-  WHATSAPP_CONSELHO_FORMATADO,
   linkEmailInstitucional,
-  linkWhatsAppConselho,
 } from "@/lib/contato";
 
 const URL_CONAD =
@@ -296,17 +295,7 @@ export default function EntidadesReligiosasPage() {
                 e-mail ou WhatsApp institucional. Não coletamos dados pelo site.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
-                <a
-                  href={linkWhatsAppConselho(
-                    "Olá, represento uma entidade religiosa constituída e gostaria de falar com a coordenação do projeto Cooperativa Nativaram."
-                  )}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-5 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-all"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  <span>WhatsApp {WHATSAPP_CONSELHO_FORMATADO}</span>
-                </a>
+                <BotaoWhatsApp />
                 <a
                   href={linkEmailInstitucional("Entidade religiosa - contato institucional")}
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-ambar-500/40 bg-floresta-950/70 hover:bg-floresta-800 px-5 py-3 text-xs font-bold uppercase tracking-wider text-ambar-300 transition-all"

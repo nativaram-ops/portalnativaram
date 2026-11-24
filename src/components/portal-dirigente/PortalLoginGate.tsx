@@ -10,12 +10,11 @@ import {
   KeyRound,
   Sparkles,
   CheckCircle2,
-  Database,
 } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { Input } from "@/components/ui/Input";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
-import { isSupabaseConfigured, getSupabaseBrowserClient } from "@/lib/supabase/client";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 interface PortalLoginGateProps {
   onAuthenticated: (role: "DIRIGENTE" | "ADMIN", codigoAcesso: string) => void;
@@ -43,7 +42,6 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({
   const [magicLinkEnviado, setMagicLinkEnviado] = useState(false);
   
   const [errorMsg, setErrorMsg] = useState("");
-  const hasSupabase = isSupabaseConfigured();
 
   // Função auxiliar de autenticação via servidor (/api/auth/verificar-chave) com fallback local homologado
   const tentarAutenticacaoHibrida = async (
@@ -328,17 +326,11 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({
           </div>
           <div>
             <h3 className="font-serif text-xl sm:text-2xl font-bold text-areia-100">
-              Acesso Institucional &amp; Gestão Litúrgica
+              {apenasConselho ? "Acesso do Conselho" : "Acesso Institucional"}
             </h3>
             <p className="text-xs text-areia-400 font-light mt-1">
-              Ambiente estritamente restrito a dirigentes de templos credenciados e ao conselho gestor.
+              Área de gestão interna do Conselho do projeto. Os recursos públicos não exigem login.
             </p>
-          </div>
-
-          {/* Badge de Conectividade em Nuvem */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-ambar-500/20 bg-floresta-900/60 px-3 py-1 text-[11px] font-mono text-ambar-300">
-            <Database className="h-3 w-3 text-ambar-400" />
-            <span>Nuvem Supabase: {hasSupabase ? "Conectada (PostgreSQL)" : "Pronta (Standby / Fallback Ativo)"}</span>
           </div>
         </div>
 
@@ -360,7 +352,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({
             }`}
           >
             <Building2 className="h-3.5 w-3.5" />
-            <span>Templo Credenciado</span>
+            <span>Entidade</span>
           </button>
           <button
             type="button"
@@ -439,15 +431,15 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({
             {modoLogin === "ADMIN" ? (
               <>
                 <Input
-                  label="Usuário Administrador (Login ADM)"
+                  label="Usuário do Conselho"
                   required
                   value={codigoAcesso}
                   onChange={(e) => setCodigoAcesso(e.target.value)}
-                  placeholder="adm-nativaram"
+                  placeholder="Usuário do Conselho"
                   autoComplete="username"
                 />
                 <Input
-                  label="Senha Master de Segurança"
+                  label="Senha"
                   type="password"
                   required
                   value={senhaAcesso}
@@ -483,7 +475,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({
               className="btn-primary w-full py-3.5 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-solar mt-2"
             >
               <Lock className="h-3.5 w-3.5" />
-              <span>{modoLogin === "ADMIN" ? "Acessar Painel Central ADM" : "Entrar com Chave Litúrgica"}</span>
+              <span>{modoLogin === "ADMIN" ? "Entrar no painel do Conselho" : "Entrar com Chave Litúrgica"}</span>
               <ArrowRight className="h-4 w-4" />
             </button>
           </form>
@@ -500,7 +492,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({
               onChange={(e) => setEmailAuth(e.target.value)}
               placeholder={
                 modoLogin === "ADMIN"
-                  ? "adm@nativaram.com.br ou adm-nativaram"
+                  ? "E-mail ou usuário do Conselho"
                   : "dirigente@templo.org.br ou NAT-TEMPLO-842"
               }
               autoComplete="username"

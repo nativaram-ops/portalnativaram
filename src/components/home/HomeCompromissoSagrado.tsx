@@ -9,7 +9,7 @@ const pilaresConformidade = [
   {
     titulo: "Herança Botânica & Alquimia",
     descricao:
-      "Nossos preparados são frutos da sabedoria botânica tradicional da floresta amazônica. Não exercemos atos privativos da medicina alopática.",
+      "Os preparados tradicionais nascem da sabedoria botânica da floresta. Este site não oferece nenhum preparado. Não exercemos atos privativos da medicina alopática.",
     icone: Sparkles,
     badge: "Etnobotânica",
   },

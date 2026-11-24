@@ -138,8 +138,8 @@ export default function AcervoEtnobotanicoPage() {
         className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-section-sm"
       >
         <AnimateOnScroll>
-          <div className="card-elevated rounded-2xl overflow-hidden border border-ambar-500/20 grid grid-cols-1 lg:grid-cols-2">
-            <div className="p-6 sm:p-10 space-y-5 bg-floresta-950/80 order-2 lg:order-1">
+          <div className="card-elevated rounded-2xl overflow-hidden border border-ambar-500/20">
+            <div className="p-6 sm:p-10 space-y-5 bg-floresta-950/80 max-w-3xl">
               <div className="flex items-center gap-2 text-ambar-400">
                 <Wind className="h-5 w-5" aria-hidden="true" />
                 <span className="text-[11px] uppercase tracking-[0.15em] font-semibold">
@@ -178,15 +178,6 @@ export default function AcervoEtnobotanicoPage() {
                 </p>
               </div>
             </div>
-            <figure className="relative min-h-[260px] lg:min-h-full bg-floresta-900 order-1 lg:order-2">
-              <Image
-                src="/assets/nativaram-oficial/kuripes/kuripe-1.png"
-                alt="Conjunto de kuripes de madeira em formato de V, com cordões e adornos de semente"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </figure>
           </div>
         </AnimateOnScroll>
       </section>

@@ -34,7 +34,7 @@ export const etapasJornada: EtapaJornada[] = [
     id: 2,
     slug: "feitio",
     label: "Etapa 2 de 5",
-    tituloCurto: "Feitio Purista",
+    tituloCurto: "Feitio Tradicional",
     href: "/feitio",
     icone: TreePine,
   },

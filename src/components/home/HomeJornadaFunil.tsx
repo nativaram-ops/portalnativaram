@@ -27,7 +27,7 @@ const passosDoFunil = [
   },
   {
     passo: "02",
-    titulo: "Feitio Purista",
+    titulo: "Feitio Tradicional",
     subtitulo: "Alquimia da Floresta",
     descricao:
       "Filtragem em menores micras, biomassa 60/40, recusa categórica a Anayahuascas e vigília sagrada no Acre.",
@@ -48,9 +48,9 @@ const passosDoFunil = [
   {
     passo: "04",
     titulo: "Marco Legal",
-    subtitulo: "Segurança Jurídica & CONAD",
+    subtitulo: "Marco Legal & CONAD",
     descricao:
-      "Amparo constitucional (Art. 5º CF/88) e Resolução CONAD nº 01/2010, que trata do uso religioso da ayahuasca.",
+      "Liberdade de crença (art. 5º, VI, CF/88) e Resolução CONAD nº 1/2010, que trata do uso religioso da ayahuasca.",
     href: "/compliance",
     icone: ShieldCheck,
     cta: "Ler o Marco Legal",

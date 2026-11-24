@@ -106,32 +106,5 @@ CREATE POLICY "Leitura pública da agenda"
     TO anon, authenticated
     USING (true);
 
--- 7. Carga Semente de Templos de Referência
-INSERT INTO public.perfis_comunidade (
-    codigo_liturgico, slug, nome_instituicao, dirigente_responsavel, linhagem, cidade, estado, bio_apresentacao, redes_sociais, whatsapp_contato, publicado
-) VALUES (
-    'NAT-TEMPLO-842',
-    'ceu-do-cruzeiro',
-    'Templo Céu do Cruzeiro',
-    'Padrinho Marcos Silva',
-    'Linha do Santo Daime',
-    'São Paulo',
-    'SP',
-    'Igreja filiada e homologada para trabalhos litúrgicos de concentração, hinários de alinhamento espiritual e missas da doutrina sob o marco CONAD 01/2010.',
-    '{"instagram": "https://instagram.com/ceudocruzeiro.oficial", "youtube": "https://youtube.com/@ceudocruzeiro"}'::jsonb,
-    '5511987654321',
-    true
-), (
-    'NAT-TEMPLO-913',
-    'rainha-da-floresta',
-    'Fraternidade Rainha da Floresta',
-    'Madre Clara Albuquerque',
-    'Xamanismo Universalista',
-    'Petrópolis',
-    'RJ',
-    'Espaço sagrado de reconexão sensorial, vigílias e ritos tradicionais da floresta na serra carioca.',
-    '{"instagram": "https://instagram.com/fraternidaderainhadafloresta"}'::jsonb,
-    '5521998877665',
-    true
-)
-ON CONFLICT (codigo_liturgico) DO NOTHING;
+-- 7. Sem carga semente: os templos de exemplo saíram em 24/11/2026 (plano 013, ADR-016).
+--    O site não publica perfis, agenda nem contatos de dirigentes.

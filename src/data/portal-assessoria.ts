@@ -148,21 +148,15 @@ export interface FaqDirigenteItem {
   destaqueConselho?: string;
 }
 
-export interface ItemDiluicaoWirapuru {
-  volumeInicial10: string;
-  aguaEstreilAdicionar: string;
-  volumeFinal: string;
-  graduacaoObtida: string;
-  calicesEstimados60ml: number;
-}
-
 /**
- * Nota Canônica de Exceção Clínica — Tratamento de Desintoxicação (Tabela Oficial de Medicamentos Controlados)
+ * Alerta para pessoas em tratamento de dependência química.
+ * Plano 013 (24/11/2026): o texto anterior sugeria o rito como parte de protocolo
+ * de desintoxicação, o que é uso terapêutico (vedado pela CONAD 1/2010 fora da pesquisa).
  */
 export const EXCECAO_DESINTOXICACAO_PDF = {
-  titulo: "EXCEÇÃO CLÍNICA: PROTOCOLO DE DESINTOXICAÇÃO E DEPENDÊNCIA QUÍMICA",
+  titulo: "ATENÇÃO: PESSOAS EM TRATAMENTO DE DEPENDÊNCIA QUÍMICA OU ALCOOLISMO",
   descricao:
-    "Em protocolos de desintoxicação (dependência química ou alcoolismo), normalmente é utilizada a associação de vários ansiolíticos, antipsicóticos e até anticonvulsivantes. Nestes casos específicos, o dirigente e o conselho clínico devem analisar o caso individualmente, obrigatoriamente com aval médico formal, acompanhamento transdisciplinar (Projetos de Luz) e redução de danos supervisionada.",
+    "O tratamento de dependência química ou alcoolismo costuma combinar ansiolíticos, antipsicóticos e anticonvulsivantes, com risco alto de interação. O rito não faz parte de nenhum tratamento: o uso terapêutico da ayahuasca é vedado pela Resolução CONAD nº 1/2010 fora da pesquisa científica. A participação de uma pessoa nessa situação depende de avaliação médica individual e por escrito (Doc 06); sem ela, a pessoa fica inapta.",
 };
 
 /**
@@ -333,7 +327,7 @@ export const INTERACOES_MEDICAMENTOSAS: InteracaoMedicamentosa[] = [
     meiaVida: "6 a 50 horas.",
     washoutMinimo: "NÃO PODE PARTICIPAR (Exclusão definitiva)",
     recomendacaoLiturgica:
-      "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto absoluto para Risperdal, Zargus, Seroquel e Zyprexa (salvo avaliação médica em protocolo de desintoxicação assistida).",
+      "NÃO PODE PARTICIPAR (Classificação Vermelha). Veto absoluto para Risperdal, Zargus, Seroquel e Zyprexa (qualquer exceção depende de parecer médico individual e por escrito, Doc 06).",
     motivo: "AMBOS",
     evidencia: "D",
     fontes: [],
@@ -1657,41 +1651,6 @@ export function exemplosPorDiretriz(
   }
   return nomes;
 }
-
-/**
- * Tabela Técnica de Diluição e Reconstituição de 10:1 Wirapuru
- * Fonte: Documento 04 - Catálogo Técnico das Graduações (NotebookLM)
- */
-export const TABELA_DILUICAO_WIRAPURU: ItemDiluicaoWirapuru[] = [
-  {
-    volumeInicial10: "1 Litro (10:1 Wirapuru)",
-    aguaEstreilAdicionar: "430 ml de água estéril (45-50°C)",
-    volumeFinal: "1,43 Litros",
-    graduacaoObtida: "7:1 (Anhangatã)",
-    calicesEstimados60ml: 24,
-  },
-  {
-    volumeInicial10: "1 Litro (10:1 Wirapuru)",
-    aguaEstreilAdicionar: "1.000 ml de água estéril (45-50°C)",
-    volumeFinal: "2,00 Litros",
-    graduacaoObtida: "5:1 (Pituã - Equilíbrio Canônico)",
-    calicesEstimados60ml: 33,
-  },
-  {
-    volumeInicial10: "1 Litro (10:1 Wirapuru)",
-    aguaEstreilAdicionar: "2.330 ml de água estéril (45-50°C)",
-    volumeFinal: "3,33 Litros",
-    graduacaoObtida: "3:1 (Mainumbi - Suave)",
-    calicesEstimados60ml: 55,
-  },
-  {
-    volumeInicial10: "5 Litros (10:1 Wirapuru)",
-    aguaEstreilAdicionar: "5.000 ml de água estéril (45-50°C)",
-    volumeFinal: "10,00 Litros",
-    graduacaoObtida: "5:1 (Pituã - Equilíbrio Canônico)",
-    calicesEstimados60ml: 166,
-  },
-];
 
 /**
  * Critérios Diagnósticos de Hunter para Toxicidade Serotoninérgica
