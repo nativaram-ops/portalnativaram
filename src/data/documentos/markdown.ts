@@ -1,6 +1,6 @@
 import type { Bloco, ContextoDocumento, DocumentoModelo } from "./tipos";
 
-export const MARCA_INSTITUCIONAL = "COOPERATIVA NATIVARAM";
+export const MARCA_INSTITUCIONAL = "MODELO DE REFERÊNCIA DO PROJETO COOPERATIVA NATIVARAM (EM CONSTITUIÇÃO)";
 export const LINHA_SISTEMA = "SISTEMA DE SALVAGUARDA LITÚRGICA E REDUÇÃO DE DANOS";
 export const LINHA_PREENCHIMENTO = "____________________";
 
@@ -17,7 +17,7 @@ export function statusRevisao(doc: DocumentoModelo): string {
 
 /** Rodapé obrigatório: versão + data + status de revisão (plano 010, B4). */
 export function textoRodape(doc: DocumentoModelo): string {
-  return `Cooperativa Nativaram · Documento ${doc.numero} · Versão ${doc.versao} de ${formatarDataVersao(
+  return `Modelo de referência do projeto Cooperativa Nativaram (em constituição) · Documento ${doc.numero} · Versão ${doc.versao} de ${formatarDataVersao(
     doc.dataVersao
   )} · Status: ${statusRevisao(doc)}`;
 }

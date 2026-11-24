@@ -1,53 +1,41 @@
 import type { Metadata } from "next";
-import { Lock } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { PageHero } from "@/components/ui/PageHero";
 import { Section } from "@/components/ui/Section";
 import { SectionDivider } from "@/components/ui/SectionDivider";
-import { PortalDirigenteClient } from "@/components/layout/PortalDirigenteClient";
+import { CentralRecursosClient } from "@/components/layout/CentralRecursosClient";
 
 export const metadata: Metadata = {
-  title: "Portal do Dirigente Homologado | Cooperativa Nativaram",
+  title: "Central de Recursos | Cooperativa Nativaram",
   description:
-    "Área restrita para templos homologados. Acompanhe o status das cotas litúrgicas, laudos de conformidade e cadeia de custódia dos sacramentos da Cooperativa Nativaram.",
+    "Recursos abertos de segurança e conformidade para entidades religiosas: modelos de documentos, matriz de interações medicamentosas, perguntas frequentes e marco legal (Resolução CONAD nº 1/2010).",
+  alternates: { canonical: "/portal-dirigente" },
   openGraph: {
-    title: "Portal do Dirigente | Cooperativa Nativaram",
+    title: "Central de Recursos | Cooperativa Nativaram",
     description:
-      "Ambiente seguro de gestão litúrgica para dirigentes de templos credenciados.",
+      "Modelos de documentos, triagem de segurança e marco legal, abertos ao público. Conteúdo informativo, sem oferta.",
     url: "https://nativaramcoop.eco.br/portal-dirigente",
-  },
-  robots: {
-    index: false,
-    follow: false,
   },
 };
 
-export default function PortalDirigentePage() {
+export default function CentralRecursosPage() {
   return (
     <div className="space-y-0">
-      {/* ═══════════════════════════════════════════
-          HERO COMPOSTO — VERCEL COMPOSITION PATTERNS
-          ═══════════════════════════════════════════ */}
       <PageHero maxWidth="max-w-4xl">
-        <PageHero.Badge
-          icon={<Lock className="h-3.5 w-3.5" />}
-          text="Ambiente Seguro de Gestão Litúrgica"
-        />
+        <PageHero.Badge icon={<BookOpen className="h-3.5 w-3.5" />} text="Recursos abertos" />
         <PageHero.Title>
-          Portal do Dirigente{" "}
-          <span className="text-gradient-solar">Homologado</span>
+          Central de <span className="text-gradient-solar">Recursos</span>
         </PageHero.Title>
         <PageHero.Description>
-          Área restrita aos templos, igrejas e centros ayahuasqueiros previamente cadastrados e aprovados pela Cooperativa Nativaram.
+          Segurança, triagem e conformidade para entidades religiosas que fazem uso ritual da ayahuasca. Conteúdo
+          informativo de um projeto de cooperativa em constituição, sem oferta e sem cadastro.
         </PageHero.Description>
       </PageHero>
 
       <SectionDivider variant="solar" />
 
-      {/* ═══════════════════════════════════════════
-          SESSÃO DE AUTENTICAÇÃO E GESTÃO LITÚRGICA
-          ═══════════════════════════════════════════ */}
       <Section padding="lg" maxWidth="max-w-5xl">
-        <PortalDirigenteClient />
+        <CentralRecursosClient />
       </Section>
     </div>
   );

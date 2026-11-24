@@ -20,7 +20,7 @@ const passosDoFunil = [
     titulo: "Origem & Vocação",
     subtitulo: "Manifesto & Aliança Sagrada",
     descricao:
-      "A gênese dos Nascidos do Raio de Sol, salvaguarda dos saberes originários e economia solidária desmercantilizada.",
+      "A gênese dos Nascidos do Raio de Sol e a salvaguarda dos saberes originários. Projeto de cooperativa em constituição, ainda sem registro e sem CNPJ.",
     href: "/institucional",
     icone: Compass,
     cta: "Conhecer Origem",
@@ -37,13 +37,13 @@ const passosDoFunil = [
   },
   {
     passo: "03",
-    titulo: "Sacramentos",
-    subtitulo: "Compêndio Etnobotânico",
+    titulo: "Acervo",
+    subtitulo: "Acervo Etnobotânico",
     descricao:
-      "15 rapés sagrados (calcinação > 250°C), Sananga tradicional, resinas e kuripes. (Graduações de Ayahuasca restritas ao Portal do Dirigente.)",
+      "Conteúdo cultural e etnobotânico sobre a ayahuasca e o rapé. Não é oferta. O rapé contém tabaco e nicotina, que causam dependência (+18).",
     href: "/sacramentos",
     icone: Sparkles,
-    cta: "Ver Sacramentos",
+    cta: "Ver o Acervo",
   },
   {
     passo: "04",
@@ -53,17 +53,17 @@ const passosDoFunil = [
       "Amparo constitucional (Art. 5º CF/88) e Resolução CONAD nº 01/2010, que trata do uso religioso da ayahuasca.",
     href: "/compliance",
     icone: ShieldCheck,
-    cta: "Checar Garantias",
+    cta: "Ler o Marco Legal",
   },
   {
     passo: "05",
-    titulo: "Credenciamento",
-    subtitulo: "Homologação do Templo",
+    titulo: "Entidades Religiosas",
+    subtitulo: "Quem Pode Dialogar",
     descricao:
-      "O clímax da aliança: submissão de cadastro institucional para dirigentes e acolhimento pelo Conselho Guardião.",
-    href: "/credenciamento",
+      "Requisitos e compromissos para entidades religiosas legalmente constituídas e orientação de formalização para grupos em formação.",
+    href: "/entidades-religiosas",
     icone: CheckCircle2,
-    cta: "Credenciar Templo",
+    cta: "Ver Requisitos",
     destaque: true,
   },
 ];
@@ -81,20 +81,20 @@ export const HomeJornadaFunil = () => {
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-12 lg:mb-16">
           <AnimateOnScroll>
             <Badge variant="solar" dot icon={<Route className="h-3.5 w-3.5" />}>
-              O Caminho Didático da Salvaguarda
+              Caminho de Leitura
             </Badge>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={150}>
             <h2 className="font-serif text-2xl sm:text-display-sm lg:text-display-md font-bold text-areia-100 text-glow">
-              Como Navegar &amp; Ingressar na{" "}
+              Como Conhecer a{" "}
               <span className="text-gradient-solar">Cooperativa Nativaram</span>
             </h2>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={300}>
             <p className="text-sm sm:text-base text-areia-300/90 font-light leading-relaxed">
-              Estruturamos nossa plataforma para guiar dirigentes e guardiões passo a passo: desde a compreensão da nossa gênese até o credenciamento formal do seu templo.
+              Um caminho de leitura em cinco passos: da origem do projeto e da memória do feitio até o marco legal e as orientações para entidades religiosas.
             </p>
           </AnimateOnScroll>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Sparkles, ShieldCheck, ArrowRight, Flame, Lock, Users } from "lucide-react";
+import { Sparkles, ShieldCheck, ArrowRight, Flame, Lock, HeartPulse } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { Badge } from "@/components/ui/Badge";
 
@@ -29,7 +29,7 @@ export const HomeHero = () => {
         <div className="max-w-3xl space-y-6">
           <AnimateOnScroll delay={150}>
             <Badge variant="solar" dot icon={<Sparkles className="h-3 w-3 text-ambar-400" />}>
-              Cooperativa Sem Fins Lucrativos • Lei 5.764/71 &amp; CONAD 01/2010
+              Projeto em Constituição • Site Institucional
             </Badge>
           </AnimateOnScroll>
 
@@ -37,34 +37,34 @@ export const HomeHero = () => {
             <h1 className="font-serif text-display-sm sm:text-display-md lg:text-display-lg font-bold text-areia-100 text-glow leading-[1.06] tracking-display text-balance">
               Salvaguarda Litúrgica,
               <br />
-              <span className="text-gradient-solar">Feitio Purista &amp; Apoio</span>
+              <span className="text-gradient-solar">Memória do Feitio</span>
               <br />
-              <span className="text-areia-200/90">aos Templos e Grupos</span>
+              <span className="text-areia-200/90">&amp; Tradição da Floresta</span>
             </h1>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={450}>
             <p className="text-sm sm:text-base text-areia-200/95 leading-relaxed max-w-2xl font-light text-pretty">
-              Conectamos instituições religiosas constituídas (CNPJ) e grupos em formação à tradição purista de <strong>Cruzeiro do Sul, no Acre</strong> — com amparo legal, rastreabilidade documental e logística aérea refrigerada via Gollog. <strong>Não somos e-commerce nem comercializamos ao varejo.</strong>
+              A Cooperativa Nativaram é um projeto de cooperativa em constituição, ainda sem registro e sem CNPJ, ligado à tradição do feitio de <strong>Cruzeiro do Sul, no Acre</strong>. <strong>Este site é institucional. Não vendemos, não recebemos pedidos e não fazemos envios.</strong>
             </p>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={600}>
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
               <Link
-                href="/credenciamento"
+                href="/entidades-religiosas"
                 className="btn-primary btn-press flex items-center justify-center gap-2 text-xs sm:text-sm font-semibold tracking-wide"
               >
                 <ShieldCheck className="h-4 w-4" />
-                <span>Credenciar Instituição (CNPJ)</span>
+                <span>Entidades Religiosas</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
-                href="/reconhecimento"
+                href="/seguranca"
                 className="btn-secondary btn-press flex items-center justify-center gap-2 text-xs sm:text-sm"
               >
-                <Users className="h-4 w-4 text-ambar-400" />
-                <span>Grupo sem CNPJ? Reconhecimento</span>
+                <HeartPulse className="h-4 w-4 text-ambar-400" />
+                <span>Segurança e Redução de Danos</span>
               </Link>
               <Link
                 href="#caminhos-portal"
@@ -80,7 +80,7 @@ export const HomeHero = () => {
           <AnimateOnScroll delay={750}>
             <p className="text-[11px] text-areia-300 flex items-center gap-2 pt-1 font-mono">
               <Lock className="h-3 w-3 text-ambar-400 shrink-0" />
-              <span>Uso estritamente religioso (+18) • Para templos com CNPJ (Ata) e grupos via Acolhimento Fraterno.</span>
+              <span>Conteúdo para maiores de 18 anos • Uso do sacramento só em contexto religioso, nos termos da Resolução CONAD nº 1/2010.</span>
             </p>
           </AnimateOnScroll>
         </div>

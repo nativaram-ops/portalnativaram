@@ -131,7 +131,7 @@ async function runAllTests() {
 
   await test("Todos os documentos têm id, número, título, versão, data da versão e lista de revisão", async () => {
     const { DOCUMENTOS_CENTRAL } = await carregarModulo();
-    assert.ok(Array.isArray(DOCUMENTOS_CENTRAL) && DOCUMENTOS_CENTRAL.length >= 11, "Esperava ao menos 11 documentos");
+    assert.ok(Array.isArray(DOCUMENTOS_CENTRAL) && DOCUMENTOS_CENTRAL.length >= 10, "Esperava ao menos 10 documentos");
     for (const doc of DOCUMENTOS_CENTRAL) {
       assert.ok(doc.id && doc.numero && doc.titulo, `Documento sem id/número/título: ${JSON.stringify(doc.id)}`);
       assert.ok(typeof doc.versao === "string" && doc.versao.trim(), `${doc.id} sem versão`);
@@ -140,11 +140,22 @@ async function runAllTests() {
     }
   });
 
-  await test("Documentos aparecem numerados em ordem crescente (01, 02, 03…)", async () => {
+  await test("Documentos aparecem em ordem crescente, sem número repetido (o 04 saiu pelo ADR-016)", async () => {
     const { DOCUMENTOS_CENTRAL } = await carregarModulo();
-    const numeros = DOCUMENTOS_CENTRAL.map((d) => d.numero);
-    const esperado = numeros.map((_, i) => String(i + 1).padStart(2, "0"));
-    assert.deepStrictEqual(numeros, esperado);
+    const numeros = DOCUMENTOS_CENTRAL.map((d) => Number(d.numero));
+    assert.deepStrictEqual(numeros, [...numeros].sort((a, b) => a - b));
+    assert.strictEqual(new Set(numeros).size, numeros.length);
+    assert.ok(!numeros.includes(4), "O Doc 04 (Declaração de Trânsito) não deve voltar");
+  });
+
+  await test("Nenhum documento orienta ou declara transporte do sacramento (ADR-016)", async () => {
+    const { DOCUMENTOS_CENTRAL, gerarMarkdown } = await carregarModulo();
+    const ctx = { temploNome: "T", temploCidade: "C", temploDirigente: "D", temploRegistro: "R", dataEmissao: "hoje" };
+    for (const doc of DOCUMENTOS_CENTRAL) {
+      const md = gerarMarkdown(doc, ctx);
+      assert.ok(!/declaração de transporte|trânsito|bagagem|interestadual/i.test(md), `${doc.id} fala em transporte`);
+      assert.ok(!/Lei 5\.764|rateio solidário/i.test(md), `${doc.id} cita cooperativa ou rateio`);
+    }
   });
 
   await test("Documentos com conteúdo clínico ou jurídico declaram revisão pendente", async () => {
@@ -174,7 +185,6 @@ async function runAllTests() {
       "ANAMNESE",
       "TERMO",
       "ATA",
-      "TRANSITO",
       "MENORES",
       "PARECER_MEDICO",
       "RECONFIRMACAO_D0",

@@ -54,6 +54,21 @@ const nextConfig = {
         destination: "/institucional",
         permanent: true,
       },
+      // Plano 013: fichas de rapé e perfis de templos saíram do ar (308 real para buscadores)
+      { source: "/sacramentos/:slug", destination: "/sacramentos", permanent: true },
+      { source: "/medicinas/:slug", destination: "/sacramentos", permanent: true },
+      { source: "/estudos/comunidade/:slug", destination: "/estudos", permanent: true },
+      // Cadastro encerrado em 24/11/2026 (plano 013): conteúdo informativo em /entidades-religiosas
+      {
+        source: "/credenciamento",
+        destination: "/entidades-religiosas",
+        permanent: true,
+      },
+      {
+        source: "/reconhecimento",
+        destination: "/entidades-religiosas",
+        permanent: true,
+      },
     ];
   },
 

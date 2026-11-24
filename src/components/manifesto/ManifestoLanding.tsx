@@ -27,22 +27,26 @@ import {
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { FaqAccordion, FaqItem } from "@/components/ui/FaqAccordion";
+import { CreditoFoto } from "@/components/manifesto/CreditoFoto";
+
+const CONAD_URL =
+  "https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/subcapas-senad/conad/atos-do-conad-1/2010/11___resolucao_n__01_2010___conad.pdf";
 
 const faqsInstitucionais: FaqItem[] = [
   {
     pergunta: "O que é a Cooperativa Nativaram?",
     resposta:
-      "A Cooperativa Nativaram é uma associação e cooperativa etnobotânica sem fins lucrativos dedicada à salvaguarda, ao estudo fitoquímico e à partilha ética de sacramentos tradicionais amazônicos (Ayahuasca, Rapés Sagrados e Sananga). Nascida sob o significado espiritual de 'Nascidos do Raio de Sol', atua como uma ponte legítima entre os povos originários da floresta e as instituições litúrgicas do Brasil e do mundo.",
+      "A Cooperativa Nativaram é um projeto de cooperativa em constituição, ainda sem registro e sem CNPJ. O projeto pretende se constituir sem fins lucrativos e se dedica ao estudo e à salvaguarda cultural das tradições botânicas da floresta. Nasceu sob o significado espiritual de 'Nascidos do Raio de Sol'.",
   },
   {
-    pergunta: "Por que a Nativaram não funciona como um e-commerce convencional?",
+    pergunta: "A Nativaram oferece sacramentos por este site?",
     resposta:
-      "A espiritualidade e os sacramentos da floresta não são mercadorias descartáveis. Em estrito cumprimento à Resolução CONAD nº 01/2010 e à Deontologia das práticas tradicionais, é terminantemente proibida a comercialização com fins lucrativos da Ayahuasca. Por isso, nosso portal não possui carrinho de compras ou precificação comercial; operamos através de rateio solidário de custos operacionais (frete, lenha, embalagens, manejo sustentável) exclusivo para templos e dirigentes credenciados.",
+      "Não. Este site é institucional. Não vendemos, não recebemos pedidos e não fazemos envios. Não há valores nem formulários de pedido. A partilha do sacramento acontece apenas entre entidades religiosas legalmente constituídas, fora deste site, por termo entre as entidades, cobrindo somente o custeio de despesas comprovadas, sem margem, conforme os princípios da Resolução CONAD nº 1/2010.",
   },
   {
-    pergunta: "Quem conduz o feitio dos sacramentos da cooperativa?",
+    pergunta: "Qual é a relação do projeto com o feitio e com os povos da floresta?",
     resposta:
-      "Nossos preparados são liderados por um experiente mestre feitor caboclo com mais de 28 anos de dietas de isolamento e vivência prática na floresta de Cruzeiro do Sul (Acre), aliado a uma aliança de centros tradicionais credenciados de produção no estado. Nossa relação com os povos originários (Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã) é estritamente no campo da salvaguarda intelectual e procedimental de seus saberes tradicionais, sem qualquer vínculo produtivo ou comercial direto com as aldeias indígenas.",
+      "O projeto acompanha o feitio tradicional conduzido por um mestre feitor caboclo com mais de 28 anos de dietas de isolamento e vivência prática na floresta de Cruzeiro do Sul (Acre). A relação com os povos originários (Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã) é de respeito e salvaguarda intelectual de seus saberes, sem vínculo produtivo ou comercial com as aldeias.",
   },
   {
     pergunta: "O que é a 'Alquimia entre Dois Mundos' (Etnociência)?",
@@ -52,12 +56,12 @@ const faqsInstitucionais: FaqItem[] = [
   {
     pergunta: "Como funcionam os 'Projetos de Luz'?",
     resposta:
-      "As sobras do rateio, destinadas por deliberação de assembleia ao Fundo Social (FATES), nos termos da Lei 5.764/71, são revertidas em praxeologia social gratuita: custeio da Ecovila e Agrofloresta comunitária em Cruzeiro do Sul (Acre), proteção ativa aos ninhos da Ararajuba, apoio às comunidades da floresta e partilha solidária de sacramentos com templos credenciados de pequeno porte, sempre para uso exclusivo em seus ritos religiosos.",
+      "Os Projetos de Luz são a intenção socioambiental do projeto: uma ecovila e uma agrofloresta comunitária em Cruzeiro do Sul (Acre), a proteção dos habitats da Ararajuba e o apoio às comunidades da floresta. São intenções em planejamento, ainda sem recursos próprios nem resultados a relatar.",
   },
   {
-    pergunta: "Como um templo religioso pode solicitar credenciamento litúrgico?",
+    pergunta: "Como uma entidade religiosa pode falar com o projeto?",
     resposta:
-      "Dirigentes e sacerdotes responsáveis por centros devidamente constituídos devem acessar a aba de Credenciamento no portal, preencher o formulário institucional com os dados da instituição e firmar o Termo de Compromisso Deontológico do CONAD. O Conselho de Ética analisa cada pedido individualmente antes de autorizar a partilha.",
+      "Entidades religiosas constituídas podem falar com a coordenação do projeto pelo e-mail ou WhatsApp institucional. Não coletamos dados pelo site. A página Entidades Religiosas reúne as orientações.",
   },
 ];
 
@@ -72,7 +76,7 @@ export function ManifestoLanding() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/assets/manifesto/cruzeiro-do-sul-rio-moa-acre.jpg"
-            alt="Luz solar sobre a Floresta Amazônica e o Rio Moa no Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre (Foto: Hector Bottai / Wikimedia Commons CC BY-SA 4.0)"
+            alt="Luz solar sobre a Floresta Amazônica e o Rio Moa no Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre"
             fill
             priority
             className="object-cover object-center brightness-60 scale-105 transition-transform duration-1000"
@@ -81,6 +85,10 @@ export function ManifestoLanding() {
           <div className="absolute inset-0 bg-gradient-to-t from-floresta-950 via-floresta-950/70 to-floresta-950/40" />
           <div className="absolute inset-0 bg-radial-vignette opacity-80" />
         </div>
+        <CreditoFoto
+          arquivo="/assets/manifesto/cruzeiro-do-sul-rio-moa-acre.jpg"
+          className="absolute bottom-3 right-4 z-10"
+        />
 
         {/* Efeito Glow Dourado */}
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-ambar-500/[0.12] rounded-full blur-[120px] pointer-events-none z-0" />
@@ -89,7 +97,7 @@ export function ManifestoLanding() {
           <AnimateOnScroll>
             <div className="inline-flex items-center gap-2.5 rounded-full border border-ambar-500/30 bg-floresta-950/85 backdrop-blur-md px-5 py-2 text-xs font-semibold tracking-[0.18em] text-ambar-400 uppercase shadow-solar">
               <Sun className="h-3.5 w-3.5 text-ambar-400 animate-pulse" />
-              <span>Cooperativa Etnobotânica • O Manifesto • Quem Somos</span>
+              <span>Projeto de Cooperativa • O Manifesto • Quem Somos</span>
             </div>
           </AnimateOnScroll>
 
@@ -118,7 +126,7 @@ export function ManifestoLanding() {
               </div>
               <div className="inline-flex items-center gap-2 rounded-xl border border-ambar-500/20 bg-floresta-900/80 px-3.5 py-2 text-xs text-areia-200 backdrop-blur-sm">
                 <Compass className="h-3.5 w-3.5 text-ambar-400" />
-                <span>Sede de Partilha: Serra, Espírito Santo</span>
+                <span>Coordenação: Serra, Espírito Santo</span>
               </div>
               <div className="inline-flex items-center gap-2 rounded-xl border border-ambar-500/20 bg-floresta-900/80 px-3.5 py-2 text-xs text-areia-200 backdrop-blur-sm">
                 <Scale className="h-3.5 w-3.5 text-ambar-400" />
@@ -126,7 +134,7 @@ export function ManifestoLanding() {
               </div>
               <div className="inline-flex items-center gap-2 rounded-xl border border-ambar-500/20 bg-floresta-900/80 px-3.5 py-2 text-xs text-areia-200 backdrop-blur-sm">
                 <ShieldCheck className="h-3.5 w-3.5 text-ambar-400" />
-                <span>Cooperativa • Sem Fins Lucrativos</span>
+                <span>Cooperativa em constituição</span>
               </div>
             </div>
           </AnimateOnScroll>
@@ -137,9 +145,9 @@ export function ManifestoLanding() {
                 <Sparkles className="h-4 w-4" />
                 <span>Conhecer Nossa História & Valores</span>
               </a>
-              <Link href="/credenciamento" className="btn-secondary">
+              <Link href="/entidades-religiosas" className="btn-secondary">
                 <Scale className="h-4 w-4" />
-                <span>Credenciamento de Templos</span>
+                <span>Entidades Religiosas</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
@@ -176,28 +184,28 @@ export function ManifestoLanding() {
                     A <strong className="text-areia-100 font-semibold">Cooperativa Nativaram</strong> nasce sob o significado sagrado de <strong className="text-ambar-300 font-semibold">&ldquo;Nascidos do Raio de Sol&rdquo;</strong>. Representa a jornada daqueles que escolheram a entrega de alma como única forma de caminhar pela vida.
                   </p>
                   <p>
-                    A instituição, impulsionada por uma aliança de guardiões, curadores etnobotânicos e mestres tradicionais da floresta, transcende categoricamente o conceito de um comércio eletrônico ou negócio convencional. Estruturada como uma cooperativa dedicada ao estudo profundo, à salvaguarda e à partilha ética de sacramentos botânicos amazônicos, a Nativaram atua para resgatar a sacralidade no cotidiano, proporcionando elevação espiritual, serenidade mental e harmonização interior.
+                    A Cooperativa Nativaram é um projeto de cooperativa em constituição, ainda sem registro e sem CNPJ. Reúne guardiões, estudiosos da etnobotânica e mestres tradicionais da floresta em torno do estudo e da salvaguarda das tradições botânicas amazônicas, e pretende se constituir sem fins lucrativos.
                   </p>
                   <p>
-                    Nosso modelo é de <strong className="text-areia-200">economia solidária e desmercantilizada</strong>. Rejeitamos com veemência o turismo psicodélico, a apropriação predatória e a banalização dos ritos da floresta. Para a Nativaram, o comércio não é a finalidade: o rateio de custos operacionais é apenas o veículo logístico indispensável para assegurar a remuneração digna das famílias extrativistas locais e a manutenção litúrgica dos templos parceiros, operando <strong className="text-areia-100">estritamente sem fins lucrativos</strong>.
+                    Este site é institucional. <strong className="text-areia-200">Não vendemos, não recebemos pedidos e não fazemos envios.</strong> Não há valores nem formulários de pedido. Rejeitamos o turismo espiritual, a apropriação predatória e a banalização dos ritos da floresta.
                   </p>
                 </div>
 
-                {/* Destaque do Mestre Feitor Caboclo & Rede de Centros Credenciados */}
+                {/* Destaque do Mestre Feitor Caboclo */}
                 <div className="card-liturgico rounded-2xl p-6 space-y-4 border-l-4 border-l-ambar-500">
                   <div className="flex items-center gap-2 text-xs font-mono font-bold text-ambar-400 uppercase tracking-wider">
                     <TreePine className="h-4 w-4" />
-                    <span>O Mestre Feitor & A Aliança de Centros Credenciados</span>
+                    <span>O Mestre Feitor & Os Centros Tradicionais</span>
                   </div>
                   <p className="text-xs sm:text-sm text-areia-300 leading-relaxed font-light">
-                    Nossos sacramentos não provêm de processos anônimos ou industriais. Mantemos nosso foco e reverência central na sabedoria do nosso <strong className="text-areia-100 font-medium">mestre feitor caboclo</strong>, com mais de <strong className="text-areia-100 font-medium">28 anos de estudos profundos e dietas rigorosas de isolamento na selva</strong> de Cruzeiro do Sul/AC.
+                    O feitio que o projeto acompanha não vem de processos anônimos ou industriais. Nossa reverência central está na sabedoria do <strong className="text-areia-100 font-medium">mestre feitor caboclo</strong>, com mais de <strong className="text-areia-100 font-medium">28 anos de estudos profundos e dietas rigorosas de isolamento na selva</strong> de Cruzeiro do Sul/AC.
                   </p>
                   <div className="pt-2.5 border-t border-ambar-500/15 space-y-1.5">
                     <h4 className="font-serif text-xs font-semibold text-ambar-300 flex items-center gap-1.5">
-                      <span>✦</span> Centros Parceiros & Padronização Litúrgica
+                      <span>✦</span> Centros Tradicionais do Acre
                     </h4>
                     <p className="text-xs text-areia-300/90 leading-relaxed font-light">
-                      Trabalhamos em aliança cooperativa com <strong>diversos centros tradicionais credenciados de produção no Acre</strong>. Cada um desses centros mantém suas atividades e seu feitio regular independente para abastecer seus próprios templos associados e estudos locais. Todavia, ao integrarem a Nativaram, esses centros recebem nossa curadoria, suporte e respaldo institucional, e elaboram os sacramentos da cooperativa <strong>seguindo estritamente o estudo metodológico e fitoquímico da Nativaram</strong> — mesmo que paralelamente desenvolvam preparados de estudos próprios. Assim, preservamos a autonomia de cada feitor e garantimos a máxima uniformidade e pureza aos templos de todo o Brasil.
+                      O projeto dialoga com <strong>centros tradicionais do Acre</strong> que mantêm seu feitio de forma independente, para os seus próprios trabalhos religiosos. Respeitamos a autonomia de cada feitor e de cada casa.
                     </p>
                   </div>
                   <div className="pt-2.5 border-t border-ambar-500/15 space-y-1.5">
@@ -205,7 +213,7 @@ export function ManifestoLanding() {
                       <span>✦</span> Povos Originários: Salvaguarda Intelectual e Procedimental
                     </h4>
                     <p className="text-xs text-areia-300/90 leading-relaxed font-light">
-                      Nossa conexão e reverência aos povos originários (<strong className="text-ambar-300 font-medium">Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã</strong>) dá-se <strong>estritamente dentro da salvaguarda intelectual e procedimental</strong>, em respeito à memória etnobotânica e à sabedoria imaterial da floresta. <strong>Não possuímos ligação direta com comunidades ou aldeias indígenas para a produção dos sacramentos</strong>: toda a feitura material é conduzida de forma autônoma pelo nosso mestre feitor caboclo e pela rede de centros credenciados cooperados no Acre.
+                      Nossa conexão e reverência aos povos originários (<strong className="text-ambar-300 font-medium">Yawanawá, Huni Kuin, Katukina, Noke Koĩ, Shawãdawa e Apurinã</strong>) dá-se <strong>estritamente dentro da salvaguarda intelectual e procedimental</strong>, em respeito à memória etnobotânica e à sabedoria imaterial da floresta. <strong>Não temos vínculo produtivo com comunidades ou aldeias indígenas</strong>.
                     </p>
                   </div>
                 </div>
@@ -216,8 +224,8 @@ export function ManifestoLanding() {
                 <div className="image-reveal rounded-3xl overflow-hidden border border-ambar-500/20 shadow-elevated-lg relative">
                   <div className="relative h-[420px] sm:h-[500px] w-full">
                     <Image
-                      src="/assets/manifesto/floresta-amazonica-acre.jpg"
-                      alt="Floresta Amazônica — Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre"
+                      src="/assets/feitio/curadas/feitio-cipo-colheita.jpg"
+                      alt="Feixes de cipó reunidos sob o telhado de um barracão de feitio"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -226,10 +234,10 @@ export function ManifestoLanding() {
                   </div>
                   <div className="absolute bottom-0 inset-x-0 p-6 space-y-1 bg-gradient-to-t from-floresta-950 via-floresta-950/90 to-transparent">
                     <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-widest">
-                      Floresta Amazônica • Acre
+                      Barracão de feitio
                     </span>
                     <p className="text-xs text-areia-200 font-serif italic">
-                      Santuário ancestral e berço das tradições sagradas no Vale do Juruá.
+                      O cipó reunido antes do feitio.
                     </p>
                   </div>
                 </div>
@@ -384,15 +392,15 @@ export function ManifestoLanding() {
                         IV
                       </div>
                       <h4 className="font-serif text-base font-bold text-areia-100">
-                        Comércio Ético & Fair Share
+                        Valorização dos Guardiões
                       </h4>
                     </div>
                     <p className="text-xs text-areia-300 leading-relaxed font-light">
-                      Fomentamos uma cadeia de rateio justa e solidária que valoriza e remunera dignamente os guardiões da floresta e os artesãos tradicionais (Txais), atuando com transparência e sem lucro especulativo.
+                      Defendemos a valorização dos saberes e do trabalho dos guardiões da floresta e dos artesãos tradicionais (Txais), com transparência.
                     </p>
                   </div>
                   <span className="text-[10px] font-mono text-ambar-400/70 uppercase tracking-widest pt-2 border-t border-ambar-500/10">
-                    Economia Desmercantilizada
+                    Respeito ao Trabalho Tradicional
                   </span>
                 </div>
               </AnimateOnScroll>
@@ -410,7 +418,7 @@ export function ManifestoLanding() {
                       </h4>
                     </div>
                     <p className="text-xs text-areia-300 leading-relaxed font-light">
-                      Protegemos e respeitamos a floresta amazônica como a fonte primordial de toda vida e sabedoria. Toda a colheita botânica é 100% renovável e manual, preservando a mata nativa em pé, combatendo o desmatamento e salvaguardando ativamente os ninhos e habitats da fauna brasileira, em especial a <em className="text-areia-100">Ararajuba (Guaruba guarouba)</em>.
+                      Respeitamos a floresta amazônica como fonte de vida e sabedoria. Defendemos a colheita manual e renovável, a mata nativa em pé e o cuidado com os habitats da fauna brasileira, em especial a <em className="text-areia-100">Ararajuba (Guaruba guarouba)</em>.
                     </p>
                   </div>
                   <span className="text-[10px] font-mono text-ambar-400/70 uppercase tracking-widest pt-2 border-t border-ambar-500/10">
@@ -496,7 +504,7 @@ export function ManifestoLanding() {
                     Cuidado nas Cerimônias
                   </h4>
                   <p className="text-xs text-areia-400 leading-relaxed font-light">
-                    Literatura sobre triagem e protocolos de segurança aplicados pelas casas credenciadas.
+                    Literatura sobre triagem e protocolos de segurança nas cerimônias religiosas.
                   </p>
                 </div>
               </div>
@@ -540,12 +548,12 @@ export function ManifestoLanding() {
               Capítulo IV • Clareza de Princípios
             </span>
             <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
-              O Que a Nossa Partilha É
+              O Que Somos
               <br />
-              <span className="text-gradient-solar">E O Que Ela Não É</span>
+              <span className="text-gradient-solar">E O Que Não Somos</span>
             </h2>
             <p className="text-sm text-areia-400 font-light">
-              Diferenciamos com rigor absoluto a sacralidade litúrgica de qualquer exploração comercial descartável.
+              Separamos com clareza a vida religiosa de qualquer exploração comercial.
             </p>
           </AnimateOnScroll>
 
@@ -565,23 +573,23 @@ export function ManifestoLanding() {
                 <ul className="space-y-3 text-xs sm:text-sm text-areia-300 font-light">
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Sacramento sagrado de recolhimento, meditação e autocuidado íntimo.</span>
+                    <span>Projeto de cooperativa em constituição, ainda sem registro e sem CNPJ.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Feitio artesanal purista conduzido na floresta de Cruzeiro do Sul (Acre).</span>
+                    <span>Registro cultural do feitio artesanal conduzido na floresta de Cruzeiro do Sul (Acre).</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Rigor fitoquímico com estabilidade alcaloídica e ausência de adulterantes.</span>
+                    <span>Acervo aberto de estudos, documentos e alertas de segurança.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Apoio logístico exclusivo para templos e dirigentes com credenciamento litúrgico.</span>
+                    <span>Respeito à Resolução CONAD nº 1/2010 e às tradições religiosas da floresta.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <span>Economia solidária e rateio de custos sem margem de lucro mercantil.</span>
+                    <span>Compreensão do sacramento como prática religiosa de recolhimento e reza.</span>
                   </li>
                 </ul>
               </div>
@@ -600,19 +608,19 @@ export function ManifestoLanding() {
                 <ul className="space-y-3 text-xs sm:text-sm text-areia-300 font-light">
                   <li className="flex items-start gap-2.5">
                     <XCircle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
-                    <span>Nunca utilizamos o termo &ldquo;snuff&rdquo; ou jargões recreativos/americanos.</span>
+                    <span>Não vendemos, não recebemos pedidos e não fazemos envios.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <XCircle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
-                    <span>Não somos produto farmacêutico alopático nem fazemos promessas clínicas milagrosas.</span>
+                    <span>Não fazemos promessas clínicas nem indicamos uso terapêutico.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <XCircle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
-                    <span>Não vendemos garrafas ou doses em e-commerce aberto ou carrinho virtual de compras.</span>
+                    <span>Não usamos jargões recreativos para falar do rapé sagrado.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <XCircle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
-                    <span>Repudiamos o turismo psicodélico e o consumo fútil em festivais lúdicos.</span>
+                    <span>Repudiamos o turismo espiritual e o uso fora do contexto religioso.</span>
                   </li>
                   <li className="flex items-start gap-2.5">
                     <XCircle className="h-4 w-4 text-red-400 shrink-0 mt-0.5" />
@@ -642,7 +650,7 @@ export function ManifestoLanding() {
               <span className="text-gradient-solar">Cooperativa Nativaram</span>
             </h2>
             <p className="text-sm text-areia-300 font-light leading-relaxed">
-              Conheça as cinco frentes de atuação que compõem a praxeologia sacramental da cooperativa.
+              As tradições que o projeto estuda e registra.
             </p>
           </AnimateOnScroll>
 
@@ -678,36 +686,14 @@ export function ManifestoLanding() {
                     <span className="text-xs font-mono font-bold uppercase tracking-wider">Alquimia Botânica</span>
                   </div>
                   <h3 className="font-serif text-lg font-bold text-areia-100">
-                    Rapés Sagrados de Alta Precisão
+                    O Rapé na Tradição da Floresta
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Preparos à base de fumo de corda orgânico selvagem (<em>Nicotiana rustica</em>) homogeneizados com cinzas alcalinizantes de árvores nativas (Tsunu, Murici, Cumaru, Mulateiro) segundo o feitio tradicional. Contém nicotina natural do tabaco.
+                    Tabaco moído e unido a cinzas de cascas de árvores nativas, segundo os saberes de cada povo. Conteúdo cultural e etnobotânico. Não é oferta. O rapé contém tabaco e nicotina, que causam dependência. Proibido para menores de 18 anos.
                   </p>
                 </div>
                 <Link href="/sacramentos" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold pt-3 border-t border-ambar-500/15">
-                  <span>Explorar as 15 Essências</span>
-                  <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </AnimateOnScroll>
-
-            {/* 3. Sananga Tradicional */}
-            <AnimateOnScroll delay={300}>
-              <div className="card-elevated rounded-2xl p-6 space-y-4 h-full flex flex-col justify-between">
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2.5 text-ambar-400">
-                    <Eye className="h-5 w-5" />
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider">Acuidade Espiritual</span>
-                  </div>
-                  <h3 className="font-serif text-lg font-bold text-areia-100">
-                    Sananga Tradicional da Amazônia
-                  </h3>
-                  <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Extração aquosa pura das raízes de <em>Tabernaemontana sananho</em> e <em>T. undulata</em> colhidas na floresta virgem. Preparado tradicional aplicado nos olhos dentro do rito, sob orientação do dirigente da casa credenciada.
-                  </p>
-                </div>
-                <Link href="/estudos" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold pt-3 border-t border-ambar-500/15">
-                  <span>Ver Dossiê da Sananga</span>
+                  <span>Ver o Acervo Etnobotânico</span>
                   <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
@@ -725,18 +711,18 @@ export function ManifestoLanding() {
                     Instrumentos dos Povos da Terra
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Kuripes, Tepís, Maracás e Flautas esculpidos manualmente pelos artesãos e famílias indígenas tradicionais (os Txais). Partilha justa que apoia os territórios e materializa a cosmologia da floresta na liturgia.
+                    Kuripes, Tepís, Maracás e Flautas esculpidos à mão por artesãos e famílias indígenas tradicionais (os Txais). Artefatos que materializam a cosmologia da floresta na vida ritual.
                   </p>
                 </div>
                 <span className="text-[11px] font-mono text-ambar-400/80 pt-3 border-t border-ambar-500/15">
-                  Comércio Justo com Aldeias
+                  Arte dos Povos da Terra
                 </span>
               </div>
             </AnimateOnScroll>
 
             {/* 5. Arte Sonora 432Hz */}
             <AnimateOnScroll delay={500}>
-              <div className="card-elevated rounded-2xl p-6 space-y-4 h-full flex flex-col justify-between sm:col-span-2 lg:col-span-2">
+              <div className="card-elevated rounded-2xl p-6 space-y-4 h-full flex flex-col justify-between">
                 <div className="space-y-3">
                   <div className="flex items-center gap-2.5 text-ambar-400">
                     <Music className="h-5 w-5" />
@@ -750,7 +736,7 @@ export function ManifestoLanding() {
                   </p>
                 </div>
                 <span className="text-[11px] font-mono text-ambar-400/80 pt-3 border-t border-ambar-500/15">
-                  Munay Sounds • Harmonização Celular
+                  Munay Sounds • 432Hz
                 </span>
               </div>
             </AnimateOnScroll>
@@ -773,7 +759,7 @@ export function ManifestoLanding() {
                   <div className="relative h-[420px] sm:h-[480px] w-full">
                     <Image
                       src="/assets/manifesto/cruzeiro-do-sul-comunidade-acre.jpg"
-                      alt="Moradia tradicional ribeirinha junto à Samaúma no Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre (Foto: Vanda Viveiros de Castro / Wikimedia Commons CC BY-SA 4.0)"
+                      alt="Moradia ribeirinha junto a uma samaúma em Cruzeiro do Sul, Acre"
                       fill
                       className="object-cover object-center"
                       sizes="(max-width: 1024px) 100vw, 40vw"
@@ -782,11 +768,12 @@ export function ManifestoLanding() {
                   </div>
                   <div className="absolute bottom-0 inset-x-0 p-6 space-y-1 bg-gradient-to-t from-floresta-950 via-floresta-950/90 to-transparent">
                     <span className="text-[10px] font-mono text-ambar-400 uppercase tracking-widest">
-                      Cruzeiro do Sul • Serra do Divisor (Acre)
+                      Território
                     </span>
                     <p className="text-xs text-areia-200 font-serif italic">
-                      Vivência ribeirinha tradicional sob a Samaúma — foto real (Vanda Viveiros de Castro / CC BY-SA 4.0).
+                      Cruzeiro do Sul (AC). Imagem ilustrativa do território.
                     </p>
+                    <CreditoFoto arquivo="/assets/manifesto/cruzeiro-do-sul-comunidade-acre.jpg" className="block" />
                   </div>
                 </div>
               </div>
@@ -795,7 +782,7 @@ export function ManifestoLanding() {
               <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
                 <div className="space-y-2">
                   <span className="text-[11px] font-bold text-ambar-400 uppercase tracking-[0.25em] font-mono">
-                    Capítulo VI • Praxeologia Social
+                    Capítulo VI • Intenção Socioambiental
                   </span>
                   <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
                     Projetos de Luz &
@@ -806,10 +793,10 @@ export function ManifestoLanding() {
 
                 <div className="space-y-4 text-sm text-areia-300 leading-relaxed font-light">
                   <p>
-                    A Cooperativa Nativaram destina as sobras do rateio, por deliberação de assembleia, ao Fundo Social (FATES), nos termos da Lei 5.764/71, e as converte em suporte humano direto através dos <strong className="text-areia-100 font-semibold">&ldquo;Projetos de Luz&rdquo;</strong>. Nossas ações incluem a regeneração da agrofloresta no Acre, o apoio às comunidades da floresta e a partilha solidária de sacramentos com casas pequenas e templos credenciados que não conseguiriam arcar sozinhos com o rateio logístico.
+                    Os <strong className="text-areia-100 font-semibold">&ldquo;Projetos de Luz&rdquo;</strong> são a intenção socioambiental do projeto: a regeneração de uma agrofloresta no Acre, o cuidado com a fauna nativa e o apoio às comunidades da floresta.
                   </p>
                   <p>
-                    Toda partilha segue o mesmo credenciamento exigido dos demais templos: os sacramentos chegam apenas a instituições religiosas homologadas, para uso exclusivo em seus ritos, nunca fora do contexto litúrgico.
+                    São intenções em planejamento. O projeto ainda está em constituição e não tem recursos próprios nem resultados a relatar.
                   </p>
                 </div>
 
@@ -819,7 +806,7 @@ export function ManifestoLanding() {
                       Ecovila Comunitária no Acre
                     </h4>
                     <p className="text-xs text-areia-400 font-light leading-relaxed">
-                      Centro físico em implantação para intercâmbio intercultural, resgate de saberes tradicionais e agricultura regenerativa.
+                      Intenção de um espaço para intercâmbio intercultural, resgate de saberes tradicionais e agricultura regenerativa.
                     </p>
                   </div>
 
@@ -828,7 +815,7 @@ export function ManifestoLanding() {
                       Preservação da Ararajuba
                     </h4>
                     <p className="text-xs text-areia-400 font-light leading-relaxed">
-                      Manejo que mantém as copas e árvores nativas em pé, protegendo ativamente os ninhos e habitats da <em>Guaruba guarouba</em>.
+                      Intenção de um manejo que mantenha as copas e árvores nativas em pé, cuidando dos ninhos e habitats da <em>Guaruba guarouba</em>.
                     </p>
                   </div>
                 </div>
@@ -863,7 +850,7 @@ export function ManifestoLanding() {
               <span className="text-gradient-solar">Compliance Institucional</span>
             </h2>
             <p className="text-sm text-areia-300 font-light leading-relaxed">
-              A sustentação jurídica que protege a sacralidade, os dirigentes e os cooperados no âmbito da Constituição Federal e dos órgãos reguladores.
+              As normas que orientam o uso religioso e o modo como o projeto se comunica.
             </p>
           </AnimateOnScroll>
 
@@ -880,10 +867,10 @@ export function ManifestoLanding() {
                     Art. 5º, VI e VIII da CF/88
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Inviolabilidade da liberdade de consciência e de crença, assegurando o livre exercício dos cultos religiosos e garantindo a proteção estatal aos locais de celebração e às suas liturgias sacramentais.
+                    Inviolabilidade da liberdade de consciência e de crença, com o livre exercício dos cultos religiosos e a proteção, na forma da lei, aos locais de culto e às suas liturgias.
                   </p>
                 </div>
-                <span className="text-[10px] font-mono text-areia-400">Garantia Fundamental Plena</span>
+                <span className="text-[10px] font-mono text-areia-400">Direito Fundamental</span>
               </div>
             </AnimateOnScroll>
 
@@ -899,10 +886,17 @@ export function ManifestoLanding() {
                     Deontologia Religiosa Nacional
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    Código de ética do Conselho Nacional de Políticas sobre Drogas. Veda expressamente a comercialização com fins lucrativos, a propaganda midiática e o turismo espiritual, legitimando o uso exclusivamente litúrgico.
+                    Resolução do Conselho Nacional de Políticas sobre Drogas que trata do uso religioso da ayahuasca e reúne princípios deontológicos, entre eles a vedação ao comércio e à propaganda.
                   </p>
                 </div>
-                <span className="text-[10px] font-mono text-areia-400">Resolução Histórica de 2010</span>
+                <a
+                  href={CONAD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-mono text-ambar-400 underline underline-offset-2 hover:text-ambar-300"
+                >
+                  Texto oficial da Resolução
+                </a>
               </div>
             </AnimateOnScroll>
 
@@ -918,7 +912,7 @@ export function ManifestoLanding() {
                     Conformidade Digital Absoluta
                   </h3>
                   <p className="text-xs text-areia-300 font-light leading-relaxed">
-                    A Nativaram não anuncia nem partilha sacramentos pela internet e não oferece microdoses nem derivados comerciais. A partilha ocorre apenas por credenciamento institucional restrito.
+                    Este site é institucional. Não vendemos, não recebemos pedidos e não fazemos envios. Não há valores nem formulários de pedido.
                   </p>
                 </div>
                 <span className="text-[10px] font-mono text-areia-400">Estatuto e Manual de Compliance</span>
@@ -931,11 +925,11 @@ export function ManifestoLanding() {
             <div className="flex items-center gap-3">
               <Info className="h-5 w-5 text-ambar-400" />
               <h4 className="font-serif text-base sm:text-lg font-bold text-areia-100">
-                Triagem de Segurança nas Casas Credenciadas
+                Triagem de Segurança nas Casas Religiosas
               </h4>
             </div>
             <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-              Quem usa medicamentos de uso contínuo deve informar o dirigente e passar por triagem antes de qualquer cerimônia; a casa credenciada tem protocolo de segurança próprio.
+              Quem usa medicamentos de uso contínuo deve informar o dirigente e passar por triagem antes de qualquer cerimônia; cada casa religiosa tem protocolo de segurança próprio.
             </p>
             <div className="pt-2">
               <Link href="/compliance" className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:underline font-mono">
@@ -1004,10 +998,10 @@ export function ManifestoLanding() {
               <div className="space-y-1.5">
                 <span className="text-xs font-mono font-bold text-ambar-400">2018 — 2022</span>
                 <h4 className="font-serif text-base font-bold text-areia-100">
-                  Formalização Cooperativa & Projetos Agroflorestais
+                  Ideia Cooperativa & Intenção Agroflorestal
                 </h4>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Institucionalização da Cooperativa Nativaram e início da estruturação da Ecovila e manejo regenerativo em Cruzeiro do Sul (Acre).
+                  Surgem a ideia da Cooperativa Nativaram e a intenção de uma ecovila e de um manejo regenerativo em Cruzeiro do Sul (Acre). O projeto segue em constituição, ainda sem registro e sem CNPJ.
                 </p>
               </div>
             </div>
@@ -1018,10 +1012,10 @@ export function ManifestoLanding() {
               <div className="space-y-1.5">
                 <span className="text-xs font-mono font-bold text-ambar-400">2025</span>
                 <h4 className="font-serif text-base font-bold text-areia-100">
-                  Homologação do Manual de Compliance
+                  Manual de Compliance
                 </h4>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Homologação unificada do Manual de Compliance, blindagem contra o comércio online irregular e formalização dos protocolos de triagem e segurança das casas credenciadas.
+                  Redação do Manual de Compliance, com regras contra o comércio online irregular e protocolos de triagem e segurança para as cerimônias.
                 </p>
               </div>
             </div>
@@ -1032,10 +1026,10 @@ export function ManifestoLanding() {
               <div className="space-y-1.5">
                 <span className="text-xs font-mono font-bold text-ambar-300">2026</span>
                 <h4 className="font-serif text-base font-bold text-areia-100">
-                  Portal de Credenciamento & Acervo Etnocientífico Aberto
+                  Portal Institucional & Acervo Aberto
                 </h4>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  Lançamento do portal institucional integrado com acervo documental aberto (laudos, guias e comentários regulatórios), triagem digital segura e suporte contínuo a templos e grupos pelo Brasil.
+                  Lançamento do portal institucional, com acervo documental aberto (guias, alertas de segurança e comentários regulatórios).
                 </p>
               </div>
             </div>
@@ -1060,7 +1054,7 @@ export function ManifestoLanding() {
               <span className="text-gradient-solar">Sobre a Nativaram</span>
             </h2>
             <p className="text-sm text-areia-400 font-light">
-              Respostas claras e transparentes sobre nossa doutrina, governança e partilha.
+              Respostas claras sobre a doutrina, a identidade e os limites do projeto.
             </p>
           </AnimateOnScroll>
 
@@ -1071,7 +1065,7 @@ export function ManifestoLanding() {
       <SectionDivider variant="floresta" />
 
       {/* ═══════════════════════════════════════════
-          CAPÍTULO X: CTA FINAL & CREDENCIAMENTO LITÚRGICO
+          CAPÍTULO X: CTA FINAL & ENTIDADES RELIGIOSAS
           ═══════════════════════════════════════════ */}
       <section className="py-section-lg lg:py-section-xl bg-floresta-900/80 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-ambar-500/[0.08] rounded-full blur-[130px] pointer-events-none" />
@@ -1080,24 +1074,24 @@ export function ManifestoLanding() {
           <AnimateOnScroll>
             <div className="space-y-4">
               <span className="text-[11px] font-bold text-ambar-400 uppercase tracking-[0.25em] font-mono">
-                A Aliança Litúrgica
+                Entidades Religiosas
               </span>
               <h2 className="font-serif text-display-sm sm:text-display-md lg:text-display-lg font-bold text-areia-100">
-                Integre Seu Templo à Nossa
+                Diálogo com
                 <br />
-                <span className="text-gradient-solar">Corrente de Luz</span>
+                <span className="text-gradient-solar">Entidades Religiosas</span>
               </h2>
               <p className="text-sm sm:text-base text-areia-300 font-light max-w-2xl mx-auto leading-relaxed">
-                Se você é dirigente de uma instituição espiritual constituída e busca sacramentos com pureza fitoquímica comprovada, rastreabilidade e segurança jurídica, solicite o credenciamento de seu templo junto à Cooperativa Nativaram.
+                Entidades religiosas constituídas podem falar com a coordenação do projeto pelo e-mail ou WhatsApp institucional. Não coletamos dados pelo site.
               </p>
             </div>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={200}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/credenciamento" className="btn-primary w-full sm:w-auto">
+              <Link href="/entidades-religiosas" className="btn-primary w-full sm:w-auto">
                 <Sparkles className="h-4 w-4" />
-                <span>Solicitar Credenciamento Litúrgico</span>
+                <span>Orientações para Entidades Religiosas</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/estudos" className="btn-secondary w-full sm:w-auto">
@@ -1109,7 +1103,7 @@ export function ManifestoLanding() {
 
           {/* Aviso Mandatório de Segurança Integrativa (+18) */}
           <div className="pt-8 border-t border-ambar-500/15 max-w-3xl mx-auto text-[11px] text-areia-400/70 leading-relaxed font-light">
-            <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong> Nossos sacramentos e práticas etnobotânicas são de uso estritamente cerimonial, litúrgico e religioso tradicional, nos termos do Art. 5º da CF/88 e da Resolução CONAD nº 01/2010. A Cooperativa Nativaram não realiza consultas médicas, diagnósticos psiquiátricos ou promessas de cura clínica, nem comercializa substâncias em canais abertos da internet. O acesso é exclusivo a maiores de 18 anos devidamente associados e templos credenciados.
+            <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong> O conteúdo desta página é institucional e cultural, destinado a maiores de 18 anos. O uso religioso da ayahuasca é tratado pela Resolução CONAD nº 1/2010. A Cooperativa Nativaram não realiza consultas médicas nem diagnósticos, não faz promessas clínicas e não vende, não recebe pedidos e não faz envios.
           </div>
         </div>
       </section>

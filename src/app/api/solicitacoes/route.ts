@@ -12,6 +12,14 @@ import { RegistrarSolicitacaoSchema } from "@/lib/validators/solicitacao";
 
 export async function GET(request: NextRequest) {
   try {
+    // ADR-016: a lista de cadastros é só do Conselho (dados pessoais; LGPD).
+    if (!verifyAdminRequest(request)) {
+      return NextResponse.json(
+        { sucesso: false, erro: "Acesso restrito ao Conselho." },
+        { status: 401 }
+      );
+    }
+
     const { searchParams } = new URL(request.url);
     const status = searchParams.get("status");
     const tipo = searchParams.get("tipo");
@@ -84,6 +92,14 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // ADR-016: o site não recebe cadastros. Só o Conselho corrige dados existentes.
+    if (!verifyAdminRequest(request)) {
+      return NextResponse.json(
+        { sucesso: false, erro: "Este site não recebe cadastros. Veja /entidades-religiosas." },
+        { status: 410 }
+      );
+    }
+
     const body = await request.json();
     const parseResult = RegistrarSolicitacaoSchema.safeParse(body);
 
@@ -99,21 +115,17 @@ export async function POST(request: NextRequest) {
     }
 
     const dados = parseResult.data;
-    const isAdmin = verifyAdminRequest(request);
     const idProtocolo =
       dados.id?.toUpperCase() ||
       `NAT-${new Date().getFullYear()}-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
 
-    // Formulários públicos só criam: nunca sobrescrevem um cadastro existente
-    // (o protocolo é escolhido no navegador). Só o Conselho edita registros.
-    if (!isAdmin) {
-      const existentes = await obterTodasSolicitacoes();
-      if (existentes.some((s) => s.id.toUpperCase() === idProtocolo)) {
-        return NextResponse.json(
-          { sucesso: false, erro: "Protocolo já registrado. Gere um novo envio." },
-          { status: 409 }
-        );
-      }
+    // Só edição de cadastros existentes: não se criam registros novos.
+    const existentes = await obterTodasSolicitacoes();
+    if (!existentes.some((s) => s.id.toUpperCase() === idProtocolo)) {
+      return NextResponse.json(
+        { sucesso: false, erro: "Cadastro não encontrado. Não há registro de cadastros novos." },
+        { status: 404 }
+      );
     }
 
     const registro = await registrarSolicitacao({

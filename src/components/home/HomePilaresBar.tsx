@@ -1,5 +1,5 @@
 import React from "react";
-import { MapPin, Sun, Plane, Scale } from "lucide-react";
+import { MapPin, Sun, HeartPulse, Scale } from "lucide-react";
 
 const pilares = [
   {
@@ -13,14 +13,14 @@ const pilares = [
     desc: "Equilíbrio, harmonia e alta vibração",
   },
   {
-    icon: Plane,
-    title: "Envio Aéreo Gollog",
-    desc: "Despacho expresso e pureza preservada",
+    icon: HeartPulse,
+    title: "Segurança & Triagem",
+    desc: "Alertas de redução de danos abertos",
   },
   {
     icon: Scale,
-    title: "Blindagem CONAD 01/2010",
-    desc: "Rigor litúrgico e sem fins lucrativos",
+    title: "Resolução CONAD nº 1/2010",
+    desc: "Uso religioso, sem comércio",
   },
 ];
 

@@ -34,12 +34,13 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    // ADR-016: só o Conselho anexa referências (curadoria antes de publicar).
     const titular = resolverTitularDaRequisicao(request);
-    if (!titular) {
+    if (!titular?.isAdmin) {
       return NextResponse.json(
         {
           sucesso: false,
-          erro: "Entre no Portal do Dirigente para anexar pesquisas ao acervo do observatório.",
+          erro: "Somente o Conselho pode anexar referências ao observatório.",
         },
         { status: 401 }
       );

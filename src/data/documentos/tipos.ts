@@ -57,7 +57,6 @@ export type IconeDocumento =
   | "anamnese"
   | "termo"
   | "ata"
-  | "transito"
   | "menores"
   | "parecer"
   | "reconfirmacao"

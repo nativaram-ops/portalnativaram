@@ -84,7 +84,7 @@ export const JornadaNextStep: React.FC<JornadaNextStepProps> = ({
                   className="btn-secondary text-xs sm:text-sm px-5 py-3 text-areia-300 hover:text-areia-100"
                 >
                   <ShieldCheck className="h-4 w-4 text-ambar-400" />
-                  <span>Já é dirigente homologado? Acesse o Portal</span>
+                  <span>Recursos abertos: Central de Recursos</span>
                 </Link>
               )}
             </div>

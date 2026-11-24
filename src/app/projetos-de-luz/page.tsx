@@ -3,22 +3,20 @@ import type { Metadata } from "next";
 import { ProjetoDeLuzLanding } from "@/components/projetos-de-luz/ProjetoDeLuzLanding";
 
 export const metadata: Metadata = {
-  title:
-    "Projetos de Luz — Praxeologia Social, Agrofloresta & Refúgio de Fauna no Acre | Cooperativa Nativaram",
+  title: "Projetos de Luz — Intenção Socioambiental no Acre | Cooperativa Nativaram",
   description:
-    "Conheça a dimensão socioambiental do cooperativismo da Nativaram: destinação das sobras do rateio para reflorestamento do Vale do Juruá, proteção das Ararajubas e partilha solidária de sacramentos com templos credenciados de pequeno porte.",
+    "A intenção socioambiental da Cooperativa Nativaram, projeto de cooperativa em constituição: agrofloresta, cuidado com a fauna e apoio às comunidades da floresta no Vale do Juruá (Acre).",
   openGraph: {
-    title:
-      "Projetos de Luz — Regeneração da Floresta & Acolhimento Fraterno | Cooperativa Nativaram",
+    title: "Projetos de Luz — Intenção Socioambiental | Cooperativa Nativaram",
     description:
-      "A economia sagrada sem fins lucrativos: como o rateio dos templos financia a preservação da Amazônia e a caridade litúrgica sob a Lei 5.764/71.",
+      "Agrofloresta, fauna e comunidades da floresta no Vale do Juruá (Acre): intenções em planejamento de um projeto de cooperativa em constituição.",
     url: "https://nativaramcoop.eco.br/projetos-de-luz",
     images: [
       {
-        url: "/assets/projetos-de-luz/garrafas-ayahuasca-nativaram.jpg",
-        width: 1200,
-        height: 675,
-        alt: "Lote de garrafas de Ayahuasca produzidas artesanalmente pela Cooperativa Nativaram em Cruzeiro do Sul (Acre)",
+        url: "/assets/manifesto/cruzeiro-do-sul-rio-moa-acre.jpg",
+        width: 1440,
+        height: 1072,
+        alt: "Floresta e o Rio Moa no Parque Nacional da Serra do Divisor, Cruzeiro do Sul, Acre",
       },
     ],
   },

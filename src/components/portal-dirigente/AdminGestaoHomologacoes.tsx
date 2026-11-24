@@ -22,13 +22,11 @@ import {
   Edit3,
   X,
   FileText,
-  Truck,
   Trash2,
 } from "lucide-react";
 import { SolicitacaoAcesso } from "@/lib/db/homologacoes";
 import {
   gerarTermoHomologacaoHtml,
-  gerarGuiaTransitoHtml,
   imprimirDocumentoHtml,
 } from "@/lib/documentos-homologacao";
 import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
@@ -95,6 +93,9 @@ function mesclarSolicitacoesCliente(
     return 0;
   });
 }
+
+/** ADR-016: o cadastro litúrgico foi encerrado. O painel só consulta, corrige e exclui dados existentes. */
+const CADASTRO_ENCERRADO = true;
 
 export const AdminGestaoHomologacoes: React.FC = () => {
   const [solicitacoes, setSolicitacoes] = useState<SolicitacaoAcesso[]>([]);
@@ -432,19 +433,12 @@ export const AdminGestaoHomologacoes: React.FC = () => {
             <span>Homologações &amp; Acolhimento de Congregações</span>
           </h3>
           <p className="text-xs text-areia-400 font-light mt-1">
-            Apreciação de credenciamentos institucionais e grupos em desenvolvimento com geração imediata de credenciais de acesso.
+            Cadastros recebidos antes de 24/11/2026. Consulte, corrija ou exclua a pedido do titular (LGPD, art. 18). Não há geração de novos acessos.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <button
-            onClick={() => setMostrarFormManual((prev) => !prev)}
-            className="btn-primary text-xs px-3.5 py-2 inline-flex items-center gap-2 rounded-xl font-bold shadow-solar"
-            title="Cadastrar protocolo recebido via WhatsApp"
-          >
-            <PlusCircle className="h-3.5 w-3.5" />
-            <span>Cadastrar Protocolo (WhatsApp)</span>
-          </button>
+          {/* Cadastro encerrado (ADR-016): não há mais registro de protocolos novos. */}
 
           <button
             onClick={carregarSolicitacoes}
@@ -955,7 +949,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                       >
                         Salvar Dados
                       </button>
-                      {isPendente && (
+                      {!CADASTRO_ENCERRADO && isPendente && (
                         <button
                           type="button"
                           onClick={() => handleHomologar(sol.id, formEdicao)}
@@ -1060,7 +1054,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
 
                   {/* Botões de Ação */}
                   <div className="flex flex-wrap items-center gap-2.5 justify-end">
-                    {isPendente && (
+                    {!CADASTRO_ENCERRADO && isPendente && (
                       <button
                         onClick={() => handleHomologar(sol.id)}
                         disabled={homologandoId === sol.id}
@@ -1080,7 +1074,7 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                       </button>
                     )}
 
-                    {isHomologado && (
+                    {!CADASTRO_ENCERRADO && isHomologado && (
                       <>
                         <button
                           type="button"
@@ -1090,18 +1084,10 @@ export const AdminGestaoHomologacoes: React.FC = () => {
                           <FileText className="h-4 w-4" />
                           <span>Termo de Homologação</span>
                         </button>
-                        <button
-                          type="button"
-                          onClick={() => imprimirDocumentoHtml(gerarGuiaTransitoHtml(sol))}
-                          className="py-2.5 px-4 rounded-xl border border-ambar-500/40 bg-floresta-900 hover:bg-floresta-800 text-ambar-300 text-xs font-bold inline-flex items-center gap-2 transition-colors"
-                        >
-                          <Truck className="h-4 w-4" />
-                          <span>Guia de Trânsito</span>
-                        </button>
                       </>
                     )}
 
-                    {whatsappUrl && (
+                    {!CADASTRO_ENCERRADO && whatsappUrl && (
                       <a
                         href={whatsappUrl}
                         target="_blank"

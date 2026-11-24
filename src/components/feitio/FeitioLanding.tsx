@@ -59,28 +59,18 @@ const faqsFeitio: FaqItem[] = [
   {
     pergunta: "Como ocorrem as variações sazonais de cipó colhido no Acre?",
     resposta:
-      "A colheita na floresta amazônica respeita as estações de chuva e as cheias dos rios em Cruzeiro do Sul/AC. Embora o Cipó Tucunacá seja o padrão de excelência pelo alto teor de THH e teor residual mínimo de harmalina, a alta demanda litúrgica e os ciclos ecológicos nem sempre permitem a colheita ininterrupta desta única variedade. Nesses períodos sazonais, operamos com cipós botânicos estreitamente aparentados colhidos de forma 100% ética e sustentável. Cada lote é calibrado e analisado na proporção com a folha Rainha, garantindo a mesma nobreza de consagração com sutis nuances de força.",
+      "A colheita na floresta amazônica respeita as estações de chuva e as cheias dos rios em Cruzeiro do Sul/AC. Embora o Cipó Tucunacá seja o padrão de excelência pelo alto teor de THH e teor residual mínimo de harmalina, os ciclos ecológicos nem sempre permitem a colheita ininterrupta desta única variedade. Nesses períodos, o feitio usa cipós botânicos estreitamente aparentados, colhidos de forma manual e sustentável, sempre na proporção com a folha Rainha.",
   },
   {
-    pergunta: "Qual é a melhor forma de armazenar o sacramento após o recebimento?",
+    pergunta: "Este site oferece o sacramento do feitio?",
     resposta:
-      "O sacramento deve ser conservado em local fresco, arejado e protegido da luz solar direta. Para períodos superiores a 30 dias, recomenda-se mantê-lo sob refrigeração constante (entre 2°C e 6°C) para estabilizar a composição fitoquímica e prevenir processos naturais de fermentação acética. Ao abrir o recipiente para uma cerimônia, utilize utensílios limpos e secos.",
-  },
-  {
-    pergunta: "Como é calculado o rateio de custos do feitio?",
-    resposta:
-      "Sendo uma cooperativa sem fins lucrativos em estrita observância à Resolução CONAD nº 01/2010, o rateio cooperativo destina-se exclusivamente ao ressarcimento das despesas reais de produção: os dias de fogo e vigília na floresta do Acre, a remuneração digna da família do feitor caboclo, o manejo sustentável das plantas, as embalagens de grau alimentício estéril e a logística refrigerada/segura até o Sudeste e os templos cadastrados.",
-  },
-  {
-    pergunta: "Qual a diferença prática entre as graduações 3.1, 5.1, 7.1 e 10.1?",
-    resposta:
-      "A numeração tradicional reflete a quantidade de biomassa vegetal (quilos de cipó e folha) concentrada por litro de sacramento. A graduação 3.1 Mainumbi proporciona uma conexão suave e límpida, ideal para iniciantes e orações mansas; a 5.1 Pituã confere equilíbrio firme e harmonização estável; a 7.1 Anhangatã aprofunda os cantos, a reflexão e a ressignificação íntima; e a 10.1 Wirapuru (Semi-Mel) possui consistência densa e alta egrégora para mirações prolongadas e condução litúrgica avançada.",
+      "Não. Este site é institucional. Não vendemos, não recebemos pedidos e não fazemos envios. Não há valores nem formulários de pedido. A partilha do sacramento acontece apenas entre entidades religiosas legalmente constituídas, fora deste site, por termo entre as entidades, cobrindo somente o custeio de despesas comprovadas, sem margem, conforme os princípios da Resolução CONAD nº 1/2010.",
   },
 ];
 
 export function FeitioLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [activeFeitioVideo, setActiveFeitioVideo] = useState<"caldeirao" | "bateria" | "garrafa">("caldeirao");
+  const [activeFeitioVideo, setActiveFeitioVideo] = useState<"caldeirao" | "bateria">("caldeirao");
 
   const toggleFaq = (idx: number) => {
     setOpenFaq(openFaq === idx ? null : idx);
@@ -417,7 +407,7 @@ export function FeitioLanding() {
               </h3>
             </div>
             <p className="text-sm sm:text-base text-areia-300 font-light leading-relaxed">
-              A Cooperativa Nativaram não se coloca como uma nova igreja e não disputa dogmas religiosos com nenhuma escola. Nossa vocação é atuar como uma <strong className="text-areia-100 font-medium">Casa Guardiã de Retaguarda e Apoio Botânico</strong>: servindo templos no geral que necessitam desse apoio logístico e operacional, com sacramentos de pureza absoluta, sem misturas e sem desvios comerciais. Honramos a história de cada pajé e de cada mestre que abriu os caminhos para que essa luz sagrada chegasse até nós.
+              A Cooperativa Nativaram não se coloca como uma nova igreja e não disputa dogmas religiosos com nenhuma escola. O projeto, ainda em constituição, se vê como uma <strong className="text-areia-100 font-medium">Casa Guardiã da memória botânica</strong>: estuda, registra e respeita o feitio tradicional, sem misturas e sem desvios comerciais. Honramos a história de cada pajé e de cada mestre que abriu os caminhos para que essa luz sagrada chegasse até nós.
             </p>
           </div>
         </div>
@@ -646,31 +636,31 @@ export function FeitioLanding() {
 
             <div className="space-y-4 text-sm sm:text-base text-areia-200 leading-relaxed font-light">
               <p>
-                A <strong className="text-areia-100 font-semibold">Cooperativa Nativaram</strong> pauta todas as suas relações na mais alta transparência, verdade e respeito litúrgico perante seus associados, dirigentes e templos credenciados.
+                A <strong className="text-areia-100 font-semibold">Cooperativa Nativaram</strong> pauta todas as suas relações na mais alta transparência, verdade e respeito litúrgico perante as entidades religiosas, os dirigentes e o público.
               </p>
               <p>
-                Embora a variedade <strong className="text-ambar-300 font-semibold">Cipó Tucunacá</strong> (<em>Banisteriopsis caapi var. Tucunaca</em>) seja o nosso padrão áureo de feitio — em razão do seu perfil cromatográfico nobre, abundante em THH e com residual mínimo de harmalina —, é imperativo esclarecer que as dinâmicas naturais da floresta amazônica, os ciclos de chuvas nas cheias dos igarapés e a alta demanda litúrgica no Acre <strong className="text-areia-100 font-medium">nem sempre permitem a colheita exclusiva e ininterrupta desta única variedade botânica</strong>.
+                Embora a variedade <strong className="text-ambar-300 font-semibold">Cipó Tucunacá</strong> (<em>Banisteriopsis caapi var. Tucunaca</em>) seja o nosso padrão áureo de feitio — em razão do seu perfil cromatográfico nobre, abundante em THH e com residual mínimo de harmalina —, é importante esclarecer que as dinâmicas naturais da floresta amazônica e os ciclos de chuvas nas cheias dos igarapés no Acre <strong className="text-areia-100 font-medium">nem sempre permitem a colheita exclusiva e ininterrupta desta única variedade botânica</strong>.
               </p>
               <p>
-                Nesses períodos sazonais de manejo, operamos o feitio com <strong className="text-areia-100 font-medium">etnotáxons e cipós estreitamente aparentados à espécie</strong> (como variedades selecionadas de Caupuri suave e Ourinho silvestre), colhidos de forma 100% ética, manual e sustentável por extrativistas tradicionais cadastrados.
+                Nesses períodos sazonais de manejo, o feitio usa <strong className="text-areia-100 font-medium">etnotáxons e cipós estreitamente aparentados à espécie</strong> (como variedades selecionadas de Caupuri suave e Ourinho silvestre), colhidos de forma manual e sustentável por extrativistas tradicionais.
               </p>
               <p>
-                Cada lote é minuciosamente acompanhado e validado pela sabedoria do nosso experiente <strong className="text-areia-100 font-medium">mestre feitor caboclo</strong> e pela nossa rede de <strong className="text-areia-100 font-medium">centros de feitio credenciados no Acre</strong>. Calibramos cada cocção na proporção ideal de Jagube e folhas de Chacrona Rainha, assegurando uma experiência sacramental de altíssima pureza, firmeza e estabilidade aos templos associados.
+                Cada feitio é acompanhado pela sabedoria do experiente <strong className="text-areia-100 font-medium">mestre feitor caboclo</strong>, que conduz a cocção na proporção tradicional de Jagube e folhas de Chacrona Rainha.
               </p>
             </div>
 
             <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-ambar-400/90">
               <span className="inline-flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                Manejo Sustentável Certificado
+                Manejo Sustentável
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                Calibração Lote a Lote
+                Proporção Tradicional
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                Ausência Total de Adulterantes
+                Sem Plantas Aditivas
               </span>
             </div>
           </div>
@@ -859,7 +849,7 @@ export function FeitioLanding() {
                     <Check className="h-3.5 w-3.5" /> Binômio Tradicional Amazônico
                   </strong>
                   <p>
-                    Duas plantas, sempre as mesmas, em proporção acompanhada a cada lote. A composição é informada à casa credenciada, que aplica seu próprio protocolo de segurança.
+                    Duas plantas, sempre as mesmas, em proporção acompanhada a cada feitio. Cada casa religiosa aplica seu próprio protocolo de segurança.
                   </p>
                 </div>
                 <div className="rounded-xl border border-rose-500/30 bg-floresta-950/70 p-4 space-y-1.5">
@@ -867,7 +857,7 @@ export function FeitioLanding() {
                     <X className="h-3.5 w-3.5" /> Misturas Exóticas e Sais de Laboratório
                   </strong>
                   <p>
-                    Anahuascas e formulações de Pharmahuasca não têm histórico ritual nem composição previsível. A cooperativa não as prepara nem as partilha.
+                    Anahuascas e formulações de Pharmahuasca não têm histórico ritual nem composição previsível. O feitio tradicional não as utiliza.
                   </p>
                 </div>
               </div>
@@ -971,7 +961,7 @@ export function FeitioLanding() {
               <div className="rounded-xl border border-ambar-500/25 bg-floresta-950 p-5 text-xs sm:text-sm text-areia-300 leading-relaxed flex items-start gap-3.5">
                 <ShieldCheck className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <strong className="text-areia-100">Por que o Tucunacá e os cipós próximos?</strong> São as variedades que os feitores da cooperativa conhecem e que a tradição acreana consagra. A cooperativa não promete efeito ao corpo ou à mente: o sacramento é partilhado apenas para o rito, em casas credenciadas.
+                  <strong className="text-areia-100">Por que o Tucunacá e os cipós próximos?</strong> São as variedades que os feitores conhecem e que a tradição acreana consagra. Não prometemos efeito ao corpo ou à mente: o sacramento pertence ao rito religioso.
                 </div>
               </div>
             </div>
@@ -1125,30 +1115,6 @@ export function FeitioLanding() {
               </div>
             </AnimateOnScroll>
 
-            {/* Foto 6: O Sacramento Envasado */}
-            <AnimateOnScroll delay={600}>
-              <div className="card-elevated rounded-2xl overflow-hidden group h-full flex flex-col justify-between">
-                <div className="relative h-64 w-full overflow-hidden">
-                  <Image
-                    src="/assets/feitio/curadas/feitio-garrafa-tronco.jpg"
-                    alt="Frasco de Ayahuasca pura recém-feita erguido contra tronco de árvore na floresta do Acre"
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 1024px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-floresta-950 via-transparent to-transparent" />
-                  <span className="absolute top-3 left-3 rounded-full bg-floresta-900/90 border border-ambar-500/30 px-3 py-1 text-[10px] font-mono uppercase text-ambar-400">
-                    Padrão de Pureza
-                  </span>
-                </div>
-                <div className="p-5 space-y-1.5">
-                  <h4 className="font-serif text-base font-bold text-areia-100">O Sacramento Envasado</h4>
-                  <p className="text-xs text-areia-400 font-light leading-relaxed">
-                    Pureza inalterada, consistência densa e envasamento sob estrito controle sanitário e de temperatura.
-                  </p>
-                </div>
-              </div>
-            </AnimateOnScroll>
           </div>
 
           {/* Vídeo do Feitio */}
@@ -1171,15 +1137,6 @@ export function FeitioLanding() {
                 desc: "Visão panorâmica da bateria de caldeirões de aço inox em cozimento simultâneo, com colunas de vapor subindo sob a estrutura rústica de madeira na floresta do Acre.",
                 src: "/assets/feitio/curadas/feitio-video-caldeiroes-inox.mp4",
                 poster: "/assets/feitio/curadas/feitio-poster-caldeiroes-inox.jpg",
-              },
-              garrafa: {
-                id: "garrafa" as const,
-                title: "Inspeção e Padrão Visual do Sacramento Envasado",
-                tabLabel: "Inspeção do Sacramento",
-                badge: "Inspeção Visual • Pureza & Resfriamento",
-                desc: "Inspeção de cor rubi-âmbar, fluidez e densidade do sacramento recém-envasado, comprovando a eficácia da filtragem em menores micras sem depósito de borras ou sedimentos espessos.",
-                src: "/assets/feitio/curadas/feitio-video-garrafa-sacramento.mp4",
-                poster: "/assets/feitio/curadas/feitio-poster-garrafa-sacramento.jpg",
               },
             };
             const currentVideo = feitioVideos[activeFeitioVideo];
@@ -1261,77 +1218,30 @@ export function FeitioLanding() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 space-y-12">
           <AnimateOnScroll className="text-center max-w-3xl mx-auto space-y-3">
             <span className="text-[11px] font-bold text-ambar-400 uppercase tracking-[0.25em] font-mono">
-              Capítulo IX • Padronização Tradicional
+              Capítulo IX • A Força na Tradição
             </span>
             <h2 className="font-serif text-display-sm sm:text-display-md font-bold text-areia-100">
-              Sistema de Graduações & Forças Sagradas
+              A Força do Sacramento na Tradição
             </h2>
             <p className="text-sm text-areia-300 font-light">
-              Classificação fundamentada na quantidade de biomassa vegetal concentrada por litro e tempo ritualístico de condução.
+              Na tradição do feitio, a força da bebida muda com a proporção de cipó e folha e com o tempo de cozimento.
             </p>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={150}>
             <div className="card-elevated rounded-2xl p-6 sm:p-10 space-y-8">
-              <div className="overflow-x-auto rounded-xl border border-ambar-500/30 shadow-inner">
-                <table className="w-full text-left text-xs">
-                  <thead className="bg-floresta-900 text-ambar-400 border-b border-ambar-500/30">
-                    <tr>
-                      <th className="p-4 font-serif text-sm">Graduação Sagrada</th>
-                      <th className="p-4 font-serif text-sm">Porção Sugerida</th>
-                      <th className="p-4 font-serif text-sm">Duração Rito</th>
-                      <th className="p-4 font-serif text-sm">Propósito Litúrgico & Miração</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-ambar-500/10 text-areia-300">
-                    <tr className="bg-floresta-950/70 hover:bg-floresta-900/40 transition-colors">
-                      <td className="p-4 font-semibold text-areia-100">
-                        <div>3.1 Mainumbi <span className="text-areia-400 font-normal italic">(Beija-flor)</span></div>
-                        <span className="text-[10px] text-ambar-400/80 font-normal">Voo leve, acolhedor e sutil</span>
-                      </td>
-                      <td className="p-4 font-mono text-areia-200">90 a 120 ml</td>
-                      <td className="p-4">2 a 3 horas</td>
-                      <td className="p-4">Ideal para orações mansas, acolhimento de novos buscadores e harmonização sensorial suave.</td>
-                    </tr>
-                    <tr className="bg-floresta-900/40 hover:bg-floresta-900/60 transition-colors">
-                      <td className="p-4 font-semibold text-areia-100">
-                        <div>5.1 Pituã <span className="text-areia-400 font-normal italic">(Bem-te-vi)</span></div>
-                        <span className="text-[10px] text-ambar-400/80 font-normal">Equilíbrio estável e firmeza</span>
-                      </td>
-                      <td className="p-4 font-mono text-areia-200">70 a 100 ml</td>
-                      <td className="p-4">3 horas</td>
-                      <td className="p-4">Centramento e alinhamento da corrente em trabalhos regulares.</td>
-                    </tr>
-                    <tr className="bg-floresta-950/70 hover:bg-floresta-900/40 transition-colors">
-                      <td className="p-4 font-semibold text-areia-100">
-                        <div>7.1 Anhangatã <span className="text-areia-400 font-normal italic">(Rouxinol)</span></div>
-                        <span className="text-[10px] text-ambar-400/80 font-normal">Canto profundo e imersão</span>
-                      </td>
-                      <td className="p-4 font-mono text-areia-200">50 a 90 ml</td>
-                      <td className="p-4">3 a 4 horas</td>
-                      <td className="p-4">Indicado para ritos de autocuidado íntimo, firmeza de canto, ressignificação de histórias e meditação profunda.</td>
-                    </tr>
-                    <tr className="bg-floresta-900/40 hover:bg-floresta-900/60 transition-colors">
-                      <td className="p-4 font-semibold text-areia-100">
-                        <div>10.1 Wirapuru <span className="text-areia-400 font-normal italic">(Semi-Mel)</span></div>
-                        <span className="text-[10px] text-amber-400 font-normal">Força vibrante de alta egrégora</span>
-                      </td>
-                      <td className="p-4 font-mono text-amber-300 font-bold">30 a 50 ml</td>
-                      <td className="p-4 font-medium text-amber-300">4 a 5 horas</td>
-                      <td className="p-4">Concentração densa com consistência untuosa; miração de longo alcance para dirigentes e alta egrégora espiritual.</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="space-y-4 text-sm text-areia-300 font-light leading-relaxed">
+                <p>
+                  Cada casa religiosa conhece o seu sacramento e decide, dentro da sua doutrina, como conduz os trabalhos. Este site não apresenta graduações, porções nem ofertas.
+                </p>
               </div>
-
-              {/* Princípio de Economia Solidária e Rateio de Custos */}
               <div className="card-editorial bg-floresta-950 p-6 rounded-xl border border-ambar-500/20 space-y-3">
                 <div className="flex items-center gap-2 text-xs font-mono font-bold text-ambar-400 uppercase">
                   <Scale className="h-4 w-4" />
-                  <span>Vedação Mercantil & Rateio Cooperativo</span>
+                  <span>O Que Não Fazemos</span>
                 </div>
                 <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-                  A Cooperativa Nativaram opera estritamente sem fins lucrativos. As contribuições solidárias para ressarcimento de despesas são exclusivas a templos previamente homologados e cobrem o sustento dos extrativistas locais, a manutenção dos tachos de feitio e o frete logístico especializado de Cruzeiro do Sul/AC até o centro de partilha. Não existe precificação por dose ou comércio aberto ao público.
+                  Este site é institucional. Não vendemos, não recebemos pedidos e não fazemos envios. Não há valores nem formulários de pedido.
                 </p>
               </div>
             </div>
@@ -1356,7 +1266,7 @@ export function FeitioLanding() {
               <span className="text-gradient-solar">Sobre o Feitio da Ayahuasca</span>
             </h2>
             <p className="text-sm text-areia-400 font-light">
-              Respostas completas para dirigentes de templos e sacerdotes credenciados.
+              Respostas sobre a tradição do feitio e os limites deste site.
             </p>
           </AnimateOnScroll>
 
@@ -1394,7 +1304,7 @@ export function FeitioLanding() {
       <SectionDivider variant="solar" />
 
       {/* ═══════════════════════════════════════════
-          CAPÍTULO IX: CTA FINAL & CREDENCIAMENTO DO TEMPLO
+          CAPÍTULO XI: CTA FINAL & ENTIDADES RELIGIOSAS
           ═══════════════════════════════════════════ */}
       <section className="py-section-lg lg:py-section-xl bg-floresta-950 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-ambar-500/[0.08] rounded-full blur-[130px] pointer-events-none" />
@@ -1406,31 +1316,31 @@ export function FeitioLanding() {
                 Aliança com os Guardiões
               </span>
               <h2 className="font-serif text-display-sm sm:text-display-md lg:text-display-lg font-bold text-areia-100">
-                Consagre a Força da Floresta no Seu Templo
+                Diálogo com Entidades Religiosas
               </h2>
               <p className="text-sm sm:text-base text-areia-300 font-light max-w-2xl mx-auto leading-relaxed">
-                Dirigentes e centros espirituais que buscam segurança fitoquímica, rastreabilidade e respeito irrestrito às normas deontológicas do CONAD podem solicitar o credenciamento litúrgico institucional junto à Cooperativa Nativaram.
+                Entidades religiosas constituídas podem falar com a coordenação do projeto pelo e-mail ou WhatsApp institucional. Não coletamos dados pelo site.
               </p>
             </div>
           </AnimateOnScroll>
 
           <AnimateOnScroll delay={200}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/credenciamento" className="btn-primary w-full sm:w-auto">
+              <Link href="/entidades-religiosas" className="btn-primary w-full sm:w-auto">
                 <Sparkles className="h-4 w-4" />
-                <span>Solicitar Credenciamento Litúrgico</span>
+                <span>Orientações para Entidades Religiosas</span>
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <Link href="/estudos" className="btn-secondary w-full sm:w-auto">
                 <FlaskConical className="h-4 w-4 text-ambar-400" />
-                <span>Ver Dossiês Fitoquímicos em PDF</span>
+                <span>Ver Estudos e Documentos</span>
               </Link>
             </div>
           </AnimateOnScroll>
 
           {/* Aviso Mandatório de Segurança Integrativa (+18) */}
           <div className="pt-8 border-t border-ambar-500/15 max-w-3xl mx-auto text-[11px] text-areia-400/70 leading-relaxed font-light">
-            <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong> O sacramento da Ayahuasca destina-se exclusivamente à comunhão litúrgica e cerimonial em templos devidamente autorizados, respaldado pelo Artigo 5º da Constituição Federal de 1988 e pelas diretrizes da Resolução CONAD nº 01/2010. É terminantemente proibido o comércio profano, a remessa não homologada e a consagração em ambientes recreativos. A Cooperativa Nativaram não realiza consultas médicas ou promessas de cura, atuando em estrita observância à deontologia espiritual.
+            <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong> Conteúdo cultural e documental, destinado a maiores de 18 anos. O uso religioso da ayahuasca é tratado pela Resolução CONAD nº 1/2010, que veda o comércio e o uso fora do contexto religioso. A Cooperativa Nativaram não realiza consultas médicas nem faz promessas clínicas. Este site não vende, não recebe pedidos e não faz envios.
           </div>
         </div>
       </section>

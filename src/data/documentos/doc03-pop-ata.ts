@@ -54,7 +54,7 @@ export const docPopAta: DocumentoModelo = {
               tipo: "checklist",
               itens: [
                 "Aviso das regras do salão (permanência, silêncio, celulares desligados, acompanhamento aos banheiros).",
-                "Porção conservadora para iniciantes (metade da porção padrão, priorizando graduações suaves).",
+                "Porção conservadora para iniciantes, definida com prudência pela direção espiritual da entidade.",
                 "Repasse apenas após avaliação visual de lucidez.",
                 "Registro nominal no mapa de comunhão.",
               ],
@@ -107,7 +107,7 @@ export const docPopAta: DocumentoModelo = {
             "Horário de início | Horário de término",
             "Nº total de comungantes (homens / mulheres / menores autorizados)",
             "Nº de participantes de primeira vez",
-            "Graduação utilizada | Lote",
+            "Origem do sacramento",
             "Volume consagrado (litros)",
           ],
         },

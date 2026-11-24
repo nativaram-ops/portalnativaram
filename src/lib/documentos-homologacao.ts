@@ -73,33 +73,6 @@ export function gerarTermoHomologacaoHtml(sol: SolicitacaoAcesso): string {
   return moldura(`Termo de Homologação ${sol.id}`, corpo);
 }
 
-export function gerarGuiaTransitoHtml(sol: SolicitacaoAcesso): string {
-  const corpo = `
-    <h1>Guia de Trânsito Cooperativo</h1>
-    <div class="sub">Cooperativa Nativaram • Protocolo ${esc(sol.id)}</div>
-    <h2>Origem e Destino</h2>
-    <table>
-      ${linha("Origem", "Cooperativa Nativaram — Cruzeiro do Sul / AC")}
-      ${linha("Destino (templo credenciado)", sol.nomeEntidade)}
-      ${linha("CNPJ do destino", sol.cnpj)}
-      ${linha("Dirigente receptor", sol.nomeResponsavel)}
-      ${linha("Cidade / UF de destino", `${sol.cidade} / ${sol.estado}`)}
-    </table>
-    <h2>Carga Sacramental</h2>
-    <table>
-      ${linha("Graduação", sol.graduacao)}
-      ${linha("Quantidade partilhada", sol.volumeEstimado)}
-      ${linha("Acondicionamento", "Garrafas PET 100% virgens de padrão alimentício, com lacres invioláveis")}
-      ${linha("Conservação", "Transporte refrigerado")}
-      ${linha("Data de emissão", dataHoje())}
-    </table>
-    <h2>Declaração</h2>
-    <p>Declara-se que o material descrito destina-se exclusivamente a uso religioso por entidade credenciada, conforme a Resolução CONAD nº 01/2010, sem finalidade comercial. Este documento acompanha o despacho como apoio à identificação da carga e não substitui outras exigências do transportador.</p>
-    <div class="assin"><div>Responsável pelo despacho<br>Cooperativa Nativaram</div><div>Recebimento no templo<br>${esc(sol.nomeResponsavel)}</div></div>`;
-  return moldura(`Guia de Trânsito ${sol.id}`, corpo);
-}
-
-/** Abre o documento em nova janela e dispara a impressão (Salvar como PDF). */
 export function imprimirDocumentoHtml(html: string): void {
   if (typeof window === "undefined") return;
   const janela = window.open("", "_blank", "noopener=no,width=900,height=1000");

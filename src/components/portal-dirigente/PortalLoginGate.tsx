@@ -19,10 +19,17 @@ import { isSupabaseConfigured, getSupabaseBrowserClient } from "@/lib/supabase/c
 
 interface PortalLoginGateProps {
   onAuthenticated: (role: "DIRIGENTE" | "ADMIN", codigoAcesso: string) => void;
+  /** Só o login do Conselho (ADR-016: não há mais acesso de templos). */
+  apenasConselho?: boolean;
 }
 
-export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticated }) => {
-  const [modoLogin, setModoLogin] = useState<"DIRIGENTE" | "ADMIN">("DIRIGENTE");
+export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({
+  onAuthenticated,
+  apenasConselho = false,
+}) => {
+  const [modoLogin, setModoLogin] = useState<"DIRIGENTE" | "ADMIN">(
+    apenasConselho ? "ADMIN" : "DIRIGENTE"
+  );
   const [metodoAutenticacao, setMetodoAutenticacao] = useState<"CHAVE" | "SUPABASE">("CHAVE");
   
   // Campos de Chave Litúrgica
@@ -336,6 +343,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         </div>
 
         {/* Alternador de Modo de Perfil (Dirigente x ADM) */}
+        {!apenasConselho && (
         <div className="grid grid-cols-2 p-1 rounded-xl bg-floresta-900/90 border border-ambar-500/20 text-xs font-semibold">
           <button
             type="button"
@@ -372,6 +380,7 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
             <span>Administração (ADM)</span>
           </button>
         </div>
+        )}
 
         {/* Alternador de Método de Acesso */}
         <div className="flex items-center justify-center gap-4 text-xs pt-1 border-b border-ambar-500/15 pb-3">
@@ -533,13 +542,13 @@ export const PortalLoginGate: React.FC<PortalLoginGateProps> = ({ onAuthenticate
         {/* Rodapé Seguro */}
         <div className="text-center pt-3 border-t border-ambar-500/15 space-y-2">
           <p className="text-[11px] text-areia-400 font-light">
-            Sua congregação ainda não possui código de homologação?
+            Os recursos são abertos a todos, sem login. O acesso aqui é só do Conselho.
           </p>
           <Link
-            href="/credenciamento"
+            href="/entidades-religiosas"
             className="inline-flex items-center gap-1.5 text-xs text-ambar-400 hover:text-ambar-300 font-semibold transition-colors"
           >
-            <span>Submeter Congregação para Credenciamento Institucional</span>
+            <span>Ver orientações para Entidades Religiosas</span>
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>

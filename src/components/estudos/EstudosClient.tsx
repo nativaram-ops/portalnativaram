@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
-import Link from "next/link";
 import {
   FileText,
   Download,
@@ -22,15 +21,11 @@ import {
   Layers,
   HelpCircle,
   FileCheck,
-  Share2,
 } from "lucide-react";
 import dynamic from "next/dynamic";
 import { estudosData, EstudoItem } from "@/data/estudos";
 import { useDialogoAcessivel } from "@/hooks/useDialogoAcessivel";
 
-const ComunidadeBlogMural = dynamic(() =>
-  import("./ComunidadeBlogMural").then((m) => m.ComunidadeBlogMural)
-);
 const ObservatorioAcademico = dynamic(() =>
   import("./ObservatorioAcademico").then((m) => m.ObservatorioAcademico)
 );
@@ -54,9 +49,7 @@ const nomeDoDocumento = (caminho: string) =>
   (caminho.split("/").pop() || "Documento da biblioteca");
 
 export function EstudosClient() {
-  const [visaoAtiva, setVisaoAtiva] = useState<"COMUNIDADE" | "OBSERVATORIO" | "DOSSIES">(
-    "COMUNIDADE"
-  );
+  const [visaoAtiva, setVisaoAtiva] = useState<"OBSERVATORIO" | "DOSSIES">("DOSSIES");
   const [selectedCategory, setSelectedCategory] = useState<string>("todos");
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [activePdfModal, setActivePdfModal] = useState<string | null>(null);
@@ -74,23 +67,23 @@ export function EstudosClient() {
   const [savedNotebooks, setSavedNotebooks] = useState<string[]>([]);
   const [erroCaderno, setErroCaderno] = useState<string>("");
 
-  // Leitura do hash na URL (#observatorio, #acervo, #mural) e do localStorage no navegador.
+  // Leitura do hash na URL (#observatorio, #acervo) e do localStorage no navegador.
+  // Links antigos para #mural ou #comunidade caem na biblioteca.
   useEffect(() => {
     const aplicarHash = () => {
       const h = window.location.hash.toLowerCase();
       if (h === "#observatorio") setVisaoAtiva("OBSERVATORIO");
-      else if (h === "#acervo" || h === "#biblioteca") setVisaoAtiva("DOSSIES");
-      else if (h === "#mural" || h === "#comunidade") setVisaoAtiva("COMUNIDADE");
+      else if (h === "#acervo" || h === "#biblioteca" || h === "#mural" || h === "#comunidade")
+        setVisaoAtiva("DOSSIES");
     };
     aplicarHash();
     window.addEventListener("hashchange", aplicarHash);
     return () => window.removeEventListener("hashchange", aplicarHash);
   }, []);
 
-  const selecionarVisao = (visao: "COMUNIDADE" | "OBSERVATORIO" | "DOSSIES") => {
+  const selecionarVisao = (visao: "OBSERVATORIO" | "DOSSIES") => {
     setVisaoAtiva(visao);
-    const hash =
-      visao === "OBSERVATORIO" ? "#observatorio" : visao === "DOSSIES" ? "#acervo" : "#mural";
+    const hash = visao === "OBSERVATORIO" ? "#observatorio" : "#acervo";
     try {
       window.history.replaceState(null, "", hash);
     } catch {
@@ -164,25 +157,10 @@ export function EstudosClient() {
   return (
     <div className="space-y-12">
       {/* ═══════════════════════════════════════════
-          ALTERNADOR MESTRE: COMUNIDADE VS DOSSIÊS
+          ALTERNADOR MESTRE: BIBLIOTECA VS OBSERVATÓRIO
           ═══════════════════════════════════════════ */}
       <div className="flex justify-center">
         <div className="inline-flex p-1.5 rounded-2xl bg-floresta-950/90 border-2 border-ambar-500/30 shadow-solar max-w-full overflow-x-auto touch-scroll-x">
-          <button
-            onClick={() => selecionarVisao("COMUNIDADE")}
-            className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
-              visaoAtiva === "COMUNIDADE"
-                ? "bg-ambar-500 text-floresta-950 font-bold shadow-solar scale-[1.02]"
-                : "text-areia-300 hover:text-areia-100 hover:bg-floresta-900/60"
-            }`}
-          >
-            <Share2 className="h-4 w-4" />
-            <span>Mural da Comunidade & Vozes dos Templos</span>
-            <span className="text-[10px] uppercase font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hidden sm:inline">
-              Aberto
-            </span>
-          </button>
-
           <button
             onClick={() => selecionarVisao("OBSERVATORIO")}
             className={`inline-flex items-center gap-2 rounded-xl px-5 py-3 text-xs sm:text-sm font-semibold transition-all whitespace-nowrap ${
@@ -215,9 +193,7 @@ export function EstudosClient() {
         </div>
       </div>
 
-      {visaoAtiva === "COMUNIDADE" ? (
-        <ComunidadeBlogMural />
-      ) : visaoAtiva === "OBSERVATORIO" ? (
+      {visaoAtiva === "OBSERVATORIO" ? (
         <div id="observatorio">
           <ObservatorioAcademico />
         </div>
@@ -433,7 +409,7 @@ export function EstudosClient() {
             },
             {
               titulo: "AYAHUASCA — Conhecimentos Gerais",
-              desc: "179 fontes catalogadas. Cipó Tucunacá, sinergia entre cipó e folha e graduações tradicionais.",
+              desc: "179 fontes catalogadas. Cipó Tucunacá, sinergia entre cipó e folha e feitio tradicional.",
               tag: "179 Fontes • 4 Artefatos",
               url: "https://notebooklm.google.com/notebook/a15d5b6b-2b66-4f1c-898b-9c7c493e752b",
             },
@@ -476,7 +452,7 @@ export function EstudosClient() {
             </h4>
           </div>
           <p className="text-xs text-areia-400 font-light">
-            Cole aqui o link do seu caderno de estudos gerado no NotebookLM para deixá-lo acessível neste portal durante suas consultas litúrgicas.
+            Cole aqui o link do seu caderno de estudos gerado no NotebookLM para deixá-lo acessível neste portal durante suas pesquisas.
           </p>
 
           <form onSubmit={handleSaveNotebook} className="flex flex-col sm:flex-row gap-3">
@@ -666,7 +642,7 @@ export function EstudosClient() {
 
         {/* Aviso Mandatório de Segurança Integrativa (+18), mesmo texto de ManifestoLanding */}
         <p className="pt-2 border-t border-ambar-500/15 text-[11px] text-areia-400/80 leading-relaxed font-light">
-          <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong> Nossos sacramentos e práticas etnobotânicas são de uso estritamente cerimonial, litúrgico e religioso tradicional, nos termos do Art. 5º da CF/88 e da Resolução CONAD nº 01/2010. A Cooperativa Nativaram não realiza consultas médicas, diagnósticos psiquiátricos ou promessas clínicas, nem comercializa substâncias em canais abertos da internet. O acesso é exclusivo a maiores de 18 anos devidamente associados e templos credenciados.
+          <strong className="text-areia-300 font-medium">Aviso de Segurança Integrativa (+18):</strong> Documentos de conteúdo cultural, histórico e científico, destinados a maiores de 18 anos. Não são indicação de uso. O uso religioso da ayahuasca é tratado pela Resolução CONAD nº 1/2010. A Cooperativa Nativaram não realiza consultas médicas nem diagnósticos e não faz promessas clínicas. Este site não vende, não recebe pedidos e não faz envios.
         </p>
       </section>
       </div>

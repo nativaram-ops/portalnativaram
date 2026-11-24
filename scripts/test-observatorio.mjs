@@ -143,7 +143,7 @@ async function run() {
     assert.ok(md.includes("CONAD 01/2010"));
   });
 
-  await test("APIs do Observatório: visitante lê seeds (GET), é barrado em POST (401); dirigente respeita linter (422) e remove próprio anexo", async () => {
+  await test("APIs do Observatório: visitante lê seeds (GET); visitante e templo são barrados (401); Conselho respeita linter (422), anexa e remove", async () => {
     const { GET, POST } = await importarRota("src/app/api/estudos/anexos/route.ts");
     const { DELETE } = await importarRota("src/app/api/estudos/anexos/[id]/route.ts");
     const { createSessionToken, SESSION_COOKIE_NAME } = await import("../src/lib/auth/session.ts");
@@ -161,8 +161,11 @@ async function run() {
       }
     }
 
+    // ADR-016: só o Conselho anexa e remove referências.
     const cookieDir = (codigo) =>
-      `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo })}`;
+      codigo === "NAT-TEMPLO-OUTRO"
+        ? `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo })}`
+        : `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "ADMIN", codigo: "ADM-NATIVARAM" })}`;
 
     try {
       const getRes = await GET(new Request("http://localhost/api/estudos/anexos"));
@@ -247,7 +250,7 @@ async function run() {
         }),
         { params: Promise.resolve({ id: created.id }) }
       );
-      assert.strictEqual(res403.status, 403);
+      assert.strictEqual(res403.status, 401, "Sessão de templo não remove anexos");
 
       // Autor remove (200)
       const res200 = await DELETE(

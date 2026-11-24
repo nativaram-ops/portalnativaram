@@ -7,7 +7,7 @@ import { JornadaNextStep } from "@/components/funil/JornadaNextStep";
 export const metadata: Metadata = {
   title: "O Manifesto, Quem Somos & Vocação Cooperativa | Cooperativa Nativaram",
   description:
-    "A gênese dos Nascidos do Raio de Sol, a Alquimia entre Dois Mundos e a Etnociência da Floresta. Conheça a história, missão, visão e valores da Cooperativa Etnobotânica Nativaram.",
+    "A gênese dos Nascidos do Raio de Sol, a Alquimia entre Dois Mundos e a Etnociência da Floresta. Conheça a história, missão, visão e valores da Cooperativa Nativaram, projeto de cooperativa em constituição.",
   openGraph: {
     title: "O Manifesto, Quem Somos & Doutrina | Cooperativa Nativaram",
     description:

@@ -9,6 +9,13 @@ import { resolverTitularDaRequisicao } from "@/lib/auth/session";
 
 export async function GET(request: NextRequest) {
   try {
+    // ADR-016: agenda de cerimônias não é pública (CONAD 1/2010, P4/P5).
+    if (!resolverTitularDaRequisicao(request)?.isAdmin) {
+      return NextResponse.json(
+        { success: false, error: "Agenda não é pública." },
+        { status: 401 }
+      );
+    }
     const { searchParams } = new URL(request.url);
     const temploCodigo = searchParams.get("temploCodigo") || undefined;
 

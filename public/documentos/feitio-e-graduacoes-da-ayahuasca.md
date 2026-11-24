@@ -1,8 +1,8 @@
 # O Feitio da Ayahuasca: Preparação, Sinergia Botânica e Graduações de Força
 
-**Cooperativa Nativaram** · Nota técnica de divulgação etnobotânica · Versão 1.1 · 2 de novembro de 2026
+**Cooperativa Nativaram** · Nota técnica de divulgação etnobotânica · Versão 1.2 · 24 de novembro de 2026
 
-> **Aviso de Segurança Integrativa (+18):** Nossos sacramentos e práticas etnobotânicas são de uso estritamente cerimonial, litúrgico e religioso tradicional, nos termos do Art. 5º da CF/88 e da Resolução CONAD nº 01/2010. A Cooperativa Nativaram não realiza consultas médicas, diagnósticos psiquiátricos ou promessas clínicas, nem comercializa substâncias em canais abertos da internet. O acesso é exclusivo a maiores de 18 anos devidamente associados e templos credenciados.
+> **Aviso de Segurança Integrativa (+18):** Conteúdo cultural e científico de referência, destinado a maiores de 18 anos. Não é indicação de uso. O uso religioso da ayahuasca é tratado pela Resolução CONAD nº 1/2010. A Cooperativa Nativaram não realiza consultas médicas nem diagnósticos e não faz promessas clínicas. Este site não vende, não recebe pedidos e não faz envios.
 
 > **Sobre esta nota:** texto de síntese elaborado a partir da literatura listada em "Fontes consultadas". Não é estudo científico original: não tem método, amostra nem laudo próprio. Os valores numéricos vêm da literatura publicada e não de análises da Cooperativa Nativaram.
 
@@ -66,16 +66,7 @@ A proporção descrita na literatura para um feitio equilibrado fica entre 3:1 e
 
 Excesso de cipó (acima de 5:1) eleva os teores de harmina e harmalina e pode intensificar náusea, vômitos (a "purga", na linguagem ritual), tremores e perda de coordenação motora. Excesso de chacrona (abaixo de 2:1) deixa DMT livre em proporção maior do que a inibição enzimática disponível, o que pode levar a experiências de percepção desordenadas, taquicardia transitória e estados de forte inquietação ou pânico em pessoas sensíveis.
 
-Como referência técnica, a literatura registra a seguinte composição para uma porção cerimonial de 120 mL de ayahuasca analisada em contexto ritualístico:
-
-| Alcaloide | Quantidade |
-|---|---|
-| Harmina | 204,0 mg |
-| Tetrahidroharmina (THH) | 128,4 mg |
-| Harmalina | 24,0 mg |
-| N,N-dimetiltriptamina (DMT) | 28,8 mg |
-
-Nessa porção, as β-carbolinas somam cerca de dez vezes a quantidade de triptaminas.
+Nas amostras analisadas na literatura, as β-carbolinas somam cerca de dez vezes a quantidade de triptaminas.
 
 ### Cozimento (decocção) e apuração
 
@@ -95,31 +86,29 @@ As graduações referem-se à densidade final obtida na apuração e ao número 
 Líquido fluido e translúcido contra a luz, de cor entre o marrom-avermelhado e o pardo escuro. É a forma usada nas atividades litúrgicas regulares de maior duração.
 
 - **Composição descrita na literatura:** 0,2 a 0,3 mg/mL de DMT e 1,5 a 3,0 mg/mL de β-carbolinas totais.
-- **Porção litúrgica de referência:** copos de 100 mL a 150 mL, conforme a orientação do dirigente.
 
 ### Reconcentrado (graduações 2x, 3x, 4x)
 
 Produzido por extrações cumulativas: em vez de água pura, o feitor usa uma ayahuasca já pronta de um feitio anterior como líquido de extração para um novo lote de mariri e chacrona.
 
 - **Composição descrita na literatura:** a concentração cresce com o grau de reprocessamento; uma ayahuasca 2x apresenta cerca de 0,5 a 0,8 mg/mL de DMT e de 4,0 a 6,0 mg/mL de β-carbolinas.
-- **Porção litúrgica de referência:** volumes menores, geralmente de 30 mL a 50 mL.
 
 ### Grau mel (xarope)
 
 É o limite físico da redução por calor. O líquido é evaporado até que a perda quase total de água livre deixe a bebida viscosa e densa, semelhante ao mel ou ao melaço de cana.
 
 - **Composição descrita na literatura:** DMT acima de 1,5 mg/mL e β-carbolinas acima de 10,0 mg/mL.
-- **Porção litúrgica de referência:** pequenas colheres, de 5 mL a 15 mL. A baixa atividade de água torna o grau mel muito resistente a fungos e fermentação.
+- A baixa atividade de água torna o grau mel muito resistente a fungos e fermentação.
 
 ---
 
 ## Cuidados e contraindicações
 
-O uso da ayahuasca é restrito ao contexto religioso, nos termos da Resolução CONAD nº 01/2010. A literatura aponta riscos importantes, que todo templo deve observar na acolhida de participantes:
+O uso da ayahuasca é restrito ao contexto religioso, nos termos da Resolução CONAD nº 01/2010. A literatura aponta riscos importantes, que toda entidade religiosa deve observar na acolhida de participantes:
 
 - pessoas com histórico pessoal ou familiar de psicose ou transtorno bipolar;
 - pessoas que usam medicamentos antidepressivos de ação serotonérgica (como inibidores seletivos da recaptação de serotonina), pelo risco de síndrome serotoninérgica;
-- gestantes, lactantes e pessoas com cardiopatias severas ou hipertensão descompensada (mesma orientação adotada pela cooperativa para os demais sacramentos);
+- gestantes, lactantes e pessoas com cardiopatias severas ou hipertensão descompensada;
 - preparações muito concentradas ou adulteradas e o uso fora do contexto ritual aumentam o risco de intoxicação e de crises de pânico.
 
 Na dúvida, a pessoa deve procurar orientação de profissional de saúde antes de qualquer cerimônia.
@@ -144,6 +133,6 @@ Lista da pesquisa original que deu origem a esta nota. A ligação entre cada af
 
 ---
 
-> **Aviso de Segurança Integrativa (+18):** Nossos sacramentos e práticas etnobotânicas são de uso estritamente cerimonial, litúrgico e religioso tradicional, nos termos do Art. 5º da CF/88 e da Resolução CONAD nº 01/2010. A Cooperativa Nativaram não realiza consultas médicas, diagnósticos psiquiátricos ou promessas clínicas, nem comercializa substâncias em canais abertos da internet. O acesso é exclusivo a maiores de 18 anos devidamente associados e templos credenciados.
+> **Aviso de Segurança Integrativa (+18):** Conteúdo cultural e científico de referência, destinado a maiores de 18 anos. Não é indicação de uso. O uso religioso da ayahuasca é tratado pela Resolução CONAD nº 1/2010. A Cooperativa Nativaram não realiza consultas médicas nem diagnósticos e não faz promessas clínicas. Este site não vende, não recebe pedidos e não faz envios.
 
-Cooperativa Nativaram · cooperativa sem fins lucrativos (Lei 5.764/71) · Nota técnica, versão 1.1, 2 de novembro de 2026.
+Cooperativa Nativaram · projeto de cooperativa em constituição, ainda sem registro e sem CNPJ · Nota técnica, versão 1.2, 24 de novembro de 2026.

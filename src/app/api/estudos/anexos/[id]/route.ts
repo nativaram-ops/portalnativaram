@@ -7,8 +7,9 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
+    // ADR-016: só o Conselho remove referências.
     const titular = resolverTitularDaRequisicao(request);
-    if (!titular) {
+    if (!titular?.isAdmin) {
       return NextResponse.json(
         { sucesso: false, erro: "Autenticação necessária para remover anexos." },
         { status: 401 }

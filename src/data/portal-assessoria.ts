@@ -1721,7 +1721,7 @@ export const TOXICIDADE_LITIO = {
 };
 
 /**
- * 12 Perguntas Frequentes Aprofundadas para a Liderança do Templo
+ * Perguntas Frequentes Aprofundadas para a Liderança do Templo
  */
 export const FAQ_DIRIGENTE: FaqDirigenteItem[] = [
   {
@@ -1729,16 +1729,9 @@ export const FAQ_DIRIGENTE: FaqDirigenteItem[] = [
     categoria: "CONSERVACAO",
     pergunta: "Como deve ser armazenado o sacramento nas dependências do templo?",
     resposta:
-      "Em sua embalagem original concentrada (10:1 Wirapuru), o sacramento é protegido pela alta densidade de sólidos solúveis (65 a 72 °Brix), conservando-se perfeitamente estável por 12 a 18 meses em local fresco, seco, arejado e ao abrigo da luz solar direta. Uma vez diluído com água mineral estéril, o sacramento perde a barreira hiperosmótica e deve ser mantido obrigatoriamente sob refrigeração contínua (entre 2°C e 8°C), devendo ser consagrado no prazo máximo de 60 dias.",
+      "Guarde o sacramento em recipientes bem fechados e identificados, em local fresco, seco, arejado e ao abrigo da luz solar direta, com acesso restrito à direção da entidade. Depois de aberto ou diluído, mantenha-o refrigerado e consagre-o no menor prazo possível. Descarte o que apresentar alteração de cheiro, cor ou aspecto que a direção espiritual considere imprópria.",
     destaqueConselho:
-      "Regra Canônica: Nunca armazene garrafas diluídas fora da refrigeração por mais de algumas horas.",
-  },
-  {
-    id: "faq-2",
-    categoria: "CONSERVACAO",
-    pergunta: "A garrafa chegou estufada ou fez barulho de pressão ao abrir. A bebida estragou?",
-    resposta:
-      "Não estragou. A Ayahuasca purista é rica em carboidratos complexos e açúcares naturais provenientes da casca do cipó e folhas de chacrona. Oscilações térmicas de transporte interestadual podem ativar uma fermentação bioorgânica suave com liberação de gás carbônico (CO₂). Basta abrir a tampa com suavidade e calma, aliviando o respiro gradualmente. A presença de gás natural não altera a composição dos alcaloides (DMT, Harmina, Harmalina e THH) e não compromete a sacralidade da bebida.",
+      "Regra de cuidado: nunca deixe recipientes abertos ou diluídos fora da refrigeração por mais de algumas horas.",
   },
   {
     id: "faq-3",
@@ -1750,11 +1743,11 @@ export const FAQ_DIRIGENTE: FaqDirigenteItem[] = [
   {
     id: "faq-4",
     categoria: "DOSAGENS",
-    pergunta: "Qual a porção recomendada por pessoa em cada graduação?",
+    pergunta: "Qual a porção recomendada por pessoa?",
     resposta:
-      "A calibração varia conforme a graduação fitoquímica: na graduação 3:1 Mainumbi (suave), a porção sugerida é de 90 a 120 ml; na graduação 5:1 Pituã (equilibrada canônica), de 70 a 100 ml; na graduação 7:1 Anhangatã (alta concentração), 50 a 80 ml; e na graduação 10:1 Wirapuru servida pura (semi-mel), apenas 30 a 45 ml por participante. Para pessoas em primeira comunhão, sempre inicie com porção conservadora reduzida (50% da medida padrão) e avalie a resposta corporal.",
+      "Não há porção padrão neste portal. A porção é definida com prudência pela direção espiritual da entidade, após triagem (Ficha de Anamnese, Documento 01, e reconfirmação no dia, Documento 07). Para quem participa pela primeira vez, a orientação geral é começar com uma porção conservadora e observar a resposta antes de qualquer repasse.",
     destaqueConselho:
-      "Regra de Ouro: Mais vale uma porção moderada com ancoramento sereno do que uma sobrecarga somática que induza pânico ou fuga da experiência.",
+      "Regra de Ouro: mais vale uma porção moderada com ancoramento sereno do que uma sobrecarga que induza pânico ou fuga da experiência.",
   },
   {
     id: "faq-5",
@@ -1784,7 +1777,7 @@ export const FAQ_DIRIGENTE: FaqDirigenteItem[] = [
     categoria: "JURIDICO_CONAD",
     pergunta: "Menores de 18 anos podem participar das cerimônias do templo?",
     resposta:
-      "O que diz a norma: a Resolução CONAD nº 01/2010 deixa a participação de crianças e adolescentes à decisão dos pais ou responsáveis legais, no exercício do poder familiar. O que é política interna da casa: exigir a presença de ambos os pais ou responsáveis na cerimônia e a autorização assinada são cautelas recomendadas pela Cooperativa, não exigências da resolução. Em qualquer caso, o dirigente deve avaliar com prudência a maturidade do jovem, orientar a família e servir apenas porções mínimas simbólicas.",
+      "O que diz a norma: a Resolução CONAD nº 01/2010 deixa a participação de crianças e adolescentes à decisão dos pais ou responsáveis legais, no exercício do poder familiar. O que é política interna da casa: exigir a presença de ambos os pais ou responsáveis na cerimônia e a autorização assinada são cautelas recomendadas, não exigências da resolução. Se houver ingestão, ela é decidida pelos responsáveis, que acompanham o menor durante toda a cerimônia. Rapé, tabaco ou qualquer outra substância nunca são oferecidos a menores (ECA, art. 243). Modelo de autorização no Documento 05.",
     destaqueConselho:
       "Política interna recomendada (não exigência da CONAD): arquivar a autorização assinada pelos pais ou responsáveis junto à cópia dos documentos de identidade.",
   },
@@ -1793,27 +1786,13 @@ export const FAQ_DIRIGENTE: FaqDirigenteItem[] = [
     categoria: "JURIDICO_CONAD",
     pergunta: "Como o templo deve se portar caso receba fiscalização da Polícia ou Vigilância Sanitária?",
     resposta:
-      "Receba as autoridades com cordialidade, serenidade e respeito. Dirija-os à sala administrativa da congregação e apresente a Pasta de Salvaguarda Jurídica do Templo contendo: Ata de Fundação da Instituição, Estatuto Social com finalidade religiosa explícita, CNPJ ativo, cópia integral da Resolução CONAD nº 01/2010 (que atesta a legalidade do uso religioso da Ayahuasca), Termo de Custódia e Rateio emitido pela Cooperativa Nativaram e o Livro de Frequência. Explique com firmeza que não há comercialização e que a prática é amparada pelo Art. 5º, VI da Constituição Federal.",
-  },
-  {
-    id: "faq-10",
-    categoria: "JURIDICO_CONAD",
-    pergunta: "Como transportar garrafas de Ayahuasca em viagens aéreas ou rodoviárias?",
-    resposta:
-      "O transporte para as cerimônias do templo é amparado pela Resolução CONAD nº 01/2010 para fins religiosos em território nacional. Em viagem aérea, verifique antes as regras da companhia aérea para transporte de líquidos, na bagagem de mão e na despachada. O transporte internacional não está coberto pela resolução e depende da legislação de cada país. O dirigente deve transportar as garrafas lacradas, devidamente rotuladas com identificação institucional da congregação, acompanhadas da Declaração de Trânsito Litúrgico de Sacramento (disponível para download neste portal), cópia da Ata do Templo e da Resolução CONAD nº 01/2010. Na bagagem despachada, as garrafas devem ser envoltas em plástico bolha e caixa isotérmica protegida.",
-  },
-  {
-    id: "faq-11",
-    categoria: "CONDUCAO_RITUAL",
-    pergunta: "Posso ministrar Rapé Sagrado e Sananga no mesmo trabalho de Ayahuasca?",
-    resposta:
-      "Sim, é uma prática canônica tradicional, desde que respeitada a ordem sensorial e as condições do participante. O Rapé Sagrado deve ser soprado com intenção de centramento, alinhamento dos pensamentos e ancoramento físico, preferencialmente antes da ingestão da Ayahuasca ou após o auge da miração para assentamento. A Sananga deve ser ministrada apenas a quem desejar limpeza ocular e energética profunda, com aviso prévio de que não se deve usar lentes de contato e que haverá ardor transitório por 3 a 5 minutos.",
+      "Receba as autoridades com cordialidade e não esconda nada. Apresente os documentos da entidade (ato de constituição e estatuto com finalidade religiosa, quando houver; ata que qualifica o responsável), uma cópia da Resolução CONAD nº 1/2010 e os registros internos (fichas, termos e atas). Peça cópia de qualquer termo lavrado e chame o advogado da entidade. A Resolução CONAD nº 1/2010 reconhece o uso religioso da ayahuasca nas condições do seu relatório. Isso não é garantia contra fiscalização.",
   },
   {
     id: "faq-12",
     categoria: "JURIDICO_CONAD",
-    pergunta: "Qual o procedimento correto para cobrança das contribuições dos participantes?",
+    pergunta: "Como a entidade pode custear as despesas do espaço?",
     resposta:
-      "A Resolução CONAD nº 01/2010 veda taxativamente o comércio, venda de ingressos ou lucro sobre a Ayahuasca. O templo pode e deve instituir uma contribuição solidária ou taxa de rateio de manutenção da cerimônia (para cobrir os custos de luz, limpeza, lenha, alimentação comunitária e a cota de rateio cooperativo do sacramento). Essa contribuição deve ser transparente, estatutária e jamais atrelada ao conceito de 'compra de porção'.",
+      "A Resolução CONAD nº 1/2010 veda o comércio, a venda de ingressos e o lucro. O relatório anexo distingue a vedação do comércio do custeio de despesas (§ 27 e § 29, c). A entidade pode receber contribuições dos membros para as despesas de manutenção do espaço (luz, limpeza, lenha, alimentação comunitária), de forma transparente, prevista no estatuto e com prestação de contas. A contribuição nunca é condição para participar nem é tratada como pagamento por porção.",
   },
 ];

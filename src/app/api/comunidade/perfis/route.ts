@@ -8,6 +8,17 @@ import {
 import { verifyAdminRequest, resolverTitularDaRequisicao } from "@/lib/auth/session";
 import { PerfilTemploSchema } from "@/lib/validators/comunidade";
 
+/**
+ * ADR-016: o público não recebe contatos pessoais de dirigentes nem a agenda
+ * (dado ligado a convicção religiosa; CONAD P4/P5).
+ */
+function semContatos<T extends { emailContato?: string; whatsappContato?: string; agenda?: unknown }>(
+  perfil: T
+): Omit<T, "emailContato" | "whatsappContato" | "agenda"> {
+  const { emailContato: _e, whatsappContato: _w, agenda: _a, ...resto } = perfil;
+  return resto;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -22,11 +33,23 @@ export async function GET(request: NextRequest) {
           { status: 404 }
         );
       }
-      return NextResponse.json({ success: true, perfil });
+      if (!verifyAdminRequest(request) && perfil.publicado === false) {
+        return NextResponse.json(
+          { success: false, error: "Perfil não encontrado" },
+          { status: 404 }
+        );
+      }
+      return NextResponse.json({ success: true, perfil: verifyAdminRequest(request) ? perfil : semContatos(perfil) });
     }
 
     const perfis = await obterPerfisTemplos();
-    return NextResponse.json({ success: true, perfis });
+    if (verifyAdminRequest(request)) {
+      return NextResponse.json({ success: true, perfis });
+    }
+    return NextResponse.json({
+      success: true,
+      perfis: perfis.filter((p) => p.publicado !== false).map(semContatos),
+    });
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message || "Erro ao consultar perfis" },

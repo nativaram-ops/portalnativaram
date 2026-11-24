@@ -80,120 +80,8 @@ async function runAllTests() {
   // 1. TESTES DE VALIDAÇÃO ZOD & DADOS
   console.log("1. Validação de Schemas e Contratos:");
 
-  await test("Validador de Pedido Litúrgico rejeita cota vazia", async () => {
-    const { NovoPedidoSchema } = await import("../src/lib/validators/pedido.ts");
-    const payloadInvalido = {
-      temploId: "NAT-TEMPLO-842",
-      temploNome: "Templo Teste",
-      cidade: "São Paulo",
-      estado: "SP",
-      dirigenteNome: "Dirigente Teste",
-      dirigenteTelefone: "11999998888",
-      dirigenteEmail: "teste@templo.org",
-      cnpj: "12.345.678/0001-90",
-      itens: [], // vazio!
-      dataCerimoniaPretendida: "2026-10-30",
-      mensagemIntencao: "Trabalho de oração",
-    };
-    const result = NovoPedidoSchema.safeParse(payloadInvalido);
-    assert.strictEqual(result.success, false, "Deveria falhar para lista de itens vazia");
-  });
-
-  await test("Validador de Pedido Litúrgico aceita solicitação completa", async () => {
-    const { NovoPedidoSchema } = await import("../src/lib/validators/pedido.ts");
-    const payloadValido = {
-      temploId: "NAT-TEMPLO-842",
-      temploNome: "Templo Céu do Cruzeiro",
-      cidade: "São Paulo",
-      estado: "SP",
-      dirigenteNome: "Padrinho Marcos Silva",
-      dirigenteTelefone: "11987654321",
-      dirigenteEmail: "marcos@ceudocruzeiro.org.br",
-      cnpj: "34.567.890/0001-12",
-      itens: [
-        {
-          id: "10.1_WIRAPURU",
-          tipo: "GRADUACAO_AYAHUASCA",
-          nome: "10.1 Wirapuru",
-          codigoOuSubtitulo: "Semi-Mel",
-          quantidade: 10,
-          unidade: "Litros",
-          rateioUnitarioEstimado: 260,
-        },
-      ],
-      dataCerimoniaPretendida: "2026-11-15",
-      mensagemIntencao: "Cerimônia litúrgica regular de primavera para comungantes credenciados.",
-    };
-    const result = NovoPedidoSchema.safeParse(payloadValido);
-    assert.strictEqual(result.success, true, "Deveria validar pedido completo");
-  });
-
-  await test("Validador de Atualização aceita status litúrgicos canônicos", async () => {
-    const { AtualizarPedidoSchema } = await import("../src/lib/validators/pedido.ts");
-    const updateValido = {
-      status: "EM_TRANSITO_REFRIGERADO",
-      loteVinculado: "AC-2026-08",
-      codigoRastreio: "NTV-SP-842-BR",
-      previsaoEntrega: "Em 48h",
-    };
-    const result = AtualizarPedidoSchema.safeParse(updateValido);
-    assert.strictEqual(result.success, true);
-  });
-
   // 2. TESTES DE PERSISTÊNCIA & PROTOCOLOS
   console.log("\n2. Motor de Banco de Dados & Protocolos:");
-
-  await test("Gerador de Protocolos produz prefixo SOL- e 4 caracteres alfa-numéricos", async () => {
-    const { gerarProtocoloLiturgico } = await import("../src/lib/db/pedidos.ts");
-    const protocolo = gerarProtocoloLiturgico();
-    assert.match(
-      protocolo,
-      /^SOL-\d{4}-[A-Z0-9]{4}$/,
-      `Protocolo ${protocolo} fora do padrão SOL-YYYY-XXXX`
-    );
-  });
-
-  await test("Formatador de WhatsApp inclui CNPJ, Protocolo e Menção ao CONAD", async () => {
-    const { formatarMensagemWhatsApp } = await import("../src/lib/db/pedidos.ts");
-    const pedidoMock = {
-      id: "SOL-2026-TEST",
-      temploId: "NAT-TEMPLO-842",
-      temploNome: "Templo Céu do Cruzeiro",
-      cidade: "São Paulo",
-      estado: "SP",
-      dirigenteNome: "Padrinho Marcos",
-      dirigenteTelefone: "11987654321",
-      dirigenteEmail: "marcos@ceudocruzeiro.org",
-      cnpj: "34.567.890/0001-12",
-      itens: [
-        {
-          id: "10.1",
-          tipo: "GRADUACAO_AYAHUASCA",
-          nome: "10.1 Wirapuru",
-          codigoOuSubtitulo: "Semi-Mel",
-          quantidade: 10,
-          unidade: "Litros",
-          rateioUnitarioEstimado: 260,
-          rateioTotalEstimado: 2600,
-        },
-      ],
-      rateioTotal: 2600,
-      dataCerimoniaPretendida: "2026-11-15",
-      mensagemIntencao: "Paz e acolhimento",
-      status: "SOLICITADO",
-      historico: [],
-      criadoEm: new Date().toISOString(),
-      atualizadoEm: new Date().toISOString(),
-    };
-
-    const textoUrl = formatarMensagemWhatsApp(pedidoMock);
-    const decoded = decodeURIComponent(textoUrl);
-
-    assert.ok(decoded.includes("SOL-2026-TEST"), "Deve conter protocolo");
-    assert.ok(decoded.includes("Templo Céu do Cruzeiro"), "Deve conter nome do templo");
-    assert.ok(decoded.includes("CONAD nº 01/2010"), "Deve conter citação ao CONAD");
-    assert.ok(decoded.includes("34.567.890/0001-12"), "Deve conter CNPJ");
-  });
 
   // 3. INTEGRIDADE DOS CATÁLOGOS
   console.log("\n3. Integridade Etnobotânica & Fitoquímica:");
@@ -286,44 +174,8 @@ async function runAllTests() {
     assert.strictEqual(headerValido === adminSecret, true, "Token legítimo deve ser aceito");
   });
 
-  await test("Sanitizador de rateio calcula somatório de cotas com precisão decimal", () => {
-    const itens = [
-      { quantidade: 5, rateioUnitarioEstimado: 260 },
-      { quantidade: 3, rateioUnitarioEstimado: 65 },
-    ];
-    const total = itens.reduce((acc, item) => acc + item.quantidade * item.rateioUnitarioEstimado, 0);
-    assert.strictEqual(total, 5 * 260 + 3 * 65, "Total de rateio deve ser 1495");
-  });
-
   // 6. CASOS DE USO & SERVIÇOS LITÚRGICOS (NÓ 2 - CAMADAS 2 E 3)
   console.log("\n6. Casos de Uso, Credenciamento & Farmacocinética (Nó 2):");
-
-  await test("Validador de Credenciamento exige anuência formal ao CONAD nº 01/2010", async () => {
-    const { CredenciamentoSchema } = await import("../src/lib/validators/credenciamento.ts");
-    const payloadSemConad = {
-      nomeInstituicao: "Templo da Luz Sagrada",
-      cnpj: "12.345.678/0001-90",
-      dataFundacao: "2015",
-      enderecoTemplo: "Estrada da Floresta, Km 4",
-      cidade: "Cruzeiro do Sul",
-      estado: "AC",
-      nomeDirigente: "Guardião Ayahuasqueiro",
-      cpfDirigente: "12345678901",
-      tempoLinhagemAnos: 12,
-      telefoneContato: "68999887766",
-      emailOficial: "luz@sagrada.org.br",
-      numeroMembrosAtivos: 45,
-      frequenciaRituais: "MENSAL",
-      graduacaoPretendida: "5.1_PITUA",
-      intencaoTrabalho: "Trabalhos litúrgicos comunitários com foco em serenidade e expansão de presença.",
-      concordaComConad012010: false, // Rejeitado!
-      declaraAusenciaFinsLucrativos: true,
-      planejamento30Dias: true,
-      termoSegurancaIntegrativa: true,
-    };
-    const result = CredenciamentoSchema.safeParse(payloadSemConad);
-    assert.strictEqual(result.success, false, "Deve rejeitar solicitação sem anuência CONAD");
-  });
 
   await test("Compêndio Farmacológico impõe washout mínimo de 35 a 45 dias para Fluoxetina e 30 dias para Lítio", async () => {
     const { INTERACOES_MEDICAMENTOSAS } = await import("../src/data/portal-assessoria.ts");
@@ -348,130 +200,36 @@ async function runAllTests() {
   // 7. JORNADA DIDÁTICA, INTERFACE & DOCUMENTOS CANÔNICOS (NÓ 3 - CAMADA 1)
   console.log("\n7. Interface Visual, Funil de 5 Estações & Documentos A4 (Nó 3):");
 
-  await test("Funil Didático possui exatamente 5 estações encadeadas com slugs canônicos", async () => {
+  await test("Funil Didático possui 5 estações e a última leva a Entidades Religiosas (sem cadastro)", async () => {
     const navContent = await fs.readFile(
       path.join(ROOT_DIR, "src", "components", "funil", "JornadaNavTracker.tsx"),
       "utf-8"
     );
-    assert.ok(navContent.includes('slug: "institucional"'), "Estação 1 deve ser institucional");
-    assert.ok(navContent.includes('slug: "feitio"'), "Estação 2 deve ser feitio");
-    assert.ok(navContent.includes('slug: "sacramentos"'), "Estação 3 deve ser sacramentos");
-    assert.ok(navContent.includes('slug: "compliance"'), "Estação 4 deve ser compliance");
-    assert.ok(navContent.includes('slug: "credenciamento"'), "Estação 5 deve ser credenciamento");
+    for (const slug of ["institucional", "feitio", "sacramentos", "compliance", "entidades-religiosas"]) {
+      assert.ok(navContent.includes(`slug: "${slug}"`), `Estação ${slug} ausente`);
+    }
+    assert.ok(!/credenciamento|reconhecimento/.test(navContent), "O funil não pode levar ao cadastro encerrado");
     assert.ok(navContent.includes("Etapa 5 de 5"), "Deve conter marcador da 5ª etapa");
   });
 
-  await test("Central de Documentos disponibiliza os modelos canônicos para impressão A4 e download", async () => {
+  await test("Central de Documentos disponibiliza os modelos para impressão A4, sem Declaração de Trânsito", async () => {
     const centralContent = await fs.readFile(
       path.join(ROOT_DIR, "src", "components", "portal-dirigente", "PortalCentralDocumentos.tsx"),
       "utf-8"
     );
-    // O texto dos documentos vive em src/data/documentos/ (fonte única); o componente só renderiza.
     const { DOCUMENTOS_CENTRAL, gerarMarkdown } = await import("../src/data/documentos/index.ts");
     const ctx = { temploNome: "T", temploCidade: "C", temploDirigente: "D", temploRegistro: "R", dataEmissao: "hoje" };
     const md = DOCUMENTOS_CENTRAL.map((d) => gerarMarkdown(d, ctx)).join("\n");
     assert.ok(md.includes("DOCUMENTO 01: FICHA DE ANAMNESE"), "Deve conter Doc 01: Anamnese");
     assert.ok(md.includes("DOCUMENTO 02: TERMO DE RESPONSABILIDADE"), "Deve conter Doc 02: TCLE");
     assert.ok(md.includes("DOCUMENTO 03: MANUAL DE PROCEDIMENTO OPERACIONAL"), "Deve conter Doc 03: ATA/POP");
-    assert.ok(md.includes("DOCUMENTO 04: DECLARAÇÃO DE TRANSPORTE"), "Deve conter Doc 04: Trânsito");
+    assert.ok(!md.includes("DOCUMENTO 04"), "O Doc 04 (Declaração de Trânsito) saiu pelo ADR-016");
     assert.ok(md.includes("DOCUMENTO 05: TERMO DE AUTORIZAÇÃO"), "Deve conter Doc 05: Menores de Idade");
     assert.ok(centralContent.includes("window.print()"), "Deve conter gatilho de impressão A4");
   });
 
   // 8. ACOLHIMENTO LITÚRGICO & GRUPOS INFORMAIS (OPÇÃO B - /reconhecimento)
   console.log("\n8. Acolhimento Litúrgico & Grupos Informais em Desenvolvimento:");
-
-  await test("Validador de Reconhecimento aceita grupo informal em desenvolvimento", async () => {
-    const { ReconhecimentoSchema } = await import("../src/lib/validators/reconhecimento.ts");
-    const payloadValido = {
-      tipoVinculo: "GRUPO_EM_FORMACAO",
-      nomeIdentificacao: "Círculo Flor da Mata",
-      linhagemEspiritual: "Xamanismo Universalista",
-      tempoJornada: "3 anos de estudos",
-      quantidadeParticipantes: "8 a 12 participantes",
-      frequenciaEncontros: "MENSAL",
-      graduacaoPretendida: "5.1_PITUA",
-      litragemEstimadaMensal: "5",
-      intencaoTrabalho: "Vigílias de oração e reconexão espiritual fraterna.",
-      nomeResponsavel: "Condutor Fraterno",
-      telefoneContato: "11987654321",
-      emailContato: "condutor@flordamata.org",
-      cidade: "São Paulo",
-      estado: "SP",
-      metodoContatoPreferencial: "WHATSAPP",
-      concordaUsoLiturgico: true,
-      planejamentoAntecedencia30Dias: true,
-      compromissoTriagemSeguranca: true,
-      consentimentoLinhagem: true,
-    };
-    const result = ReconhecimentoSchema.safeParse(payloadValido);
-    assert.ok(result.success, "Payload válido deve ser aceito sem exigência de CNPJ");
-  });
-
-  await test("Validador de Reconhecimento rejeita dados sem compromisso litúrgico", async () => {
-    const { ReconhecimentoSchema } = await import("../src/lib/validators/reconhecimento.ts");
-    const payloadSemCompromisso = {
-      tipoVinculo: "REZADOR_AUTONOMO",
-      nomeIdentificacao: "Rezo da Serra",
-      linhagemEspiritual: "Linha Nativa",
-      tempoJornada: "5 anos",
-      quantidadeParticipantes: "5 pessoas",
-      frequenciaEncontros: "QUINZENAL",
-      graduacaoPretendida: "10.1_WIRAPURU",
-      litragemEstimadaMensal: "5",
-      intencaoTrabalho: "Cerimônias tradicionais de acalento.",
-      nomeResponsavel: "Rezador João",
-      telefoneContato: "27999887766",
-      emailContato: "joao@rezo.org",
-      cidade: "Serra",
-      estado: "ES",
-      metodoContatoPreferencial: "WHATSAPP",
-      concordaUsoLiturgico: false, // Rejeita!
-      planejamentoAntecedencia30Dias: true,
-      compromissoTriagemSeguranca: true,
-    };
-    const result = ReconhecimentoSchema.safeParse(payloadSemCompromisso);
-    assert.strictEqual(result.success, false, "Deve rejeitar ausência de compromisso com CONAD 01/2010");
-  });
-
-  await test("Motor de Reconhecimento formata protocolo REC- e mensagem WhatsApp respeitosa", async () => {
-    const { generateProtocoloReconhecimento, formatReconhecimentoWhatsApp } = await import(
-      "../src/lib/reconhecimento/engine.ts"
-    );
-    const protocolo = generateProtocoloReconhecimento();
-    assert.ok(protocolo.startsWith("REC-"), "Protocolo deve iniciar com REC-");
-
-    const mockDossier = {
-      protocolo,
-      dataSubmissao: "13/10/2026",
-      data: {
-        tipoVinculo: "GRUPO_EM_FORMACAO",
-        nomeIdentificacao: "Círculo Sol Nascente",
-        linhagemEspiritual: "Linha do Santo Daime",
-        tempoJornada: "2 anos",
-        quantidadeParticipantes: "10 pessoas",
-        frequenciaEncontros: "MENSAL",
-        graduacaoPretendida: "5.1_PITUA",
-        litragemEstimadaMensal: "5",
-        intencaoTrabalho: "Estudos dos hinários e orações.",
-        nomeResponsavel: "Maria Guardiã",
-        telefoneContato: "31988887777",
-        emailContato: "maria@solnascente.org",
-        cidade: "Belo Horizonte",
-        estado: "MG",
-        metodoContatoPreferencial: "WHATSAPP",
-        concordaUsoLiturgico: true,
-        planejamentoAntecedencia30Dias: true,
-        compromissoTriagemSeguranca: true,
-      },
-    };
-
-    const textoUrl = formatReconhecimentoWhatsApp(mockDossier);
-    const decoded = decodeURIComponent(textoUrl);
-    assert.ok(decoded.includes(protocolo), "Deve conter o protocolo gerado");
-    assert.ok(decoded.includes("Círculo Sol Nascente"), "Deve conter o nome do grupo");
-    assert.ok(decoded.includes("CONAD nº 01/2010"), "Deve referenciar o CONAD");
-  });
 
   // 9. FLUXO DE HOMOLOGAÇÃO, GERAÇÃO DE ACESSO & LOGIN DINÂMICO
   console.log("\n9. Homologação, Geração de Acesso & Autenticação de Congregações:");
@@ -654,41 +412,23 @@ async function runAllTests() {
     }
   });
 
-  await test("POST público de credenciamento não sobrescreve cadastro existente nem expõe códigos de acesso", async () => {
+  await test("Cadastro encerrado: visitante não cria cadastro (410), não lista cadastros (401) e homologação responde 410", async () => {
     const { POST, GET } = await importarRota("src/app/api/solicitacoes/route.ts");
+    const { POST: HOMOLOGAR } = await importarRota("src/app/api/solicitacoes/[id]/homologar/route.ts");
     const { obterTodasSolicitacoes } = await import("../src/lib/db/homologacoes.ts");
-
-    const antes = (await obterTodasSolicitacoes()).find((s) => s.id === "NAT-TEMPLO-842");
-    assert.ok(antes, "Seed NAT-TEMPLO-842 deve existir");
+    const antes = (await obterTodasSolicitacoes()).length;
 
     const res = await POST(
       new Request("http://localhost/api/solicitacoes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: "nat-templo-842",
-          tipo: "INSTITUICAO_FORMAL",
-          nomeEntidade: "Invasor",
-          nomeResponsavel: "Invasor",
-          telefone: "11900000000",
-          linhagem: "Qualquer",
-          graduacao: "5.1 Pituã",
-          volumeEstimado: "5 Litros",
-          intencao: "Tentativa de sobrescrever",
-        }),
+        body: JSON.stringify({ nomeEntidade: "Qualquer", nomeResponsavel: "Qualquer", telefone: "11900000000" }),
       })
     );
-    assert.strictEqual(res.status, 409, "Protocolo existente deve ser recusado para visitantes");
-
-    const depois = (await obterTodasSolicitacoes()).find((s) => s.id === "NAT-TEMPLO-842");
-    assert.strictEqual(depois.nomeEntidade, antes.nomeEntidade, "Cadastro não pode ter sido alterado");
-    assert.strictEqual(depois.telefone, antes.telefone, "Telefone não pode ter sido alterado");
-
-    const lista = await (await GET(new Request("http://localhost/api/solicitacoes"))).json();
-    assert.ok(
-      lista.solicitacoes.every((s) => s.loginGerado === undefined && s.senhaGerada === undefined),
-      "Visitante não pode ver códigos de acesso"
-    );
+    assert.strictEqual(res.status, 410, "O site não recebe cadastros");
+    assert.strictEqual((await obterTodasSolicitacoes()).length, antes, "Nada pode ter sido gravado");
+    assert.strictEqual((await GET(new Request("http://localhost/api/solicitacoes"))).status, 401);
+    assert.strictEqual((await HOMOLOGAR()).status, 410);
   });
 
   await test("Comunidade: visitante não grava; dirigente grava só em nome do próprio templo e não sobrescreve post alheio", async () => {
@@ -752,59 +492,6 @@ async function runAllTests() {
     }
   });
 
-  await test("Pedidos: visitante não lê nem cria; dirigente só vê e cria pedidos do próprio templo", async () => {
-    const { GET, POST } = await importarRota("src/app/api/pedidos/route.ts");
-    const { GET: GET_ID } = await importarRota("src/app/api/pedidos/[id]/route.ts");
-    const { createSessionToken, SESSION_COOKIE_NAME } = await import("../src/lib/auth/session.ts");
-    const { obterTodosPedidos } = await import("../src/lib/db/pedidos.ts");
-    const cookieDe = (codigo) =>
-      `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo })}`;
-
-    // Visitante
-    assert.strictEqual((await GET(new Request("http://localhost/api/pedidos"))).status, 401);
-    const pedidoAlheio = (await obterTodosPedidos({})).find((p) => p.temploId.toUpperCase() !== "NAT-TEMPLO-TESTA");
-    assert.ok(pedidoAlheio, "Deve existir pedido de exemplo de outro templo");
-    assert.strictEqual(
-      (await GET_ID(new Request(`http://localhost/api/pedidos/${pedidoAlheio.id}`), {
-        params: Promise.resolve({ id: pedidoAlheio.id }),
-      })).status,
-      401
-    );
-    assert.strictEqual(
-      (await POST(
-        new Request("http://localhost/api/pedidos", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({}),
-        })
-      )).status,
-      401
-    );
-
-    // Dirigente pedindo a lista de outro templo recebe só os próprios
-    const res = await GET(
-      new Request(`http://localhost/api/pedidos?temploId=${encodeURIComponent(pedidoAlheio.temploId)}`, {
-        headers: { cookie: cookieDe("NAT-TEMPLO-TESTA") },
-      })
-    );
-    assert.strictEqual(res.status, 200);
-    const json = await res.json();
-    assert.ok(
-      json.pedidos.every((p) => p.temploId.toUpperCase() === "NAT-TEMPLO-TESTA"),
-      "Dirigente não pode ver pedidos de outro templo"
-    );
-    assert.strictEqual(json.metricas, null, "Métricas gerais são só do Conselho");
-
-    // Pedido de outro templo pelo id
-    const resId = await GET_ID(
-      new Request(`http://localhost/api/pedidos/${pedidoAlheio.id}`, {
-        headers: { cookie: cookieDe("NAT-TEMPLO-TESTA") },
-      }),
-      { params: Promise.resolve({ id: pedidoAlheio.id }) }
-    );
-    assert.strictEqual(resId.status, 404, "Pedido de outro templo não pode ser lido");
-  });
-
   await test("Validadores da comunidade recusam links não-https, imagens de outro tipo e conteúdo gigante", async () => {
     const { PublicacaoSchema, PerfilTemploSchema, ItemAgendaSchema } = await import("../src/lib/validators/comunidade.ts");
     const base = {
@@ -853,83 +540,6 @@ async function runAllTests() {
       }).success,
       "Link de inscrição precisa ser https"
     );
-  });
-
-  await test("Pedidos: servidor recalcula o rateio oficial; grupo sem CNPJ não recebe valores; item fora do catálogo é recusado", async () => {
-    const { POST } = await importarRota("src/app/api/pedidos/route.ts");
-    const { createSessionToken, SESSION_COOKIE_NAME } = await import("../src/lib/auth/session.ts");
-    const { excluirPedido } = await import("../src/lib/db/pedidos.ts");
-    const cookie = (codigo, tipo) =>
-      `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo, tipo })}`;
-    const corpo = (itens) =>
-      JSON.stringify({
-        temploId: "QUALQUER",
-        temploNome: "Templo de Teste",
-        cidade: "Rio Branco",
-        estado: "AC",
-        dirigenteNome: "Dirigente Teste",
-        dirigenteTelefone: "68999990000",
-        dirigenteEmail: "teste@exemplo.org",
-        cnpj: "00000000000000",
-        itens,
-        dataCerimoniaPretendida: "2026-12-20",
-        mensagemIntencao: "Teste automatizado",
-      });
-    const item = (id, tipo, quantidade, rateio) => ({
-      id,
-      tipo,
-      nome: id,
-      codigoOuSubtitulo: "",
-      quantidade,
-      unidade: tipo === "RAPE_SAGRADO" ? "Frascos (25g)" : "Litros",
-      rateioUnitarioEstimado: rateio,
-    });
-    const enviar = (body, ck) =>
-      POST(
-        new Request("http://localhost/api/pedidos", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", cookie: ck },
-          body,
-        })
-      );
-
-    const criados = [];
-    try {
-      // Valor manipulado pelo navegador é ignorado
-      const res = await enviar(
-        corpo([item("5.1_PITUA", "GRADUACAO_AYAHUASCA", 7, 1), item("TSUNU", "RAPE_SAGRADO", 2, 0)]),
-        cookie("NAT-TEMPLO-TESTA", "INSTITUICAO_FORMAL")
-      );
-      assert.strictEqual(res.status, 201);
-      const pedido = (await res.json()).pedido;
-      criados.push(pedido.id);
-      assert.strictEqual(pedido.itens[0].rateioUnitarioEstimado, 260, "Pituã 7 L = valor oficial da faixa 5–10 L");
-      assert.strictEqual(pedido.itens[1].rateioUnitarioEstimado, 65, "Rapé = valor oficial de apoio");
-      assert.strictEqual(pedido.rateioTotal, 7 * 260 + 2 * 65);
-
-      // Grupo sem CNPJ: solicitação vai para análise, sem valores
-      const resGrupo = await enviar(
-        corpo([item("5.1_PITUA", "GRADUACAO_AYAHUASCA", 7, 260)]),
-        cookie("NAT-GRP-TESTB", "GRUPO_INFORMAL")
-      );
-      assert.strictEqual(resGrupo.status, 201);
-      const jsonGrupo = await resGrupo.json();
-      criados.push(jsonGrupo.pedido.id);
-      assert.strictEqual(jsonGrupo.pedido.rateioTotal, 0, "Grupo sem CNPJ não recebe valores");
-      assert.ok(
-        decodeURIComponent(jsonGrupo.whatsappUrl).includes("a definir pelo Conselho"),
-        "Mensagem ao Conselho indica valores a definir"
-      );
-
-      // Item inexistente
-      const resInvalido = await enviar(
-        corpo([item("INVENTADO", "GRADUACAO_AYAHUASCA", 7, 1)]),
-        cookie("NAT-TEMPLO-TESTA", "INSTITUICAO_FORMAL")
-      );
-      assert.strictEqual(resInvalido.status, 400);
-    } finally {
-      for (const id of criados) await excluirPedido(id);
-    }
   });
 
   await test("Exclusão é durável: cadastro inicial excluído não volta; recusa legítima continua visível; inexistente retorna false", async () => {
@@ -1090,13 +700,41 @@ async function runAllTests() {
     await deletarPublicacao(postCriado.id, "NAT-TEMPLO-842");
   });
 
-  await test("Consulta de perfis de templos comunitários resolve por slug canônico", async () => {
-    const { obterPerfilPorSlugOuCodigo } = await import("../src/lib/db/comunidade.ts");
+  await test("Perfis da comunidade: público não recebe contatos nem perfis não publicados; agenda não é pública", async () => {
+    const { salvarPerfilTemplo, deletarPerfilTemplo } = await import("../src/lib/db/comunidade.ts");
+    const { GET } = await importarRota("src/app/api/comunidade/perfis/route.ts");
+    const { GET: GET_AGENDA } = await importarRota("src/app/api/comunidade/agenda/route.ts");
+    const base = {
+      nomeInstituicao: "Templo de Teste",
+      dirigenteResponsavel: "Dirigente Teste",
+      linhagem: "Teste",
+      cidade: "Rio Branco",
+      estado: "AC",
+      bioApresentacao: "Apresentação de teste com tamanho suficiente.",
+      fotosEspaco: [],
+      redesSociais: {},
+      agenda: [],
+      criadoEm: "01/01/2026",
+      atualizadoEm: "01/01/2026",
+    };
+    try {
+      await salvarPerfilTemplo({ ...base, codigoLiturgico: "TEST-PERFIL-A", slug: "test-perfil-a", publicado: true, whatsappContato: "68999990000", emailContato: "a@exemplo.org" });
+      await salvarPerfilTemplo({ ...base, codigoLiturgico: "TEST-PERFIL-B", slug: "test-perfil-b", publicado: false });
 
-    const perfil = await obterPerfilPorSlugOuCodigo("ceu-do-cruzeiro");
-    assert.ok(perfil, "Perfil por slug deve existir");
-    assert.strictEqual(perfil.codigoLiturgico, "NAT-TEMPLO-842");
-    assert.strictEqual(perfil.nomeInstituicao, "Templo Céu do Cruzeiro");
+      const lista = await (await GET(new Request("http://localhost/api/comunidade/perfis"))).json();
+      const a = lista.perfis.find((p) => p.slug === "test-perfil-a");
+      assert.ok(a, "Perfil publicado aparece");
+      assert.strictEqual(a.whatsappContato, undefined, "Sem WhatsApp pessoal no público");
+      assert.strictEqual(a.emailContato, undefined, "Sem e-mail pessoal no público");
+      assert.ok(!lista.perfis.some((p) => p.slug === "test-perfil-b"), "Perfil não publicado não aparece");
+
+      const resB = await GET(new Request("http://localhost/api/comunidade/perfis?slug=test-perfil-b"));
+      assert.strictEqual(resB.status, 404);
+      assert.strictEqual((await GET_AGENDA(new Request("http://localhost/api/comunidade/agenda"))).status, 401);
+    } finally {
+      await deletarPerfilTemplo("TEST-PERFIL-A");
+      await deletarPerfilTemplo("TEST-PERFIL-B");
+    }
   });
 
   // 10. OTIMIZAÇÕES PLANOS 004 A 009 (CORE HYBRID STORE, AUTH HMAC, CATÁLOGO 15 RAPÉS & SITEMAP)
@@ -1312,7 +950,7 @@ async function runAllTests() {
   });
 
   await test("Documentos de homologação escapam HTML, omitem a senha e usam a marca institucional", async () => {
-    const { gerarTermoHomologacaoHtml, gerarGuiaTransitoHtml } = await import(
+    const { gerarTermoHomologacaoHtml } = await import(
       "../src/lib/documentos-homologacao.ts"
     );
     const sol = {
@@ -1333,7 +971,7 @@ async function runAllTests() {
       senhaGerada: "SenhaSecreta-XYZ",
       dataEnvio: "01/01/2026",
     };
-    for (const html of [gerarTermoHomologacaoHtml(sol), gerarGuiaTransitoHtml(sol)]) {
+    for (const html of [gerarTermoHomologacaoHtml(sol)]) {
       assert.ok(!html.includes("<script>alert(1)"), "Deve escapar HTML injetado");
       assert.ok(!html.includes("SenhaSecreta-XYZ"), "Nunca deve imprimir a senha");
       assert.ok(html.includes("Cooperativa Nativaram"), "Deve usar a marca institucional");
@@ -1347,21 +985,55 @@ async function runAllTests() {
     assert.ok(sw.includes('req.method !== "GET"'), "Deve ignorar métodos diferentes de GET");
   });
 
-  await test("Sitemap público emite /sacramentos e perfis comunitários e omite /portal-dirigente", async () => {
+  await test("Sitemap público emite as páginas institucionais e a Central de Recursos, sem cadastro, fichas ou perfis", async () => {
     const sitemapFn = (await import("../src/app/sitemap.ts")).default;
     const entries = await sitemapFn();
     const urls = entries.map((e) => e.url);
+    for (const rota of ["/sacramentos", "/entidades-religiosas", "/seguranca", "/transparencia", "/portal-dirigente"]) {
+      assert.ok(urls.some((u) => u.endsWith(rota)), `Deve incluir ${rota}`);
+    }
+    assert.ok(!urls.some((u) => /credenciamento|reconhecimento|\/sacramentos\/|\/estudos\/comunidade\//.test(u)), "Sem cadastro, fichas ou perfis");
+  });
 
-    assert.ok(urls.some((u) => u.endsWith("/sacramentos")), "Deve incluir /sacramentos canônico");
-    assert.ok(
-      urls.some((u) => u.includes("/estudos/comunidade/ceu-do-cruzeiro")),
-      "Deve incluir perfis comunitários (/estudos/comunidade/ceu-do-cruzeiro)"
+  await test("ADR-016: API de pedidos responde 410 e não há valores nos dados de graduações", async () => {
+    const { GET, POST } = await importarRota("src/app/api/pedidos/route.ts");
+    assert.strictEqual((await GET()).status, 410);
+    assert.strictEqual((await POST()).status, 410);
+    const grad = await fs.readFile(path.join(ROOT_DIR, "src", "data", "graduacoes.ts"), "utf-8");
+    assert.ok(!/R\$|rateio|cota/i.test(grad.replace(/\/\/.*$/gm, "")), "graduacoes.ts não pode ter valores nem rateio");
+  });
+
+  await test("ADR-016: site público sem oferta (valores, frete, Gollog, pedido mínimo) e sem cadastro", async () => {
+    const proibidos = /R\$\s?\d|Gollog|frete|cota mínima|a partir de 5 ?L|logística aérea|rateio cooperativo|Credenciar Institui|Solicitar Reconhecimento/i;
+    const ofensores = [];
+    async function varrer(dir) {
+      for (const entrada of await fs.readdir(dir, { withFileTypes: true })) {
+        const caminho = path.join(dir, entrada.name);
+        if (entrada.isDirectory()) await varrer(caminho);
+        else if (/\.(tsx|ts)$/.test(entrada.name)) {
+          const texto = (await fs.readFile(caminho, "utf-8")).replace(/^\s*(\/\/|\*).*$/gm, "");
+          if (proibidos.test(texto)) ofensores.push(path.relative(ROOT_DIR, caminho));
+        }
+      }
+    }
+    await varrer(path.join(ROOT_DIR, "src", "app"));
+    await varrer(path.join(ROOT_DIR, "src", "components"));
+    await varrer(path.join(ROOT_DIR, "src", "data"));
+    assert.deepStrictEqual(ofensores, [], `Oferta ou cadastro em: ${ofensores.join(", ")}`);
+  });
+
+  await test("ADR-016: observatório só aceita anexos do Conselho", async () => {
+    const { POST } = await importarRota("src/app/api/estudos/anexos/route.ts");
+    const { createSessionToken, SESSION_COOKIE_NAME } = await import("../src/lib/auth/session.ts");
+    const cookie = `${SESSION_COOKIE_NAME}=${createSessionToken({ role: "DIRIGENTE", codigo: "NAT-TEMPLO-TESTA" })}`;
+    const res = await POST(
+      new Request("http://localhost/api/estudos/anexos", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", cookie },
+        body: JSON.stringify({}),
+      })
     );
-    assert.strictEqual(
-      urls.some((u) => u.includes("/portal-dirigente")),
-      false,
-      "Não deve indexar área restrita /portal-dirigente no sitemap público"
-    );
+    assert.strictEqual(res.status, 401, "Sessão de templo não anexa");
   });
 
   await test("Scripts SQL não concedem gravação pública nem leitura pública das tabelas sensíveis (migração 004)", async () => {

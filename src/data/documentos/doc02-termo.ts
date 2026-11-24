@@ -16,7 +16,7 @@ export const docTermo: DocumentoModelo = {
   icone: "termo",
   titulo: "TERMO DE RESPONSABILIDADE, CIÊNCIA DE SACRAMENTO E CONSENTIMENTO LIVRE E ESCLARECIDO (TCLE)",
   subtitulo:
-    "Art. 5º, VI e VIII da CF/88 • Resolução CONAD nº 01/2010 • Art. 2º, parágrafo único, da Lei nº 11.343/2006 • LGPD",
+    "Art. 5º, VI e VIII da CF/88 • Resolução CONAD nº 1/2010 • Art. 2º, caput, da Lei nº 11.343/2006 • LGPD",
   versao: VERSAO_REVISADA,
   dataVersao: DATA_VERSAO,
   revisaoPendente: [`${REVISAO_JURIDICA}: cláusulas 7ª e 8ª`],
@@ -42,7 +42,7 @@ export const docTermo: DocumentoModelo = {
         {
           tipo: "paragrafo",
           texto:
-            "O(A) COMUNGANTE declara que comparece livre e espontaneamente a cerimônia de natureza religiosa, amparada no art. 5º, VI e VIII, e nos arts. 215 e 216 da Constituição Federal. Declara-se ciente de que o sacramento é a **ayahuasca** (Santo Daime / Vegetal / Hoasca), decocção de *Banisteriopsis caapi* (jagube/mariri) e *Psychotria viridis* (chacrona/rainha), ressalvada pelo parágrafo único do art. 2º da Lei nº 11.343/2006.",
+            "O(A) COMUNGANTE declara que comparece livre e espontaneamente a cerimônia de natureza religiosa, amparada no art. 5º, VI e VIII, e nos arts. 215 e 216 da Constituição Federal. Declara-se ciente de que o sacramento é a **ayahuasca** (Santo Daime / Vegetal / Hoasca), decocção de *Banisteriopsis caapi* (jagube/mariri) e *Psychotria viridis* (chacrona/rainha), cujo uso ritual-religioso é objeto da ressalva do art. 2º, caput, da Lei nº 11.343/2006 e da Resolução CONAD nº 1/2010.",
         },
       ],
     },
@@ -52,7 +52,7 @@ export const docTermo: DocumentoModelo = {
         {
           tipo: "paragrafo",
           texto:
-            "Em observância à **Resolução CONAD nº 01/2010**, a ayahuasca **não é mercadoria**, não tem preço e não é objeto de comércio ou turismo. Qualquer contribuição tem natureza de **rateio solidário de custos** (manutenção do espaço, logística e feitio cooperativo, Lei nº 5.764/1971) e não configura relação de consumo.",
+            "Em observância à **Resolução CONAD nº 1/2010**, a ayahuasca **não é mercadoria**, não tem preço e não é objeto de comércio ou turismo. Eventuais contribuições são **contribuições voluntárias para as despesas de manutenção do espaço da entidade, sem relação com o sacramento** (Resolução CONAD nº 1/2010, princípio 2), e não configuram relação de consumo.",
         },
       ],
     },

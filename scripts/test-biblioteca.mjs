@@ -233,16 +233,15 @@ async function runAllTests() {
     procurarTermosProibidos(await fs.readFile(ESTUDOS_CLIENT, "utf-8"), "EstudosClient.tsx");
   });
 
-  await test("Nenhum documento se apresenta como \"Estudo científico oficial\" e a CONAD aparece como comentário", async () => {
+  await test("Nenhum documento se apresenta como \"Estudo científico oficial\" e a biblioteca só tem textos revisados", async () => {
     for (const arq of [ESTUDOS_TS, ESTUDOS_CLIENT]) {
       const texto = await fs.readFile(arq, "utf-8");
       assert.ok(!/estudo cient[ií]fico oficial/i.test(texto), `${path.basename(arq)}: "Estudo científico oficial"`);
     }
+    // ADR-016: PDFs com conteúdo desatualizado (inclusive orientação de transporte) saíram do ar.
     const { estudosData } = await import("../src/data/estudos.ts");
-    const conad = estudosData.filter((e) => /CONAD/.test(e.titulo));
-    assert.ok(conad.length > 0, "Nenhum item CONAD em estudos.ts");
-    for (const e of conad) {
-      assert.ok(/Coment[aá]rio da Cooperativa Nativaram/.test(e.titulo), `Título CONAD sem "Comentário da Cooperativa Nativaram": "${e.titulo}"`);
+    for (const e of estudosData) {
+      assert.ok(!/\.pdf$/i.test(e.pdfArquivo), `PDF não revisado na biblioteca: ${e.pdfArquivo}`);
     }
   });
 

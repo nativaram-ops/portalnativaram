@@ -8,7 +8,6 @@ import {
   Copy,
   Check,
   ShieldCheck,
-  Building2,
   Info,
   ChevronDown,
   ChevronUp,
@@ -53,7 +52,6 @@ const ICONES: Record<IconeDocumento, React.ReactNode> = {
   anamnese: <HeartPulse className="h-4 w-4 text-rose-400 shrink-0" />,
   termo: <Scale className="h-4 w-4 text-ambar-400 shrink-0" />,
   ata: <ShieldCheck className="h-4 w-4 text-emerald-400 shrink-0" />,
-  transito: <Building2 className="h-4 w-4 text-blue-400 shrink-0" />,
   menores: <Users className="h-4 w-4 text-purple-400 shrink-0" />,
   parecer: <Stethoscope className="h-4 w-4 text-sky-400 shrink-0" />,
   reconfirmacao: <ClipboardCheck className="h-4 w-4 text-emerald-400 shrink-0" />,
@@ -279,8 +277,7 @@ export const PortalCentralDocumentos: React.FC<PortalCentralDocumentosProps> = (
               </span>
             </div>
             <p className="text-xs text-areia-300 leading-relaxed">
-              Estes documentos foram formulados pelo Conselho da{" "}
-              <strong>Cooperativa Nativaram</strong> como modelos de referência (CONAD 01/2010, CF/88, LGPD e Tabela de Medicamentos do Portal). Cada templo tem autonomia para editar e incluir suas próprias regras. O rodapé de cada documento traz versão, data e status de revisão: textos com <em>revisão clínica ou jurídica pendente</em> devem ser revistos por médico ou advogado antes do uso. Você pode imprimir em A4, copiar o texto para o Word/Docs ou baixar o arquivo editável.
+              Estes documentos são <strong>modelos de referência do projeto Cooperativa Nativaram (em constituição)</strong>, ainda sem registro e sem CNPJ. O projeto não é parte nos documentos (base: CONAD 1/2010, CF/88, LGPD e Tabela de Medicamentos do Portal). Cada entidade religiosa preenche o próprio cabeçalho e tem autonomia para editar e incluir suas regras. O rodapé de cada documento traz versão, data e status de revisão: textos com <em>revisão clínica ou jurídica pendente</em> devem ser revistos por médico ou advogado antes do uso. Você pode imprimir em A4, copiar o texto para o Word/Docs ou baixar o arquivo editável.
             </p>
           </div>
         </div>
@@ -292,7 +289,7 @@ export const PortalCentralDocumentos: React.FC<PortalCentralDocumentosProps> = (
           <div className="flex items-center gap-2">
             <FileText className="h-4 w-4 text-ambar-400" />
             <span className="font-serif text-base font-bold text-areia-100">
-              Central de Documentos &amp; Modelos Oficiais
+              Central de Documentos &amp; Modelos de Referência
             </span>
           </div>
           <p className="text-xs text-areia-300 font-light max-w-2xl leading-relaxed mt-0.5">
@@ -385,7 +382,7 @@ export const PortalCentralDocumentos: React.FC<PortalCentralDocumentosProps> = (
       <div className="print-hidden space-y-2">
         <div className="flex items-center justify-between px-1">
           <span className="text-[11px] font-bold text-areia-300 uppercase tracking-wider">
-            Escolha o Modelo Canônico Abaixo ({DOCUMENTOS_CENTRAL.length} Documentos Oficiais)
+            Escolha o Modelo Canônico Abaixo ({DOCUMENTOS_CENTRAL.length} Modelos de Referência)
           </span>
           <span className="text-[11px] text-ambar-400 font-medium hidden sm:inline">
             Clique no cartão para alternar a folha A4

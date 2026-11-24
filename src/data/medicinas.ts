@@ -2,7 +2,7 @@ export interface Medicina {
   slug: string;
   nome: string;
   subtitulo: string;
-  tipo: "rape" | "sananga" | "ayahuasca" | "artefato";
+  tipo: "rape" | "ayahuasca" | "artefato";
   composicaoBotanica: string;
   familiaBotanica: string;
   feitioRastreabilidade: string;

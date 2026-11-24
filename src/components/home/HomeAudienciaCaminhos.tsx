@@ -5,7 +5,6 @@ import {
   Building2,
   Users,
   ArrowRight,
-  Lock,
   CheckCircle2,
 } from "lucide-react";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
@@ -14,14 +13,14 @@ import { Card } from "@/components/ui/Card";
 const caminhosAudiencia = [
   {
     codigo: "01",
-    publico: "Primeiro Visitante",
-    titulo: "Quero entender como a cooperativa funciona",
-    subtitulo: "Origem, feitio, lei e estudos abertos",
+    publico: "Primeira Visita",
+    titulo: "Quero conhecer o projeto",
+    subtitulo: "Origem, feitio, marco legal e estudos abertos",
     icone: Compass,
     pontos: [
-      "Cooperativa sem fins lucrativos (Lei 5.764/71) — não somos loja online",
-      "Transparência sobre o feitio no Acre (Cruzeiro do Sul) e dossiês abertos",
-      "Sem entrega avulsa a pessoa física para fins recreativos (+18)",
+      "Projeto de cooperativa em constituição, ainda sem registro e sem CNPJ",
+      "Memória do feitio no Acre (Cruzeiro do Sul) e acervo etnobotânico",
+      "Site institucional: sem oferta, sem pedidos e sem envios (+18)",
     ],
     ctaLabel: "Entender em 5 Passos",
     ctaHref: "#jornada-didatica",
@@ -31,35 +30,35 @@ const caminhosAudiencia = [
   },
   {
     codigo: "02",
-    publico: "Presidente de Instituição",
-    titulo: "Represento templo ou centro com CNPJ e Ata",
-    subtitulo: "Credenciamento institucional & Portal do Dirigente",
+    publico: "Entidade Religiosa",
+    titulo: "Represento entidade religiosa constituída",
+    subtitulo: "Estatuto, ata, CNPJ e responsável identificado",
     icone: Building2,
     pontos: [
-      "Destinado a igrejas, centros e institutos com CNPJ ativo e Ata/Estatuto",
-      "Solicitações a partir de 5 L com planejamento de 30 dias de antecedência",
-      "Rateio transparente, laudos e documentos A4 liberados no Portal do Dirigente",
+      "O projeto dialoga só com entidades religiosas legalmente constituídas",
+      "Compromissos: uso exclusivamente ritual, triagem, sem comércio nem propaganda",
+      "Documentos, matriz de interações e marco legal abertos na Central de Recursos",
     ],
-    ctaLabel: "Credenciar Instituição",
-    ctaHref: "/credenciamento",
-    linkSecundarioLabel: "Já homologado? Entrar no Portal",
+    ctaLabel: "Entidades Religiosas",
+    ctaHref: "/entidades-religiosas",
+    linkSecundarioLabel: "Abrir a Central de Recursos",
     linkSecundarioHref: "/portal-dirigente",
     destaque: true,
   },
   {
     codigo: "03",
-    publico: "Líder de Grupo / Rezador",
-    titulo: "Conduzo grupo em formação sem CNPJ próprio",
-    subtitulo: "Acolhimento fraterno & orientação gradual",
+    publico: "Grupo em Formação",
+    titulo: "Conduzo grupo, círculo ou roda ainda sem formalização",
+    subtitulo: "Orientação para se formalizar",
     icone: Users,
     pontos: [
-      "Para núcleos de estudo, círculos e rezadores ainda sem CNPJ constituído",
-      "Ficha de Reconhecimento direta — sem burocracia cartorial inicial",
-      "Entrevista de linhagem e triagem acompanhada pelo Conselho Guardião",
+      "Organização religiosa ou associação, com estatuto e ata",
+      "Registro no Cartório de Registro Civil de Pessoas Jurídicas e CNPJ",
+      "Sem atendimento até a formalização",
     ],
-    ctaLabel: "Solicitar Reconhecimento",
-    ctaHref: "/reconhecimento",
-    linkSecundarioLabel: "Ver garantias legais (CONAD)",
+    ctaLabel: "Ver Orientação de Formalização",
+    ctaHref: "/entidades-religiosas#formalizacao",
+    linkSecundarioLabel: "Ler o Marco Legal",
     linkSecundarioHref: "/compliance",
     destaque: false,
   },
@@ -83,12 +82,12 @@ export const HomeAudienciaCaminhos = () => {
                 id="caminhos-portal-titulo"
                 className="font-serif text-2xl sm:text-display-sm font-bold text-areia-100 leading-tight"
               >
-                Para Quem É Este Portal —{" "}
+                Para Quem É Este Site —{" "}
                 <span className="text-gradient-solar">Escolha Seu Caminho</span>
               </h2>
             </div>
             <p className="text-xs sm:text-sm text-areia-300/90 max-w-md font-light leading-relaxed">
-              A Cooperativa Nativaram não realiza comércio de varejo aberto. Identifique seu perfil abaixo para acessar as informações e formulários corretos sem rodeios.
+              Este site é institucional. Não vendemos, não recebemos pedidos e não fazemos envios. Identifique seu perfil abaixo para encontrar as informações certas.
             </p>
           </div>
         </AnimateOnScroll>
@@ -156,7 +155,6 @@ export const HomeAudienciaCaminhos = () => {
                       href={item.linkSecundarioHref}
                       className="flex items-center justify-center gap-1.5 text-[11px] text-areia-300 hover:text-ambar-300 transition-colors pt-0.5"
                     >
-                      {item.destaque && <Lock className="h-3 w-3 text-ambar-400 shrink-0" />}
                       <span className="underline underline-offset-4 decoration-ambar-500/30">
                         {item.linkSecundarioLabel}
                       </span>

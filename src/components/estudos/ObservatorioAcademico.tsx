@@ -71,6 +71,10 @@ export const ObservatorioAcademico: React.FC = () => {
   const [erroAnexo, setErroAnexo] = useState("");
   const [sucessoAnexo, setSucessoAnexo] = useState("");
 
+  // Só o Conselho anexa estudos ao site. A checagem ainda é a sessão ativa;
+  // o servidor (/api/estudos/anexos) restringe o envio ao perfil do Conselho.
+  const podeAnexar = sessao.authenticated;
+
   const textoCompliance = useDeferredValue(`${sinteseClara} ${notaDirigente}`);
   const alertasCompliance = verificarConformidadeTexto(textoCompliance);
 
@@ -270,6 +274,18 @@ export const ObservatorioAcademico: React.FC = () => {
 
   return (
     <div className="space-y-12 animate-fade-in">
+      {/* Aviso fixo de ciência (plano 013, decisão 8) */}
+      <div
+        role="note"
+        className="rounded-2xl border-2 border-ambar-500/50 bg-ambar-500/10 p-4 sm:p-5 flex items-start gap-3"
+      >
+        <AlertTriangle className="h-5 w-5 text-ambar-400 shrink-0 mt-0.5" aria-hidden="true" />
+        <p className="text-sm text-areia-100 leading-relaxed font-medium">
+          Conteúdo científico de referência. Não é indicação de uso. O uso terapêutico da ayahuasca
+          é vedado pela Resolução CONAD nº 1/2010 fora da pesquisa científica.
+        </p>
+      </div>
+
       {/* ═══════════════════════════════════════════
           1. BUSCADOR ACADÊMICO EM FONTES ABERTAS
           ═══════════════════════════════════════════ */}
@@ -289,15 +305,15 @@ export const ObservatorioAcademico: React.FC = () => {
               Buscador de Pesquisas Acadêmicas Verificadas
             </h2>
             <p className="text-xs sm:text-sm text-areia-300 font-light leading-relaxed">
-              Pesquise artigos revisados por pares ou cole um DOI exato (<code className="text-ambar-300">10.xxxx/...</code>). Exporte referências para o NotebookLM ou, como dirigente homologado, anexe estudos comentados em linguagem simples ao site.
+              Pesquise artigos revisados por pares ou cole um DOI exato (<code className="text-ambar-300">10.xxxx/...</code>). Exporte referências para o NotebookLM. Só o Conselho anexa estudos comentados em linguagem simples ao site.
             </p>
           </div>
 
           <div className="flex items-center gap-2 text-[11px] font-mono">
-            {sessao.authenticated ? (
+            {podeAnexar ? (
               <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300">
                 <ShieldCheck className="h-3.5 w-3.5" />
-                <span>Sessão ativa ({sessao.codigo}) • Pode anexar</span>
+                <span>Sessão do Conselho ({sessao.codigo}) • Pode anexar</span>
               </span>
             ) : (
               <Link
@@ -305,7 +321,7 @@ export const ObservatorioAcademico: React.FC = () => {
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-floresta-900 border border-ambar-500/30 text-ambar-300 hover:bg-floresta-800 transition-colors"
               >
                 <Lock className="h-3.5 w-3.5" />
-                <span>Dirigente? Entre para anexar no site</span>
+                <span>Conselho: entrar para anexar</span>
               </Link>
             )}
           </div>
@@ -548,7 +564,7 @@ export const ObservatorioAcademico: React.FC = () => {
                           <span>{naPasta ? "Na Pasta NotebookLM" : "+ NotebookLM"}</span>
                         </button>
 
-                        {sessao.authenticated && (
+                        {podeAnexar && (
                           <button
                             type="button"
                             disabled={jaAnexado}
@@ -791,7 +807,7 @@ export const ObservatorioAcademico: React.FC = () => {
       {/* ═══════════════════════════════════════════
           MODAL DE ANEXAÇÃO AUTENTICADA NO SITE
           ═══════════════════════════════════════════ */}
-      {artigoAnexando && (
+      {podeAnexar && artigoAnexando && (
         <div
           ref={dialogoAnexar.containerRef}
           role="dialog"
@@ -874,7 +890,7 @@ export const ObservatorioAcademico: React.FC = () => {
                   htmlFor="nota-dirigente-input"
                   className="block text-[11px] font-mono uppercase text-areia-300 mb-1"
                 >
-                  Nota Institucional do Dirigente (Opcional)
+                  Nota do Conselho (Opcional)
                 </label>
                 <input
                   id="nota-dirigente-input"

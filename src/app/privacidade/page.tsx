@@ -17,14 +17,14 @@ import { SectionDivider } from "@/components/ui/SectionDivider";
 export const metadata: Metadata = {
   title: "Aviso de Privacidade | Cooperativa Nativaram",
   description:
-    "Como a Cooperativa Nativaram trata os dados pessoais recebidos nos formulários de credenciamento e reconhecimento, com base na LGPD (Lei 13.709/2018).",
+    "O site da Cooperativa Nativaram, projeto em constituição, não coleta cadastro nem pedidos. Controlador, cadastros anteriores e direitos do titular pela LGPD (Lei 13.709/2018).",
   alternates: {
     canonical: "/privacidade",
   },
   openGraph: {
     title: "Aviso de Privacidade | Cooperativa Nativaram",
     description:
-      "Dados coletados, finalidades, compartilhamento e direitos do titular na Cooperativa Nativaram.",
+      "O site não coleta cadastro nem pedidos. Controlador, cadastros anteriores e direitos do titular.",
   },
 };
 
@@ -41,11 +41,12 @@ const secoes: Secao[] = [
     conteudo: (
       <>
         <p>
-          O controlador dos dados é a <strong>Cooperativa Nativaram</strong>,
-          cooperativa sem fins lucrativos regida pela Lei 5.764/71.
+          O controlador é o <strong>projeto Cooperativa Nativaram</strong>, em
+          constituição, sem CNPJ. A Cooperativa Nativaram é um projeto de
+          cooperativa em constituição, ainda sem registro e sem CNPJ.
         </p>
         <ul className="list-disc pl-5 space-y-1">
-          <li>CNPJ: A definir.</li>
+          <li>Responsável: A definir.</li>
           <li>Endereço: A definir.</li>
         </ul>
       </>
@@ -53,38 +54,47 @@ const secoes: Secao[] = [
   },
   {
     icone: Database,
-    titulo: "2. Quais dados coletamos",
+    titulo: "2. O que o site coleta",
     conteudo: (
       <>
         <p>
-          <strong>Credenciamento de templos:</strong> nome da instituição,
-          CNPJ, nome e CPF do dirigente responsável e dados de contato (e-mail
-          e telefone).
+          <strong>O site não coleta cadastro nem pedidos.</strong> Não há
+          formulário de cadastro, de pedido ou de contato. Este site é
+          institucional. Não vendemos, não recebemos pedidos e não fazemos
+          envios.
         </p>
         <p>
-          <strong>Reconhecimento de grupos:</strong> dados de contato e a
-          informação sobre a linhagem espiritual do grupo ou do rezador.
+          Usamos apenas cookies essenciais de sessão e segurança, sem
+          rastreamento publicitário.
         </p>
         <p>
-          A linhagem espiritual revela convicção religiosa e é{" "}
-          <strong>dado pessoal sensível</strong> (LGPD, art. 5º, II). Só a
-          tratamos com o seu consentimento específico e destacado, dado no
-          próprio formulário (LGPD, art. 11, I).
+          <strong>O login existe só para o Conselho.</strong> Visitantes e
+          entidades não têm conta no site. A Central de Recursos é aberta, sem
+          login.
+        </p>
+        <p>
+          Se você escrever para o WhatsApp ou o e-mail institucional, os dados
+          que enviar ficam nesses serviços e são usados só para responder à
+          sua mensagem.
         </p>
       </>
     ),
   },
   {
     icone: Target,
-    titulo: "3. Para que usamos os dados",
+    titulo: "3. Dados de cadastros anteriores a 24/11/2026",
     conteudo: (
-      <ul className="list-disc pl-5 space-y-1">
-        <li>Analisar e homologar o credenciamento ou o reconhecimento.</li>
-        <li>Entrar em contato sobre o andamento do pedido.</li>
-        <li>
-          Organizar a logística de envio de sacramentos a templos credenciados.
-        </li>
-      </ul>
+      <>
+        <p>
+          Até 24/11/2026 o site tinha formulários de cadastro de entidades e
+          grupos. Esses formulários foram encerrados.
+        </p>
+        <p>
+          Os dados de entidades cadastradas antes de 24/11/2026 são mantidos
+          só para atender aos direitos do titular e serão eliminados a pedido.
+          Eles não são usados para nenhuma outra finalidade.
+        </p>
+      </>
     ),
   },
   {
@@ -93,14 +103,13 @@ const secoes: Secao[] = [
     conteudo: (
       <>
         <p>
-          A Cooperativa Nativaram <strong>não vende</strong> nem cede dados
-          pessoais a terceiros para fins comerciais.
+          O projeto <strong>não vende</strong> nem cede dados pessoais a
+          terceiros.
         </p>
         <p>
-          Os dados ficam em serviços de hospedagem do portal e de banco de
-          dados contratados pela cooperativa. Esses fornecedores atuam como
-          operadores: tratam os dados apenas para manter o portal funcionando,
-          conforme nossas instruções.
+          Os dados ficam em serviços de hospedagem do site e de banco de dados.
+          Esses fornecedores atuam como operadores: tratam os dados apenas para
+          manter o site funcionando.
         </p>
       </>
     ),
@@ -110,7 +119,8 @@ const secoes: Secao[] = [
     titulo: "5. Por quanto tempo guardamos",
     conteudo: (
       <p>
-        Prazo de retenção: A definir pelo Conselho. Quando o prazo for
+        Os dados de cadastros anteriores a 24/11/2026 são eliminados a pedido
+        do titular. Prazo geral de retenção: A definir. Quando o prazo for
         aprovado, ele será publicado nesta página.
       </p>
     ),
@@ -120,7 +130,7 @@ const secoes: Secao[] = [
     titulo: "6. Seus direitos como titular",
     conteudo: (
       <>
-        <p>Pela LGPD (art. 18), você pode pedir à cooperativa:</p>
+        <p>Pela LGPD (art. 18), você pode pedir:</p>
         <ul className="list-disc pl-5 space-y-1">
           <li>confirmação de que tratamos seus dados e acesso a eles;</li>
           <li>correção de dados incompletos, inexatos ou desatualizados;</li>
@@ -152,7 +162,7 @@ const secoes: Secao[] = [
     titulo: "7. Como falar com o encarregado",
     conteudo: (
       <>
-        <p>E-mail do encarregado: A definir.</p>
+        <p>Responsável e contato do encarregado de dados: A definir.</p>
         <p>
           Enquanto o canal não for publicado, pedidos sobre dados pessoais
           podem ser feitos pela página de{" "}
@@ -161,6 +171,13 @@ const secoes: Secao[] = [
             className="text-ambar-400 hover:text-ambar-300 underline underline-offset-4"
           >
             contato
+          </Link>
+          . Veja também a página de{" "}
+          <Link
+            href="/transparencia"
+            className="text-ambar-400 hover:text-ambar-300 underline underline-offset-4"
+          >
+            transparência
           </Link>
           .
         </p>
@@ -187,9 +204,10 @@ export default function PrivacidadePage() {
           </h1>
 
           <p className="text-base sm:text-lg text-areia-300 max-w-2xl mx-auto leading-relaxed font-light">
-            Como a Cooperativa Nativaram trata os dados pessoais recebidos nos
-            formulários de credenciamento e reconhecimento, nos termos da Lei
-            Geral de Proteção de Dados (Lei 13.709/2018).
+            O site não coleta cadastro nem pedidos. Este aviso explica quem é
+            o controlador, o que acontece com os cadastros anteriores a
+            24/11/2026 e os seus direitos, nos termos da Lei Geral de Proteção
+            de Dados (Lei 13.709/2018).
           </p>
         </div>
       </section>
@@ -221,7 +239,7 @@ export default function PrivacidadePage() {
             <Lock className="h-4 w-4 text-ambar-400 shrink-0 mt-0.5" />
             <p>
               As preferências de cookies podem ser ajustadas a qualquer momento
-              pelo link no rodapé do portal. Este aviso será revisado após a
+              pelo link no rodapé do site. Este aviso será revisado após a
               análise jurídica e a aprovação do Conselho.
             </p>
           </div>

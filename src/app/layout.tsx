@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://nativaramcoop.eco.br"),
   title: "Cooperativa Nativaram | Salvaguarda Litúrgica & Etnobotânica da Floresta",
   description:
-    "Preservação cultural, ciência do feitio purista da Ayahuasca e apoio logístico e operacional cooperativo a instituições religiosas homologadas sob amparo da CF/88, Resolução CONAD nº 01/2010 e ANVISA.",
+    "Site institucional do projeto Cooperativa Nativaram, cooperativa em constituição, ainda sem registro e sem CNPJ. Memória do feitio, acervo etnobotânico, marco legal (Resolução CONAD nº 1/2010) e recursos abertos de segurança. Não vendemos, não recebemos pedidos e não fazemos envios.",
   keywords: [
     "Cooperativa Nativaram",
     "Nascidos do Raio de Sol",
@@ -43,10 +43,9 @@ export const metadata: Metadata = {
     "Tucunacá",
     "Chacrona Rainha",
     "CONAD 01/2010",
-    "Rapés Sagrados",
     "Etnociência",
   ],
-  authors: [{ name: "Cooperativa Etnobotânica Nativaram" }],
+  authors: [{ name: "Cooperativa Nativaram (projeto em constituição)" }],
   manifest: "/manifest.json",
   openGraph: {
     type: "website",
@@ -55,7 +54,7 @@ export const metadata: Metadata = {
     siteName: "Cooperativa Nativaram",
     title: "Cooperativa Nativaram | Salvaguarda Litúrgica & Etnobotânica da Floresta",
     description:
-      "Preservação cultural, ciência do feitio purista e provimento assistido de sacramentos tradicionais para instituições homologadas.",
+      "Projeto de cooperativa em constituição, ainda sem registro e sem CNPJ. Site institucional, sem oferta, sem pedidos e sem envios.",
     images: [
       {
         url: "/og-cooperativa-nativaram.jpg",
@@ -88,26 +87,19 @@ export default function RootLayout({
     url: "https://nativaramcoop.eco.br",
     logo: "https://nativaramcoop.eco.br/icon-512.png",
     description:
-      "Cooperativa etnobotânica dedicada à salvaguarda cultural, à ciência do feitio purista da Ayahuasca e dos sacramentos tradicionais amazônicos sob amparo da Resolução CONAD nº 01/2010.",
+      "A Cooperativa Nativaram é um projeto de cooperativa em constituição, ainda sem registro e sem CNPJ. Site institucional: não vende, não recebe pedidos e não faz envios.",
     address: [
       {
         "@type": "PostalAddress",
         addressLocality: "Cruzeiro do Sul",
         addressRegion: "AC",
         addressCountry: "BR",
-        description: "Ponto de Feitio Nativo e Manejo Agroflorestal",
-      },
-      {
-        "@type": "PostalAddress",
-        addressLocality: "Serra",
-        addressRegion: "ES",
-        addressCountry: "BR",
-        description: "Ponto de Partilha e Apoio Logístico",
+        description: "Origem do feitio tradicional",
       },
     ],
     contactPoint: {
       "@type": "ContactPoint",
-      contactType: "Atendimento Institucional e Litúrgico",
+      contactType: "Contato institucional",
       email: "nativaram@gmail.com",
       availableLanguage: ["Portuguese", "English"],
     },

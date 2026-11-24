@@ -16,21 +16,21 @@ const pilaresConformidade = [
   {
     titulo: "Florescimento & Serenidade",
     descricao:
-      "Não prometemos desfechos clínicos ou curas. Os sacramentos são partilhados apenas para o rito, em casas credenciadas.",
+      "Não fazemos promessas de saúde. O sacramento tem uso exclusivamente religioso, em entidades religiosas legalmente constituídas.",
     icone: HeartHandshake,
     badge: "Zero Promessa Clínica",
   },
   {
-    titulo: "Rateio de Custos Solidário",
+    titulo: "Sem Comércio",
     descricao:
-      "A Resolução CONAD nº 01/2010 veda peremptoriamente o comércio da Ayahuasca. Operamos por rateio estrito de logística, biomassa e manejo sustentável.",
+      "A Resolução CONAD nº 1/2010 veda o comércio da Ayahuasca. Este site é institucional: não vendemos, não recebemos pedidos e não fazemos envios.",
     icone: Scale,
     badge: "CONAD 01/2010",
   },
   {
-    titulo: "Acolhimento aos Templos",
+    titulo: "Entidades Constituídas",
     descricao:
-      "Sob o amparo do Art. 5º, VI da Carta Magna (liberdade de culto), a partilha litúrgica é restrita a dirigentes de congregações devidamente homologadas.",
+      "A partilha do sacramento acontece apenas entre entidades religiosas legalmente constituídas, fora deste site, por termo entre as entidades, cobrindo somente o custeio de despesas comprovadas, sem margem.",
     icone: ShieldCheck,
     badge: "Art. 5º, VI CF/88",
   },
@@ -68,7 +68,7 @@ export const HomeCompromissoSagrado = () => {
                 &ldquo;A Cooperativa Nativaram compreende a Ayahuasca como um portal sagrado.&rdquo;
               </h2>
               <p className="text-sm sm:text-base text-areia-200/90 font-light leading-relaxed">
-                Zelamos pela integridade de cada etapa, realizando a triagem e homologação prévia das instituições constituídas e dos grupos acolhidos em caminhada fraterna. Nosso compromisso é assegurar que a força vegetal chegue apenas a mãos que honrem seu propósito espiritual.
+                A Cooperativa Nativaram é um projeto de cooperativa em constituição, ainda sem registro e sem CNPJ. O compromisso do projeto é com o uso exclusivamente religioso, a triagem dos participantes e a recusa a qualquer comércio ou propaganda do sacramento.
               </p>
             </div>
 
@@ -103,13 +103,13 @@ export const HomeCompromissoSagrado = () => {
             {/* Rodapé Interno com Direcionamento ao Marco Legal */}
             <div className="pt-4 border-t border-ambar-500/15 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
               <span className="text-areia-300 font-light text-center sm:text-left">
-                Salvaguarda Litúrgica sem fins lucrativos • Resolução CONAD nº 01/2010
+                Projeto em constituição • Resolução CONAD nº 1/2010
               </span>
               <Link
                 href="/compliance"
                 className="inline-flex items-center gap-1.5 font-semibold text-ambar-300 hover:text-areia-100 transition-colors"
               >
-                <span>Conhecer o Marco Legal &amp; Laudos em Detalhes</span>
+                <span>Conhecer o Marco Legal</span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
             </div>

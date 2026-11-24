@@ -164,14 +164,17 @@ async function runAllTests() {
     assert.ok(/naratriptano e (o )?eletriptano não/i.test(trip.mecanismo), "Mecanismo deve distinguir naratriptano/eletriptano");
   });
 
-  await test("FAQ 8 separa a CONAD da política interna e FAQ 10 não diz 'perfeitamente legal'", () => {
+  await test("FAQ 8 separa a CONAD da política interna e veda tabaco a menores; FAQ não orienta transporte", () => {
     const faq8 = dados.FAQ_DIRIGENTE.find((f) => f.id === "faq-8");
-    const faq10 = dados.FAQ_DIRIGENTE.find((f) => f.id === "faq-10");
     assert.ok(/poder familiar/i.test(faq8.resposta));
     assert.ok(/política interna/i.test(faq8.resposta + (faq8.destaqueConselho || "")));
-    assert.ok(!/perfeitamente legal/i.test(faq10.resposta));
-    assert.ok(/internacional/i.test(faq10.resposta));
-    assert.ok(/companhia aérea/i.test(faq10.resposta));
+    assert.ok(/ECA, art\. 243/.test(faq8.resposta), "FAQ 8 deve vedar tabaco a menores");
+    assert.ok(!/porç(ão|ões) mínimas? simbólicas?/i.test(faq8.resposta), "Sem orientação de porção para menores");
+    // ADR-016: transporte não é regulamentado e a FAQ não orienta envio nem bagagem
+    for (const f of dados.FAQ_DIRIGENTE) {
+      const texto = `${f.pergunta} ${f.resposta}`;
+      assert.ok(!/bagagem|interestadual|companhia aérea|despach/i.test(texto), `${f.id} orienta transporte`);
+    }
   });
 
   // 3. NOVAS ENTRADAS A3

@@ -5,7 +5,6 @@ import {
   MessageCircle,
   Mail,
   MapPin,
-  Clock,
   ShieldCheck,
   Sparkles,
   ArrowRight,
@@ -15,15 +14,21 @@ import { ContactForm } from "@/components/forms/ContactForm";
 import { AnimateOnScroll } from "@/components/ui/AnimateOnScroll";
 import { SectionDivider } from "@/components/ui/SectionDivider";
 import { InstagramIcon } from "@/components/ui/icons";
+import {
+  EMAIL_INSTITUCIONAL,
+  WHATSAPP_CONSELHO_FORMATADO,
+  linkWhatsAppConselho,
+} from "@/lib/contato";
 
 export const metadata: Metadata = {
-  title: "Contato Institucional & Atendimento Litúrgico | Cooperativa Nativaram",
+  title: "Contato Institucional | Cooperativa Nativaram",
   description:
-    "Entre em contato com os guardiões da Cooperativa Nativaram. Canal direto via WhatsApp para dirigentes, esclarecimento de dúvidas sobre feitios e agendamento de homologação litúrgica.",
+    "Contato com a coordenação do projeto Cooperativa Nativaram, em constituição, por WhatsApp ou e-mail institucional. O site não coleta dados.",
+  alternates: { canonical: "/contato" },
   openGraph: {
     title: "Contato Institucional | Cooperativa Nativaram",
     description:
-      "Canal oficial de atendimento para templos, pesquisadores e guardiões da floresta.",
+      "Canal institucional para entidades religiosas constituídas e pesquisadores. O site não coleta dados.",
     url: "https://nativaramcoop.eco.br/contato",
   },
 };
@@ -51,8 +56,9 @@ export default function ContatoPage() {
             </h1>
 
             <p className="text-sm sm:text-base text-areia-300/80 leading-relaxed max-w-xl">
-              Estamos à disposição de dirigentes espirituais, pesquisadores
-              etnobotânicos e templos de todo o Brasil.
+              Entidades religiosas constituídas podem falar com a coordenação do
+              projeto pelo e-mail ou WhatsApp institucional. Não coletamos dados
+              pelo site.
             </p>
           </AnimateOnScroll>
         </div>
@@ -81,24 +87,24 @@ export default function ContatoPage() {
                         Canal Direto WhatsApp
                       </h2>
                       <p className="text-[11px] text-emerald-300/80">
-                        Atendimento ágil para dirigentes
+                        Coordenação do projeto
                       </p>
                     </div>
                   </div>
 
                   <p className="relative text-xs text-areia-300 leading-relaxed">
-                    Tire dúvidas sobre prazos de feitio, lotes sob encomenda,
-                    triagem e envio litúrgico.
+                    Dúvidas institucionais, pesquisa acadêmica e orientação sobre
+                    formalização de entidades religiosas.
                   </p>
 
                   <a
-                    href="https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20os%20sacramentos%20e%20o%20apoio%20lit%C3%BArgico%20da%20Nativaram%20Brasil."
+                    href={linkWhatsAppConselho("Olá, gostaria de falar com a coordenação do projeto Cooperativa Nativaram.")}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="relative inline-flex w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 px-5 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg transition-all active:scale-[0.98]"
                   >
                     <MessageCircle className="h-4 w-4" />
-                    <span>WhatsApp: (68) 99997-9104</span>
+                    <span>WhatsApp: {WHATSAPP_CONSELHO_FORMATADO}</span>
                   </a>
 
                   <p className="relative text-[10px] text-emerald-300/70 text-center font-medium">
@@ -111,19 +117,10 @@ export default function ContatoPage() {
               <AnimateOnScroll delay={200}>
                 <div className="card-elevated rounded-xl p-6 space-y-4">
                   <h3 className="text-[11px] font-bold tracking-[0.15em] text-ambar-400/80 uppercase">
-                    Endereços de Custódia & Apoio
+                    Origem & Canais Oficiais
                   </h3>
 
                   <div className="space-y-3.5 text-xs text-areia-400">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <strong className="text-areia-200 block">
-                          Ponto de Partilha & Logística
-                        </strong>
-                        Serra, ES — Brasil
-                      </div>
-                    </div>
                     <div className="flex items-start gap-3">
                       <MapPin className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
                       <div>
@@ -140,7 +137,7 @@ export default function ContatoPage() {
                           E-mail Oficial
                         </strong>
                         <span className="text-ambar-300/90 font-mono text-[11px]">
-                          nativaram@gmail.com
+                          {EMAIL_INSTITUCIONAL}
                         </span>
                       </div>
                     </div>
@@ -171,35 +168,26 @@ export default function ContatoPage() {
                         </div>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <Clock className="h-4 w-4 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                      <div>
-                        <strong className="text-areia-200 block">
-                          Feitio Sob Encomenda
-                        </strong>
-                        Ciclo sagrado de 30 dias de preparação
-                      </div>
-                    </div>
                   </div>
                 </div>
               </AnimateOnScroll>
 
-              {/* Credenciamento shortcut */}
+              {/* Atalho para Entidades Religiosas */}
               <AnimateOnScroll delay={400}>
                 <div className="card-liturgico rounded-xl p-5 space-y-3">
                   <div className="flex items-center gap-2 text-[11px] font-semibold text-ambar-400 uppercase tracking-wider">
                     <ShieldCheck className="h-3.5 w-3.5" />
-                    <span>Primeiro Contato de Templo?</span>
+                    <span>Entidade Religiosa?</span>
                   </div>
                   <p className="text-xs text-areia-400 leading-relaxed">
-                    Se a sua congregação deseja iniciar a homologação, adiantamos
-                    a triagem pelo formulário específico.
+                    Veja quem pode dialogar com o projeto, os compromissos da
+                    entidade e a orientação para grupos em formação.
                   </p>
                   <Link
-                    href="/credenciamento"
+                    href="/entidades-religiosas"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-ambar-400 hover:text-ambar-300 transition-colors"
                   >
-                    <span>Ficha de Credenciamento</span>
+                    <span>Entidades Religiosas</span>
                     <ArrowRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>
@@ -219,9 +207,8 @@ export default function ContatoPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-lg border border-ambar-500/10 bg-floresta-900/20 p-4 text-center">
             <p className="text-[11px] text-areia-400/60">
-              A Cooperativa Nativaram não realiza atendimentos para fins comerciais ou
-              recreativos. Acesso reservado ao contexto de práticas rituais
-              amparadas pela Constituição Federal e Resolução CONAD nº 01/2010.
+              Este site é institucional. Não vendemos, não recebemos pedidos e não
+              fazemos envios. Não há valores nem formulários de pedido.
             </p>
           </div>
         </div>

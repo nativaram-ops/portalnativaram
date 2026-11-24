@@ -94,7 +94,7 @@ export function WelcomeConsentModal() {
 
             <div className="inline-flex items-center gap-1.5 rounded-full bg-amber-500/15 border border-amber-700/25 px-3 py-0.5 text-[10px] font-semibold tracking-wider text-amber-950 uppercase">
               <Sparkles className="h-3 w-3 text-amber-700" />
-              <span>Cooperativa Sem Fins Lucrativos • CONAD 01/2010</span>
+              <span>Projeto em Constituição • Site Institucional</span>
             </div>
 
             <h2
@@ -105,7 +105,7 @@ export function WelcomeConsentModal() {
             </h2>
 
             <p className="text-xs text-pedra-800 max-w-md mx-auto leading-relaxed">
-              <strong>Não somos loja online nem e-commerce.</strong> Realizamos salvaguarda litúrgica e rateio cooperativo exclusivo para uso religioso (+18). Escolha como deseja entrar:
+              A Cooperativa Nativaram é um projeto de cooperativa em constituição, ainda sem registro e sem CNPJ. <strong>Este site é institucional. Não vendemos, não recebemos pedidos e não fazemos envios.</strong> Conteúdo para maiores de 18 anos. Escolha como deseja entrar:
             </p>
           </div>
 
@@ -121,17 +121,17 @@ export function WelcomeConsentModal() {
               </span>
               <div className="flex-1 min-w-0">
                 <p className="font-serif text-xs font-bold text-floresta-950 group-hover:text-amber-800 transition-colors">
-                  Sou primeiro visitante ou pesquisador
+                  Primeira visita
                 </p>
                 <p className="text-[11px] text-pedra-700 leading-snug">
-                  Conhecer o modelo cooperativo, o feitio no Acre e os estudos abertos.
+                  Conhecer o projeto, a memória do feitio no Acre e os estudos abertos.
                 </p>
               </div>
               <ExternalLink className="h-3.5 w-3.5 text-amber-700 shrink-0 mt-1" />
             </Link>
 
             <Link
-              href="/credenciamento"
+              href="/entidades-religiosas"
               onClick={fecharComConsentimento}
               className="flex items-start gap-3 p-3 rounded-xl bg-floresta-900 text-areia-100 hover:bg-floresta-800 border border-amber-500/50 transition-all text-left group focus:outline-none focus:ring-2 focus:ring-amber-500"
             >
@@ -140,17 +140,17 @@ export function WelcomeConsentModal() {
               </span>
               <div className="flex-1 min-w-0">
                 <p className="font-serif text-xs font-bold text-areia-100 group-hover:text-amber-300 transition-colors">
-                  Presido instituição constituída (CNPJ &amp; Ata)
+                  Entidade religiosa constituída
                 </p>
                 <p className="text-[11px] text-areia-300 leading-snug">
-                  Solicitar credenciamento formal de templo ou acessar o Portal do Dirigente.
+                  Ver quem pode dialogar com o projeto, os compromissos e os recursos abertos.
                 </p>
               </div>
               <ExternalLink className="h-3.5 w-3.5 text-amber-400 shrink-0 mt-1" />
             </Link>
 
             <Link
-              href="/reconhecimento"
+              href="/entidades-religiosas#formalizacao"
               onClick={fecharComConsentimento}
               className="flex items-start gap-3 p-3 rounded-xl bg-white/85 hover:bg-white border border-amber-600/25 hover:border-amber-600/60 transition-all text-left group focus:outline-none focus:ring-2 focus:ring-amber-600"
             >
@@ -159,10 +159,10 @@ export function WelcomeConsentModal() {
               </span>
               <div className="flex-1 min-w-0">
                 <p className="font-serif text-xs font-bold text-floresta-950 group-hover:text-amber-800 transition-colors">
-                  Lidero grupo em formação / rezador sem CNPJ
+                  Grupo em formação
                 </p>
                 <p className="text-[11px] text-pedra-700 leading-snug">
-                  Preencher a Ficha de Reconhecimento e passar por acolhimento fraterno.
+                  Orientação para formalizar a entidade (estatuto, ata, registro e CNPJ).
                 </p>
               </div>
               <ExternalLink className="h-3.5 w-3.5 text-amber-700 shrink-0 mt-1" />
@@ -180,7 +180,11 @@ export function WelcomeConsentModal() {
             </div>
 
             <p className="text-[11px] text-pedra-800 leading-relaxed">
-              Respeitamos o marco legal (CONAD 01/2010 e Art. 5º CF/88): o portal <strong>não faz promessas médicas nem ofertas comerciais</strong> e adota vocabulário tradicional (<em>sacramentos</em>, <em>sabedoria botânica</em> e <em>partilha cooperativa</em>). Usamos apenas cookies essenciais de sessão e segurança, sem rastreamento publicitário.
+              O site <strong>não faz promessas de saúde nem ofertas</strong> e não coleta dados de visitantes. Usamos apenas cookies essenciais de sessão e segurança, sem rastreamento publicitário. Saiba mais na{" "}
+              <Link href="/privacidade" onClick={fecharComConsentimento} className="font-semibold text-amber-900 underline underline-offset-2 hover:text-floresta-950">
+                Política de Privacidade
+              </Link>
+              .
             </p>
 
             <div className="pt-1.5 border-t border-amber-700/15 flex items-center justify-between gap-2 text-[10px] text-pedra-800">
@@ -210,7 +214,7 @@ export function WelcomeConsentModal() {
             </button>
 
             <p className="text-[10px] text-pedra-700">
-              Ao prosseguir, você confirma ser maior de 18 anos e respeitar o caráter estritamente religioso do portal.
+              Ao prosseguir, você confirma ser maior de 18 anos e respeitar o caráter institucional e religioso do site.
             </p>
           </div>
         </div>

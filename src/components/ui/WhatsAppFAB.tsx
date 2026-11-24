@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from "react";
 import { WhatsAppIcon } from "@/components/ui/icons";
-import { urlWhatsAppConselho } from "@/lib/whatsapp-cadastro";
+import { linkWhatsAppConselho } from "@/lib/contato";
 
-const WHATSAPP_URL = urlWhatsAppConselho(
+const WHATSAPP_URL = linkWhatsAppConselho(
   "Olá, gostaria de informações sobre a Cooperativa Nativaram."
 );
 

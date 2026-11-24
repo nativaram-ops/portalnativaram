@@ -13,17 +13,25 @@ import {
 } from "lucide-react";
 import { InstagramIcon } from "@/components/ui/icons";
 import { CookiePreferencesButton } from "@/components/ui/CookiePreferencesButton";
+import {
+  EMAIL_INSTITUCIONAL,
+  WHATSAPP_CONSELHO_FORMATADO,
+  linkWhatsAppConselho,
+} from "@/lib/contato";
 
 const footerLinks = [
   { href: "/", label: "Início" },
   { href: "/institucional", label: "Manifesto" },
   { href: "/feitio", label: "Feitio" },
-  { href: "/sacramentos", label: "Sacramentos" },
-  { href: "/estudos", label: "Estudos & Comunidade" },
-  { href: "/projetos-de-luz", label: "Projetos de Luz" },
+  { href: "/sacramentos", label: "Acervo Etnobotânico" },
   { href: "/compliance", label: "Marco Legal" },
-  { href: "/credenciamento", label: "Credenciamento Litúrgico" },
-  { href: "/reconhecimento", label: "Acolhimento de Grupos" },
+  { href: "/entidades-religiosas", label: "Entidades Religiosas" },
+  { href: "/seguranca", label: "Segurança e Redução de Danos" },
+  { href: "/portal-dirigente", label: "Central de Recursos" },
+  { href: "/estudos", label: "Estudos" },
+  { href: "/projetos-de-luz", label: "Projetos de Luz" },
+  { href: "/transparencia", label: "Transparência" },
+  { href: "/privacidade", label: "Privacidade" },
   { href: "/contato", label: "Contato" },
 ];
 
@@ -75,7 +83,7 @@ export const Footer = () => {
           <div className="space-y-4">
             <h5 className="text-[11px] font-bold tracking-[0.15em] text-ambar-400/80 uppercase flex items-center gap-1.5">
               <Compass className="h-3 w-3" />
-              Origem & Partilha
+              Origem & Contato
             </h5>
             <div className="space-y-3 text-xs text-areia-400">
               <div className="flex items-start gap-2.5">
@@ -88,28 +96,19 @@ export const Footer = () => {
                 </div>
               </div>
               <div className="flex items-start gap-2.5">
-                <MapPin className="h-3.5 w-3.5 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-areia-200 font-medium block">
-                    Logística & Apoio
-                  </span>
-                  Serra/ES
-                </div>
-              </div>
-              <div className="flex items-start gap-2.5">
                 <Phone className="h-3.5 w-3.5 text-emerald-400/70 flex-shrink-0 mt-0.5" />
                 <a
-                  href="https://wa.me/5568999979104?text=Ol%C3%A1%2C%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20a%20Cooperativa%20Nativaram."
+                  href={linkWhatsAppConselho("Olá, gostaria de informações sobre a Cooperativa Nativaram.")}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-emerald-400 hover:text-emerald-300 transition-colors"
                 >
-                  (68) 99997-9104
+                  {WHATSAPP_CONSELHO_FORMATADO}
                 </a>
               </div>
               <div className="flex items-start gap-2.5">
                 <Mail className="h-3.5 w-3.5 text-ambar-500/70 flex-shrink-0 mt-0.5" />
-                <span>nativaram@gmail.com</span>
+                <span>{EMAIL_INSTITUCIONAL}</span>
               </div>
 
               {/* Destaque Linktree Oficial */}
@@ -158,35 +157,36 @@ export const Footer = () => {
           <div className="space-y-4">
             <h5 className="text-[11px] font-bold tracking-[0.15em] text-ambar-400/80 uppercase flex items-center gap-1.5">
               <Scale className="h-3 w-3" />
-              Ética & Acesso
+              Limites do Site
             </h5>
             <ul className="space-y-2 text-xs text-areia-400">
               <li className="flex items-start gap-2">
                 <span className="text-ambar-500/60 mt-0.5">◆</span>
                 <span>
-                  Fornecimento exclusivo para templos com ata registrada.
+                  Site institucional: não vendemos, não recebemos pedidos e não
+                  fazemos envios.
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-ambar-500/60 mt-0.5">◆</span>
                 <span>
-                  Vedada comercialização com fins lucrativos ou apelo
-                  recreativo.
+                  Sem valores, sem cadastro e sem formulários de pedido.
                 </span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-ambar-500/60 mt-0.5">◆</span>
                 <span>
-                  Preparo sob encomenda: prazo mínimo de 30 dias.
+                  Projeto de cooperativa em constituição, ainda sem registro e
+                  sem CNPJ.
                 </span>
               </li>
             </ul>
             <div className="pt-2">
               <Link
-                href="/portal-dirigente"
+                href="/transparencia"
                 className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-ambar-400/80 hover:text-ambar-300 transition-colors"
               >
-                <span>Portal do Dirigente</span>
+                <span>Transparência</span>
                 <ExternalLink className="h-3 w-3" />
               </Link>
             </div>
@@ -203,13 +203,12 @@ export const Footer = () => {
             </span>
           </div>
           <p className="text-[10px] text-areia-400/70 leading-relaxed text-justify">
-            A <strong>Cooperativa Nativaram</strong> é uma cooperativa etnobotânica
-            de caráter espiritual, cultural e de apoio litúrgico, sob amparo do{" "}
-            <strong>Art. 5º, incisos VI e VIII da CF</strong> e do{" "}
-            <strong>Art. 2º da Lei 11.343/2006</strong>. Sacramento
-            disponibilizado unicamente para rito litúrgico de instituições
-            cadastradas e homologadas. Proibida qualquer comercialização, venda
-            avulsa ou promessas de cura, em observância à{" "}
+            A <strong>Cooperativa Nativaram</strong> é um projeto de cooperativa
+            em constituição, ainda sem registro e sem CNPJ. Este site é
+            institucional. Não vendemos, não recebemos pedidos e não fazemos
+            envios. Não há valores nem formulários de pedido. O uso religioso
+            da ayahuasca segue o <strong>art. 2º, caput, da Lei 11.343/2006</strong>{" "}
+            e a{" "}
             <a
               href="https://www.gov.br/mj/pt-br/assuntos/sua-protecao/politicas-sobre-drogas/subcapas-senad/conad/atos-do-conad-1/2010/11___resolucao_n__01_2010___conad.pdf"
               target="_blank"
@@ -221,8 +220,12 @@ export const Footer = () => {
             .
           </p>
           <p className="text-[10px] text-areia-400/70 leading-relaxed text-justify mt-2">
-            <strong>Conteúdo destinado a maiores de 18 anos.</strong> Sacramentos
-            de uso exclusivamente litúrgico, mediante credenciamento.
+            <strong>Conteúdo destinado a maiores de 18 anos.</strong> Sem
+            promessas de saúde. Veja os alertas de{" "}
+            <Link href="/seguranca" className="underline decoration-ambar-500/30 hover:text-ambar-400/80">
+              segurança e redução de danos
+            </Link>
+            .
           </p>
         </div>
 
@@ -248,10 +251,10 @@ export const Footer = () => {
             </Link>
             <span className="text-floresta-700">·</span>
             <Link
-              href="/credenciamento"
+              href="/transparencia"
               className="hover:text-ambar-400/70 transition-colors"
             >
-              Triagem
+              Transparência
             </Link>
             <span className="text-floresta-700">·</span>
             <CookiePreferencesButton />

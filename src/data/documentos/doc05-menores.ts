@@ -15,11 +15,11 @@ export const docMenores: DocumentoModelo = {
   id: "MENORES",
   numero: "05",
   rotuloCurto: "Termo p/ Menores",
-  resumo: "Poder familiar (CONAD item 4.1), não coerção e regras da casa",
+  resumo: "Poder familiar (Relatório Final do GMT, CONAD 1/2010), não coerção e regras da casa",
   icone: "menores",
   titulo: "TERMO DE AUTORIZAÇÃO E RESPONSABILIDADE DO PODER FAMILIAR PARA MENOR DE IDADE",
   subtitulo:
-    "Resolução CONAD nº 01/2010 (item 4.1) • Art. 227 da CF/88 • ECA (Lei nº 8.069/1990) • Art. 1.634 do Código Civil • LGPD, art. 14",
+    "Relatório Final do GMT anexo à Resolução CONAD nº 1/2010 • Art. 227 da CF/88 • ECA (Lei nº 8.069/1990) • Art. 1.634 do Código Civil • LGPD, art. 14",
   versao: VERSAO_REVISADA,
   dataVersao: DATA_VERSAO,
   revisaoPendente: [
@@ -34,7 +34,7 @@ export const docMenores: DocumentoModelo = {
           tipo: "nota",
           cor: "roxo",
           texto:
-            "**O que diz a norma:** a Resolução CONAD nº 01/2010 deixa a participação de crianças e adolescentes à decisão dos pais ou responsáveis, no exercício do poder familiar, com zelo pelo bem-estar físico e psíquico do menor.\n**Regra desta casa (não é exigência da norma):** [ ] exigimos a assinatura de ambos os responsáveis legais [ ] basta a assinatura de um responsável legal. Pelo menos um responsável permanece no salão durante toda a cerimônia, e a vontade da criança ou do adolescente é sempre respeitada.",
+            "**O que diz a norma:** nos termos da Resolução CONAD nº 1/2010, a participação de menor de 18 anos é decisão dos pais ou responsáveis, no exercício do poder familiar (Relatório Final do GMT anexo à Resolução CONAD nº 1/2010). A entidade não oferece rapé, tabaco ou qualquer outra substância a menores (ECA, art. 243). Se houver ingestão, ela é decidida pelos responsáveis, que acompanham o menor durante toda a cerimônia.\n**Regra desta casa (não é exigência da norma):** [ ] exigimos a assinatura de ambos os responsáveis legais [ ] basta a assinatura de um responsável legal. A vontade da criança ou do adolescente é sempre respeitada.",
         },
       ],
     },
@@ -46,7 +46,7 @@ export const docMenores: DocumentoModelo = {
           colunas: 2,
           campos: [
             "Nome completo",
-            "Data de nascimento | Idade | Peso (kg)",
+            "Data de nascimento | Idade",
             "Certidão de nascimento ou RG",
             "CPF",
             "Endereço residencial",
@@ -144,8 +144,8 @@ export const docMenores: DocumentoModelo = {
           itens: [
             "**Finalidade religiosa:** a participação tem finalidade exclusivamente religiosa e familiar, vedada qualquer motivação recreativa.",
             "**Não coerção (art. 16 do ECA):** se a criança ou o adolescente recusar, chorar ou demonstrar desconforto no momento do cálice, a decisão será acatada sem pressão dos pais ou da equipe.",
-            "**Porção simbólica:** medida mínima, adaptada a idade e peso, em graduação suave. Não há segunda porção para menores.",
-            "**Presença física:** pelo menos um responsável legal permanece no salão durante toda a cerimônia.",
+            "**Ingestão:** se houver, é decidida pelos responsáveis, no exercício do poder familiar. A entidade não oferece rapé, tabaco ou qualquer outra substância a menores (ECA, art. 243).",
+            "**Presença física:** os responsáveis acompanham o menor durante toda a cerimônia.",
             "**Cuidado direto:** os responsáveis acompanham o menor aos sanitários e o acolhem em caso de náusea ou purga.",
             `**Declaração de veracidade e dever de cuidado:** ${declaracaoVeracidade("responsaveis")} ${DEVER_DE_CUIDADO_DA_CASA}`,
             "**Proteção de dados de crianças e adolescentes:** os dados são tratados no melhor interesse do menor (LGPD, art. 14), conforme o quadro abaixo e a Política de Privacidade do templo (Documento 11).",
@@ -173,7 +173,7 @@ export const docMenores: DocumentoModelo = {
       blocos: [
         {
           tipo: "checklist",
-          itens: ["Deferido (porção simbólica)", "Acompanhamento sem ingestão", "Indeferido — motivo: ____________"],
+          itens: ["Participação registrada (ingestão decidida pelos responsáveis)", "Acompanhamento sem ingestão", "Indeferido — motivo: ____________"],
         },
         {
           tipo: "assinaturas",

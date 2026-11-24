@@ -27,12 +27,11 @@ export const ComplianceBanner = () => {
         <div className="flex items-center gap-2 text-[11px] text-ambar-400/90 font-medium tracking-wide">
           <ShieldAlert className="h-3.5 w-3.5 text-ambar-400 flex-shrink-0" />
           <span className="hidden sm:inline">
-            Portal Institucional &amp; Salvaguarda Litúrgica — Atuação sob Art.
-            5º da CF/88 e Res. CONAD 01/2010. Comércio e revenda
-            vedados.
+            Site institucional de um projeto em constituição — sem oferta, sem
+            pedidos e sem envios. Res. CONAD nº 1/2010 • Conteúdo para maiores de 18 anos.
           </span>
           <span className="sm:hidden">
-            Portal sob amparo CF/88 e CONAD 01/2010.
+            Site institucional, sem oferta • +18
           </span>
         </div>
         <button

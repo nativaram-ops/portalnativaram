@@ -42,7 +42,7 @@ export const etapasJornada: EtapaJornada[] = [
     id: 3,
     slug: "sacramentos",
     label: "Etapa 3 de 5",
-    tituloCurto: "Sacramentos Sagrados",
+    tituloCurto: "Acervo Etnobotânico",
     href: "/sacramentos",
     icone: Sparkles,
   },
@@ -56,10 +56,10 @@ export const etapasJornada: EtapaJornada[] = [
   },
   {
     id: 5,
-    slug: "credenciamento",
+    slug: "entidades-religiosas",
     label: "Etapa 5 de 5",
-    tituloCurto: "Credenciamento Litúrgico",
-    href: "/credenciamento",
+    tituloCurto: "Entidades Religiosas",
+    href: "/entidades-religiosas",
     icone: CheckCircle2,
   },
 ];
@@ -77,7 +77,7 @@ export const JornadaNavTracker: React.FC<JornadaNavTrackerProps> = ({
 
   return (
     <nav
-      aria-label="Caminho Didático da Salvaguarda Litúrgica"
+      aria-label="Caminho de leitura do site"
       className={`w-full py-2 sm:py-3 px-3 sm:px-4 bg-floresta-950/85 border-b border-ambar-500/15 backdrop-blur-md sticky top-[56px] sm:top-[60px] md:top-[65px] z-30 ${className}`}
     >
       <div className="mx-auto max-w-7xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 text-xs">
@@ -85,7 +85,7 @@ export const JornadaNavTracker: React.FC<JornadaNavTrackerProps> = ({
         <div className="flex items-center gap-2 text-areia-300 font-sans shrink-0">
           <span className="flex h-2 w-2 rounded-full bg-ambar-400 animate-pulse" />
           <span className="font-semibold text-ambar-400 uppercase tracking-wider text-[10px] font-mono">
-            Jornada de Salvaguarda
+            Caminho de Leitura
           </span>
           <span className="text-areia-500">•</span>
           <span className="text-areia-200 font-medium text-[11px]">

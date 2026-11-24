@@ -4,18 +4,31 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { Logo } from "@/components/ui/Logo";
 import { usePathname } from "next/navigation";
-import { Lock, Menu, X, ShieldCheck, Sparkles } from "lucide-react";
+import { BookOpen, Menu, X, ShieldCheck } from "lucide-react";
 
-const navLinks = [
+type NavLink = {
+  href: string;
+  label: string;
+  icon?: boolean;
+  /** Só no menu móvel e no rodapé (o menu de desktop ficaria longo demais). */
+  somenteMobile?: boolean;
+};
+
+const navLinks: NavLink[] = [
   { href: "/", label: "Início" },
   { href: "/institucional", label: "Quem Somos" },
   { href: "/feitio", label: "Feitio" },
-  { href: "/sacramentos", label: "Sacramentos" },
+  { href: "/sacramentos", label: "Acervo" },
   { href: "/compliance", label: "Marco Legal", icon: true },
-  { href: "/projetos-de-luz", label: "Projetos de Luz" },
+  { href: "/entidades-religiosas", label: "Entidades Religiosas" },
+  { href: "/seguranca", label: "Segurança" },
+  { href: "/portal-dirigente", label: "Recursos", somenteMobile: true },
   { href: "/estudos", label: "Estudos" },
+  { href: "/transparencia", label: "Transparência", somenteMobile: true },
   { href: "/contato", label: "Contato" },
 ];
+
+const navLinksDesktop = navLinks.filter((link) => !link.somenteMobile);
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -75,7 +88,7 @@ export const Navbar = () => {
 
         {/* Desktop Navigation Links */}
         <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1.5 2xl:gap-2.5 text-[12px] xl:text-[13px] 2xl:text-sm font-medium whitespace-nowrap">
-          {navLinks.map((link) => (
+          {navLinksDesktop.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -89,9 +102,9 @@ export const Navbar = () => {
                 {link.icon && (
                   <ShieldCheck className="h-3.5 w-3.5 text-ambar-500 shrink-0 hidden xl:inline-block" />
                 )}
-                {link.href === "/projetos-de-luz" ? (
+                {link.href === "/entidades-religiosas" ? (
                   <span>
-                    Projetos<span className="hidden xl:inline"> de Luz</span>
+                    Entidades<span className="hidden xl:inline"> Religiosas</span>
                   </span>
                 ) : (
                   <span>{link.label}</span>
@@ -105,25 +118,15 @@ export const Navbar = () => {
           ))}
         </nav>
 
-        {/* CTAs */}
+        {/* Central de Recursos (pública, sem login) */}
         <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
           <Link
             href="/portal-dirigente"
             className="btn-press flex items-center gap-1.5 rounded-lg px-2 xl:px-3 py-1.5 text-[11px] xl:text-xs font-semibold text-ambar-300 bg-floresta-900/70 hover:bg-floresta-800 border border-ambar-500/30 hover:border-ambar-500/60 shadow-sm transition-all duration-300 whitespace-nowrap shrink-0"
-            title="Acesso exclusivo a dirigentes de templos homologados"
+            title="Central de Recursos: documentos, matriz de interações, FAQ e marco legal"
           >
-            <Lock className="h-3.5 w-3.5 text-ambar-400 shrink-0" />
-            <span>
-              <span className="hidden xl:inline">Portal do </span>Dirigente
-            </span>
-          </Link>
-
-          <Link
-            href="/credenciamento"
-            className="btn-primary-sm btn-press px-2.5 xl:px-3.5 py-1.5 text-[11px] xl:text-xs whitespace-nowrap shrink-0"
-          >
-            <Sparkles className="h-3.5 w-3.5 shrink-0" />
-            <span>Credenciamento</span>
+            <BookOpen className="h-3.5 w-3.5 text-ambar-400 shrink-0" />
+            <span>Recursos</span>
           </Link>
         </div>
 
@@ -132,9 +135,9 @@ export const Navbar = () => {
           <Link
             href="/portal-dirigente"
             className="p-2 text-areia-300 hover:text-ambar-400 transition-colors"
-            aria-label="Portal do Dirigente"
+            aria-label="Central de Recursos"
           >
-            <Lock className="h-4 w-4" />
+            <BookOpen className="h-4 w-4" />
           </Link>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -190,30 +193,9 @@ export const Navbar = () => {
           </nav>
 
           <div className="pt-6 space-y-3 border-t border-ambar-500/15">
-            <Link
-              href="/credenciamento"
-              onClick={() => setIsOpen(false)}
-              className="btn-primary w-full justify-center"
-            >
-              <Sparkles className="h-4 w-4" />
-              Credenciar Instituição (CNPJ)
-            </Link>
-            <Link
-              href="/reconhecimento"
-              onClick={() => setIsOpen(false)}
-              className="btn-secondary w-full justify-center"
-            >
-              <ShieldCheck className="h-4 w-4 text-ambar-400" />
-              Grupo sem CNPJ (Reconhecimento)
-            </Link>
-            <Link
-              href="/portal-dirigente"
-              onClick={() => setIsOpen(false)}
-              className="btn-secondary w-full justify-center"
-            >
-              <Lock className="h-4 w-4 text-ambar-400" />
-              Portal do Dirigente
-            </Link>
+            <p className="text-[11px] text-areia-400 leading-relaxed text-center">
+              Site institucional. Não vendemos, não recebemos pedidos e não fazemos envios.
+            </p>
           </div>
         </div>
       </div>

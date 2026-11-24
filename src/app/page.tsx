@@ -11,10 +11,10 @@ import { HomeFaqSection } from "@/components/home/HomeFaqSection";
 export default function HomePage() {
   return (
     <div className="space-y-0">
-      {/* Hero — Identidade Cooperativa & Salvaguarda Litúrgica */}
+      {/* Hero — Identidade do projeto (em constituição) */}
       <HomeHero />
 
-      {/* Triagem Direta dos 3 Públicos (Visitante, Instituição CNPJ, Grupo s/ CNPJ) */}
+      {/* Triagem dos 3 Públicos (Primeira visita, Entidade constituída, Grupo em formação) */}
       <HomeAudienciaCaminhos />
 
       {/* Barra de Pilares Sagrados */}
@@ -30,12 +30,12 @@ export default function HomePage() {
 
       <SectionDivider variant="floresta" />
 
-      {/* Depoimentos de Guardiões e Credenciamento */}
+      {/* Quem pode dialogar com o projeto (sem cadastro) */}
       <HomeDepoimentosCredenciamento />
 
       <SectionDivider variant="floresta" />
 
-      {/* FAQ Interativo e Teaser do Portal do Dirigente */}
+      {/* FAQ e chamada para a Central de Recursos */}
       <HomeFaqSection />
     </div>
   );
